@@ -1,0 +1,5 @@
+/.gradle/
+/.idea/
+/build/
+
+# kotlin-js-store/yarn.lock should not be ignored for builds consistency.

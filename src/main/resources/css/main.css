@@ -1,0 +1,6 @@
+/* Basic styles to be applied for elements outside from React components. */
+* {
+	box-sizing: border-box; /* width and height of boxes include borders, margins and padding */
+	margin: 0;
+	padding: 0;
+}

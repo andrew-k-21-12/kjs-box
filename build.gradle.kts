@@ -2,7 +2,7 @@ plugins {
     kotlin("js") version "1.6.10"
 }
 
-group = "io.github.andrew-k-21-12"
+group   = "io.github.andrew-k-21-12"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
@@ -13,11 +13,14 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.293-kotlin-1.6.10")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.293-kotlin-1.6.10")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.293-kotlin-1.6.10")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.293-kotlin-1.6.10") // to declare and reuse
+                                                                                              // styles directly in code
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.293-kotlin-1.6.10")       // to use
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.293-kotlin-1.6.10") // global state
 }
 
 kotlin {
-    js(IR) {
+    js(LEGACY) { // unfortunately the new compiler can not process some type casts correctly
         binaries.executable()
         browser {
             commonWebpackConfig {

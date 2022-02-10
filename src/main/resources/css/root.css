@@ -1,5 +1,0 @@
-/* Styles for the root block to put contents into. */
-#root {
-	height: 100vh;    /* fits the entire height of the screen (blocks take an entire width by default) */
-	overflow: scroll; /* if the contents are too tall, it will start to scroll */
-}

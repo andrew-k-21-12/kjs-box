@@ -6,7 +6,7 @@ import redux.*
 
 /**
  * Defines how to create a [Store].
- * A [Store] can be treated like a facade on top of all global reducers.
+ * A [Store] can be treated like a facade on top of all global reducers enabling them to work.
  * It can be a good place to provide mock or other specific reducers according to the current environment.
  * */
 class StoreFactory {
@@ -31,7 +31,10 @@ class StoreFactory {
      * and returns a new result state.
      * */
     private fun rootReducer(state: AppState, action: RAction) = AppState(
-        ContextReducer.reduce(state, action)
+        // It's correct to use only one store for most apps:
+        // having multiple reducers that are further split into a reducer tree
+        // is the way to keep updates modular in Redux.
+        ContextReducer(state, action)
     )
 
     /**

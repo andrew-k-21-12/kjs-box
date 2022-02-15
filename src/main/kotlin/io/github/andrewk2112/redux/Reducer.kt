@@ -6,7 +6,7 @@ import redux.RAction
 
 /**
  * A template to create reducers.
- * A reducer can be treated as a state-only view model done in the reactive way:
+ * A reducer can be treated as a state-only (and maybe more extended as well) view model done in the reactive way:
  * it accepts actions and returns new states accordingly.
  *
  * @param P Parent state.
@@ -23,17 +23,7 @@ abstract class Reducer<P, S, A : RAction> {
      * processes it according to the input [action]
      * and returns the corresponding new state.
      * */
-    fun reduce(parentState: P, action: RAction): S = reduce(extractCurrentState(parentState), action)
-
-    /**
-     * Provides a hook (a kind of live value reader in this case) for the reducer-related state.
-     * */
-    fun useSelector(): S = reduxUseSelector(::extractCurrentState)
-
-    /**
-     * Provides an update hook allowing to send actions to the reducer.
-     * */
-    fun useDispatch(): (A) -> dynamic = reduxUseDispatch()
+    operator fun invoke(parentState: P, action: RAction): S = reduce(extractCurrentState(parentState), action)
 
 
 
@@ -53,5 +43,21 @@ abstract class Reducer<P, S, A : RAction> {
      * Describes how to extract a reducer-related state from the [parentState].
      * */
     protected abstract fun extractCurrentState(parentState: P): S
+
+
+
+    // Can be overridden.
+
+    /**
+     * Provides a hook (a kind of live value reader in this case) for the reducer-related state.
+     * It's hidden (protected) by default, so it's up to a particular implementation to make it public.
+     * */
+    protected open fun useSelector(): S = reduxUseSelector(::extractCurrentState)
+
+    /**
+     * Provides an update hook allowing to send actions to the reducer.
+     * It's hidden (protected) by default, so it's up to a particular implementation to make it public.
+     * */
+    protected open fun useDispatch(): (A) -> dynamic = reduxUseDispatch()
 
 }

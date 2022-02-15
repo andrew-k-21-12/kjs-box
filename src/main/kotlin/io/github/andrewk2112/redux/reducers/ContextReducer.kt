@@ -1,6 +1,7 @@
 package io.github.andrewk2112.redux.reducers
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.hooks.WindowWidthMonitor
 import io.github.andrewk2112.redux.AppState
 import io.github.andrewk2112.redux.Reducer
 import redux.RAction
@@ -19,6 +20,18 @@ object ContextReducer : Reducer<AppState, Context, ContextReducer.Action>() {
 
 
 
+    // Public.
+
+    fun useScreenSizeMonitor() {
+        val dispatch = useDispatch()
+        WindowWidthMonitor.useWindowWidthMonitor {
+            val newValue = Context.ScreenSize.fromRawWidth(it)
+            dispatch(Action.UpdateScreenSize(newValue)); Unit
+        }
+    }
+
+
+
     // Implementations.
 
     override fun reduce(state: Context, action: RAction): Context {
@@ -30,5 +43,7 @@ object ContextReducer : Reducer<AppState, Context, ContextReducer.Action>() {
     }
 
     override fun extractCurrentState(parentState: AppState): Context = parentState.context
+
+    public override fun useSelector(): Context = super.useSelector()
 
 }

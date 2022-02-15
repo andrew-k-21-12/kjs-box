@@ -4,16 +4,28 @@ import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import kotlinx.css.*
 import react.Props
-import react.dom.button
-import react.dom.onClick
+import react.dom.p
 import react.fc
 import styled.css
 import styled.styledDiv
 
 val app = fc<Props> {
 
-    // FIXME: Drop me!
-    val contextModifier = ContextReducer.useDispatch()
+    // FIXME: Themes, hooks and reducers shouldn't be singletons - introduce some DI!
+
+    // FIXME: Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
+
+    ContextReducer.useScreenSizeMonitor()
+    val context = ContextReducer.useSelector()
+
+    // FIXME: Drop this example.
+    p {
+        +when (context.screenSize) {
+            Context.ScreenSize.DESKTOP -> "DESKTOP"
+            Context.ScreenSize.TABLET  -> "TABLET"
+            Context.ScreenSize.PHONE   -> "PHONE"
+        }
+    }
 
     styledDiv {
 
@@ -25,15 +37,6 @@ val app = fc<Props> {
             // backgroundColor = ThemedPalette.background1.get(Context())
             // +ThemedFontFaces.main.get()
             fontSize = 100.pct
-        }
-
-        // FIXME: Drop me!
-        button {
-            attrs.onClick = {
-                contextModifier(ContextReducer.Action.UpdateScreenSize(Context.ScreenSize.PHONE))
-                Unit
-            }
-            +"test"
         }
 
         masterDetailContentsLayout()

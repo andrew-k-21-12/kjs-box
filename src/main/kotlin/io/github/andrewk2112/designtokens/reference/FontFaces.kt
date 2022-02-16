@@ -8,7 +8,7 @@ import styled.injectGlobal
 /**
  * All source font faces - to be used in derived design tokens.
  * */
-object FontFaces : StaticStyleSheet() {
+class FontFaces : StaticStyleSheet() {
 
     // Public.
 

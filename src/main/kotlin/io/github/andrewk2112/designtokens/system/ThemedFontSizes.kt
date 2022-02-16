@@ -1,13 +1,13 @@
 package io.github.andrewk2112.designtokens.system
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.reference.FontSizes
+import io.github.andrewk2112.designtokens.StyleValues
 import kotlinx.css.LinearDimension
 
 /**
  * Provides context-based font sizes according to the current dynamic configuration.
  * */
-object ThemedFontSizes {
+class ThemedFontSizes {
 
     // Public.
 
@@ -23,7 +23,7 @@ object ThemedFontSizes {
 
     }
 
-    val label1 get() = themedFontSize { FontSizes.relative2 }
+    val label1 get() = themedFontSize { StyleValues.fontSizes.relative2 }
 
 
 

@@ -1,13 +1,13 @@
 package io.github.andrewk2112.designtokens.system
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.reference.FontFaces
+import io.github.andrewk2112.designtokens.StyleValues
 import kotlinx.css.RuleSet
 
 /**
  * Provides context-based font faces according to the current dynamic configuration.
  * */
-object ThemedFontFaces {
+class ThemedFontFaces {
 
     // Public.
 
@@ -23,8 +23,8 @@ object ThemedFontFaces {
 
     }
 
-    val main get() = themedFontFace { FontFaces.sourceSansPro }
-    val accent get() = themedFontFace { FontFaces.comfortaa }
+    val main get() = themedFontFace { StyleValues.fontFaces.sourceSansPro }
+    val accent get() = themedFontFace { StyleValues.fontFaces.comfortaa }
 
 
 

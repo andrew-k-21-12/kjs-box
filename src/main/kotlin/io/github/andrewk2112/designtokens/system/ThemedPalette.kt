@@ -1,13 +1,13 @@
 package io.github.andrewk2112.designtokens.system
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.reference.Palette
+import io.github.andrewk2112.designtokens.StyleValues
 import kotlinx.css.Color
 
 /**
  * Provides context-based colors according to the current dynamic configuration.
  * */
-object ThemedPalette {
+class ThemedPalette {
 
     // Public.
 
@@ -23,7 +23,7 @@ object ThemedPalette {
 
     }
 
-    val background1 get() = themedColor { Palette.white }
+    val background1 get() = themedColor { StyleValues.palette.white }
 
 
 

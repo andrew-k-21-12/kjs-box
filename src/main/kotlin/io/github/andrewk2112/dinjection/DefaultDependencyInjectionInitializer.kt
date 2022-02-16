@@ -1,5 +1,6 @@
 package io.github.andrewk2112.dinjection
 
+import io.github.andrewk2112.dinjection.modules.designTokensModule
 import io.github.andrewk2112.dinjection.modules.hooksModule
 import io.github.andrewk2112.dinjection.modules.reduxModule
 import io.github.andrewk2112.dinjection.modules.storeModule
@@ -14,6 +15,7 @@ class DefaultDependencyInjectionInitializer : DependencyInjectionInitializer {
         import(hooksModule)
         import(reduxModule)
         import(storeModule)
+        import(designTokensModule)
     }
 
 }

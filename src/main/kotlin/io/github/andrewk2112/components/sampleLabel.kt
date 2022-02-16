@@ -1,9 +1,11 @@
 package io.github.andrewk2112.components
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import kotlinx.css.Color
 import kotlinx.css.color
+import org.kodein.di.instance
 import react.Props
 import react.fc
 import styled.css
@@ -21,7 +23,8 @@ external interface SampleLabelProps : Props {
 val sampleLabel = fc<SampleLabelProps> { props ->
 
     // FIXME: An example of reading the global state.
-    val context = ContextReducer.useSelector()
+    val contextReducer: ContextReducer by di.instance()
+    val context = contextReducer.useSelector()
 
     styledP {
         // FIXME: Need a context!

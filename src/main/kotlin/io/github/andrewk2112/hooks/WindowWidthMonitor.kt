@@ -7,7 +7,7 @@ import react.useEffectOnce
 /**
  * Provides a hook to monitor the current window width.
  * */
-object WindowWidthMonitor {
+class WindowWidthMonitor {
 
     // Public.
 
@@ -22,9 +22,9 @@ object WindowWidthMonitor {
             val eventListener: (Event) -> Unit = {
                 onNewWidth.invoke(windowWidth)
             }
-            window.addEventListener(EVENT_TYPE, eventListener)
+            window.addEventListener(eventType, eventListener)
             cleanup {
-                window.removeEventListener(EVENT_TYPE, eventListener)
+                window.removeEventListener(eventType, eventListener)
             }
         }
     }
@@ -37,6 +37,6 @@ object WindowWidthMonitor {
     private val windowWidth: Int get() = window.innerWidth
 
     /** Target event type to listen to. */
-    private const val EVENT_TYPE = "resize"
+    private val eventType = "resize"
 
 }

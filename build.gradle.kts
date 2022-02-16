@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.6.10"
+    kotlin("js") version(Configs.KOTLIN_VERSION)
 }
 
 group   = "io.github.andrew-k-21-12"
@@ -10,13 +10,20 @@ repositories {
 }
 
 dependencies {
+
+    // React and fellows.
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:${Configs.REACT_VERSION}-${Configs.KOTLIN_WRAPPER_VERSION}")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:${Configs.REACT_VERSION}-${Configs.KOTLIN_WRAPPER_VERSION}")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-${Configs.KOTLIN_WRAPPER_VERSION}") // to declare and reuse styles directly in code
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-${Configs.KOTLIN_WRAPPER_VERSION}")       // to use global state
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-${Configs.KOTLIN_WRAPPER_VERSION}") // in React
+
+    // Dependency injection.
+    implementation("org.kodein.di:kodein-di:7.10.0")
+
+    // Test environment.
     testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.293-kotlin-1.6.10")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.293-kotlin-1.6.10")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-pre.293-kotlin-1.6.10") // to declare and reuse
-                                                                                              // styles directly in code
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.293-kotlin-1.6.10")       // to use
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.293-kotlin-1.6.10") // global state
+
 }
 
 kotlin {

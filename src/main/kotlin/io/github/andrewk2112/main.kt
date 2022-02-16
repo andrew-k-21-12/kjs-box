@@ -1,10 +1,12 @@
 package io.github.andrewk2112
 
 import io.github.andrewk2112.containers.app
+import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.redux.StoreFactory
 import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.kodein.di.instance
 import react.redux.provider
 import styled.injectGlobal
 
@@ -13,9 +15,10 @@ import styled.injectGlobal
  * */
 fun main() {
     window.onload = {
-        injectGlobal(CLEARFIX_AND_ROOT_CSS)     // using injection instead of static files to get minification
+        injectGlobal(CLEARFIX_AND_ROOT_CSS) // using injection instead of static files to get minification
         render(document.getElementById("root")!!) {
-            provider(StoreFactory().create()) { // setting the global store for the app
+            val storeFactory by di.instance<StoreFactory>()
+            provider(storeFactory.create()) { // setting the global store for the app
                 app()
             }
         }

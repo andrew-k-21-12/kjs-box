@@ -1,8 +1,10 @@
 package io.github.andrewk2112.containers
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import kotlinx.css.*
+import org.kodein.di.instance
 import react.Props
 import react.dom.p
 import react.fc
@@ -11,12 +13,16 @@ import styled.styledDiv
 
 val app = fc<Props> {
 
-    // FIXME: Themes, hooks and reducers shouldn't be singletons - introduce some DI!
+    // FIXME: Themes shouldn't be singletons - reorganize them with DI!
+
+    // FIXME: Localization and routes!
 
     // FIXME: Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
 
-    ContextReducer.useScreenSizeMonitor()
-    val context = ContextReducer.useSelector()
+    val contextReducer: ContextReducer by di.instance()
+
+    contextReducer.useScreenSizeMonitor()
+    val context = contextReducer.useSelector()
 
     // FIXME: Drop this example.
     p {

@@ -21,13 +21,18 @@ dependencies {
     // Dependency injection.
     implementation("org.kodein.di:kodein-di:7.10.0")
 
+    // Localization.
+    implementation(npm("i18next", "21.6.11"))
+    implementation(npm("react-i18next", "11.15.4"))
+    implementation(npm("i18next-browser-languagedetector", "6.1.3"))
+
     // Test environment.
     testImplementation(kotlin("test"))
 
 }
 
 kotlin {
-    js(LEGACY) { // unfortunately the new compiler can not process some type casts correctly
+    js(IR) {
         binaries.executable()
         browser {
             commonWebpackConfig {

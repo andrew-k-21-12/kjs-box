@@ -9,4 +9,5 @@ external val i18next: I18n
 // so it's just needed to declare its matching methods of interest.
 external interface I18n {
     fun use(module: dynamic): I18n
+    fun init(options: dynamic)
 }

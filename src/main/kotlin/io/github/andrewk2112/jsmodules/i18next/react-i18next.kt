@@ -7,4 +7,9 @@ external val reactI18next: ReactI18next
 external interface ReactI18next {
     val initReactI18next: dynamic // we just need this single field from the module's exports
                                   // and we don't care about its type a lot
+    fun useTranslation(): Translation
+}
+
+external interface Translation {
+    fun t(key: String): String
 }

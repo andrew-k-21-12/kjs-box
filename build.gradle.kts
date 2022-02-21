@@ -25,6 +25,7 @@ dependencies {
     implementation(npm("i18next", "21.6.11"))
     implementation(npm("react-i18next", "11.15.4"))
     implementation(npm("i18next-browser-languagedetector", "6.1.3"))
+    implementation(npm("i18next-http-backend", "1.3.2")) // to download translations on demand
 
     // Test environment.
     testImplementation(kotlin("test"))

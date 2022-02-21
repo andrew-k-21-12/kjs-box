@@ -2,8 +2,8 @@ package io.github.andrewk2112.dinjection
 
 import io.github.andrewk2112.dinjection.modules.designTokensModule
 import io.github.andrewk2112.dinjection.modules.hooksModule
+import io.github.andrewk2112.dinjection.modules.localizationModule
 import io.github.andrewk2112.dinjection.modules.reduxModule
-import io.github.andrewk2112.dinjection.modules.storeModule
 import org.kodein.di.DI
 
 /**
@@ -14,8 +14,8 @@ class DefaultDependencyInjectionInitializer : DependencyInjectionInitializer {
     override fun initialize(builder: DI.MainBuilder) = with(builder) {
         import(hooksModule)
         import(reduxModule)
-        import(storeModule)
         import(designTokensModule)
+        import(localizationModule)
     }
 
 }

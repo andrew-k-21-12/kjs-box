@@ -7,6 +7,8 @@ import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.kodein.di.instance
+import react.Suspense
+import react.fallback
 import react.redux.provider
 import styled.injectGlobal
 
@@ -15,11 +17,26 @@ import styled.injectGlobal
  * */
 fun main() {
     window.onload = {
-        injectGlobal(CLEARFIX_AND_ROOT_CSS) // using injection instead of static files to get minification
+
+        // Using styles injection instead of static files to get minification.
+        injectGlobal(CLEARFIX_AND_ROOT_CSS)
+
+        // Looking for the root element to start React rendering inside.
         render(document.getElementById("root")!!) {
+
+            // Setting the global store for the app.
             val storeFactory by di.instance<StoreFactory>()
-            provider(storeFactory.create()) { // setting the global store for the app
-                app()
+            provider(storeFactory.create()) {
+
+                // Configuring the loading placeholder.
+                Suspense {
+                    attrs.fallback {
+                        +"⌛ Loading / Загрузка"
+                    }
+
+                    // Here comes the app itself.
+                    app()
+                }
             }
         }
     }

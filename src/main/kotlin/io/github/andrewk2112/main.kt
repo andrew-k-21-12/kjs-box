@@ -1,15 +1,16 @@
 package io.github.andrewk2112
 
-import io.github.andrewk2112.containers.app
 import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.redux.StoreFactory
 import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.kodein.di.direct
 import org.kodein.di.instance
 import react.Suspense
-import react.fallback
+import react.create
 import react.redux.provider
+import react.router.dom.BrowserRouter
 import styled.injectGlobal
 
 /**
@@ -19,31 +20,39 @@ fun main() {
     window.onload = {
 
         // Using styles injection instead of static files to get minification.
-        injectGlobal(CLEARFIX_AND_ROOT_CSS)
+        injectGlobal(createClearfixAndRootCss())
 
-        // Looking for the root element to start React rendering inside.
-        render(document.getElementById("root")!!) {
+        // Preparing the global state and its processing reducers.
+        val store = di.direct.instance<StoreFactory>().create()
 
-            // Setting the global store for the app.
-            val storeFactory by di.instance<StoreFactory>()
-            provider(storeFactory.create()) {
+        // Looking for the root element, starting React configuration and rendering inside.
+        render(document.getElementById(reactRootElementID)!!) {
 
-                // Configuring the loading placeholder.
-                Suspense {
-                    attrs.fallback {
-                        +"⌛ Loading / Загрузка"
+            // Setting the global store and reducers for the app.
+            provider(store) {
+
+                // Enabling routing features.
+                BrowserRouter {
+
+                    // Configuring the app with its loading placeholder.
+                    Suspense {
+                        attrs.fallback = appLoadingPlaceholder.create()
+                        app()
                     }
 
-                    // Here comes the app itself.
-                    app()
                 }
+
             }
+
         }
+
     }
 }
 
-/** Basic CSS to be applied to prepare further layouts. */
-private val CLEARFIX_AND_ROOT_CSS = """
+/**
+ * Creates basic CSS to be applied to prepare further layouts.
+ * */
+private fun createClearfixAndRootCss(): String = """
     /* Basic styles to be applied to all elements (including ones outside React components). */
     * {
         box-sizing: border-box; /* width and height of boxes include borders, margins and padding */
@@ -60,3 +69,6 @@ private val CLEARFIX_AND_ROOT_CSS = """
                              (both vertically and horizontally) */
     }
 """.trimIndent()
+
+/** An ID of the root element to render React-based contents inside. */
+private val reactRootElementID get() = "root"

@@ -17,6 +17,7 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.3-${Configs.KOTLIN_WRAPPER_VERSION}") // to declare and reuse styles directly in code
     implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-${Configs.KOTLIN_WRAPPER_VERSION}")       // to use global state
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-${Configs.KOTLIN_WRAPPER_VERSION}") // in React
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.2.1-${Configs.KOTLIN_WRAPPER_VERSION}") // to process routes
 
     // Dependency injection.
     implementation("org.kodein.di:kodein-di:7.10.0")

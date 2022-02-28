@@ -6,7 +6,9 @@
     <title>Markup Training</title>
 </head>
 <body>
-<script src="markup-training.js"></script> <!-- linking the compiled sources -->
-<div id="root"></div>                      <!-- the components injection destination -->
+<!-- Linking the compiled sources: the slash in the path is super important
+     as otherwise it is treated as a relative path and can not be found with nested routes. -->
+<script src="/markup-training.js"></script>
+<div id="root"></div> <!-- the components injection destination -->
 </body>
 </html>

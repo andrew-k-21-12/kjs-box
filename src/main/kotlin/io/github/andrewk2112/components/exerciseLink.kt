@@ -11,15 +11,12 @@ import react.fc
 import styled.css
 import styled.styledP
 
-// FIXME: This is just an example and is going to be dropped.
-
 external interface SampleLabelProps : Props {
     var text: String
 }
 
 // FIXME: Styles for components are convenient to describe multiple states inside.
 
-// FIXME: Use shorter RBuilders where possible (e.g. when no props are needed)!
 val sampleLabel = fc<SampleLabelProps> { props ->
 
     val context = useStateGetterOnce { di.direct.instance<ContextReducer>() }.useSelector()

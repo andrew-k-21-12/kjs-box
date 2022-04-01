@@ -28,6 +28,13 @@ dependencies {
     implementation(npm("i18next-browser-languagedetector", "6.1.3"))
     implementation(npm("i18next-http-backend", "1.3.2")) // to download translations on demand
 
+    // Bundling.
+    implementation(devNpm("html-webpack-plugin", "5.5.0"))
+    implementation(devNpm("uglifyjs-webpack-plugin", "2.2.0"))
+    implementation(devNpm("terser-webpack-plugin", "5.3.1"))
+    implementation(devNpm("copy-webpack-plugin", "9.1.0" )) // newer versions don't work correctly with npm and Yarn
+    implementation(devNpm("node-json-minify", "3.0.0"))
+
     // Test environment.
     testImplementation(kotlin("test"))
 
@@ -36,11 +43,7 @@ dependencies {
 kotlin {
     js(IR) {
         binaries.executable()
-        browser {
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
-        }
+        browser {}
     }
 }
 

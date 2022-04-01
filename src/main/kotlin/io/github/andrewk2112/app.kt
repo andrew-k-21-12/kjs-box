@@ -17,10 +17,7 @@ val appLoadingPlaceholder = fc<Props> {
     +"⌛ Loading / Загрузка"
 }
 
-/**
- * The React application's entry point component:
- * all basic React configurations and its rendering start here.
- * */
+/** The React application's entry point component: all basic React configurations and its rendering start here. */
 val app = fc<Props> {
 
     // Starting to monitor a screen size to update the context dynamically.

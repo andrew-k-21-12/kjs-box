@@ -27,7 +27,8 @@ class FontFaces : StaticStyleSheet() {
      * Enumerates all supported font formats with their corresponding [extension]s and CSS [formatName]s.
      * */
     private enum class FontFormat(val extension: String, val formatName: String) {
-        TTF("ttf", "truetype")
+        TTF("ttf", "truetype"),
+        WOFF2("woff2", "woff2")
     }
 
     /**
@@ -47,9 +48,9 @@ class FontFaces : StaticStyleSheet() {
     private fun declareFontFace(
         fontFamily: String,
         typeSuffix: String     = "Regular",
-        fontFormat: FontFormat = FontFormat.TTF,
+        fontFormat: FontFormat = FontFormat.WOFF2,
         fontWeight: FontWeight = FontWeight.normal,
-        fontStyle: FontStyle   = FontStyle.normal,
+        fontStyle:  FontStyle  = FontStyle.normal,
         vararg fallbackFontFamilies: String,
     ): CssHolder {
 

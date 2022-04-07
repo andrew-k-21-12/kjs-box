@@ -3,6 +3,7 @@ package io.github.andrewk2112.dinjection.modules
 import io.github.andrewk2112.designtokens.reference.FontFaces
 import io.github.andrewk2112.designtokens.reference.FontSizes
 import io.github.andrewk2112.designtokens.reference.Palette
+import io.github.andrewk2112.designtokens.reference.Spacing
 import io.github.andrewk2112.designtokens.system.ThemedFontFaces
 import io.github.andrewk2112.designtokens.system.ThemedFontSizes
 import io.github.andrewk2112.designtokens.system.ThemedPalette
@@ -14,6 +15,7 @@ val designTokensModule = DI.Module("DesignTokens") { // not sure if this module 
     bindSingleton { FontFaces() }
     bindSingleton { FontSizes() }
     bindSingleton { Palette() }
+    bindSingleton { Spacing() }
     bindSingleton { ThemedFontFaces() }
     bindSingleton { ThemedFontSizes() }
     bindSingleton { ThemedPalette() }

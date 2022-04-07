@@ -23,7 +23,8 @@ class ThemedPalette {
 
     }
 
-    val background1 get() = themedColor { StyleValues.palette.white }
+    val action1       get() = themedColor { StyleValues.palette.blue1 }
+    val actionDimmed1 get() = themedColor { StyleValues.palette.blue2 }
 
 
 

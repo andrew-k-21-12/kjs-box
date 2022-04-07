@@ -23,7 +23,12 @@ class ThemedFontSizes {
 
     }
 
-    val label1 get() = themedFontSize { StyleValues.fontSizes.relative2 }
+    val adaptive1 get() = themedFontSize {
+        when (it.screenSize) {
+            Context.ScreenSize.PHONE -> StyleValues.fontSizes.relative2
+            Context.ScreenSize.TABLET, Context.ScreenSize.DESKTOP -> StyleValues.fontSizes.relative1p5
+        }
+    }
 
 
 

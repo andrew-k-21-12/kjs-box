@@ -2,47 +2,20 @@ package io.github.andrewk2112.designtokens.system
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
-import kotlinx.css.LinearDimension
 
 /**
  * Provides context-based font sizes according to the current dynamic configuration.
  * */
 class ThemedFontSizes {
 
-    // Public.
-
-    /**
-     * A protocol to describe dynamic themed font sizes.
-     * */
-    interface ThemedFontSize {
-
-        /**
-         * Returns some specific font size according to the provided [context].
-         * */
-        fun get(context: Context): LinearDimension
-
-    }
-
-    val adaptive1 get() = themedFontSize {
-        when (it.screenSize) {
-            Context.ScreenSize.PHONE -> StyleValues.fontSizes.relative2
-            Context.ScreenSize.TABLET, Context.ScreenSize.DESKTOP -> StyleValues.fontSizes.relative1p5
+    val adaptive1: ThemedFontSize get() = { StyleValues.fontSizes.relativep85 }
+    val adaptive2: ThemedFontSize get() = { StyleValues.fontSizes.relative1p2 }
+    val adaptive3: ThemedFontSize
+        get() = {
+            when (it.screenSize) {
+                Context.ScreenSize.PHONE                              -> StyleValues.fontSizes.relative2
+                Context.ScreenSize.TABLET, Context.ScreenSize.DESKTOP -> StyleValues.fontSizes.relative1p5
+            }
         }
-    }
-
-
-
-    // Private.
-
-    /**
-     * A helper factory to create [ThemedFontSize]s.
-     *
-     * @param builder Describes how to get the exact font size according to the current [Context].
-     *
-     * @return A created instance of the [ThemedFontSize].
-     * */
-    private inline fun themedFontSize(crossinline builder: (Context) -> LinearDimension) = object : ThemedFontSize {
-        override fun get(context: Context): LinearDimension = builder.invoke(context)
-    }
 
 }

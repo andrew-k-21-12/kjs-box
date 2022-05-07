@@ -10,9 +10,13 @@ if (config.mode == "production") {
           NodeJsonMinify        = require("node-json-minify");
 
     // Where to output and how to name JS sources.
-    // Using hashes for correct caching.
+    // Using hashes for bundles' caching.
     // The index.html will be updated correspondingly to refer the compiled JS sources.
     config.output.filename = "js/[name].[contenthash].js";
+
+    // Removing everything from the distributions folder -
+    // it also helps to prevent unnecessary files from copying: everything should be configured manually.
+    config.output.clean = true;
 
     // Making sure optimization and minimizer configs exist, or accessing its properties can crash otherwise.
     config.optimization = config.optimization || {};
@@ -39,12 +43,17 @@ if (config.mode == "production") {
         }
     }));
 
-    // Additional JS minification.
+    // Additional JS minification, removing all comments entirely.
     minimizer.push(new TerserWebpackPlugin({
-        extractComments: true // excluding all comments (mostly licence-related ones) into a separate file
+        terserOptions: {
+            format: {
+                comments: false
+            }
+        },
+        extractComments: false
     }));
 
-    // Minifying JSON locales.
+    // Minifying and copying JSON locales, copying fonts into the bundle.
     config.plugins.push(new CopyWebpackPlugin({
         patterns: [
             {
@@ -52,6 +61,11 @@ if (config.mode == "production") {
                 from: "./locales/**/*.json",
                 to: "[path][name][ext]",
                 transform: content => NodeJsonMinify(content.toString())
+            },
+            {
+                context: "./kotlin",
+                from: "./fonts/**/*.woff2",
+                to: "[path][name][ext]"
             }
         ]
     }));

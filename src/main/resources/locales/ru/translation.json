@@ -1,4 +1,11 @@
 {
-  "materialDesign": "Материальный дизайн",
-  "toBeContinued": "Продолжение следует..."
+  "exercises": {
+    "materialDesign": "Материальный дизайн",
+    "toBeContinued": "Продолжение следует..."
+  },
+  "md": {
+    "theLatestVersionOfMaterialDesignIsNowAvailableForAndroid": "Самая последняя версия Материального дизайна теперь доступна для Android",
+    "learnAboutMaterial3sNewFeatures": "Узнайте о новых возможностях и поддержке современного дизайна и процессов разработки в Material 3",
+    "startExploringMaterial3": "Начать исследование Material 3"
+  }
 }

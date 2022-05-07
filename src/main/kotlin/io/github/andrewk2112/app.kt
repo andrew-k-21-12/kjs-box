@@ -1,7 +1,7 @@
 package io.github.andrewk2112
 
-import io.github.andrewk2112.components.exercisesList
-import io.github.andrewk2112.containers.materialDesignScaffold
+import io.github.andrewk2112.containers.exercises.exercisesList
+import io.github.andrewk2112.containers.md.materialDesign
 import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.redux.reducers.ContextReducer
@@ -34,7 +34,7 @@ val app = fc<Props> {
         Route {
             attrs {
                 path = MaterialDesignRoute.path
-                element = materialDesignScaffold.create()
+                element = materialDesign.create()
             }
         }
     }

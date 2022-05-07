@@ -1,9 +1,14 @@
 package io.github.andrewk2112.designtokens
 
+import io.github.andrewk2112.designtokens.stylesheets.HasCssSuffix
+import io.github.andrewk2112.extensions.camelCaseWord
+
 /**
  * Describes the current UI state to invalidate it accordingly - something like extended media queries.
  * */
-data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) {
+data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCssSuffix {
+
+    // Utility.
 
     /**
      * Supported screen sizes.
@@ -34,5 +39,11 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) {
      * Supported color modes.
      * */
     enum class ColorMode { LIGHT, DARK }
+
+
+
+    // Implementations.
+
+    override val cssSuffix: String = "${screenSize.name.lowercase()}${colorMode.name.camelCaseWord()}"
 
 }

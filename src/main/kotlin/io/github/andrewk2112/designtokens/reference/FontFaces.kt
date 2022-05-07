@@ -1,19 +1,20 @@
 package io.github.andrewk2112.designtokens.reference
 
-import io.github.andrewk2112.designtokens.StaticStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.StaticCssHolder
 import kotlinx.css.*
-import styled.CssHolder
 import styled.injectGlobal
 
 /**
  * All source font faces - to be used in derived design tokens.
  * */
-class FontFaces : StaticStyleSheet() {
+class FontFaces : DynamicStyleSheet() {
 
     // Public.
 
     val sourceSansPro: RuleSet by declareFontFace("SourceSansPro", fallbackFontFamilies = fallbackFontFamiliesSansSerif)
     val comfortaa: RuleSet     by declareFontFace("Comfortaa",     fallbackFontFamilies = fallbackFontFamiliesSansSerif)
+    val roboto: RuleSet        by declareFontFace("Roboto",        fallbackFontFamilies = fallbackFontFamiliesSansSerif)
 
     // This is an example of possible font variants picking.
     // To make it optimized, the global injection should be invoked only once per font file.
@@ -52,13 +53,13 @@ class FontFaces : StaticStyleSheet() {
         fontWeight: FontWeight = FontWeight.normal,
         fontStyle:  FontStyle  = FontStyle.normal,
         vararg fallbackFontFamilies: String,
-    ): CssHolder {
+    ): StaticCssHolder {
 
         // A font name including the suffix, but excluding the extension.
         val baseFontName = "$fontFamily${ if (typeSuffix.isBlank()) "" else "-$typeSuffix" }"
 
         // Importing the font in the compiled CSS.
-        injectGlobal {
+        injectGlobal(CssBuilder().apply {
             fontFace {
                 this.fontFamily = fontFamily
                 src = "local($baseFontName), " +
@@ -66,7 +67,7 @@ class FontFaces : StaticStyleSheet() {
                 this.fontWeight = fontWeight
                 this.fontStyle  = fontStyle
             }
-        }
+        })
 
         // Describing style attributes to reference the imported font.
         return css {

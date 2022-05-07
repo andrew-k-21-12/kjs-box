@@ -1,8 +1,9 @@
-package io.github.andrewk2112.components
+package io.github.andrewk2112.containers.exercises
 
-import io.github.andrewk2112.designtokens.StaticStyleSheet
+import io.github.andrewk2112.components.exercises.exerciseLink
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.localization.localization
 import io.github.andrewk2112.routes.MaterialDesignRoute
@@ -25,13 +26,13 @@ val exercisesList = fc<Props> {
     styledDiv {
 
         css {
-            +Theme.fontFaces.main.get(context)
+            +Theme.fontFaces.main(context)
             fontSize = 100.pct
         }
 
         ul {
-            exerciseLiWithLink(localizator("materialDesign"), MaterialDesignRoute.path)
-            exerciseLiWithContents { +localizator("toBeContinued") }
+            exerciseLiWithLink(localizator("exercises.materialDesign"), MaterialDesignRoute.path)
+            exerciseLiWithContents { +localizator("exercises.toBeContinued") }
         }
 
     }
@@ -42,9 +43,9 @@ val exercisesList = fc<Props> {
 
 // Private.
 
-private object ExercisesListStyles : StaticStyleSheet() {
+private object ExercisesListStyles : DynamicStyleSheet() {
 
-    val listItem by css {
+    val listItem: RuleSet by css {
         val margin  = StyleValues.spacing.absolute5
         marginTop   = margin
         marginLeft  = margin

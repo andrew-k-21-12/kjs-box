@@ -1,6 +1,7 @@
 package io.github.andrewk2112.designtokens.reference
 
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.designtokens.stylesheets.StaticCssHolder
 import kotlinx.css.*
 import styled.injectGlobal
@@ -12,13 +13,16 @@ class FontFaces : DynamicStyleSheet() {
 
     // Public.
 
-    val sourceSansPro: RuleSet by declareFontFace("SourceSansPro", fallbackFontFamilies = fallbackFontFamiliesSansSerif)
-    val comfortaa: RuleSet     by declareFontFace("Comfortaa",     fallbackFontFamilies = fallbackFontFamiliesSansSerif)
-    val roboto: RuleSet        by declareFontFace("Roboto",        fallbackFontFamilies = fallbackFontFamiliesSansSerif)
+    val sourceSansPro: NamedRuleSet by declareFontFace(
+        "SourceSansPro",
+        fallbackFontFamilies = fallbackFontFamiliesSansSerif
+    )
+    val comfortaa: NamedRuleSet by declareFontFace("Comfortaa", fallbackFontFamilies = fallbackFontFamiliesSansSerif)
+    val roboto:    NamedRuleSet by declareFontFace("Roboto",    fallbackFontFamilies = fallbackFontFamiliesSansSerif)
 
     // This is an example of possible font variants picking.
     // To make it optimized, the global injection should be invoked only once per font file.
-    // fun sourceSansPro(isBold: Boolean): RuleSet = if (isBold) sourceSansProBold else sourceSansPro
+    // fun sourceSansPro(isBold: Boolean): NamedRuleSet = if (isBold) sourceSansProBold else sourceSansPro
 
 
 

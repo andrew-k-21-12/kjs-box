@@ -52,13 +52,13 @@ open class DynamicStyleSheet(
      * @param builder Describes how to prepare styles for the particular [argument].
      * @param argument Some kind of seed and identifier to prepare a [RuleSet].
      *
-     * @return Prepared [RuleSet] ready to be used.
+     * @return Prepared [NamedRuleSet] ready to be used.
      * */
     internal fun <T : HasCssSuffix> prepareCachedRuleSet(
         staticCssSuffix: String,
         builder: CssBuilder.(T) -> Unit,
         argument: T
-    ): RuleSet {
+    ): NamedRuleSet {
         val fullCssSuffix = "$staticCssSuffix-${argument.cssSuffix}"
         val holder = dynamicHolders.getOrPut(fullCssSuffix) {
             DynamicCssHolder(this, fullCssSuffix, { builder.invoke(this, argument) })

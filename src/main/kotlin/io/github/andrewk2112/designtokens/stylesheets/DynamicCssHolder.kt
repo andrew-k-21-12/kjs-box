@@ -24,17 +24,21 @@ internal class DynamicCssHolder(
     }
 
     /**
-     * Contains property providing part from the [CssHolder].
+     * Contains a property providing part from the [CssHolder].
      * */
-    internal fun provideRuleSet(): RuleSet = {
+    internal fun provideRuleSet(): NamedRuleSet {
         sheet.scheduleImports()
         if (sheet.isStatic) {
             scheduleToInject(className)
-            +className
         }
-        if (!sheet.isStatic || !allowClasses || isHolder) {
-            styleName.add(className)
-            ruleSets.forEach { it() }
+        return NamedRuleSet(className) {
+            if (sheet.isStatic) {
+                +className
+            }
+            if (!sheet.isStatic || !allowClasses || isHolder) {
+                styleName.add(className)
+                ruleSets.forEach { it() }
+            }
         }
     }
 

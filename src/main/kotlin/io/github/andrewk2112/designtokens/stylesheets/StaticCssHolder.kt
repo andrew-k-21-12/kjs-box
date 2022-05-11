@@ -12,14 +12,16 @@ import kotlin.reflect.KProperty
  * */
 class StaticCssHolder(private val sheet: DynamicStyleSheet, private vararg val ruleSets: RuleSet) {
 
-    operator fun provideDelegate(thisRef: Any?, providingProperty: KProperty<*>): ReadOnlyProperty<Any?, RuleSet> {
+    operator fun provideDelegate(thisRef: Any?, providingProperty: KProperty<*>): ReadOnlyProperty<Any?, NamedRuleSet> {
         val className = sheet.getClassName(providingProperty)
         classNamesToInject[className] = true
         return ReadOnlyProperty { _, property ->
-            {
-                sheet.scheduleImports()
+            sheet.scheduleImports()
+            if (sheet.isStatic) {
+                scheduleToInject(className)
+            }
+            NamedRuleSet(className) {
                 if (sheet.isStatic) {
-                    scheduleToInject(className)
                     +className
                 }
                 if (!sheet.isStatic || !allowClasses || isHolder) {

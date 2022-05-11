@@ -1,15 +1,17 @@
 package io.github.andrewk2112.containers.md
 
 import io.github.andrewk2112.components.md.notificationHeader
+import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.localization.localization
 import kotlinx.css.fontSize
 import kotlinx.css.pct
 import react.Props
+import react.dom.div
 import react.fc
-import styled.css
-import styled.styledDiv
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
@@ -32,12 +34,7 @@ val materialDesign = fc<Props> {
     val context     = useAppContext()
     val localizator = localization.useLocalizator()
 
-    styledDiv {
-
-        css {
-            +Theme.fontFaces.material(context)
-            fontSize = 100.pct
-        }
+    div(MaterialDesignStyles.root(context).name) {
 
         notificationHeader {
             attrs {
@@ -55,5 +52,14 @@ val materialDesign = fc<Props> {
 
 
 // Private.
+
+private object MaterialDesignStyles : DynamicStyleSheet() {
+
+    val root: DynamicCssProvider<Context> by dynamicCss {
+        +Theme.fontFaces.material(it).rules
+        fontSize = 100.pct
+    }
+
+}
 
 private const val ENDPOINT_TO_MATERIAL_3 = "https://m3.material.io"

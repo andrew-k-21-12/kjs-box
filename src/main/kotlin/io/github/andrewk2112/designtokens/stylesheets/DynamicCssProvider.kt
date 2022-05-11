@@ -1,10 +1,9 @@
 package io.github.andrewk2112.designtokens.stylesheets
 
 import kotlinx.css.CssBuilder
-import kotlinx.css.RuleSet
 
 /**
- * Provides [RuleSet]s with caching according to provided arguments.
+ * Provides [NamedRuleSet]s with caching according to provided arguments.
  *
  * @param sheet           A reference to the [DynamicStyleSheet] containing and caching all related styles.
  * @param staticCssSuffix A suffix to be included into all names of dynamic CSS classes.
@@ -16,6 +15,6 @@ class DynamicCssProvider<T : HasCssSuffix> internal constructor(
     private val builder: CssBuilder.(T) -> Unit
 ) {
 
-    operator fun invoke(argument: T): RuleSet = sheet.prepareCachedRuleSet(staticCssSuffix, builder, argument)
+    operator fun invoke(argument: T): NamedRuleSet = sheet.prepareCachedRuleSet(staticCssSuffix, builder, argument)
 
 }

@@ -5,16 +5,21 @@ import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.jsmodules.svg.SvgFile
 import io.github.andrewk2112.jsmodules.svg.invoke
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.Props
+import react.dom.a
 import react.dom.attrs
+import react.dom.div
 import react.dom.html.AnchorTarget
+import react.dom.p
 import react.fc
-import styled.*
+import styled.css
+import styled.styled
 
 // Public.
 
@@ -29,32 +34,25 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
 
     val context = useAppContext()
 
-    styledDiv {
-
-        css(NotificationHeaderStyles.container(context))
+    div(NotificationHeaderStyles.container(context).name) {
 
         // Title and description rows.
-        styledDiv {
-
-            css(NotificationHeaderStyles.titleAndDescriptionRows)
+        div(classes = NotificationHeaderStyles.titleAndDescriptionRows.name) {
 
             // Title.
-            styledP {
-                css(NotificationHeaderStyles.title(context))
+            p(NotificationHeaderStyles.title(context).name) {
                 +props.title
             }
 
             // Description.
-            styledP {
-                css(NotificationHeaderStyles.description(context))
+            p(NotificationHeaderStyles.description(context).name) {
                 +props.description
             }
 
         }
 
         // Action button.
-        styledA {
-            css(NotificationHeaderStyles.actionButton(context))
+        a(classes = NotificationHeaderStyles.actionButton(context).name) {
             attrs {
                 target = AnchorTarget._blank.toString()
                 href   = props.actionDestination
@@ -64,9 +62,9 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
 
 
             // FIXME:
-            //  1. Provide my DynamicStyleSheet to GitHub.
-            //  2. Avoid direct usage of kotlin-styled-next at all - create wrappers to add styles to DOM elements.
-            //  3. Complete SvgFile and extend my SO answer!
+            //  1. Avoid direct usage of kotlin-styled-next at all - create wrappers to add styles to DOM elements, better API?
+            //  2. Complete SvgFile and extend my SO answer!
+            //  3. Prepare a PR in GitHub, suggest styles wrapping to avoid direct usage of kotlin-styled-next (another PR)!
             +arrowRightThin()
             styled(arrowRightThin.component).invoke(this) {
                 css {
@@ -93,7 +91,7 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.backSpecial1(it)
     }
 
-    val titleAndDescriptionRows: RuleSet by css { flexGrow = 1.0 }
+    val titleAndDescriptionRows: NamedRuleSet by css { flexGrow = 1.0 }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
         paddingTop   = StyleValues.spacing.absolute25

@@ -1,5 +1,6 @@
 package io.github.andrewk2112.components.md
 
+import csstype.ClassName
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
@@ -8,7 +9,6 @@ import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.jsmodules.svg.SvgFile
-import io.github.andrewk2112.jsmodules.svg.invoke
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.Props
@@ -18,8 +18,6 @@ import react.dom.div
 import react.dom.html.AnchorTarget
 import react.dom.p
 import react.fc
-import styled.css
-import styled.styled
 
 // Public.
 
@@ -37,7 +35,7 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
     div(NotificationHeaderStyles.container(context).name) {
 
         // Title and description rows.
-        div(classes = NotificationHeaderStyles.titleAndDescriptionRows.name) {
+        div(NotificationHeaderStyles.titleAndDescriptionRows.name) {
 
             // Title.
             p(NotificationHeaderStyles.title(context).name) {
@@ -53,26 +51,17 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
 
         // Action button.
         a(classes = NotificationHeaderStyles.actionButton(context).name) {
+
             attrs {
                 target = AnchorTarget._blank.toString()
                 href   = props.actionDestination
             }
+
             +props.actionLabel
 
-
-
-            // FIXME:
-            //  1. Avoid direct usage of kotlin-styled-next at all - create wrappers to add styles to DOM elements, better API?
-            //  2. Complete SvgFile and extend my SO answer!
-            //  3. Prepare a PR in GitHub, suggest styles wrapping to avoid direct usage of kotlin-styled-next (another PR)!
-            +arrowRightThin()
-            styled(arrowRightThin.component).invoke(this) {
-                css {
-                    marginLeft = 20.px
-                }
+            arrowRightThin.component {
+                attrs.className = ClassName(NotificationHeaderStyles.actionButtonArrow.name)
             }
-
-
 
         }
 
@@ -118,7 +107,7 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
         paddingTop    = StyleValues.spacing.absolute12
         paddingBottom = StyleValues.spacing.absolute12
         paddingLeft   = StyleValues.spacing.absolute15
-        paddingRight  = StyleValues.spacing.absolute15
+        paddingRight  = StyleValues.spacing.absolute18
         marginRight   = StyleValues.spacing.absolute40
         borderRadius  = StyleValues.cornerRadii.absolute24
         fontSize       = StyleValues.fontSizes.relativep90
@@ -128,6 +117,10 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
             backgroundColor = Theme.palette.actionFocused2(it)
         }
         color = Theme.palette.onAction2(it)
+    }
+
+    val actionButtonArrow by css {
+        marginLeft = StyleValues.spacing.absolute12
     }
 
 }

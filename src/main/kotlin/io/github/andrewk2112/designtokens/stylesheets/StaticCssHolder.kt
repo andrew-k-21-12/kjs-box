@@ -35,8 +35,15 @@ class StaticCssHolder(private val sheet: DynamicStyleSheet, private vararg val r
     private fun scheduleToInject(className: String) {
         if (classNamesToInject[className] == true) {
             GlobalStyles.scheduleToInject(".$className", css)
+            if (!areScheduledInjected) {
+                areScheduledInjected = true
+                GlobalStyles.injectScheduled()
+            }
         }
     }
+
+    /** Required to invoke the injection for scheduled styles only once per holder. */
+    private var areScheduledInjected = false
 
     private val css by lazy {
         CssBuilder(allowClasses = false).apply {

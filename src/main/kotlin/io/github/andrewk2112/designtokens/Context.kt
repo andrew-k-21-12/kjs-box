@@ -17,19 +17,22 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
      * */
     enum class ScreenSize(private val startsFromWidth: Int) {
 
-        PHONE(0),
+        // Keep the same order of the declarations here as it can harm values' retrievals.
+        DESKTOP(992),
         TABLET(768),
-        DESKTOP(992);
+        PHONE(0);
 
         companion object {
 
             /**
-             * Static construction of a concrete [ScreenSize] from a [rawWidth].
+             * Static retrieval of the concrete [ScreenSize] matching to a given [rawWidth].
              * */
-            fun fromRawWidth(rawWidth: Int): ScreenSize = // it might be reasonable to avoid allocations here
-                values()                                  // if performance issues appear
-                    .sortedByDescending { it.startsFromWidth }
-                    .firstOrNull { rawWidth >= it.startsFromWidth } ?: PHONE
+            fun fromRawWidth(rawWidth: Int): ScreenSize {
+                for (value in values()) {
+                    if (rawWidth >= value.startsFromWidth) return value
+                }
+                return DESKTOP
+            }
 
         }
 

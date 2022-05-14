@@ -41,10 +41,11 @@ class ContextReducer(
 
     override fun reduce(state: Context, action: RAction): Context {
         if (action !is Action) return state
-        return when (action) {
+        val newState = when (action) {
             is Action.UpdateScreenSize -> state.copy(screenSize = action.newValue)
             is Action.UpdateColorMode  -> state.copy(colorMode  = action.newValue)
         }
+        return if (newState != state) newState else state
     }
 
     override fun extractCurrentState(parentState: AppState): Context = parentState.context

@@ -2,9 +2,7 @@ package io.github.andrewk2112.designtokens.stylesheets
 
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
-import styled.GlobalStyles
-import styled.Import
-import styled.StyleSheet
+import styled.*
 
 /**
  * Mostly an equivalent of [StyleSheet] but allows providing dynamic styles in addition to static ones.
@@ -60,11 +58,19 @@ open class DynamicStyleSheet(
         argument: T
     ): NamedRuleSet {
         val fullCssSuffix = "$staticCssSuffix-${argument.cssSuffix}"
+        var hasGotNewStyle = false
         val holder = dynamicHolders.getOrPut(fullCssSuffix) {
+            hasGotNewStyle = true
             DynamicCssHolder(this, fullCssSuffix, { builder.invoke(this, argument) })
                 .also { it.markToInject() }
         }
-        return holder.provideRuleSet()
+        return holder.provideRuleSet().also {
+            // After the call above, a new style is getting marked to be injected,
+            // so it's reasonable to inject it once right after its creation.
+            if (hasGotNewStyle) {
+                GlobalStyles.injectScheduled()
+            }
+        }
     }
 
     internal fun scheduleImports() {

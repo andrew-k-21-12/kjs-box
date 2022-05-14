@@ -14,6 +14,9 @@ import react.dom.div
 import react.fc
 
 // TODO:
+//  0. Prepare the PR in GitHub, suggest styles wrapping to avoid direct usage of kotlin-styled-next (another PR)!
+
+// TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
 //  2. Maybe it's better to drop the intermediate variable for the localization and use an effect function directly.
 //  3. Dependencies on inner variables are not good (in components).
@@ -62,4 +65,4 @@ private object MaterialDesignStyles : DynamicStyleSheet() {
 
 }
 
-private const val ENDPOINT_TO_MATERIAL_3 = "https://m3.material.io"
+private const val ENDPOINT_TO_MATERIAL_3 = "https://material.io/design"

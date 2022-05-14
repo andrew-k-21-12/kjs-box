@@ -1,5 +1,6 @@
 package io.github.andrewk2112.components.exercises
 
+import csstype.ClassName
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
@@ -10,8 +11,6 @@ import kotlinx.css.properties.TextDecoration
 import react.*
 import react.router.dom.Link
 import react.router.dom.LinkProps
-import styled.css
-import styled.styled
 
 // Public.
 
@@ -23,11 +22,11 @@ val exerciseLink = fc<ExerciseLinkProps> { props ->
 
     val context = useAppContext()
 
-    styled(Link).invoke(this) { // "this" refers to the current context (builder) to insert this element into
-
-        css(ExerciseLinkStyles.exerciseLink(context).rules)
+    // There is also a possibility to use CSS in a styled way, see the previous commit.
+    Link {
 
         attrs {
+            className      = ClassName(ExerciseLinkStyles.exerciseLink(context).name)
             reloadDocument = props.reloadDocument
             replace        = props.replace
             state          = props.state

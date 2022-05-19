@@ -15,10 +15,10 @@ interface SimpleAbsolutePathRouteMutator : RouteMutator, NestedRouteMutator {
         }
         val currentPath = if (this is PathRouteMutator) path else null
         return when {
-            parentPath == null && currentPath == null -> ""
-            parentPath == null                        -> currentPath ?: ""
-            currentPath == null                       -> parentPath
-            else                                      -> "$parentPath/$currentPath"
+            parentPath  == null && currentPath == null -> "/"
+            parentPath  == null                        -> currentPath ?: "/"
+            currentPath == null                        -> parentPath
+            else                                       -> "$parentPath$currentPath"
         }
     }
 

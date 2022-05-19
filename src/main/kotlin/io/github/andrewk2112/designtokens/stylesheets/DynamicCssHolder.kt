@@ -17,14 +17,14 @@ internal class DynamicCssHolder(
     // Internal.
 
     /**
-     * Contains the initialization part of the delegate from [CssHolder].
+     * Contains the initialization part of the delegate from the [CssHolder].
      * */
     internal fun markToInject() {
         classNamesToInject[className] = true
     }
 
     /**
-     * Contains a property providing part from the [CssHolder].
+     * Contains the property providing part from the [CssHolder].
      * */
     internal fun provideRuleSet(): NamedRuleSet {
         sheet.scheduleImports()

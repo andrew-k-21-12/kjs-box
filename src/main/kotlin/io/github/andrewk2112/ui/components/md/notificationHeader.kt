@@ -1,4 +1,4 @@
-package io.github.andrewk2112.components.md
+package io.github.andrewk2112.ui.components.md
 
 import csstype.ClassName
 import io.github.andrewk2112.designtokens.Context
@@ -7,30 +7,25 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
-import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.jsmodules.svg.SvgFile
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
-import react.Props
+import react.RBuilder
 import react.dom.a
 import react.dom.attrs
 import react.dom.div
 import react.dom.html.AnchorTarget
 import react.dom.p
-import react.fc
 
 // Public.
 
-external interface NotificationHeaderProps : Props {
-    var title: String
-    var description: String
-    var actionLabel: String
-    var actionDestination: String
-}
-
-val notificationHeader = fc<NotificationHeaderProps> { props ->
-
-    val context = useAppContext()
+fun RBuilder.notificationHeader(
+    context: Context,
+    title: String,
+    description: String,
+    actionLabel: String,
+    actionDestination: String
+) {
 
     div(NotificationHeaderStyles.container(context).name) {
 
@@ -38,14 +33,10 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
         div(NotificationHeaderStyles.titleAndDescriptionRows.name) {
 
             // Title.
-            p(NotificationHeaderStyles.title(context).name) {
-                +props.title
-            }
+            p(NotificationHeaderStyles.title(context).name) { +title }
 
             // Description.
-            p(NotificationHeaderStyles.description(context).name) {
-                +props.description
-            }
+            p(NotificationHeaderStyles.description(context).name) { +description }
 
         }
 
@@ -54,10 +45,10 @@ val notificationHeader = fc<NotificationHeaderProps> { props ->
 
             attrs {
                 target = AnchorTarget._blank.toString()
-                href   = props.actionDestination
+                href   = actionDestination
             }
 
-            +props.actionLabel
+            +actionLabel
 
             arrowRightThin.component {
                 attrs.className = ClassName(NotificationHeaderStyles.actionButtonArrow.name)
@@ -109,7 +100,7 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
         paddingLeft   = StyleValues.spacing.absolute15
         paddingRight  = StyleValues.spacing.absolute18
         marginRight   = StyleValues.spacing.absolute40
-        borderRadius  = StyleValues.cornerRadii.absolute24
+        borderRadius  = StyleValues.radii.cornerAbsolute24
         fontSize       = StyleValues.fontSizes.relativep90
         textDecoration = TextDecoration.none
         backgroundColor = Theme.palette.action2(it)
@@ -125,6 +116,9 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
 
 }
 
+// Icons like this are included from the compilation root and their paths are totally unrelated to browser locations,
+// as a result we should use simple relative paths here.
+// It's a webpack requirement for requests that should resolve in the current directory to start with "./".
 @JsModule("./icons/arrow-right-thin.svg")
 @JsNonModule
 private external val arrowRightThin: SvgFile

@@ -6,6 +6,7 @@ import kotlinx.css.px
 /**
  * All corner radius values.
  * */
-class CornerRadii {
-    val absolute24: LinearDimension get() = 24.px
+class Radii {
+    val cornerAbsolute24: LinearDimension get() = 24.px
+    val shadowAbsolute4:  LinearDimension get() = 4.px
 }

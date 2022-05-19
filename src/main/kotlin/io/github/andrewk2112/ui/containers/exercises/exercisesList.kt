@@ -1,14 +1,12 @@
-package io.github.andrewk2112.containers.exercises
+package io.github.andrewk2112.ui.containers.exercises
 
-import io.github.andrewk2112.components.exercises.exerciseLink
+import io.github.andrewk2112.ui.components.exercises.exerciseLink
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
-import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
-import io.github.andrewk2112.localization.localization
+import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import kotlinx.css.*
 import react.Props
@@ -23,12 +21,12 @@ import react.fc
 val exercisesList = fc<Props> {
 
     val context     = useAppContext()
-    val localizator = localization.useLocalizator()
+    val localizator = useLocalizator()
 
-    div(ExercisesListStyles.root(context).name) {
+    div(ExercisesListStyles.root.name) {
 
         ul {
-            exerciseLiWithLink(localizator("exercises.materialDesign"), MaterialDesignRoute.path)
+            exerciseLiWithLink(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
             exerciseLiWithContents { +localizator("exercises.toBeContinued") }
         }
 
@@ -42,8 +40,8 @@ val exercisesList = fc<Props> {
 
 private object ExercisesListStyles : DynamicStyleSheet() {
 
-    val root: DynamicCssProvider<Context> by dynamicCss {
-        +Theme.fontFaces.main(it).rules
+    val root: NamedRuleSet by css {
+        +StyleValues.fontFaces.sourceSansPro.rules
         fontSize = 100.pct
     }
 
@@ -59,13 +57,8 @@ private object ExercisesListStyles : DynamicStyleSheet() {
 
 }
 
-private fun RBuilder.exerciseLiWithContents(contents: RBuilder.() -> Unit) = li(ExercisesListStyles.listItem.name) {
-    contents()
-}
+private fun RBuilder.exerciseLiWithContents(contents: RBuilder.() -> Unit) =
+    li(ExercisesListStyles.listItem.name) { contents() }
 
-private fun RBuilder.exerciseLiWithLink(label: String, destination: String) = exerciseLiWithContents {
-    exerciseLink {
-        attrs.text = label
-        attrs.to   = destination
-    }
-}
+private fun RBuilder.exerciseLiWithLink(context: Context, label: String, destination: String) =
+    exerciseLiWithContents { exerciseLink(context, label, destination) }

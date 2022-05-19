@@ -20,7 +20,7 @@ open class DynamicStyleSheet(
      *
      * @param builder Describes how to prepare a style according to the current argument.
      *
-     * @return An instance of [DynamicCssDelegate] allowing the target variable to invoke required styles.
+     * @return An instance of the [DynamicCssDelegate] allowing the target property to invoke required styles.
      * */
     fun <T : HasCssSuffix> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
 
@@ -43,14 +43,14 @@ open class DynamicStyleSheet(
     // Internal.
 
     /**
-     * Creates a new or uses already cached [RuleSet] corresponding to the provided [argument].
+     * Creates a new or uses an already cached [RuleSet] corresponding to the provided [argument].
      *
      * @param staticCssSuffix Some unique static (keeping even if the [argument] changes) name for a style:
      *                        usually a property name.
      * @param builder Describes how to prepare styles for the particular [argument].
      * @param argument Some kind of seed and identifier to prepare a [RuleSet].
      *
-     * @return Prepared [NamedRuleSet] ready to be used.
+     * @return A prepared [NamedRuleSet] ready to be used.
      * */
     internal fun <T : HasCssSuffix> prepareCachedRuleSet(
         staticCssSuffix: String,

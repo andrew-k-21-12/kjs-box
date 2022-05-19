@@ -1,3 +1,7 @@
+// This config is super important to prepend a slash to the compiled JS sources file:
+// without it deeper navigation routes will fail to find the sources.
+config.output.publicPath = "/";
+
 // To inline SVG images directly into HTML and minify them.
 config.module.rules.push({
     test: /\.svg$/,

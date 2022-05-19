@@ -3,9 +3,15 @@ package io.github.andrewk2112.designtokens.reference
 import kotlinx.css.Color
 
 /**
- * All source colors - to be used in derived design tokens.
+ * All source colors - to be used in derived design tokens and styles.
  * */
 class Palette {
+
+    val blackWithAlpha1 get() = Color("#00000080")
+
+    val gray1 get() = Color("#212121")
+
+    val white get() = Color("#FFFFFF")
 
     val blue1 get() = Color("#E9F0F6")
     val blue2 get() = Color("#CBE6FD")

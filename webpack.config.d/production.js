@@ -24,7 +24,7 @@ if (config.mode == "production") {
 
     // Minifying HTML.
     minimizer.push(new HtmlWebpackPlugin({
-        template: "./kotlin/index.html",
+        template: "kotlin/index.html",
         minify: {
             removeAttributeQuotes: true,
             collapseWhitespace: true,
@@ -57,14 +57,14 @@ if (config.mode == "production") {
     config.plugins.push(new CopyWebpackPlugin({
         patterns: [
             {
-                context: "./kotlin",
-                from: "./locales/**/*.json",
+                context: "kotlin",
+                from: "locales/**/*.json",
                 to: "[path][name][ext]",
                 transform: content => NodeJsonMinify(content.toString())
             },
             {
-                context: "./kotlin",
-                from: "./fonts/**/*.woff2",
+                context: "kotlin",
+                from: "fonts/**/*.woff2",
                 to: "[path][name][ext]"
             }
         ]

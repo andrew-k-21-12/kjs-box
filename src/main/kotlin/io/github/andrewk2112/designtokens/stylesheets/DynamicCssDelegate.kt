@@ -14,7 +14,7 @@ class DynamicCssDelegate<T : HasCssSuffix> internal constructor(
 
     /**
      * Almost anemic class with only one purpose
-     * to avoid creation of an anonymous class holding reference to the parent.
+     * to avoid creation of an anonymous class holding a reference to the parent.
      * */
     private class DynamicCssProviderProperty<T : HasCssSuffix>(
         private val provider: DynamicCssProvider<T>

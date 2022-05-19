@@ -9,10 +9,15 @@ class ThemedPalette {
 
     val action1:        ThemedColor get() = { StyleValues.palette.blue4 }
     val actionDimmed1:  ThemedColor get() = { StyleValues.palette.blue5 }
+
     val action2:        ThemedColor get() = { StyleValues.palette.blue2 }
     val actionFocused2: ThemedColor get() = { StyleValues.palette.blue3 }
     val onAction2:      ThemedColor get() = { StyleValues.palette.blueDark2 }
+
     val backSpecial1:   ThemedColor get() = { StyleValues.palette.blue1 }
     val onBackSpecial1: ThemedColor get() = { StyleValues.palette.blueDark1 }
+
+    val surface1:       ThemedColor get() = { StyleValues.palette.gray1 }
+    val onSurface1:     ThemedColor get() = { StyleValues.palette.white }
 
 }

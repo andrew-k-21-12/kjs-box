@@ -87,7 +87,9 @@ class FontFaces : DynamicStyleSheet() {
     // Configs.
 
     /** Where to locate fonts in resources. */
-    private val pathToFonts get() = "./fonts/"
+    private val pathToFonts get() = "/fonts/" // no dot should be placed before the leading slash -
+                                              // or it will point to a destination relative to the current location
+                                              // when trying to fetch a font from a browser
 
     /** Default fallback font families for serif fonts. */
     private val fallbackFontFamiliesSerif get() = arrayOf("serif")

@@ -6,6 +6,12 @@
   "md": {
     "theLatestVersionOfMaterialDesignIsNowAvailableForAndroid": "The latest version of Material Design is now available for Android",
     "learnAboutMaterial3sNewFeatures": "Learn about Material 3's new features and support for modern design & developer workflows",
-    "startExploringMaterial3": "Start exploring Material 3"
+    "startExploringMaterial3": "Start exploring Material 3",
+    "materialDesign": "Material Design",
+    "design": "Design",
+    "components": "Components",
+    "develop": "Develop",
+    "resources": "Resources",
+    "blog": "Blog"
   }
 }

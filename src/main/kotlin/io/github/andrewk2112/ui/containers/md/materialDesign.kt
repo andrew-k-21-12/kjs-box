@@ -19,6 +19,7 @@ import react.fc
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
 //  2. Dependencies on inner variables are not good (in components).
+//     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 
 // TODO:
 //  3. Hashes in names for all resources (fonts, locales, images) are not needed,

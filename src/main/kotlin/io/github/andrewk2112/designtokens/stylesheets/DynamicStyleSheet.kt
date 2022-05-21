@@ -2,7 +2,9 @@ package io.github.andrewk2112.designtokens.stylesheets
 
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
+import org.w3c.dom.css.CSS
 import styled.*
+import kotlin.reflect.KProperty
 
 /**
  * Mostly an equivalent of [StyleSheet] but allows providing dynamic styles in addition to static ones.
@@ -22,7 +24,7 @@ open class DynamicStyleSheet(
      *
      * @return An instance of the [DynamicCssDelegate] allowing the target property to invoke required styles.
      * */
-    fun <T : HasCssSuffix> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
+    fun <T : Any> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
 
     /**
      * Provides a delegate for regular static style holders.
@@ -52,12 +54,12 @@ open class DynamicStyleSheet(
      *
      * @return A prepared [NamedRuleSet] ready to be used.
      * */
-    internal fun <T : HasCssSuffix> prepareCachedRuleSet(
+    internal fun <T : Any> prepareCachedRuleSet(
         staticCssSuffix: String,
         builder: CssBuilder.(T) -> Unit,
         argument: T
     ): NamedRuleSet {
-        val fullCssSuffix = "$staticCssSuffix-${argument.cssSuffix}"
+        val fullCssSuffix = "$staticCssSuffix-${argument.extractCssSuffix()}"
         var hasGotNewStyle = false
         val holder = dynamicHolders.getOrPut(fullCssSuffix) {
             hasGotNewStyle = true
@@ -87,6 +89,26 @@ open class DynamicStyleSheet(
     private fun addCssHolder(holder: StaticCssHolder) {
         staticHolders.add(holder)
     }
+
+    /**
+     * Extracts a CSS suffix according to the argument type.
+     *
+     * @throws IllegalArgumentException When some unsupported argument type is encountered.
+     * */
+    private fun Any.extractCssSuffix(): String = when (this) {
+        is Boolean      -> toString()
+        is Number       -> toString().revampCssSuffix()
+        is String       -> revampCssSuffix()
+        is HasCssSuffix -> cssSuffix.revampCssSuffix()
+        is Enum<*>      -> name.revampCssSuffix()
+        is KProperty<*> -> name.revampCssSuffix()
+        else            -> throw IllegalArgumentException("The provided type is not supported for dynamic CSS")
+    }
+
+    /**
+     * Revamps the receiver [String] to work correctly as a part of a CSS class name.
+     * */
+    private fun String.revampCssSuffix() = CSS.escape(this.replace(" ", "-").replace(".", "-"))
 
     /** Keeps all holders providing dynamic styles - the holders are cached by their CSS suffixes. */
     private val dynamicHolders = mutableMapOf<String, DynamicCssHolder>()

@@ -7,9 +7,13 @@ import kotlinx.css.Color
  * */
 class Palette {
 
+    // The order of tones is from lighter to darker.
+
     val blackWithAlpha1 get() = Color("#00000080")
 
-    val gray1 get() = Color("#212121")
+    val gray1 get() = Color("#D3D3D3")
+    val gray2 get() = Color("#9E9E9E")
+    val gray3 get() = Color("#212121")
 
     val white get() = Color("#FFFFFF")
 

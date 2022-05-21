@@ -9,7 +9,7 @@ import kotlinx.css.width
 /**
  * Contains typical icon styles.
  * */
-object IconsStyles : DynamicStyleSheet() {
+object IconStyles : DynamicStyleSheet() {
 
     val smallSizedIcon: NamedRuleSet by css {
         width  = StyleValues.sizes.absolute32

@@ -14,6 +14,8 @@ val designTokensModule = DI.Module("DesignTokens") { // not sure if this module 
     bindSingleton { Radii() }
     bindSingleton { Sizes() }
     bindSingleton { Spacing() }
+    bindSingleton { Time() }
+    bindSingleton { Timing() }
     bindSingleton { ThemedFontSizes() }
     bindSingleton { ThemedPalette() }
 }

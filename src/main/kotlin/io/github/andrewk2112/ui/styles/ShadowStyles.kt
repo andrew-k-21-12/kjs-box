@@ -12,7 +12,7 @@ object ShadowStyles : DynamicStyleSheet() {
 
     val defaultShadow: NamedRuleSet by css {
         boxShadow(
-            StyleValues.palette.blackWithAlpha1,
+            StyleValues.palette.blackWithAlpha2,
             offsetY = StyleValues.spacing.absolute2,
             blurRadius = StyleValues.radii.shadowAbsolute4
         )

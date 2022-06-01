@@ -7,7 +7,7 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
-import io.github.andrewk2112.jsmodules.svg.SvgFile
+import io.github.andrewk2112.ui.arrowRightThin
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.RBuilder
@@ -95,8 +95,8 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
         alignItems = Align.center
         alignSelf  = Align.center
         flexShrink = 0.0
-        paddingTop    = StyleValues.spacing.absolute12
-        paddingBottom = StyleValues.spacing.absolute12
+        paddingTop    = StyleValues.spacing.absolute11p5
+        paddingBottom = StyleValues.spacing.absolute11p5
         paddingLeft   = StyleValues.spacing.absolute15
         paddingRight  = StyleValues.spacing.absolute18
         marginRight   = StyleValues.spacing.absolute40
@@ -115,10 +115,3 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
     }
 
 }
-
-// Icons like this are included from the compilation root and their paths are totally unrelated to browser locations,
-// as a result we should use simple relative paths here.
-// It's a webpack requirement for requests that should resolve in the current directory to start with "./".
-@JsModule("./icons/arrow-right-thin.svg")
-@JsNonModule
-private external val arrowRightThin: SvgFile

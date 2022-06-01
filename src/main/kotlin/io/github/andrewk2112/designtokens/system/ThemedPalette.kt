@@ -22,4 +22,9 @@ class ThemedPalette {
     val onSurfaceFocused1: ThemedColor get() = { StyleValues.palette.gray1 }
     val onSurfaceDimmed1:  ThemedColor get() = { StyleValues.palette.gray2 }
 
+    val surface2:   ThemedColor get() = { StyleValues.palette.white }
+    val onSurface2: ThemedColor get() = { StyleValues.palette.gray3 }
+
+    val stroke: ThemedColor get() = { StyleValues.palette.blackWithAlpha1 }
+
 }

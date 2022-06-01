@@ -47,6 +47,6 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
 
     // Implementations.
 
-    override val cssSuffix: String = "${screenSize.name.lowercase()}${colorMode.name.camelCaseWord()}"
+    override val cssSuffix = "${screenSize.name.lowercase()}${colorMode.name.camelCaseWord()}"
 
 }

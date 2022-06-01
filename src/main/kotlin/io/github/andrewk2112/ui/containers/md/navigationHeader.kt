@@ -10,7 +10,8 @@ import io.github.andrewk2112.extensions.aspectRatio
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useStateGetterOnce
-import io.github.andrewk2112.jsmodules.svg.SvgFile
+import io.github.andrewk2112.ui.iconMagnify
+import io.github.andrewk2112.ui.materialDesignLogo
 import io.github.andrewk2112.ui.styles.IconStyles
 import io.github.andrewk2112.ui.styles.TransitionStyles
 import kotlinx.css.*
@@ -175,11 +176,3 @@ private fun RBuilder.navigationButton(context: Context, label: String, isSelecte
         }
     }
 }
-
-@JsModule("./icons/material-design-logo.svg")
-@JsNonModule
-private external val materialDesignLogo: SvgFile
-
-@JsModule("./icons/magnify.svg")
-@JsNonModule
-private external val iconMagnify: SvgFile

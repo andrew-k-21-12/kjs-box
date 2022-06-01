@@ -14,4 +14,6 @@ object StyleValues {
     val radii:     Radii     by di.instance()
     val sizes:     Sizes     by di.instance()
     val spacing:   Spacing   by di.instance()
+    val time:      Time      by di.instance()
+    val timing:    Timing    by di.instance()
 }

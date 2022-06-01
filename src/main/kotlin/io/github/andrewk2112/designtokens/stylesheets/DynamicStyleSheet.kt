@@ -2,7 +2,6 @@ package io.github.andrewk2112.designtokens.stylesheets
 
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
-import org.w3c.dom.css.CSS
 import styled.*
 import kotlin.reflect.KProperty
 
@@ -108,7 +107,8 @@ open class DynamicStyleSheet(
     /**
      * Revamps the receiver [String] to work correctly as a part of a CSS class name.
      * */
-    private fun String.revampCssSuffix() = CSS.escape(this.replace(" ", "-").replace(".", "-"))
+    private fun String.revampCssSuffix() = replace(" ", "-").replace(".", "-") // removing CSS.escape(...) for now
+                                                                               // as it converts numbers to Unicode
 
     /** Keeps all holders providing dynamic styles - the holders are cached by their CSS suffixes. */
     private val dynamicHolders = mutableMapOf<String, DynamicCssHolder>()

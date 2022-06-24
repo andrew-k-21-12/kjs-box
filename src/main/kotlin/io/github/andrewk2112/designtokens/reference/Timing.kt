@@ -9,4 +9,5 @@ import kotlinx.css.properties.Timing as CssTiming
 class Timing {
     val cubicBezier1: CssTiming get() = cubicBezier(0.4, 0.0, 0.2, 1.0)
     val ease:         CssTiming get() = CssTiming.ease
+    val linear:       CssTiming get() = CssTiming.linear
 }

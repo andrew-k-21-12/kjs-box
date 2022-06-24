@@ -10,4 +10,5 @@ class Time {
     val immediate: CssTime get() = 0.ms
     val ms100:     CssTime get() = 100.ms
     val ms300:     CssTime get() = 300.ms
+    val ms600:     CssTime get() = 600.ms
 }

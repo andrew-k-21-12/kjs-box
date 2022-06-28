@@ -10,7 +10,9 @@ import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.ui.components.md.menu.MenuBottomSpacing.*
 import io.github.andrewk2112.ui.components.md.menu.menuCategory
+import io.github.andrewk2112.ui.components.md.menu.menuDivider
 import io.github.andrewk2112.ui.components.md.menu.menuItem
 import io.github.andrewk2112.ui.materialDesignLogo
 import io.github.andrewk2112.ui.styles.*
@@ -133,10 +135,31 @@ val materialDesign = fc<Props> {
 
 
 
-                // TODO: Insert menu items, extract the whole menu from this file afterwards.
-                menuCategory(context, "Material System")
-                menuItem(context, "Introduction", "https://material.io/design/introduction")
-                menuItem(context, "Material studies", "https://material.io/design/material-studies/about-our-material-studies")
+                // TODO: Extract the whole menu from this file.
+                menuCategory(context, localizator("md.materialSystem"))
+                menuItem(context, MEDIUM, localizator("md.introduction"), "https://material.io/design/introduction")
+                menuItem(context, MEDIUM, localizator("md.materialStudies"), "https://material.io/design/material-studies/about-our-material-studies")
+                menuDivider(context)
+                menuCategory(context, localizator("md.materialFoundation"))
+                menuItem(context, MEDIUM, localizator("md.foundationOverview"), "https://material.io/design/foundation-overview")
+                menuItem(context, SMALL, localizator("md.environment"), "https://material.io/design/environment/surfaces")
+                menuItem(context, SMALL, localizator("md.layout"), "https://material.io/design/layout/understanding-layout")
+                menuItem(context, SMALL, localizator("md.navigation"), "https://material.io/design/navigation/understanding-navigation")
+                menuItem(context, SMALL, localizator("md.color"), "https://material.io/design/color/the-color-system")
+                menuItem(context, SMALL, localizator("md.typography"), "https://material.io/design/typography/the-type-system")
+                menuItem(context, SMALL, localizator("md.sound"), "https://material.io/design/sound/about-sound")
+                menuItem(context, SMALL, localizator("md.iconography"), "https://material.io/design/iconography/product-icons")
+                menuItem(context, SMALL, localizator("md.shape"), "https://material.io/design/shape/about-shape")
+                menuItem(context, SMALL, localizator("md.motion"), "https://material.io/design/motion/understanding-motion")
+                menuItem(context, SMALL, localizator("md.interaction"), "https://material.io/design/interaction/gestures")
+                menuItem(context, SMALL, localizator("md.communication"), "https://material.io/design/communication/confirmation-acknowledgement")
+                menuItem(context, MEDIUM, localizator("md.machineLearning"), "https://material.io/design/machine-learning/understanding-ml-patterns")
+                menuDivider(context)
+                menuCategory(context, localizator("md.materialGuidelines"))
+                menuItem(context, MEDIUM, localizator("md.guidelinesOverview"), "https://material.io/design/guidelines-overview")
+                menuItem(context, SMALL, localizator("md.materialTheming"), "https://material.io/design/material-theming/overview")
+                menuItem(context, SMALL, localizator("md.usability"), "https://material.io/design/usability/accessibility")
+                menuItem(context, BIG, localizator("md.platformGuidance"), "https://material.io/design/platform-guidance/android-bars")
 
 
 

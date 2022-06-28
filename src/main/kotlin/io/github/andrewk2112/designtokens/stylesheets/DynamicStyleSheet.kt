@@ -1,5 +1,6 @@
 package io.github.andrewk2112.designtokens.stylesheets
 
+import io.github.andrewk2112.extensions.lowerCamelCase
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
 import styled.*
@@ -99,7 +100,7 @@ open class DynamicStyleSheet(
         is Number       -> toString().revampCssSuffix()
         is String       -> revampCssSuffix()
         is HasCssSuffix -> cssSuffix.revampCssSuffix()
-        is Enum<*>      -> name.revampCssSuffix()
+        is Enum<*>      -> name.revampCssSuffix().lowerCamelCase()
         is KProperty<*> -> name.revampCssSuffix()
         else            -> throw IllegalArgumentException("The provided type is not supported for dynamic CSS")
     }

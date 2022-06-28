@@ -11,10 +11,22 @@ import react.RBuilder
 import react.dom.*
 import react.dom.html.AnchorTarget
 
-fun RBuilder.menuItem(context: Context, itemName: String, itemDestination: String) {
+// Utility.
+
+enum class MenuBottomSpacing(val value: LinearDimension) {
+    SMALL(StyleValues.spacing.absolute2),
+    MEDIUM(StyleValues.spacing.absolute9),
+    BIG(StyleValues.spacing.absolute40)
+}
+
+
+
+// Public.
+
+fun RBuilder.menuItem(context: Context, bottomSpacing: MenuBottomSpacing, itemName: String, itemDestination: String) {
 
     // Just a background with a ripple touch effect and bottom spacing.
-    ripple(context, MenuItemStyles.wrapper.name) {
+    ripple(context, MenuItemStyles.wrapper(bottomSpacing).name) {
 
         // Item's link itself.
         a(classes = MenuItemStyles.link(context).name) {
@@ -32,10 +44,14 @@ fun RBuilder.menuItem(context: Context, itemName: String, itemDestination: Strin
 
 }
 
+
+
+// Private.
+
 private object MenuItemStyles : DynamicStyleSheet() {
 
-    val wrapper by css {
-        marginBottom = StyleValues.spacing.absolute9
+    val wrapper by dynamicCss<MenuBottomSpacing> {
+        marginBottom = it.value
     }
 
     val link by dynamicCss<Context> {

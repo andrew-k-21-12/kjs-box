@@ -67,7 +67,7 @@ private fun launchRippleAnimation(context: Context, target: Element, targetX: In
             width  = diameter.px
             height = diameter.px
             left   = (targetX - target.offsetLeft - radius).px
-            top    = (targetY - target.offsetTop  - radius).px
+            top    = (targetY - target.offsetTop  - radius + (target.parentElement?.scrollTop?.toInt() ?: 0)).px
         }
         classList.add(animationClassName)
         target.appendChild(this)

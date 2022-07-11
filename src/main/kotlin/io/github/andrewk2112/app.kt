@@ -1,7 +1,7 @@
 package io.github.andrewk2112
 
-import io.github.andrewk2112.ui.containers.exercises.exercisesList
-import io.github.andrewk2112.ui.containers.md.materialDesign
+import io.github.andrewk2112.ui.components.exercises.exercisesList
+import io.github.andrewk2112.ui.components.md.materialDesign
 import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.redux.reducers.ContextReducer

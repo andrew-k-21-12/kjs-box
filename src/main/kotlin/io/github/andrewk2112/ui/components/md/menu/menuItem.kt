@@ -3,17 +3,19 @@ package io.github.andrewk2112.ui.components.md.menu
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.ui.components.md.ripple
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
-import react.RBuilder
-import react.dom.*
+import react.ChildrenBuilder
 import react.dom.html.AnchorTarget
+import react.dom.html.ReactHTML.a
 
 // Utility.
 
-enum class MenuBottomSpacing(val value: LinearDimension) {
+enum class MenuItemBottomSpacing(val value: LinearDimension) {
     SMALL(StyleValues.spacing.absolute2),
     MEDIUM(StyleValues.spacing.absolute9),
     BIG(StyleValues.spacing.absolute40)
@@ -23,20 +25,23 @@ enum class MenuBottomSpacing(val value: LinearDimension) {
 
 // Public.
 
-fun RBuilder.menuItem(context: Context, bottomSpacing: MenuBottomSpacing, itemName: String, itemDestination: String) {
+fun ChildrenBuilder.menuItem(
+    context: Context,
+    bottomSpacing: MenuItemBottomSpacing,
+    name: String,
+    destinationEndpoint: String
+) {
 
     // Just a background with a ripple touch effect and bottom spacing.
-    ripple(context, MenuItemStyles.wrapper(bottomSpacing).name) {
+    withClassName(ripple, MenuItemStyles.wrapper(bottomSpacing).name) {
 
         // Item's link itself.
-        a(classes = MenuItemStyles.link(context).name) {
+        withClassName(a, MenuItemStyles.link(context).name) {
 
-            attrs {
-                target = AnchorTarget._blank.toString()
-                href   = itemDestination
-            }
+            target = AnchorTarget._blank
+            href   = destinationEndpoint
 
-            +itemName
+            +name
 
         }
 
@@ -50,11 +55,11 @@ fun RBuilder.menuItem(context: Context, bottomSpacing: MenuBottomSpacing, itemNa
 
 private object MenuItemStyles : DynamicStyleSheet() {
 
-    val wrapper by dynamicCss<MenuBottomSpacing> {
+    val wrapper: DynamicCssProvider<MenuItemBottomSpacing> by dynamicCss {
         marginBottom = it.value
     }
 
-    val link by dynamicCss<Context> {
+    val link: DynamicCssProvider<Context> by dynamicCss {
         display = Display.inlineBlock
         width   = 100.pct
         paddingLeft   = StyleValues.spacing.absolute24

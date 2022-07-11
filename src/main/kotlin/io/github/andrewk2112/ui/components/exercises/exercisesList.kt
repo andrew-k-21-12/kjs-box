@@ -1,29 +1,27 @@
-package io.github.andrewk2112.ui.containers.exercises
+package io.github.andrewk2112.ui.components.exercises
 
-import io.github.andrewk2112.ui.components.exercises.exerciseLink
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
+import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import kotlinx.css.*
-import react.Props
-import react.RBuilder
-import react.dom.div
+import react.*
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
-import react.dom.li
-import react.fc
 
 // Public.
 
-val exercisesList = fc<Props> {
+val exercisesList = FC<Props> {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
 
-    div(ExercisesListStyles.root.name) {
+    withClassName(div, ExercisesListStyles.root.name) {
 
         ul {
             exerciseLiWithLink(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
@@ -36,7 +34,17 @@ val exercisesList = fc<Props> {
 
 
 
-// Private.
+// Private - reusable views.
+
+private inline fun ChildrenBuilder.exerciseLiWithContents(crossinline block: ChildrenBuilder.() -> Unit) =
+    withClassName(li, ExercisesListStyles.listItem.name, block = block)
+
+private fun ChildrenBuilder.exerciseLiWithLink(context: Context, label: String, destinationEndpoint: String) =
+    exerciseLiWithContents { exerciseLink(context, label, destinationEndpoint) }
+
+
+
+// Private - styles.
 
 private object ExercisesListStyles : DynamicStyleSheet() {
 
@@ -56,9 +64,3 @@ private object ExercisesListStyles : DynamicStyleSheet() {
     }
 
 }
-
-private fun RBuilder.exerciseLiWithContents(contents: RBuilder.() -> Unit) =
-    li(ExercisesListStyles.listItem.name) { contents() }
-
-private fun RBuilder.exerciseLiWithLink(context: Context, label: String, destination: String) =
-    exerciseLiWithContents { exerciseLink(context, label, destination) }

@@ -1,58 +1,54 @@
-package io.github.andrewk2112.ui.components.md
+package io.github.andrewk2112.ui.components.md.header
 
-import csstype.ClassName
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
-import io.github.andrewk2112.ui.arrowRightThin
+import io.github.andrewk2112.extensions.withClassName
+import io.github.andrewk2112.resources.iconArrowRightThin
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
-import react.RBuilder
-import react.dom.a
-import react.dom.attrs
-import react.dom.div
+import react.ChildrenBuilder
 import react.dom.html.AnchorTarget
-import react.dom.p
+import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.p
 
 // Public.
 
-fun RBuilder.notificationHeader(
+fun ChildrenBuilder.headerNotification(
     context: Context,
     title: String,
     description: String,
     actionLabel: String,
-    actionDestination: String
+    actionDestinationEndpoint: String
 ) {
 
-    div(NotificationHeaderStyles.container(context).name) {
+    withClassName(div, HeaderNotificationStyles.container(context).name) {
 
         // Title and description rows.
-        div(NotificationHeaderStyles.titleAndDescriptionRows.name) {
+        withClassName(div, HeaderNotificationStyles.titleAndDescriptionRows.name) {
 
             // Title.
-            p(NotificationHeaderStyles.title(context).name) { +title }
+            withClassName(p, HeaderNotificationStyles.title(context).name) { +title }
 
             // Description.
-            p(NotificationHeaderStyles.description(context).name) { +description }
+            withClassName(p, HeaderNotificationStyles.description(context).name) { +description }
 
         }
 
         // Action button.
-        a(classes = NotificationHeaderStyles.actionButton(context).name) {
+        withClassName(a, HeaderNotificationStyles.actionButton(context).name) {
 
-            attrs {
-                target = AnchorTarget._blank.toString()
-                href   = actionDestination
-            }
+            target = AnchorTarget._blank
+            href   = actionDestinationEndpoint
 
             +actionLabel
 
-            arrowRightThin.component {
-                attrs.className = ClassName(NotificationHeaderStyles.actionButtonArrow.name)
-            }
+            // Arrow icon.
+            withClassName(iconArrowRightThin.component, HeaderNotificationStyles.actionButtonArrow.name) {}
 
         }
 
@@ -64,7 +60,7 @@ fun RBuilder.notificationHeader(
 
 // Private.
 
-private object NotificationHeaderStyles : DynamicStyleSheet() {
+private object HeaderNotificationStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         display         = Display.flex
@@ -110,7 +106,7 @@ private object NotificationHeaderStyles : DynamicStyleSheet() {
         color = Theme.palette.onAction2(it)
     }
 
-    val actionButtonArrow by css {
+    val actionButtonArrow: NamedRuleSet by css {
         marginLeft = StyleValues.spacing.absolute12
     }
 

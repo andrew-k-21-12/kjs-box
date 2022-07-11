@@ -1,12 +1,12 @@
 package io.github.andrewk2112.ui.components.exercises
 
-import csstype.ClassName
 import history.To
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.extensions.setClassName
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.*
@@ -14,15 +14,13 @@ import react.router.dom.Link
 
 // Public.
 
-fun RBuilder.exerciseLink(context: Context, text: String, to: To) {
+fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
 
     // There is also a possibility to use CSS in a styled way, see previous commits.
     Link {
 
-        attrs {
-            className = ClassName(ExerciseLinkStyles.exerciseLink(context).name)
-            this.to   = to
-        }
+        setClassName(ExerciseLinkStyles.exerciseLink(context).name)
+        this.to = to
 
         +text
 

@@ -1,5 +1,6 @@
 package io.github.andrewk2112.localization
 
+import io.github.andrewk2112.Environment
 import io.github.andrewk2112.jsmodules.i18next.i18next
 import io.github.andrewk2112.jsmodules.i18next.i18nextBrowserLanguageDetector
 import io.github.andrewk2112.jsmodules.i18next.i18nextHttpBackend
@@ -44,6 +45,7 @@ class LocalizationEngine {
     private fun createI18NextOptions(): dynamic {
         val fallbackLanguageCode = Language.ENGLISH.code // it's not possible to inject a string from Kotlin otherwise
         return js {
+            debug = Environment.buildMode == Environment.BuildMode.DEVELOPMENT
             fallbackLng = fallbackLanguageCode // a language to be used by default
             load = "languageOnly"              // ignoring countries while determining a language
             interpolation = js {

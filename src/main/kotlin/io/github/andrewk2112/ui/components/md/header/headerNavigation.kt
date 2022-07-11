@@ -1,66 +1,69 @@
-package io.github.andrewk2112.ui.containers.md
+package io.github.andrewk2112.ui.components.md.header
 
-import csstype.ClassName
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.AspectRatio
 import io.github.andrewk2112.extensions.aspectRatio
+import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useStateGetterOnce
-import io.github.andrewk2112.ui.iconMagnify
-import io.github.andrewk2112.ui.materialDesignLogo
+import io.github.andrewk2112.resources.iconMagnify
+import io.github.andrewk2112.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.ui.styles.IconStyles
 import io.github.andrewk2112.ui.styles.TransitionStyles
 import kotlinx.css.*
-import react.Props
-import react.RBuilder
-import react.dom.*
-import react.fc
+import react.*
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.header
+import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.span
+import react.dom.html.ReactHTML.ul
 
 // Public.
 
-val navigationHeader = fc<Props> {
+val headerNavigation = FC<Props> {
 
+    // Preparing the state.
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data        = useStateGetterOnce { NavigationHeaderData() }
+    val data        = useStateGetterOnce { HeaderNavigationData() }
 
-    header(NavigationHeaderStyles.container(context).name) {
+    withClassName(header, HeaderNavigationStyles.container(context).name) {
 
         // Logo block.
-        div(NavigationHeaderStyles.materialLogoBlock.name) {
+        withClassName(div, HeaderNavigationStyles.materialLogoBlock.name) {
 
             // Icon.
-            materialDesignLogo.component {
-                attrs.className = ClassName(NavigationHeaderStyles.materialDesignIcon.name)
-            }
+            withClassName(iconMaterialDesignLogo.component, HeaderNavigationStyles.materialDesignIcon.name) {}
 
             // Label.
-            span(NavigationHeaderStyles.materialDesignLabel(context).name) {
+            withClassName(span, HeaderNavigationStyles.materialDesignLabel(context).name) {
                 +localizator("md.materialDesign").uppercase()
             }
 
         }
 
         // Navigation block.
-        div(NavigationHeaderStyles.navigationBlock.name) {
+        withClassName(div, HeaderNavigationStyles.navigationBlock.name) {
 
             // Navigation buttons block.
-            ul(NavigationHeaderStyles.navigationButtonsWrapper(context).name) {
+            withClassName(ul, HeaderNavigationStyles.navigationButtonsWrapper(context).name) {
+
                 for (navigationButtonData in data.navigationButtons) {
                     val (localizationKey, isSelected) = navigationButtonData
                     navigationButton(context, localizator(localizationKey), isSelected)
                 }
+
             }
 
             // Search button.
-            div(NavigationHeaderStyles.searchIconWrapper.name) {
-                iconMagnify.component {
-                    attrs.className = ClassName(NavigationHeaderStyles.searchIcon(context).name)
-                }
+            withClassName(div, HeaderNavigationStyles.searchIconWrapper.name) {
+                withClassName(iconMagnify.component, HeaderNavigationStyles.searchIcon(context).name) {}
             }
 
         }
@@ -71,39 +74,59 @@ val navigationHeader = fc<Props> {
 
 
 
-// Private.
+// Private - reusable views.
 
-private object NavigationHeaderStyles : DynamicStyleSheet() {
+private fun ChildrenBuilder.navigationButton(context: Context, label: String, isSelected: Boolean) {
 
-    val container by dynamicCss<Context> {
+    withClassName(li, HeaderNavigationStyles.navigationButton(context).name) {
+
+        // Label.
+        withClassName(span, HeaderNavigationStyles.navigationButtonLabel.name) { +label }
+
+        // Selection indicator.
+        if (isSelected) {
+            withClassName(div, HeaderNavigationStyles.navigationButtonSelectionIndicator(context).name) {}
+        }
+
+    }
+
+}
+
+
+
+// Private - styles.
+
+private object HeaderNavigationStyles : DynamicStyleSheet() {
+
+    val container: DynamicCssProvider<Context> by dynamicCss {
         display         = Display.flex
         justifyContent  = JustifyContent.spaceBetween
         height          = StyleValues.sizes.absolute72
         backgroundColor = Theme.palette.surface1(it)
     }
 
-    val materialLogoBlock by css {
+    val materialLogoBlock: NamedRuleSet by css {
         display    = Display.flex
         alignItems = Align.center
     }
 
-    val materialDesignIcon by css {
+    val materialDesignIcon: NamedRuleSet by css {
         +IconStyles.smallSizedIcon.rules
         marginLeft = StyleValues.spacing.absolute24
     }
 
-    val materialDesignLabel by dynamicCss<Context> {
+    val materialDesignLabel: DynamicCssProvider<Context> by dynamicCss {
         marginLeft = StyleValues.spacing.absolute16
         fontSize   = StyleValues.fontSizes.relativep95
         color      = Theme.palette.onSurface1(it)
     }
 
-    val navigationBlock by css {
+    val navigationBlock: NamedRuleSet by css {
         display = Display.flex
         height  = 100.pct
     }
 
-    val navigationButtonsWrapper by dynamicCss<Context> {
+    val navigationButtonsWrapper: DynamicCssProvider<Context> by dynamicCss {
         display = Display.flex
         hover {
             descendants(".${navigationButton(it).name}:not(:hover)") {
@@ -112,7 +135,7 @@ private object NavigationHeaderStyles : DynamicStyleSheet() {
         }
     }
 
-    val navigationButton by dynamicCss<Context> {
+    val navigationButton: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.defaultTransition(::color).rules
         display = Display.grid
         height  = 100.pct
@@ -128,12 +151,12 @@ private object NavigationHeaderStyles : DynamicStyleSheet() {
         }
     }
 
-    val navigationButtonLabel by css {
+    val navigationButtonLabel: NamedRuleSet by css {
         gridRow   = GridRow("2")
         alignSelf = Align.center
     }
 
-    val navigationButtonSelectionIndicator by dynamicCss<Context> {
+    val navigationButtonSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.defaultTransition(::backgroundColor).rules
         gridRow   = GridRow("3")
         alignSelf = Align.end
@@ -142,23 +165,27 @@ private object NavigationHeaderStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.onSurface1(it)
     }
 
-    val searchIconWrapper by css {
+    val searchIconWrapper: NamedRuleSet by css {
         display     = Display.flex
         height      = 100.pct
         aspectRatio = AspectRatio(1)
         marginLeft  = StyleValues.spacing.absolute24
     }
 
-    val searchIcon by dynamicCss<Context> {
+    val searchIcon: DynamicCssProvider<Context> by dynamicCss {
         margin(LinearDimension.auto)
         color = Theme.palette.onSurface1(it)
     }
 
 }
 
-private class NavigationHeaderData {
 
-    val navigationButtons: List<Pair<String, Boolean>> = listOf(
+
+// Private - menu items structure.
+
+private class HeaderNavigationData {
+
+    val navigationButtons: Array<Pair<String, Boolean>> = arrayOf(
         Pair("md.design",     true),
         Pair("md.components", false),
         Pair("md.develop",    false),
@@ -166,13 +193,4 @@ private class NavigationHeaderData {
         Pair("md.blog",       false),
     )
 
-}
-
-private fun RBuilder.navigationButton(context: Context, label: String, isSelected: Boolean) {
-    li(NavigationHeaderStyles.navigationButton(context).name) {
-        span(NavigationHeaderStyles.navigationButtonLabel.name) { +label }
-        if (isSelected) {
-            div(NavigationHeaderStyles.navigationButtonSelectionIndicator(context).name) {}
-        }
-    }
 }

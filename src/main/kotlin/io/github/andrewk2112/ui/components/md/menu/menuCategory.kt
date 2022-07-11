@@ -3,17 +3,19 @@ package io.github.andrewk2112.ui.components.md.menu
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.extensions.withClassName
 import kotlinx.css.*
-import react.RBuilder
-import react.dom.p
+import react.ChildrenBuilder
+import react.dom.html.ReactHTML.p
 
-fun RBuilder.menuCategory(context: Context, categoryName: String) =
-    p(MenuCategoryStyles.menuCategory(context).name) { +categoryName }
+fun ChildrenBuilder.menuCategory(context: Context, categoryName: String) =
+    withClassName(p, MenuCategoryStyles.menuCategory(context).name) { +categoryName }
 
 private object MenuCategoryStyles : DynamicStyleSheet() {
 
-    val menuCategory by dynamicCss<Context> {
+    val menuCategory: DynamicCssProvider<Context> by dynamicCss {
         marginTop    = StyleValues.spacing.absolute43
         marginLeft   = StyleValues.spacing.absolute24
         marginBottom = StyleValues.spacing.absolute15

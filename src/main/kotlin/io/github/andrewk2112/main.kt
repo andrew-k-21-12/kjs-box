@@ -9,7 +9,7 @@ import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*
 import react.dom.client.createRoot
-import react.redux.provider
+import react.redux.Provider
 import react.router.dom.BrowserRouter
 import styled.injectGlobal
 
@@ -39,11 +39,12 @@ private fun createClearfixCss() = CssBuilder(allowClasses = false).apply {
 /**
  * Creates a fully configured root [ReactElement] for the app.
  * */
-private fun createRootElement(): ReactElement<Props> = fc<Props> {
-    provider(di.direct.instance<StoreFactory>().create()) { // setting the global app state and its processing reducers,
+private fun createRootElement(): ReactElement<Props> = FC<Props> {
+    Provider {
+        store = di.direct.instance<StoreFactory>().create() // setting the global app state and its processing reducers,
         BrowserRouter {                                     // enabling routing features,
             Suspense {                                      // configuring the app with its loading placeholder
-                attrs.fallback = appLoadingPlaceholder.create()
+                fallback = appLoadingPlaceholder.create()
                 app()
             }
         }

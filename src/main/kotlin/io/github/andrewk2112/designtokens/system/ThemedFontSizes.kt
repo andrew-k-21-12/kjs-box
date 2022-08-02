@@ -17,5 +17,6 @@ class ThemedFontSizes {
                 Context.ScreenSize.TABLET, Context.ScreenSize.DESKTOP -> StyleValues.fontSizes.relative1p5
             }
         }
+    val adaptive4: ThemedFontSize get() = { StyleValues.fontSizes.relative3p65 }
 
 }

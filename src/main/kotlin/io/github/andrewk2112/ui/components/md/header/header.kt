@@ -20,7 +20,7 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-class HeaderProps private constructor(var isVisible: Boolean, var onHeightChanged: (Int) -> Unit) : Props
+class HeaderProps private constructor(var isVisible: Boolean, var onHeightChanged: (Double) -> Unit) : Props
 
 val header = FC<HeaderProps> { props ->
 
@@ -46,7 +46,7 @@ val header = FC<HeaderProps> { props ->
             localizator("md.theLatestVersionOfMaterialDesignIsNowAvailableForAndroid"),
             localizator("md.learnAboutMaterial3sNewFeatures"),
             localizator("md.startExploringMaterial3"),
-            materialDesignEndpoint.value
+            materialDesignEndpoint.designEndpoint
         )
 
         headerNavigation {}

@@ -1,5 +1,12 @@
+import io.github.andrewk2112.Configs
+import io.github.andrewk2112.tasks.GenerateNodeJsBinaryTask
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsSetupTask
+
 plugins {
-    kotlin("js") version(Configs.KOTLIN_VERSION)
+    @Suppress("RemoveRedundantQualifierName")
+    kotlin("js") version(io.github.andrewk2112.Configs.KOTLIN_VERSION)
 }
 
 group   = "io.github.andrew-k-21-12"
@@ -27,12 +34,16 @@ dependencies {
     implementation(npm("i18next-http-backend", "1.4.1")) // to download translations on demand
 
     // Bundling.
+    implementation(devNpm("@svgr/webpack", "6.2.1"))
     implementation(devNpm("html-webpack-plugin", "5.5.0"))
     implementation(devNpm("uglifyjs-webpack-plugin", "2.2.0"))
     implementation(devNpm("terser-webpack-plugin", "5.3.3"))
+    implementation(devNpm("image-minimizer-webpack-plugin", "3.2.3"))
+    implementation(devNpm("imagemin", "8.0.1"))         // the minification engine to be used for the plugin above
+    implementation(devNpm("imagemin-webp", "7.0.0"))    // WEBP generation
+    implementation(devNpm("imagemin-optipng", "8.0.0")) // lossless PNG optimization
     implementation(devNpm("copy-webpack-plugin", "9.1.0" )) // newer versions don't work correctly with npm and Yarn
     implementation(devNpm("node-json-minify", "3.0.0"))
-    implementation(devNpm("@svgr/webpack", "6.2.1"))
 
     // Test environment.
     testImplementation(kotlin("test"))
@@ -46,9 +57,40 @@ kotlin {
     }
 }
 
+tasks {
+
+    val kotlinNodeJsSetup = named("kotlinNodeJsSetup", NodeJsSetupTask::class)
+
+    // Looks for a Node.js binary - maybe there are simpler ways to execute Node.js commands.
+    val findNodeJsBinary by registering {
+        dependsOn(kotlinNodeJsSetup)
+        outputs.file(
+            File(
+                kotlinNodeJsSetup.get().destination,
+                "bin/node"
+            )
+        )
+    }
+
+    // Makes Node.js generate the required binaries manually, otherwise the image minification won't succeed.
+    val generateNodeJsCwebpBinary by registering(GenerateNodeJsBinaryTask::class) {
+        libName = "cwebp"
+        nodeJsBinary.set(findNodeJsBinary.get().outputs.files.singleFile)
+    }
+    val generateNodeJsOptipngBinary by registering(GenerateNodeJsBinaryTask::class) {
+        libName = "optipng"
+        nodeJsBinary.set(findNodeJsBinary.get().outputs.files.singleFile)
+    }
+
+    // Production builds require the image minification binaries.
+    arrayOf(named("browserProductionRun"), named("browserProductionWebpack"))
+        .forEach { it.get().dependsOn(generateNodeJsCwebpBinary, generateNodeJsOptipngBinary) }
+
+}
+
 // An Apple Silicon compilation fix.
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
-    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().apply {
+rootProject.plugins.withType<NodeJsRootPlugin> {
+    rootProject.the<NodeJsRootExtension>().apply {
         nodeVersion                 = "16.0.0"
         versions.webpackCli.version = "4.10.0"
     }

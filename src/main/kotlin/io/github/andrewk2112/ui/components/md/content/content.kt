@@ -1,11 +1,9 @@
 package io.github.andrewk2112.ui.components.md.content
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useRefScrollMonitor
@@ -13,8 +11,7 @@ import kotlinx.css.*
 import org.w3c.dom.Element
 import react.FC
 import react.Props
-import react.dom.html.ReactHTML
-import react.dom.html.ReactHTML.span
+import react.dom.html.ReactHTML.div
 import react.useRef
 
 // TODO:
@@ -23,26 +20,32 @@ import react.useRef
 //  1. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner.
 
 // TODO:
-//  2. Dependencies on inner variables are not good (in components).
+//  2. Use `var currentVideo: Video? by useState(null)` instead of `useStateGetterOnce`?
+//     For props use the following declaration instead: `external interface VideoListProps : Props`.
+//     Check kotlin-react-css library for CSS.
+//  3. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
-//  3. Simplify WindowWidthMonitor, icons.kt.
-//  4. Include fonts via webpack instead.
-//  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
+//  4. Simplify WindowWidthMonitor, icons.kt.
+//  5. Include fonts via webpack instead.
+//  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
+//  7. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
 
 // TODO:
-//  7. Hashes in names for all resources (fonts, locales, images) are not needed,
+//  8. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes.
-//  8. Fix webpack warnings and do a clean-up for its scripts.
-//  9. Write some custom server with all required configs (caches, routing) and place it here.
-//  10. Extract a module with a framework itself.
+//  9. Fix webpack warnings and do a clean-up for its scripts.
+//  10. Write some custom server with all required configs (caches, routing) and place it here.
+//  11. Extract a module with a framework itself.
 
 
 
 // Public.
 
-class ContentProps private constructor(var onScrolled: (scrollTop: Double, deltaY: Double) -> Unit) : Props
+class ContentProps private constructor(
+    var topSpacing: Double,
+    var onScrolled: (scrollTop: Double, deltaY: Double) -> Unit
+) : Props
 
 val content = FC<ContentProps> { props ->
 
@@ -57,25 +60,15 @@ val content = FC<ContentProps> { props ->
 
     // Rendering.
 
-    withClassName(ReactHTML.div, ContentStyles.container(context).name) {
+    withClassName(div, ContentStyles.container(context).name) {
 
         ref = contentRef
 
+        // Top spacing to fit the header.
+        withClassName(div, ContentStyles.headerSpacer(props.topSpacing).name) {}
 
-
-        // FIXME: To be replaced with actual contents.
-
-        withClassName(span, ContentStyles.tempText.name) {
-            +"""
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            """.trimIndent()
-        }
-
-
+        // Design descriptions block.
+        contentDesign {}
 
     }
 
@@ -88,17 +81,13 @@ val content = FC<ContentProps> { props ->
 private object ContentStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        position = Position.absolute
-        left     = StyleValues.sizes.absolute280
-        top      = 0.px
-        bottom   = 0.px
-        right    = 0.px
+        flexGrow = 1.0
         overflow = Overflow.scroll
         backgroundColor = Theme.palette.surface2(it)
     }
 
-    val tempText: NamedRuleSet by css {
-        fontSize = 5.rem
+    val headerSpacer: DynamicCssProvider<Double> by dynamicCss {
+        height = it.px
     }
 
 }

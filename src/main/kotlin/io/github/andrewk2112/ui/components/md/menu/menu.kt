@@ -12,10 +12,10 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.endpoints.MaterialDesignTopicsEndpoints
 import io.github.andrewk2112.resources.iconMaterialDesignLogo
-import io.github.andrewk2112.ui.styles.IconStyles
-import io.github.andrewk2112.ui.styles.StrokeConfigs
-import io.github.andrewk2112.ui.styles.StrokePosition
-import io.github.andrewk2112.ui.styles.StrokeStyles
+import io.github.andrewk2112.ui.styles.*
+import io.github.andrewk2112.ui.styles.StrokeColor.DEFAULT
+import io.github.andrewk2112.ui.styles.StrokePosition.BOTTOM
+import io.github.andrewk2112.ui.styles.StrokePosition.RIGHT
 import kotlinx.css.*
 import react.FC
 import react.Props
@@ -24,7 +24,7 @@ import react.dom.html.ReactHTML.span
 
 // Public.
 
-class MenuProps private constructor(var headerHeight: Int) : Props
+class MenuProps private constructor(var headerHeight: Double) : Props
 
 val menu = FC<MenuProps> { props ->
 
@@ -78,26 +78,23 @@ val menu = FC<MenuProps> { props ->
 private object MenuStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.defaultStroke(StrokeConfigs(it, StrokePosition.RIGHT)).rules
+        +StrokeStyles.borderStroke(StrokeConfigs(it, DEFAULT, RIGHT)).rules
+        flexShrink    = 0.0
         display       = Display.flex
         flexDirection = FlexDirection.column
-        position = Position.absolute
-        top      = 0.px
-        bottom   = 0.px
-        width    = StyleValues.sizes.absolute280
+        width = StyleValues.sizes.absolute280
         backgroundColor = Theme.palette.surface2(it)
     }
 
     val headerAppearance: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.defaultStroke(StrokeConfigs(it, StrokePosition.BOTTOM)).rules
+        +StrokeStyles.borderStroke(StrokeConfigs(it, DEFAULT, BOTTOM)).rules
         flexShrink    = 0.0
         display       = Display.flex
         alignItems    = Align.center
         flexDirection = FlexDirection.row
-        backgroundColor = Theme.palette.surface2(it)
     }
 
-    val headerSize: DynamicCssProvider<Int> by dynamicCss { height = it.px }
+    val headerSize: DynamicCssProvider<Double> by dynamicCss { height = it.px }
 
     val headerIcon: NamedRuleSet by css {
         +IconStyles.smallSizedIcon.rules

@@ -18,7 +18,7 @@ val materialDesign = FC<Props> {
     // State.
 
     val (isHeaderVisible, setHeaderVisible) = useState(true)
-    val (headerHeight,    setHeaderHeight)  = useState(0)
+    val (headerHeight,    setHeaderHeight)  = useState(0.0)
 
     val onContentScrolled = { scrollTop: Double, deltaY: Double ->
         val shouldHeaderBeVisible = scrollTop <= headerHeight || deltaY < 0
@@ -31,19 +31,28 @@ val materialDesign = FC<Props> {
 
     // Rendering.
 
+    // Default styles and context.
     withClassName(div, MaterialDesignStyles.root.name) {
 
-        // Sliding header block.
+        // Sliding header.
         header {
             isVisible       = isHeaderVisible
             onHeightChanged = { setHeaderHeight(it) }
         }
 
-        // Menu block.
-        menu { this.headerHeight = headerHeight }
+        // A wrapper for all relative blocks aligned with each other.
+        withClassName(div, MaterialDesignStyles.alignedBlocks.name) {
 
-        // Content block.
-        content { onScrolled = onContentScrolled }
+            // Menu block.
+            menu { this.headerHeight = headerHeight }
+
+            // Content block.
+            content {
+                topSpacing = headerHeight
+                onScrolled = onContentScrolled
+            }
+
+        }
 
     }
 
@@ -58,6 +67,13 @@ private object MaterialDesignStyles : DynamicStyleSheet() {
     val root: NamedRuleSet by css {
         +StyleValues.fontFaces.roboto.rules
         fontSize = 100.pct
+    }
+
+    val alignedBlocks: NamedRuleSet by css {
+        display       = Display.flex      // to align child elements relatively
+        flexDirection = FlexDirection.row // in a row
+        position = Position.absolute // to occupy the entire available window space
+        inset(0.px)
     }
 
 }

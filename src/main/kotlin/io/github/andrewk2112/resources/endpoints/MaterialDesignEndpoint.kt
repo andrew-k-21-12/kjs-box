@@ -15,7 +15,10 @@ package io.github.andrewk2112.resources.endpoints
  * */
 class MaterialDesignEndpoint {
 
+    /** Points to the root Material page. */
+    val rootEndpoint = "https://material.io"
+
     /** The endpoint value pointing to the Material Design page. */
-    val value = "https://material.io/design"
+    val designEndpoint = "$rootEndpoint/design"
 
 }

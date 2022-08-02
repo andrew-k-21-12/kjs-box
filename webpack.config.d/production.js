@@ -3,11 +3,12 @@
 // To check the outputs of this config, see ../build/distributions
 if (config.mode == "production") {
 
-    const HtmlWebpackPlugin     = require("html-webpack-plugin"),
-          UglifyJsWebpackPlugin = require("uglifyjs-webpack-plugin"),
-          TerserWebpackPlugin   = require("terser-webpack-plugin"),
-          CopyWebpackPlugin     = require("copy-webpack-plugin"),
-          NodeJsonMinify        = require("node-json-minify");
+    const HtmlWebpackPlugin           = require("html-webpack-plugin"),
+          UglifyJsWebpackPlugin       = require("uglifyjs-webpack-plugin"),
+          TerserWebpackPlugin         = require("terser-webpack-plugin"),
+          ImageMinimizerWebpackPlugin = require("image-minimizer-webpack-plugin"),
+          CopyWebpackPlugin           = require("copy-webpack-plugin"),
+          NodeJsonMinify              = require("node-json-minify");
 
     // Where to output and how to name JS sources.
     // Using hashes for bundles' caching.
@@ -52,6 +53,29 @@ if (config.mode == "production") {
         },
         extractComments: false
     }));
+
+    // Generation and minification for images.
+    minimizer.push(new ImageMinimizerWebpackPlugin({
+        generator: [
+            {
+                preset: "webp",
+                implementation: ImageMinimizerWebpackPlugin.imageminGenerate,
+                options: {
+                    plugins: [
+                        ["webp", { quality: 100 }]
+                    ],
+                },
+            },
+        ],
+        minimizer: {
+            implementation: ImageMinimizerWebpackPlugin.imageminMinify,
+            options: {
+                plugins: [
+                    ["optipng", { optimizationLevel: 7 }], // lossless PNG optimization
+                ],
+            },
+        },
+    }))
 
     // Minifying and copying JSON locales, copying fonts into the bundle.
     config.plugins.push(new CopyWebpackPlugin({

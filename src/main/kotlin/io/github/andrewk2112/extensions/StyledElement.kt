@@ -3,10 +3,17 @@ package io.github.andrewk2112.extensions
 import kotlinx.css.StyledElement
 import kotlin.reflect.KProperty
 
-/**
- * A wrapper for the CSS [aspect-ratio](https://developer.mozilla.org/docs/Web/CSS/aspect-ratio) property.
- * */
+// Public.
+
+/** A wrapper for the CSS [aspect-ratio](https://developer.mozilla.org/docs/Web/CSS/aspect-ratio) property. */
 var StyledElement.aspectRatio: AspectRatio by CssProperty()
+
+/** A wrapper for the CSS [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) property. */
+var StyledElement.outlineStyle: OutlineStyle by CssProperty()
+
+
+
+// Private.
 
 /**
  * Just a copy-paste from the original [kotlinx.css] package to make declarations of additional properties possible.

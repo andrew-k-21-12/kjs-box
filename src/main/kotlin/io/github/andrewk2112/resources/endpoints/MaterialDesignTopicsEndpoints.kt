@@ -24,28 +24,31 @@ class MaterialDesignTopicsEndpoints {
     val materialThemingOverview: String
     val accessibility: String
     val platformGuidanceAndroidBars: String
+    val textFields: String
 
     init {
-        val rootWithTrailingSlash = "${MaterialDesignEndpoint().value}/"
-        introduction                = "${rootWithTrailingSlash}introduction"
-        aboutOurMaterialStudies     = "${rootWithTrailingSlash}material-studies/about-our-material-studies"
-        foundationOverview          = "${rootWithTrailingSlash}foundation-overview"
-        environmentSurfaces         = "${rootWithTrailingSlash}environment/surfaces"
-        understandingLayout         = "${rootWithTrailingSlash}layout/understanding-layout"
-        understandingNavigation     = "${rootWithTrailingSlash}navigation/understanding-navigation"
-        colorSystem                 = "${rootWithTrailingSlash}color/the-color-system"
-        typographySystem            = "${rootWithTrailingSlash}typography/the-type-system"
-        aboutSound                  = "${rootWithTrailingSlash}sound/about-sound"
-        productIconography          = "${rootWithTrailingSlash}iconography/product-icons"
-        aboutShape                  = "${rootWithTrailingSlash}shape/about-shape"
-        understandingMotion         = "${rootWithTrailingSlash}motion/understanding-motion"
-        interactionGestures         = "${rootWithTrailingSlash}interaction/gestures"
-        confirmationAcknowledgement = "${rootWithTrailingSlash}communication/confirmation-acknowledgement"
-        understandingMLPatterns     = "${rootWithTrailingSlash}machine-learning/understanding-ml-patterns"
-        guidelinesOverview          = "${rootWithTrailingSlash}guidelines-overview"
-        materialThemingOverview     = "${rootWithTrailingSlash}material-theming/overview"
-        accessibility               = "${rootWithTrailingSlash}usability/accessibility"
-        platformGuidanceAndroidBars = "${rootWithTrailingSlash}platform-guidance/android-bars"
+        val endpoint = MaterialDesignEndpoint()
+        val designWithTrailingSlash = "${endpoint.designEndpoint}/"
+        introduction                = "${designWithTrailingSlash}introduction"
+        aboutOurMaterialStudies     = "${designWithTrailingSlash}material-studies/about-our-material-studies"
+        foundationOverview          = "${designWithTrailingSlash}foundation-overview"
+        environmentSurfaces         = "${designWithTrailingSlash}environment/surfaces"
+        understandingLayout         = "${designWithTrailingSlash}layout/understanding-layout"
+        understandingNavigation     = "${designWithTrailingSlash}navigation/understanding-navigation"
+        colorSystem                 = "${designWithTrailingSlash}color/the-color-system"
+        typographySystem            = "${designWithTrailingSlash}typography/the-type-system"
+        aboutSound                  = "${designWithTrailingSlash}sound/about-sound"
+        productIconography          = "${designWithTrailingSlash}iconography/product-icons"
+        aboutShape                  = "${designWithTrailingSlash}shape/about-shape"
+        understandingMotion         = "${designWithTrailingSlash}motion/understanding-motion"
+        interactionGestures         = "${designWithTrailingSlash}interaction/gestures"
+        confirmationAcknowledgement = "${designWithTrailingSlash}communication/confirmation-acknowledgement"
+        understandingMLPatterns     = "${designWithTrailingSlash}machine-learning/understanding-ml-patterns"
+        guidelinesOverview          = "${designWithTrailingSlash}guidelines-overview"
+        materialThemingOverview     = "${designWithTrailingSlash}material-theming/overview"
+        accessibility               = "${designWithTrailingSlash}usability/accessibility"
+        platformGuidanceAndroidBars = "${designWithTrailingSlash}platform-guidance/android-bars"
+        textFields                  = "${endpoint.rootEndpoint}/components/text-fields"
     }
 
 }

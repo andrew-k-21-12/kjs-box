@@ -10,6 +10,7 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.endpoints.MaterialDesignTopicsEndpoints
+import io.github.andrewk2112.resources.images.MdMaterialDarkThemeImage
 import io.github.andrewk2112.ui.styles.StrokeColor.INTENSE
 import io.github.andrewk2112.ui.styles.StrokeConfigs
 import io.github.andrewk2112.ui.styles.StrokeStyles
@@ -78,13 +79,14 @@ val contentDesign = FC<Props> {
             withClassName(div, ContentDesignStyles.kek(context).name) {
 
                 picture {
+                    val image = MdMaterialDarkThemeImage()
                     source {
                         type = "image/webp"
-                        srcSet = MyImage.webp
+                        srcSet = image.webp
                     }
                     img {
-                        src = MyImage.png
-                        alt = "Popa9"
+                        src = image.png
+                        alt = "Test"
                     }
                 }
 
@@ -105,31 +107,6 @@ val contentDesign = FC<Props> {
     }
 
 }
-
-
-
-// FIXME
-
-interface ImageData {
-    val webp: dynamic
-    val png: dynamic
-}
-
-object MyImage : ImageData {
-
-    override val webp: dynamic = logoWebp
-
-    override val png: dynamic = logoPng
-
-}
-
-@JsModule("./images/md/material-dark-theme.png?as=webp")
-@JsNonModule
-private external val logoWebp: dynamic
-
-@JsModule("./images/md/material-dark-theme.png")
-@JsNonModule
-private external val logoPng: dynamic
 
 
 

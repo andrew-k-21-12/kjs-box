@@ -1,4 +1,5 @@
 import io.github.andrewk2112.Configs
+import io.github.andrewk2112.tasks.GenerateImageWrappersTask
 import io.github.andrewk2112.tasks.GenerateNodeJsBinaryTask
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
@@ -16,11 +17,15 @@ repositories {
     mavenCentral()
 }
 
+// Here we put and read image wrapper classes generated according to the original images.
+val imageWrappersDir = File(buildDir, "generated/imageWrappers")
+
 kotlin {
     js(IR) {
         binaries.executable()
         browser {}
     }
+    sourceSets.main.get().kotlin.srcDir(imageWrappersDir) // using the generated image wrappers in our sources
 }
 
 dependencies {
@@ -58,6 +63,19 @@ dependencies {
 }
 
 tasks {
+
+    // Describing how to generate image wrappers:
+    // where are the source images, what is the target package name and where to output the generated wrappers.
+    val generateImageWrappers by registering(GenerateImageWrappersTask::class) {
+        resourcesDir = kotlin.sourceSets.main.get().resources.srcDirs.first()
+        pathToImages = "images"
+        targetPackage.set("io.github.andrewk2112.resources.images")
+        outWrappers.set(imageWrappersDir)
+    }
+
+    // Generating image wrappers on each Gradle sync and making sure they exist before the compilation.
+    arrayOf(named("prepareKotlinBuildScriptModel"), named("compileKotlinJs"))
+        .forEach { it.get().dependsOn(generateImageWrappers) }
 
     val kotlinNodeJsSetup = named("kotlinNodeJsSetup", NodeJsSetupTask::class)
 

@@ -7,7 +7,6 @@ import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useRefHeightMonitor
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.endpoints.MaterialDesignEndpoint
 import io.github.andrewk2112.ui.styles.ShadowStyles
 import kotlinx.css.*
@@ -20,7 +19,10 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-class HeaderProps private constructor(var isVisible: Boolean, var onHeightChanged: (Double) -> Unit) : Props
+external interface HeaderProps : Props {
+    var isVisible: Boolean
+    var onHeightChanged: (Double) -> Unit
+}
 
 val header = FC<HeaderProps> { props ->
 
@@ -28,7 +30,7 @@ val header = FC<HeaderProps> { props ->
 
     val context                = useAppContext()
     val localizator            = useLocalizator()
-    val materialDesignEndpoint = useStateGetterOnce { MaterialDesignEndpoint() }
+    val materialDesignEndpoint by useState { MaterialDesignEndpoint() }
     val headerRef              = useRef<Element>(null)
     useRefHeightMonitor(headerRef, props.onHeightChanged)
 

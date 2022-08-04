@@ -8,7 +8,6 @@ import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.hooks.useAppContext
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.*
@@ -29,7 +28,7 @@ val ripple = FC<DOMProps> { props ->
 
     // State and persistent handlers.
     val context = useAppContext()
-    val (onTouchStart, onMouseDown) = useStateGetterOnce {
+    val (onTouchStart, onMouseDown) = useState {
         Pair<TouchEventHandler<*>, MouseEventHandler<*>>(
             // For touch devices.
             { event ->
@@ -42,7 +41,7 @@ val ripple = FC<DOMProps> { props ->
                 }
             }
         )
-    }
+    }.component1()
 
     // Contains children elements and launches ripple animations inside.
     withClassName(div, props.className.toString(), RippleStyles.container.name) {

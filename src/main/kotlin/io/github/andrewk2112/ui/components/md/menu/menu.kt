@@ -9,7 +9,6 @@ import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.endpoints.MaterialDesignTopicsEndpoints
 import io.github.andrewk2112.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.ui.styles.*
@@ -21,16 +20,19 @@ import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
+import react.useState
 
 // Public.
 
-class MenuProps private constructor(var headerHeight: Double) : Props
+external interface MenuProps : Props {
+    var headerHeight: Double
+}
 
 val menu = FC<MenuProps> { props ->
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data        = useStateGetterOnce { MenuData() }
+    val data by useState { MenuData() }
 
     // Topmost container.
     withClassName(div, MenuStyles.container(context).name) {

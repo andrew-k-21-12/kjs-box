@@ -11,10 +11,14 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.gradle.configurationcache.extensions.capitalized
+import java.awt.Dimension
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.nio.file.Path
 import java.nio.file.Paths
+import javax.imageio.ImageIO
+import javax.imageio.stream.FileImageInputStream
 
 /**
  * Generates wrapper classes for required source images.
@@ -74,7 +78,7 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
     }
 
     @TaskAction
-    @Throws(IllegalArgumentException::class, IOException::class)
+    @Throws(IllegalArgumentException::class, IOException::class, FileNotFoundException::class)
     private operator fun invoke() {
 
         // Making sure all the partial inputs are set.
@@ -105,7 +109,7 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
             val className         = baseSrcImagesPath.relativize(absoluteImagePath)
                                                      .generateClassName()
             val relativeImagePath = resourcesPath.relativize(absoluteImagePath).toString()
-            writeImageWrapper(outDir, className, packageName, relativeImagePath)
+            writeImageWrapper(outDir, className, packageName, readImageSize(image), relativeImagePath)
         }
 
     }
@@ -122,6 +126,30 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
         return path.split("/").camelCase() +
                baseName.split("-").camelCase() +
                "Image"
+    }
+
+    /**
+     * Reads the [Dimension] of an [image] without entirely loading it into the memory.
+     * */
+    @Throws(IllegalArgumentException::class, FileNotFoundException::class, IOException::class)
+    private fun readImageSize(image: File): Dimension {
+        val imageReaders = ImageIO.getImageReadersBySuffix(image.extension)
+        while (imageReaders.hasNext()) {
+            val imageReader = imageReaders.next()
+            var inputStream: FileImageInputStream? = null
+            try {
+                inputStream = FileImageInputStream(image)
+                imageReader.input = inputStream
+                return Dimension(
+                    imageReader.getWidth(imageReader.minIndex),
+                    imageReader.getHeight(imageReader.minIndex)
+                )
+            } finally {
+                imageReader.dispose()
+                inputStream?.close()
+            }
+        }
+        throw IOException("Not a known image file: ${image.absolutePath}")
     }
 
     /** Where to grab the source images from - set internally, required to check if the state is up-to-date. */
@@ -151,37 +179,48 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
         |package $packageName
         |
         |interface SimpleImage : Image {
+        |
+        |    val width:  Int
+        |    val height: Int
+        |
         |    val webp: String
         |    val png:  String
+        |    
         |}
         """.trimMargin()
     )
 
     /**
-     * Writes an image wrapper for the [relativeImagePath]
+     * Writes an image wrapper for the [relativeImagePath] with the [imageSize]
      * into the [outDir] using the [className] with the [packageName].
      * */
     private fun writeImageWrapper(
         outDir: File,
         className: String,
         packageName: String,
+        imageSize: Dimension,
         relativeImagePath: String
     ) = File(outDir, "$className.kt").writeText(
         """
         |package $packageName
         |
-        |class $className : SimpleImage {
-        |    override val webp: String = webpValueFor$className.unsafeCast<String>()
-        |    override val png:  String = pngValueFor$className.unsafeCast<String>()
+        |object $className : SimpleImage {
+        |
+        |    override val width  = ${imageSize.width}
+        |    override val height = ${imageSize.height}
+        |
+        |    override val webp: String = webpQueryFor$className.unsafeCast<String>()
+        |    override val png:  String = pngQueryFor$className.unsafeCast<String>()
+        |    
         |}
         |
         |@JsModule("./$relativeImagePath?as=webp")
         |@JsNonModule
-        |private external val webpValueFor$className: dynamic
+        |private external val webpQueryFor$className: dynamic
         |
         |@JsModule("./$relativeImagePath")
         |@JsNonModule
-        |private external val pngValueFor$className: dynamic
+        |private external val pngQueryFor$className: dynamic
         """.trimMargin()
     )
 

@@ -11,7 +11,6 @@ import io.github.andrewk2112.extensions.aspectRatio
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.iconMagnify
 import io.github.andrewk2112.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.ui.styles.IconStyles
@@ -31,7 +30,7 @@ val headerNavigation = FC<Props> {
     // Preparing the state.
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data        = useStateGetterOnce { HeaderNavigationData() }
+    val data by useState { HeaderNavigationData() }
 
     withClassName(header, HeaderNavigationStyles.container(context).name) {
 

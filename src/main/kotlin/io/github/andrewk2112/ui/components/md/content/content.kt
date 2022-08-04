@@ -20,9 +20,7 @@ import react.useRef
 //  1. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner.
 
 // TODO:
-//  2. Use `var currentVideo: Video? by useState(null)` instead of `useStateGetterOnce`?
-//     For props use the following declaration instead: `external interface VideoListProps : Props`.
-//     Check kotlin-react-css library for CSS.
+//  2. Introduce some code splitting.
 //  3. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
@@ -37,15 +35,16 @@ import react.useRef
 //  9. Fix webpack warnings and do a clean-up for its scripts.
 //  10. Write some custom server with all required configs (caches, routing) and place it here.
 //  11. Extract a module with a framework itself.
+//  12. Write about the project's features in the central README.md.
 
 
 
 // Public.
 
-class ContentProps private constructor(
-    var topSpacing: Double,
+external interface ContentProps : Props {
+    var topSpacing: Double
     var onScrolled: (scrollTop: Double, deltaY: Double) -> Unit
-) : Props
+}
 
 val content = FC<ContentProps> { props ->
 

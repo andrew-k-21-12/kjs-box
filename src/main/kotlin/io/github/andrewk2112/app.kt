@@ -3,7 +3,6 @@ package io.github.andrewk2112
 import io.github.andrewk2112.ui.components.exercises.exercisesList
 import io.github.andrewk2112.ui.components.md.materialDesign
 import io.github.andrewk2112.dinjection.di
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import org.kodein.di.direct
@@ -22,7 +21,7 @@ val appLoadingPlaceholder = FC<Props> {
 val app = FC<Props> {
 
     // Starting to monitor a screen size to update the context dynamically.
-    useStateGetterOnce { di.direct.instance<ContextReducer>() }.useScreenSizeMonitor()
+    useState { di.direct.instance<ContextReducer>() }.component1().useScreenSizeMonitor()
 
     // All pages of the app: the root (serves as a fallback also) one,
     // the first example page and the fallback configuration.

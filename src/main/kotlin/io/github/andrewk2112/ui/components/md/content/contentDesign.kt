@@ -5,12 +5,15 @@ import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.hooks.useStateGetterOnce
 import io.github.andrewk2112.resources.endpoints.MaterialDesignTopicsEndpoints
+import io.github.andrewk2112.resources.images.Image
 import io.github.andrewk2112.resources.images.MdMaterialDarkThemeImage
+import io.github.andrewk2112.resources.images.MdSoundGuidelinesImage
+import io.github.andrewk2112.ui.components.image
 import io.github.andrewk2112.ui.styles.StrokeColor.INTENSE
 import io.github.andrewk2112.ui.styles.StrokeConfigs
 import io.github.andrewk2112.ui.styles.StrokeStyles
@@ -24,12 +27,10 @@ import react.Props
 import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.p
-import react.dom.html.ReactHTML.picture
-import react.dom.html.ReactHTML.source
 import react.dom.html.ReactHTML.ul
+import react.useState
 
 // Public.
 
@@ -37,7 +38,7 @@ val contentDesign = FC<Props> {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val endpoints   = useStateGetterOnce { MaterialDesignTopicsEndpoints() }
+    val endpoints by useState { MaterialDesignTopicsEndpoints() }
 
     // A grid with contents.
     withClassName(div, ContentDesignStyles.gridContainer(context).name) {
@@ -59,7 +60,13 @@ val contentDesign = FC<Props> {
         withClassName(div, ContentDesignStyles.horizontalSpacingGridBlock(context).name) {
 
             // Topics header.
-            withClassName(p, ContentDesignStyles.topicsHeader(context).name) { +localizator("md.popular").uppercase() }
+            withClassName(
+                p,
+                ContentDesignStyles.categoryLabel(context).name,
+                ContentDesignStyles.topicsCategorySpacing.name
+            ) {
+                +localizator("md.popular").uppercase()
+            }
 
             // Topics list.
             ul {
@@ -70,39 +77,23 @@ val contentDesign = FC<Props> {
 
         }
 
+        topicBlock(
+            context,
+            MdMaterialDarkThemeImage,
+            localizator("md.materialDarkTheme"),
+            localizator("md.foundation"),
+            localizator("md.materialDarkTheme"),
+            localizator("md.learnHowToDesignADarkThemeVersionOfYourMaterialUI")
+        )
 
-
-        // TODO
-
-        withClassName(div, ContentDesignStyles.selectableContentBlock(context).name) {
-
-            withClassName(div, ContentDesignStyles.kek(context).name) {
-
-                picture {
-                    val image = MdMaterialDarkThemeImage()
-                    source {
-                        type = "image/webp"
-                        srcSet = image.webp
-                    }
-                    img {
-                        src = image.png
-                        alt = "Test"
-                    }
-                }
-
-            }
-
-        }
-
-        withClassName(div, ContentDesignStyles.selectableContentBlock(context).name) {
-
-            withClassName(div, ContentDesignStyles.kek(context).name) {
-
-            }
-
-        }
-
-
+        topicBlock(
+            context,
+            MdSoundGuidelinesImage,
+            localizator("md.soundGuidelines"),
+            localizator("md.guidelines"),
+            localizator("md.materialGuidelines"),
+            localizator("md.useSoundToCommunicateInformationInWaysThatAugment")
+        )
 
     }
 
@@ -129,6 +120,49 @@ private fun ChildrenBuilder.popularLi(context: Context, label: String, destinati
 
 }
 
+private fun ChildrenBuilder.topicBlock(
+    context: Context,
+    illustration: Image,
+    illustrationAlternativeText: String,
+    categoryName: String,
+    title: String,
+    descriptionText: String
+) {
+
+    // Takes the entire grid height.
+    div {
+
+        // Block with a hover style.
+        withClassName(div, ContentDesignStyles.selectableContentBlock(context).name) {
+
+            // Topic's illustration.
+            image(
+                illustration,
+                illustrationAlternativeText,
+                ContentDesignStyles.widthRestrictedStrokedImage(context).name
+            )
+
+            // Category.
+            withClassName(
+                p,
+                ContentDesignStyles.categoryLabel(context).name,
+                ContentDesignStyles.topicCategorySpacing.name
+            ) {
+                +categoryName.uppercase()
+            }
+
+            // Title.
+            withClassName(p, ContentDesignStyles.topicTitle(context).name) { +title }
+
+            // Description.
+            withClassName(p, ContentDesignStyles.topicDescription(context).name) { +descriptionText }
+
+        }
+
+    }
+
+}
+
 
 
 // Private - styles.
@@ -142,7 +176,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
         padding(
             top        = StyleValues.spacing.absolute89,
             horizontal = StyleValues.spacing.absolute20,
-            bottom     = StyleValues.spacing.absolute72
+            bottom     = StyleValues.spacing.absolute52
         )
         backgroundColor = Theme.palette.surface1(it)
     }
@@ -163,10 +197,17 @@ private object ContentDesignStyles : DynamicStyleSheet() {
         color = Theme.palette.onSurface1(it)
     }
 
-    val topicsHeader: DynamicCssProvider<Context> by dynamicCss {
-        marginTop = StyleValues.spacing.absolute1
+    val categoryLabel: DynamicCssProvider<Context> by dynamicCss {
         fontSize = StyleValues.fontSizes.relativep85
         color = Theme.palette.onSurfaceWeaker1(it)
+    }
+
+    val topicsCategorySpacing: NamedRuleSet by css {
+        marginTop = StyleValues.spacing.absolute1
+    }
+
+    val topicCategorySpacing: NamedRuleSet by css {
+        marginTop = StyleValues.spacing.absolute23
     }
 
     val popularListItem: DynamicCssProvider<Context> by dynamicCss {
@@ -193,15 +234,22 @@ private object ContentDesignStyles : DynamicStyleSheet() {
         }
     }
 
-
-
-    // TODO
-
-    val kek: DynamicCssProvider<Context> by dynamicCss {
-        height = StyleValues.sizes.absolute72
-        backgroundColor = Color.red
+    val widthRestrictedStrokedImage: DynamicCssProvider<Context> by dynamicCss {
+        +StrokeStyles.outlineStroke(StrokeConfigs(it, INTENSE)).rules
+        width  = 100.pct
+        height = LinearDimension.auto
     }
 
+    val topicTitle: DynamicCssProvider<Context> by dynamicCss {
+        marginTop = StyleValues.spacing.absolute6
+        fontSize = StyleValues.fontSizes.relative1p25
+        color = Theme.palette.onSurface1(it)
+    }
 
+    val topicDescription: DynamicCssProvider<Context> by dynamicCss {
+        marginTop = StyleValues.spacing.absolute11
+        fontSize = StyleValues.fontSizes.relativep95
+        color = Theme.palette.onSurface1(it)
+    }
 
 }

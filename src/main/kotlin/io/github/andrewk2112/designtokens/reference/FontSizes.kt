@@ -14,6 +14,7 @@ class FontSizes {
     val relative1:    LinearDimension get() = 1.rem
     val relative1p1:  LinearDimension get() = 1.1.rem
     val relative1p2:  LinearDimension get() = 1.2.rem
+    val relative1p25: LinearDimension get() = 1.25.rem
     val relative1p5:  LinearDimension get() = 1.5.rem
     val relative2:    LinearDimension get() = 2.rem
     val relative3p65: LinearDimension get() = 3.65.rem

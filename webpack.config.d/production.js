@@ -47,6 +47,16 @@ if (config.mode == "production") {
     // Additional JS minification, removing all comments entirely.
     minimizer.push(new TerserWebpackPlugin({
         terserOptions: {
+            compress: {
+                passes: 5,        // significant improvement
+                hoist_funs: true, // minor improvement
+                unsafe: true,     // minor improvement
+                drop_console: true,
+                ecma: 2016, // all configs below require it
+                unsafe_arrows: !devServer.open, // significant improvement but makes the browser run fail
+                unsafe_methods: true,           // minor improvement
+                module: true                    // minor improvement
+            },
             format: {
                 comments: false
             }

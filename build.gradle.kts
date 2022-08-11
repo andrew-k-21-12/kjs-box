@@ -1,8 +1,7 @@
 import io.github.andrewk2112.Configs
+import io.github.andrewk2112.Configs.initRootProjectConfigs
 import io.github.andrewk2112.tasks.GenerateImageWrappersTask
 import io.github.andrewk2112.tasks.GenerateNodeJsBinaryTask
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsSetupTask
 
 @Suppress("RemoveRedundantQualifierName")
@@ -10,40 +9,30 @@ plugins {
     kotlin("js") version io.github.andrewk2112.Configs.KOTLIN_VERSION
 }
 
+initRootProjectConfigs()
+
 group   = "io.github.andrew-k-21-12"
 version = "1.0.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
-
-// Here we put and read image wrapper classes generated according to the original images.
-val imageWrappersDir = File(buildDir, "generated/imageWrappers")
 
 kotlin {
     js(IR) {
         binaries.executable()
         browser {}
     }
-    sourceSets.main.get().kotlin.srcDir(imageWrappersDir) // using the generated image wrappers in our sources
 }
 
 dependencies {
 
-    // React and fellows.
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:${Configs.REACT_VERSION}-${Configs.KOTLIN_WRAPPER_VERSION}")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-${Configs.KOTLIN_WRAPPER_VERSION}")      // to use global state in React
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-${Configs.KOTLIN_WRAPPER_VERSION}") // to process routes
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled-next:1.2.1-${Configs.KOTLIN_WRAPPER_VERSION}")      // to declare and reuse styles directly in code
-
-    // Dependency injection.
-    implementation("org.kodein.di:kodein-di:7.13.0")
-
-    // Localization.
-    implementation(npm("i18next", "21.8.10"))
-    implementation(npm("react-i18next", "11.17.2"))
-    implementation(npm("i18next-browser-languagedetector", "6.1.4"))
-    implementation(npm("i18next-http-backend", "1.4.1")) // to download translations on demand
+    // Requesting the compilation of all end modules.
+    implementation(project(":index"))
+    implementation(project(":exercises"))
+    implementation(project(":material-design"))
 
     // Bundling.
     implementation(devNpm("@svgr/webpack", "6.2.1"))
@@ -57,9 +46,6 @@ dependencies {
     implementation(devNpm("copy-webpack-plugin", "9.1.0" )) // newer versions don't work correctly with npm and Yarn
     implementation(devNpm("node-json-minify", "3.0.0"))
 
-    // Test environment.
-    testImplementation(kotlin("test"))
-
 }
 
 tasks {
@@ -69,8 +55,9 @@ tasks {
     val generateImageWrappers by registering(GenerateImageWrappersTask::class) {
         resourcesDir = kotlin.sourceSets.main.get().resources.srcDirs.first()
         pathToImages = "images"
-        targetPackage.set("io.github.andrewk2112.resources.images")
-        outWrappers.set(imageWrappersDir)
+        targetPackage.set(Configs.IMAGE_WRAPPERS_PACKAGE)
+        outWrappers.set(Configs.imageWrappersBaseDir)
+        outPathToBaseInterfaces.set(Configs.BASE_IMAGE_INTERFACES_PATH)
     }
 
     // Generating image wrappers on each Gradle sync and making sure they exist before the compilation.
@@ -104,12 +91,4 @@ tasks {
     arrayOf(named("browserProductionRun"), named("browserProductionWebpack"))
         .forEach { it.get().dependsOn(generateNodeJsCwebpBinary, generateNodeJsOptipngBinary) }
 
-}
-
-// An Apple Silicon compilation fix.
-rootProject.plugins.withType<NodeJsRootPlugin> {
-    rootProject.the<NodeJsRootExtension>().apply {
-        nodeVersion                 = "16.0.0"
-        versions.webpackCli.version = "4.10.0"
-    }
 }

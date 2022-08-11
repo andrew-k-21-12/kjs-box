@@ -1,4 +1,8 @@
-const DefinePlugin = require("webpack").DefinePlugin;
+const path         = require("path"),
+      DefinePlugin = require("webpack").DefinePlugin;
+
+// Setting the entry point module.
+config.entry = path.resolve(__dirname, `kotlin/${config.output.library}-index.js`)
 
 // This config is super important to prepend a slash to the compiled JS sources file:
 // without it deeper navigation routes will fail to find the sources.
@@ -28,7 +32,8 @@ config.module.rules.push(
 
 // Pushing the build mode identifier to be available globally in JS sources.
 config.plugins.push(new DefinePlugin({
-    BUILD_MODE: JSON.stringify(config.mode)
+    PROJECT_NAME: JSON.stringify(config.output.library),
+    BUILD_MODE:   JSON.stringify(config.mode)
 }));
 
 // All route paths should fallback to the index page to make SPA's routes processed correctly.

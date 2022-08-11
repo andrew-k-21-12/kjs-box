@@ -64,6 +64,10 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
     @get:OutputDirectory
     abstract val outWrappers: RegularFileProperty
 
+    /** Where to place the base interfaces inside the [outWrappers]. */
+    @get:Input
+    abstract val outPathToBaseInterfaces: Property<String>
+
 
 
     // Private.
@@ -89,43 +93,64 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
         if (imagesToProcess.isEmpty()) return
 
         // Reusable entities.
-        val packageName       = targetPackage.get()
-        val outDir            = File(outWrappers.asFile.get(), packageName.replace(".", "/"))
-        val baseSrcImagesPath = Paths.get(srcImages.asFile.get().absolutePath)
-        val resourcesPath     = Paths.get(resourcesDir?.absolutePath)
+        val resourcesPath  = Paths.get(resourcesDir?.absolutePath)
+        val srcImagesPath  = Paths.get(srcImages.asFile.get().absolutePath)
+        val outWrappersDir = outWrappers.asFile.get()
+        val packageName    = targetPackage.get()
+        val packagePath    = packageName.replace(".", "/")
 
-        // Making sure intermediate dirs exist.
+        // Writing the interfaces.
+        writeBaseInterfaces(
+            File(File(outWrappersDir, outPathToBaseInterfaces.get()), packagePath),
+            packageName
+        )
+
+        // Processing each source image.
+        for (image in imagesToProcess) {
+            val absoluteImagePath           = Paths.get(image.absolutePath)
+            val resourcesRelativeImagePath  = resourcesPath.relativize(absoluteImagePath).toString()
+            val imagesRelativeImagePath     = srcImagesPath.relativize(absoluteImagePath)
+            val (className, pathToWrappers) = imagesRelativeImagePath.generateClassNameWithPath()
+            val outDir = File(File(outWrappersDir, pathToWrappers), packagePath)
+            if (!outDir.isDirectory) {
+                if (!outDir.mkdirs()) throw IOException("Can not create the output directory for an image wrapper")
+            }
+            writeImageWrapper(outDir, className, packageName, readImageSize(image), resourcesRelativeImagePath)
+        }
+
+    }
+
+    /**
+     * Performs checks and writes all required interfaces with the [packageName] into the [outDir].
+     * */
+    @Throws(IOException::class, FileNotFoundException::class)
+    private fun writeBaseInterfaces(outDir: File, packageName: String) {
+
+        // Making sure the destination dir exist.
         if (!outDir.isDirectory) {
-            if (!outDir.mkdirs()) throw IOException("Can not create intermediate directories for image wrappers")
+            if (!outDir.mkdirs()) throw IOException("Can not create the output directory for the base interfaces")
         }
 
         // Writing the interfaces common for all image wrappers (at least for now).
         writeCommonSealedInterface(outDir, packageName)
         writeSimpleImageInterface(outDir,  packageName)
 
-        // Processing each source image.
-        for (image in imagesToProcess) {
-            val absoluteImagePath = Paths.get(image.absolutePath)
-            val className         = baseSrcImagesPath.relativize(absoluteImagePath)
-                                                     .generateClassName()
-            val relativeImagePath = resourcesPath.relativize(absoluteImagePath).toString()
-            writeImageWrapper(outDir, className, packageName, readImageSize(image), relativeImagePath)
-        }
-
     }
 
     private fun List<String>.camelCase(): String = joinToString(separator = "") { it.capitalized() }
 
     /**
-     * Generates the class name for an image wrapper using the [Path]'s path as a prefix and its base name.
+     * Generates the class name for an image wrapper using the [Path]'s path as a prefix and its base name,
+     * also returns the relative path to be used for this group of image wrappers.
      * */
-    private fun Path.generateClassName(): String {
+    private fun Path.generateClassNameWithPath(): Pair<String, String> {
         val pathString = toString()
         val path       = FilenameUtils.getPathNoEndSeparator(pathString)
         val baseName   = FilenameUtils.getBaseName(pathString)
-        return path.split("/").camelCase() +
-               baseName.split("-").camelCase() +
-               "Image"
+        return Pair(
+            path.split("/").camelCase() + baseName.split("-").camelCase() + "Image",
+            path
+        )
     }
 
     /**

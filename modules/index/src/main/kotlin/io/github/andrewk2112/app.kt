@@ -14,7 +14,6 @@ import react.router.Navigate
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
-import kotlin.js.Promise
 
 // Public.
 
@@ -58,11 +57,11 @@ private val contents = FC<Props> {
     Routes {
         Route {
             path = "/"
-            element = lazyExercisesList
+            element = lazyExercisesList.create()
         }
         Route {
             path = MaterialDesignRoute.path
-            element = lazyMaterialDesign
+            element = lazyMaterialDesign.create()
         }
         Route {
             path = "*"
@@ -75,16 +74,11 @@ private val contents = FC<Props> {
 }
 
 // Elements to be loaded lazily.
-private val lazyExercisesList:  ReactNode = createLazyElement(import("./${Environment.projectName}-exercises"))
-private val lazyMaterialDesign: ReactNode = createLazyElement(import("./${Environment.projectName}-material-design"))
-
-
-
-// Private - utility.
-
-/**
- * Creates a [lazy] element (to be loaded lazily on demand) from its import [Promise].
- * */
-private fun createLazyElement(promise: Promise<Module<dynamic>>): ReactNode = createElement(lazy {
-    promise.then { it.default }
-})
+private val lazyExercisesList: ExoticComponent<Props> = lazy {
+    import<Module<dynamic>>("./${Environment.projectName}-exercises")
+        .then{ it.default }
+}
+private val lazyMaterialDesign: ExoticComponent<Props> = lazy {
+    import<Module<dynamic>>("./${Environment.projectName}-material-design")
+        .then{ it.default }
+}

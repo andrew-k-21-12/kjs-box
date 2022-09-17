@@ -87,7 +87,7 @@ if (config.mode == "production") {
         },
     }))
 
-    // Minifying and copying JSON locales, copying fonts into the bundle.
+    // Minifying and copying JSON locales into the bundle.
     config.plugins.push(new CopyWebpackPlugin({
         patterns: [
             {
@@ -95,11 +95,6 @@ if (config.mode == "production") {
                 from: "locales/**/*.json",
                 to: "[path][name][ext]",
                 transform: content => NodeJsonMinify(content.toString())
-            },
-            {
-                context: "kotlin",
-                from: "fonts/**/*.woff2",
-                to: "[path][name][ext]"
             }
         ]
     }));

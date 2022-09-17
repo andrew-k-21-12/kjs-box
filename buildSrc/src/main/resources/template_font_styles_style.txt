@@ -1,0 +1,20 @@
+
+    val %1$s: NamedRuleSet by css {
+
+        injectGlobal(
+            CssBuilder().apply {
+                fontFace {
+                    fontFamily = "%2$s"
+                    src = "local(%2$s-%3$s), " +
+                          "url($%4$s) format(\"%5$s\")"
+                    fontWeight = %6$s
+                    fontStyle  = %7$s
+                }
+            }
+        )
+
+        fontFamily = "%8$s"
+        fontWeight = %6$s
+        fontStyle  = %7$s
+
+    }

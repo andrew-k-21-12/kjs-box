@@ -8,7 +8,6 @@ import org.kodein.di.bindSingleton
 
 /** Provides all design tokens. */
 val designTokensModule = DI.Module("DesignTokens") { // not sure if this module is really needed
-    bindSingleton { FontFaces() }
     bindSingleton { FontSizes() }
     bindSingleton { Palette() }
     bindSingleton { Radii() }

@@ -27,6 +27,14 @@ config.module.rules.push(
         generator: {
             filename: image => image.filename.replace("kotlin/", "")
         }
+    },
+    // Copying all fonts actually used in the project.
+    {
+        test: /\.(woff|woff2)$/i,
+        type: "asset/resource",
+        generator: {
+            filename: font => font.filename.replace("kotlin/", "")
+        }
     }
 );
 

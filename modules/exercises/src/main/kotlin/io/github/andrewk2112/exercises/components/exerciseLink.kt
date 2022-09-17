@@ -2,11 +2,11 @@ package io.github.andrewk2112.exercises.components
 
 import history.To
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.extensions.setClassName
+import io.github.andrewk2112.resources.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.*
@@ -35,7 +35,7 @@ fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
 private object ExerciseLinkStyles : DynamicStyleSheet() {
 
     val exerciseLink: DynamicCssProvider<Context> by dynamicCss {
-        +StyleValues.fontFaces.comfortaa.rules
+        +ComfortaaFontStyles.regular.rules
         fontSize       = Theme.fontSizes.adaptive3(it)
         overflowWrap   = OverflowWrap.breakWord
         textDecoration = TextDecoration.none

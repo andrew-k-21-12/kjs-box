@@ -5,9 +5,6 @@ import kotlin.reflect.KProperty
 
 // Public.
 
-/** A wrapper for the CSS [aspect-ratio](https://developer.mozilla.org/docs/Web/CSS/aspect-ratio) property. */
-var StyledElement.aspectRatio: AspectRatio by CssProperty()
-
 /** A wrapper for the CSS [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) property. */
 var StyledElement.outlineStyle: OutlineStyle by CssProperty()
 

@@ -6,8 +6,6 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.AspectRatio
-import io.github.andrewk2112.extensions.aspectRatio
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
@@ -16,6 +14,7 @@ import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.styles.IconStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
 import kotlinx.css.*
+import kotlinx.css.properties.AspectRatio
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.header

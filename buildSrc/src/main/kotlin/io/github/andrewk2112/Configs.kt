@@ -12,11 +12,16 @@ object Configs {
      * Initializes root project's configs - must be called on the root [Project] before any other configs.
      * */
     fun Project.initRootProjectConfigs() {
-        imageWrappersBaseDir = File(buildDir, "generated/imageWrappers")
+        imageWrappersBaseDir = File(buildDir, "generated/wrappers/images")
+        fontWrappersBaseDir  = File(buildDir, "generated/wrappers/fonts")
     }
 
     /** The directory to store all image wrappers in. */
     lateinit var imageWrappersBaseDir: File
+        private set
+
+    /** The directory to store all font wrappers in. */
+    lateinit var fontWrappersBaseDir: File
         private set
 
     /** The path to store the image wrappers' base interfaces at (inside the [imageWrappersBaseDir]). */
@@ -24,6 +29,9 @@ object Configs {
 
     /** The package to be used for all image wrappers. */
     const val IMAGE_WRAPPERS_PACKAGE = "io.github.andrewk2112.resources.images"
+
+    /** The package to be used for all font wrappers. */
+    const val FONT_WRAPPERS_PACKAGE = "io.github.andrewk2112.resources.fonts"
 
     // Version constants.
     const val KOTLIN_VERSION         = "1.7.10"

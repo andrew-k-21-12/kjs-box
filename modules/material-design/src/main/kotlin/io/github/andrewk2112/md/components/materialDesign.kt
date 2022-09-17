@@ -1,12 +1,12 @@
 package io.github.andrewk2112.md.components
 
-import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.md.components.content.content
 import io.github.andrewk2112.md.components.header.header
 import io.github.andrewk2112.md.components.menu.menu
+import io.github.andrewk2112.resources.fonts.md.RobotoFontStyles
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -65,7 +65,7 @@ val materialDesign = FC<Props> {
 private object MaterialDesignStyles : DynamicStyleSheet() {
 
     val root: NamedRuleSet by css {
-        +StyleValues.fontFaces.roboto.rules
+        +RobotoFontStyles.regular.rules
         fontSize = 100.pct
     }
 

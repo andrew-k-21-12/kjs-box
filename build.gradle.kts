@@ -1,7 +1,8 @@
 import io.github.andrewk2112.Configs
 import io.github.andrewk2112.Configs.initRootProjectConfigs
-import io.github.andrewk2112.tasks.GenerateImageWrappersTask
 import io.github.andrewk2112.tasks.GenerateNodeJsBinaryTask
+import io.github.andrewk2112.tasks.wrappers.GenerateFontWrappersTask
+import io.github.andrewk2112.tasks.wrappers.GenerateImageWrappersTask
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsSetupTask
 
 @Suppress("RemoveRedundantQualifierName")
@@ -60,9 +61,17 @@ tasks {
         outPathToBaseInterfaces.set(Configs.BASE_IMAGE_INTERFACES_PATH)
     }
 
-    // Generating image wrappers on each Gradle sync and making sure they exist before the compilation.
+    // Describing how to generate font wrappers in the similar way.
+    val generateFontWrappers by registering(GenerateFontWrappersTask::class) {
+        resourcesDir = kotlin.sourceSets.main.get().resources.srcDirs.first()
+        pathToFonts  = "fonts"
+        targetBasePackage.set(Configs.FONT_WRAPPERS_PACKAGE)
+        outWrappers.set(Configs.fontWrappersBaseDir)
+    }
+
+    // Generating image and font wrappers on each Gradle sync and making sure they exist before the compilation.
     arrayOf(named("prepareKotlinBuildScriptModel"), named("compileKotlinJs"))
-        .forEach { it.get().dependsOn(generateImageWrappers) }
+        .forEach { it.get().dependsOn(generateImageWrappers, generateFontWrappers) }
 
     val kotlinNodeJsSetup = named("kotlinNodeJsSetup", NodeJsSetupTask::class)
 

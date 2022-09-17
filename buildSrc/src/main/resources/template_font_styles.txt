@@ -1,0 +1,11 @@
+package %1$s
+
+import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
+import kotlinx.css.*
+import styled.injectGlobal
+
+object %2$s : DynamicStyleSheet() {
+%3$s
+}
+%4$s

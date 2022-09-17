@@ -7,6 +7,7 @@ import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.resources.fonts.exercises.SourceSansProFontStyles
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import kotlinx.css.*
 import react.*
@@ -49,7 +50,7 @@ private fun ChildrenBuilder.exerciseLiWithLink(context: Context, label: String, 
 private object ExercisesListStyles : DynamicStyleSheet() {
 
     val root: NamedRuleSet by css {
-        +StyleValues.fontFaces.sourceSansPro.rules
+        +SourceSansProFontStyles.regular.rules
         fontSize = 100.pct
     }
 

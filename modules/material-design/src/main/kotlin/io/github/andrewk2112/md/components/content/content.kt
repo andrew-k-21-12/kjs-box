@@ -16,7 +16,7 @@ import react.useRef
 
 // TODO:
 //  0. Suggest styles wrapping to avoid direct usage of kotlin-styled-next (another proposal and PR)!
-//     Use the latest version of the kotlin-styled-next with my PR (drop my stylesheets package and AspectRatio extension).
+//     Use the latest version of the kotlin-styled-next with my PR (drop my stylesheets package).
 //  1. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner.
 
 // TODO:
@@ -24,18 +24,20 @@ import react.useRef
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  3. Simplify WindowWidthMonitor, icons.kt.
-//  4. Include fonts via webpack instead.
-//  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
+//  4. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
+//  5. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
 
 // TODO:
-//  7. Hashes in names for all resources (fonts, locales, images) are not needed,
+//  6. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes.
-//  8. Fix webpack warnings and do a clean-up for its scripts.
-//  9. Write some custom server with all required configs (caches, routing) and place it here.
-//  10. Introduce better modular structure (which should separate resources and style values as well).
-//  11. Write about the project's features in the central README.md.
-//  12. Change the package name when the project gets its final name.
+//  7. Fix webpack warnings and do a clean-up for its scripts.
+//  8. Write some custom server with all required configs (caches, routing) and place it here.
+//  9. Introduce better modular structure (which should separate resources and style values as well).
+//  10. Write about the project's features in the central README.md.
+//  11. Change the package name when the project gets its final name.
+//  12. Clean-up Gradle scripts.
+//  13. Remove locale keys unmet in the source code when bundling.
+//  14. Set internal visibility modifiers for entities internal to modules.
 
 
 

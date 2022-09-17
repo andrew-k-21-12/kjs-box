@@ -1,0 +1,19 @@
+package %1$s
+
+object %2$s : SimpleImage {
+
+    override val width  = %3$d
+    override val height = %4$d
+
+    override val webp: String = webpQueryFor%2$s.unsafeCast<String>()
+    override val png:  String = pngQueryFor%2$s.unsafeCast<String>()
+
+}
+
+@JsModule("./%5$s?as=webp")
+@JsNonModule
+private external val webpQueryFor%2$s: dynamic
+
+@JsModule("./%5$s")
+@JsNonModule
+private external val pngQueryFor%2$s: dynamic

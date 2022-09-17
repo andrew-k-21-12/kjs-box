@@ -8,7 +8,6 @@ import org.kodein.di.instance
  * Provides access to source style values (reference design tokens).
  * */
 object StyleValues {
-    val fontFaces: FontFaces by di.instance()
     val fontSizes: FontSizes by di.instance()
     val palette:   Palette   by di.instance()
     val radii:     Radii     by di.instance()

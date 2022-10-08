@@ -13,3 +13,14 @@ internal inline fun <T> changeMonitor(crossinline onChange: () -> Unit) = object
         }
     }
 }
+
+/**
+ * The same as [changeMonitor] but provides an updated value in its [onChange] callback.
+ * */
+internal inline fun <T> changeMonitor(crossinline onChange: (T?) -> Unit) = object : ObservableProperty<T?>(null) {
+    override fun afterChange(property: KProperty<*>, oldValue: T?, newValue: T?) {
+        if (newValue != oldValue) {
+            onChange(newValue)
+        }
+    }
+}

@@ -35,7 +35,7 @@ import react.useRef
 //  9. Introduce better modular structure (which should separate resources and style values as well).
 //  10. Write about the project's features in the central README.md.
 //  11. Change the package name when the project gets its final name.
-//  12. Clean-up Gradle scripts.
+//  12. Clean-up Gradle scripts (as many console warnings as possible), migrate to BoM for kotlin-wrappers.
 //  13. Remove locale keys unmet in the source code when bundling.
 //  14. Set internal visibility modifiers for entities internal to modules.
 

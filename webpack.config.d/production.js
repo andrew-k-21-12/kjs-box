@@ -4,11 +4,14 @@
 if (config.mode == "production") {
 
     const HtmlWebpackPlugin           = require("html-webpack-plugin"),
-          UglifyJsWebpackPlugin       = require("uglifyjs-webpack-plugin"),
           TerserWebpackPlugin         = require("terser-webpack-plugin"),
           ImageMinimizerWebpackPlugin = require("image-minimizer-webpack-plugin"),
           CopyWebpackPlugin           = require("copy-webpack-plugin"),
           NodeJsonMinify              = require("node-json-minify");
+
+    // Disabling source maps to have the maximal build speed and avoid distribution of unnecessary map files.
+    // Source maps can be enabled to help with debugging to match obfuscated functions with their original versions.
+    config.devtool = false;
 
     // Where to output and how to name JS sources.
     // Using hashes for bundles' caching.
@@ -29,33 +32,25 @@ if (config.mode == "production") {
         minify: {
             removeAttributeQuotes: true,
             collapseWhitespace: true,
-            removeComments: true,
-        },
-    }));
-
-    // Minifying and obfuscating JS.
-    minimizer.push(new UglifyJsWebpackPlugin({
-        parallel: true,   // speeds up the compilation
-        sourceMap: false, // help to match obfuscated functions with their origins, not needed for now
-        uglifyOptions: {
-            compress: {
-                drop_console: true, // removing console calls
-            }
+            removeComments: true
         }
     }));
 
-    // Additional JS minification, removing all comments entirely.
+    // Minifying and obfuscating JS, removing all comments entirely.
+    // Mangling for properties can help to reduce the bundle size a lot, but the distribution doesn't launch with it.
     minimizer.push(new TerserWebpackPlugin({
         terserOptions: {
+            ecma: 2015, // these two options are applied to all nested configs here, provide minor improvement
+            module: true,
             compress: {
-                passes: 5,        // significant improvement
-                hoist_funs: true, // minor improvement
-                unsafe: true,     // minor improvement
-                drop_console: true,
-                ecma: 2016, // all configs below require it
+                drop_console: true, // removing console calls
+                passes: 5,          // significant improvement
+                hoist_funs: true,   // all configs including this and before the next comment provide minor improvements
+                hoist_vars: true,
+                unsafe: true,
+                // All configs below require modern ECMA enabled.
                 unsafe_arrows: !devServer.open, // significant improvement but makes the browser run fail
-                unsafe_methods: true,           // minor improvement
-                module: true                    // minor improvement
+                unsafe_methods: true            // minor improvement
             },
             format: {
                 comments: false
@@ -73,18 +68,18 @@ if (config.mode == "production") {
                 options: {
                     plugins: [
                         ["webp", { quality: 100 }]
-                    ],
-                },
-            },
+                    ]
+                }
+            }
         ],
         minimizer: {
             implementation: ImageMinimizerWebpackPlugin.imageminMinify,
             options: {
                 plugins: [
-                    ["optipng", { optimizationLevel: 7 }], // lossless PNG optimization
-                ],
-            },
-        },
+                    ["optipng", { optimizationLevel: 7 }] // lossless PNG optimization
+                ]
+            }
+        }
     }))
 
     // Minifying and copying JSON locales into the bundle.

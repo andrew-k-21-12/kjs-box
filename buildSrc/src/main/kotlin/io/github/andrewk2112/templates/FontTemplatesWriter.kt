@@ -5,6 +5,7 @@ import io.github.andrewk2112.extensions.joinCapitalized
 import io.github.andrewk2112.extensions.slashesToDots
 import io.github.andrewk2112.models.FontResource
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.IOException
 import kotlin.text.StringBuilder
 
@@ -23,7 +24,7 @@ internal class FontTemplatesWriter(
      * This font wrapper will be configured to fallback into [fallbackFontFamilies]
      * when the target font can't be fetched.
      * */
-    @Throws(IOException::class)
+    @Throws(IOException::class, FileNotFoundException::class, SecurityException::class)
     internal fun writeFontStylesObject(
         outDir: File,
         basePackageName: String,
@@ -100,6 +101,7 @@ internal class FontTemplatesWriter(
      * @param fontVariant           All data about the [FontResource.Variant] to be inflated.
      * @param fallbackFontFamilies  Font families to be used if the font resource is unavailable for some reason.
      * */
+    @Throws(IOException::class)
     private fun generateStyleProperty(
         fontFamily: String,
         referencePropertyName: String,
@@ -131,6 +133,7 @@ internal class FontTemplatesWriter(
     /**
      * Inflates a property named by the [propertyName] and pointing to the [relativeFontPath].
      * */
+    @Throws(IOException::class)
     private fun generateReferenceProperty(propertyName: String, relativeFontPath: String): String =
         simpleTemplatesInflater.inflate("/template_font_styles_reference.txt", relativeFontPath, propertyName)
 

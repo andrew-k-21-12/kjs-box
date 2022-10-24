@@ -10,7 +10,7 @@ import kotlinext.js.js
 /**
  * Helps to access localizations.
  * */
-class LocalizationEngine {
+internal class LocalizationEngine {
 
     // Initialization.
 
@@ -24,14 +24,14 @@ class LocalizationEngine {
 
 
 
-    // Public.
+    // Internal.
 
     /**
      * A hook to start getting localized strings.
      *
      * @return A localized strings getter.
      * */
-    fun useLocalizator(): (String) -> String = reactI18next.useTranslation()::t
+    internal fun useLocalizator(): (String) -> String = reactI18next.useTranslation()::t
 
 
 

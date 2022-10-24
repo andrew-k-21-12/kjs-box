@@ -1,7 +1,7 @@
 package %1$s
 
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import styled.injectGlobal
 

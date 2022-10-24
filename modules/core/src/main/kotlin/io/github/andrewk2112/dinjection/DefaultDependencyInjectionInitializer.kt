@@ -9,7 +9,7 @@ import org.kodein.di.DI
 /**
  * Includes default modules to provide injectable dependencies.
  * */
-class DefaultDependencyInjectionInitializer : DependencyInjectionInitializer {
+internal class DefaultDependencyInjectionInitializer : DependencyInjectionInitializer {
 
     override fun initialize(builder: DI.MainBuilder) = with(builder) {
         import(hooksModule)

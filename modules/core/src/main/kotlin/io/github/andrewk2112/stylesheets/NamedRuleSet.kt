@@ -1,4 +1,4 @@
-package io.github.andrewk2112.designtokens.stylesheets
+package io.github.andrewk2112.stylesheets
 
 import kotlinx.css.RuleSet
 

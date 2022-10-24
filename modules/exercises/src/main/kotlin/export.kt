@@ -13,4 +13,5 @@ import react.Props
 @JsExport
 @OptIn(ExperimentalJsExport::class)
 @JsName("default")
+@Suppress("NON_CONSUMABLE_EXPORTED_IDENTIFIER") // to avoid pointless warnings in the console which are not true
 val exercisesList: FC<Props> = exercisesList

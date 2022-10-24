@@ -1,8 +1,8 @@
 package io.github.andrewk2112.md.styles
 
 import io.github.andrewk2112.designtokens.StyleValues
-import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import kotlinx.css.properties.transition
 import kotlin.reflect.KProperty
 

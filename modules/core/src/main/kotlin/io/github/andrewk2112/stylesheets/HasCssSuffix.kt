@@ -1,4 +1,4 @@
-package io.github.andrewk2112.designtokens.stylesheets
+package io.github.andrewk2112.stylesheets
 
 /**
  * Provides some [cssSuffix] to be used in construction of CSS class names.

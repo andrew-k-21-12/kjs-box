@@ -1,6 +1,6 @@
-package io.github.andrewk2112.designtokens.stylesheets
+package io.github.andrewk2112.stylesheets
 
-import io.github.andrewk2112.extensions.lowerCamelCase
+import io.github.andrewk2112.extensions.lowerCamelCaseFromKebabOrSnakeCase
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
 import styled.*
@@ -32,13 +32,6 @@ open class DynamicStyleSheet(
     fun css(vararg parents: RuleSet, builder: RuleSet) =
         StaticCssHolder(this, *parents, builder)
             .also { addCssHolder(it) }
-
-    /** A root name to be applied to all styles declared by the instance of this class. */
-    val name: String = name // maybe one day some extended logic will be needed to avoid intersections in names
-        ?: this::class.simpleName
-        ?: this::class.js.name.replace("$", "").replace(".", "").also {
-            console.warn("Style sheet with no name specified: $it")
-        }
 
 
 
@@ -82,6 +75,13 @@ open class DynamicStyleSheet(
         }
     }
 
+    /** A root name to be applied to all styles declared by the instance of this class. */
+    internal val name: String = name // maybe one day some extended logic will be needed to avoid intersections in names
+        ?: this::class.simpleName
+        ?: this::class.js.name.replace("$", "").replace(".", "").also {
+            console.warn("Style sheet with no name specified: $it")
+        }
+
 
 
     // Private.
@@ -100,7 +100,7 @@ open class DynamicStyleSheet(
         is Number       -> toString().revampCssSuffix()
         is String       -> revampCssSuffix()
         is HasCssSuffix -> cssSuffix.revampCssSuffix()
-        is Enum<*>      -> name.revampCssSuffix().lowerCamelCase()
+        is Enum<*>      -> name.revampCssSuffix().lowerCamelCaseFromKebabOrSnakeCase()
         is KProperty<*> -> name.revampCssSuffix()
         else            -> throw IllegalArgumentException("The provided type is not supported for dynamic CSS")
     }

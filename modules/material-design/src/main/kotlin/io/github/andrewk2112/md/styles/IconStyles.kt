@@ -1,8 +1,8 @@
 package io.github.andrewk2112.md.styles
 
 import io.github.andrewk2112.designtokens.StyleValues
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.height
 import kotlinx.css.width
 

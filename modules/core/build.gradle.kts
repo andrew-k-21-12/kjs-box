@@ -1,5 +1,6 @@
 import io.github.andrewk2112.extensions.rootTaskOfType
 import io.github.andrewk2112.tasks.wrappers.GenerateImageWrappersTask
+import io.github.andrewk2112.utility.kotlinWrapper
 
 val reactVersion:          String by project
 val kotlinWrappersVersion: String by project
@@ -20,17 +21,21 @@ kotlin {
 
 dependencies {
 
+    // Kotlin Wrappers BOM to ensure consistency between the modules and version compatibility.
+    implementation(enforcedPlatform(kotlinWrapper("wrappers-bom:$kotlinWrappersVersion")))
+
     // React and fellows.
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$reactVersion-$kotlinWrappersVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-$kotlinWrappersVersion")      // to use global state in React
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-$kotlinWrappersVersion") // to process routes
+    implementation(kotlinWrapper("react"))
+    implementation(kotlinWrapper("react-redux"))      // to use global state in React
+    implementation(kotlinWrapper("react-router-dom")) // to process routes
+    implementation(npm("react", reactVersion))        // to avoid warnings about unmet peer dependencies
 
     // Other wrappers.
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled-next:1.2.1-$kotlinWrappersVersion") // to declare and reuse styles directly in code
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-js:1.0.0-$kotlinWrappersVersion")          // wrappers for JS entities
+    implementation(kotlinWrapper("styled-next")) // to declare and reuse styles directly in code
+    implementation(kotlinWrapper("js"))          // wrappers for JS entities
 
     // Dependency injection.
-    implementation("org.kodein.di:kodein-di:7.14.0")
+    implementation("org.kodein.di:kodein-di:7.15.0")
 
     // Localization.
     implementation(npm("i18next", "21.9.2"))

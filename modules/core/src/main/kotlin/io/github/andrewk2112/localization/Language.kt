@@ -5,7 +5,7 @@ package io.github.andrewk2112.localization
  *
  * @param code The language's ISO code.
  * */
-enum class Language(val code: String) {
+internal enum class Language(val code: String) {
     RUSSIAN("ru"),
     ENGLISH("en")
 }

@@ -1,8 +1,10 @@
-const path         = require("path"),
-      DefinePlugin = require("webpack").DefinePlugin;
+// All configs inside of this file will be applied both in the development and the production modes.
+const path              = require("path"),
+      DefinePlugin      = require("webpack").DefinePlugin,
+      HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // Setting the entry point module.
-config.entry = path.resolve(__dirname, `kotlin/${config.output.library}-index.js`)
+config.entry = path.resolve(__dirname, `${RAW_OUTPUT_DIR}/${config.output.library}-index.js`);
 
 // This config is super important to prepend a slash to the compiled JS sources file:
 // without it deeper navigation routes will fail to find the sources.
@@ -24,21 +26,17 @@ config.module.rules.push(
                 maxSize: 0 * 1024 // all images of less than this size (in bytes) are going to be inlined
             }
         },
-        generator: {
-            filename: image => image.filename.replace("kotlin/", "")
-        }
+        generator: ASSET_FILENAME_GENERATOR
     },
     // Copying all fonts actually used in the project.
     {
         test: /\.(woff|woff2)$/i,
         type: "asset/resource",
-        generator: {
-            filename: font => font.filename.replace("kotlin/", "")
-        }
+        generator: ASSET_FILENAME_GENERATOR
     }
 );
 
-// Pushing the build mode identifier to be available globally in JS sources.
+// Pushing the project name and the build mode identifier to be available globally in JS sources.
 config.plugins.push(new DefinePlugin({
     PROJECT_NAME: JSON.stringify(config.output.library),
     BUILD_MODE:   JSON.stringify(config.mode)

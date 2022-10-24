@@ -5,6 +5,6 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 
 /** Provides a [LocalizationEngine]. */
-val localizationModule = DI.Module("Localization") {
+internal val localizationModule = DI.Module("Localization") {
     bindSingleton { LocalizationEngine() }
 }

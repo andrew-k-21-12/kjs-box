@@ -13,7 +13,7 @@ fun String.camelCaseWord(): String = lowercase().replaceFirstChar { it.titlecase
 /**
  * Converts kebab or snake cases into the camel case.
  * */
-fun String.camelCase(): String = split("-", "_").let { parts ->
+fun String.camelCaseFromKebabOrSnakeCase(): String = split("-", "_").let { parts ->
     if (parts.size <= 1) {
         if (isUppercase()) lowercase() else this
     } else {
@@ -24,6 +24,6 @@ fun String.camelCase(): String = split("-", "_").let { parts ->
 /**
  * Converts kebab or snake cases into the lower camel case.
  * */
-fun String.lowerCamelCase(): String = camelCase().replaceFirstChar {
+fun String.lowerCamelCaseFromKebabOrSnakeCase(): String = camelCaseFromKebabOrSnakeCase().replaceFirstChar {
     if (it.isUpperCase()) it.lowercase() else it.toString()
 }

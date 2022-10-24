@@ -2,8 +2,8 @@ package io.github.andrewk2112.md.components.content
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useRefScrollMonitor
@@ -30,14 +30,11 @@ import react.useRef
 // TODO:
 //  6. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes.
-//  7. Fix webpack warnings and do a clean-up for its scripts.
-//  8. Write some custom server with all required configs (caches, routing) and place it here.
-//  9. Introduce better modular structure (which should separate resources and style values as well).
-//  10. Write about the project's features in the central README.md.
-//  11. Change the package name when the project gets its final name.
-//  12. Clean-up Gradle scripts (as many console warnings as possible), migrate to BoM for kotlin-wrappers.
-//  13. Remove locale keys unmet in the source code when bundling.
-//  14. Set internal visibility modifiers for entities internal to modules.
+//  7. Write some custom server with all required configs (caches, routing) and place it here.
+//  8. Introduce better modular structure (which should separate resources and style values as well).
+//  9. Write about the project's features in the central README.md.
+//  10. Change the package name when the project gets its final name.
+//  11. Remove locale keys unmet in the source code when bundling.
 
 
 

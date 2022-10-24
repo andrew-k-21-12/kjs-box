@@ -3,8 +3,7 @@
 // To check the outputs of this config, see ../build/distributions
 if (config.mode == "production") {
 
-    const HtmlWebpackPlugin           = require("html-webpack-plugin"),
-          TerserWebpackPlugin         = require("terser-webpack-plugin"),
+    const TerserWebpackPlugin         = require("terser-webpack-plugin"),
           ImageMinimizerWebpackPlugin = require("image-minimizer-webpack-plugin"),
           CopyWebpackPlugin           = require("copy-webpack-plugin"),
           NodeJsonMinify              = require("node-json-minify");
@@ -22,13 +21,13 @@ if (config.mode == "production") {
     // it also helps to prevent unnecessary files from copying: everything should be configured manually.
     config.output.clean = true;
 
-    // Making sure optimization and minimizer configs exist, or accessing its properties can crash otherwise.
+    // Making sure the optimization and minimizer configs exist, or accessing its properties can crash otherwise.
     config.optimization = config.optimization || {};
     const minimizer = config.optimization.minimizer = config.optimization.minimizer || [];
 
     // Minifying HTML.
     minimizer.push(new HtmlWebpackPlugin({
-        template: "kotlin/index.html",
+        template: RAW_TEMPLATE_PATH,
         minify: {
             removeAttributeQuotes: true,
             collapseWhitespace: true,
@@ -80,13 +79,13 @@ if (config.mode == "production") {
                 ]
             }
         }
-    }))
+    }));
 
     // Minifying and copying JSON locales into the bundle.
     config.plugins.push(new CopyWebpackPlugin({
         patterns: [
             {
-                context: "kotlin",
+                context: RAW_OUTPUT_DIR,
                 from: "locales/**/*.json",
                 to: "[path][name][ext]",
                 transform: content => NodeJsonMinify(content.toString())

@@ -3,9 +3,9 @@ package io.github.andrewk2112.md.styles
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.designtokens.stylesheets.HasCssSuffix
+import io.github.andrewk2112.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.HasCssSuffix
 import io.github.andrewk2112.extensions.OutlineStyle
 import io.github.andrewk2112.extensions.camelCaseWord
 import io.github.andrewk2112.extensions.outlineStyle

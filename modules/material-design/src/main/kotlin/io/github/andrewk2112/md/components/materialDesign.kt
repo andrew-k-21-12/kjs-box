@@ -1,7 +1,7 @@
 package io.github.andrewk2112.md.components
 
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.designtokens.stylesheets.NamedRuleSet
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.md.components.content.content
 import io.github.andrewk2112.md.components.header.header

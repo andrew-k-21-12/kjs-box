@@ -2,9 +2,7 @@
 // To check the outputs of this config, see ../build/processedResources/js/main
 if (config.mode == "development") {
 
-    const HtmlWebpackPlugin = require("html-webpack-plugin");
-
-    // Pointing to the template to be used as a base and injecting the JS sources path into.
-    config.plugins.push(new HtmlWebpackPlugin({ template: "kotlin/index.html" }));
+    // Pointing to the template to be used as a base and injecting the JS sources path into it.
+    config.plugins.push(new HtmlWebpackPlugin({ template: RAW_TEMPLATE_PATH }));
 
 }

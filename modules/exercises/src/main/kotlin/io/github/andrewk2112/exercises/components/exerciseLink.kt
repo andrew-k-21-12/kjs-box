@@ -3,8 +3,8 @@ package io.github.andrewk2112.exercises.components
 import history.To
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.designtokens.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.designtokens.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.extensions.setClassName
 import io.github.andrewk2112.resources.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*

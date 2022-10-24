@@ -1,6 +1,6 @@
 package io.github.andrewk2112.designtokens
 
-import io.github.andrewk2112.designtokens.stylesheets.HasCssSuffix
+import io.github.andrewk2112.stylesheets.HasCssSuffix
 import io.github.andrewk2112.extensions.camelCaseWord
 
 /**

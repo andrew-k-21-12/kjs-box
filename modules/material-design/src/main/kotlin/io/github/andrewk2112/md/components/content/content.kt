@@ -1,12 +1,15 @@
 package io.github.andrewk2112.md.components.content
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useRefScrollMonitor
+import io.github.andrewk2112.md.components.common.horizontalDivider
+import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import org.w3c.dom.Element
 import react.FC
@@ -26,12 +29,14 @@ import react.useRef
 //  3. Simplify WindowWidthMonitor, icons.kt.
 //  4. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  5. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere!
+//     Add explanations on the trampoline Rx scheduler in some corresponding SO question.
 
 // TODO:
 //  6. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes.
 //  7. Write some custom server with all required configs (caches, routing) and place it here.
 //  8. Introduce better modular structure (which should separate resources and style values as well).
+//     Check / add Windows support.
 //  9. Write about the project's features in the central README.md.
 //  10. Change the package name when the project gets its final name.
 //  11. Remove locale keys unmet in the source code when bundling.
@@ -65,8 +70,10 @@ val content = FC<ContentProps> { props ->
         // Top spacing to fit the header.
         withClassName(div, ContentStyles.headerSpacer(props.topSpacing).name) {}
 
-        // Design descriptions block.
+        // Content blocks.
         contentDesign {}
+        contentWhatsNew {}
+        withClassName(horizontalDivider, ContentStyles.dividerSpacing.name) {}
 
     }
 
@@ -86,6 +93,10 @@ private object ContentStyles : DynamicStyleSheet() {
 
     val headerSpacer: DynamicCssProvider<Double> by dynamicCss {
         height = it.px
+    }
+
+    val dividerSpacing: NamedRuleSet by css {
+        margin(horizontal = StyleValues.spacing.absolute40)
     }
 
 }

@@ -9,6 +9,7 @@ import org.kodein.di.instance
  * */
 object StyleValues {
     val fontSizes: FontSizes by di.instance()
+    val opacities: Opacities by di.instance()
     val palette:   Palette   by di.instance()
     val radii:     Radii     by di.instance()
     val sizes:     Sizes     by di.instance()

@@ -1,7 +1,6 @@
 package io.github.andrewk2112.md.styles
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
@@ -17,7 +16,7 @@ import kotlinx.css.properties.*
 /**
  * A preferred coloring mode for a stroke.
  * */
-enum class StrokeColor { DEFAULT, INTENSE }
+enum class StrokeColor { DEFAULT, INTENSE, DARK }
 
 /**
  * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
@@ -25,6 +24,7 @@ enum class StrokeColor { DEFAULT, INTENSE }
 private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
     StrokeColor.DEFAULT -> Theme.palette.stroke1(context)
     StrokeColor.INTENSE -> Theme.palette.stroke2(context)
+    StrokeColor.DARK    -> Theme.palette.stroke3(context)
 }
 
 
@@ -52,7 +52,11 @@ private val StrokePosition.matchingStylingFunction: StyledElement.(LinearDimensi
 /**
  * All configs required to evaluate a stroke's style.
  * */
-class StrokeConfigs(val context: Context, val color: StrokeColor, vararg val positions: StrokePosition) : HasCssSuffix {
+class StrokeConfigs(
+    val context: Context,
+    val color: StrokeColor,
+    vararg val positions: StrokePosition = StrokePosition.values(),
+) : HasCssSuffix {
 
     override val cssSuffix: String
         get() = context.cssSuffix +
@@ -74,7 +78,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies a border-based stroke. */
     val borderStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        val strokeWidth = StyleValues.sizes.absolute1
+        val strokeWidth = Theme.sizes.stroke1(it.context)
         val strokeColor = it.color.getThemedColor(it.context)
         it.positions.map { position ->
             position.matchingStylingFunction.invoke(this, strokeWidth, BorderStyle.solid, strokeColor)
@@ -83,7 +87,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies an outline-based stroke. */
     val outlineStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        outlineWidth = StyleValues.sizes.absolute1
+        outlineWidth = Theme.sizes.stroke1(it.context)
         outlineStyle = OutlineStyle.solid
         outlineColor = it.color.getThemedColor(it.context)
     }

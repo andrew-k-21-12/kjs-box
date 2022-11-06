@@ -9,22 +9,23 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.md.resources.endpoints.MaterialDesignTopicsEndpoints
 import io.github.andrewk2112.resources.images.Image
 import io.github.andrewk2112.resources.images.MdMaterialDarkThemeImage
 import io.github.andrewk2112.resources.images.MdSoundGuidelinesImage
 import io.github.andrewk2112.components.image
+import io.github.andrewk2112.md.resources.endpoints.PopularMaterialEndpoints
+import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.StrokeColor.INTENSE
 import io.github.andrewk2112.md.styles.StrokeConfigs
 import io.github.andrewk2112.md.styles.StrokeStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
+import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
 import kotlinx.css.properties.textDecoration
 import react.ChildrenBuilder
 import react.FC
 import react.Props
-import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
@@ -36,9 +37,15 @@ import react.useState
 
 val contentDesign = FC<Props> {
 
+    // State.
+
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val endpoints by useState { MaterialDesignTopicsEndpoints() }
+    val endpoints  by useState { PopularMaterialEndpoints() }
+
+
+
+    // Rendering.
 
     // A grid with contents.
     withClassName(div, ContentDesignStyles.gridContainer(context).name) {
@@ -70,8 +77,8 @@ val contentDesign = FC<Props> {
 
             // Topics list.
             ul {
-                popularLi(context, localizator("md.materialTheming"), endpoints.materialThemingOverview)
-                popularLi(context, localizator("md.iconography"),     endpoints.productIconography)
+                popularLi(context, localizator("md.materialTheming"), endpoints.materialTheming)
+                popularLi(context, localizator("md.iconography"),     endpoints.iconography)
                 popularLi(context, localizator("md.textFields"),      endpoints.textFields)
             }
 
@@ -108,12 +115,8 @@ private fun ChildrenBuilder.popularLi(context: Context, label: String, destinati
     withClassName(li, ContentDesignStyles.popularListItem(context).name) {
 
         a {
-
-            target = AnchorTarget._blank
-            href   = destinationEndpoint
-
+            safeBlankHref = destinationEndpoint
             +label
-
         }
 
     }
@@ -187,17 +190,19 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val bigLabel: DynamicCssProvider<Context> by dynamicCss {
-        fontSize = Theme.fontSizes.adaptive4(it)
+        fontSize = Theme.fontSizes.adaptive5(it)
         color = Theme.palette.onSurface1(it)
     }
 
     val captionLabel: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.light.rules
         marginTop = StyleValues.spacing.absolute20
         fontSize = StyleValues.fontSizes.relative1
         color = Theme.palette.onSurface1(it)
     }
 
     val categoryLabel: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.mono.rules
         fontSize = StyleValues.fontSizes.relativep85
         color = Theme.palette.onSurfaceWeaker1(it)
     }
@@ -216,7 +221,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
         marginTop = topSpacing
         marginBottom = topSpacing + StyleValues.spacing.absolute5 // as the bottom margin interleaves with the next one
         children {
-            +TransitionStyles.defaultTransition(::color).rules
+            +TransitionStyles.flashingTransition(::color).rules
             fontSize = StyleValues.fontSizes.relative1p2
             textDecoration(TextDecorationLine.underline)
             color = Theme.palette.onSurface1(it)
@@ -247,6 +252,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val topicDescription: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.light.rules
         marginTop = StyleValues.spacing.absolute11
         fontSize = StyleValues.fontSizes.relativep95
         color = Theme.palette.onSurface1(it)

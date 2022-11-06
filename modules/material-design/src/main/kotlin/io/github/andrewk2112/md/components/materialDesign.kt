@@ -3,10 +3,12 @@ package io.github.andrewk2112.md.components
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
+import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.md.components.content.content
 import io.github.andrewk2112.md.components.header.header
 import io.github.andrewk2112.md.components.menu.menu
-import io.github.andrewk2112.resources.fonts.md.RobotoFontStyles
+import io.github.andrewk2112.md.styles.AnimationStyles
+import io.github.andrewk2112.md.styles.FontStyles
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -14,6 +16,13 @@ import react.dom.html.ReactHTML.div
 // Public.
 
 val materialDesign = FC<Props> {
+
+    // Global initializations.
+
+    val context = useAppContext()
+    AnimationStyles.initialize { context }
+
+
 
     // State.
 
@@ -65,7 +74,7 @@ val materialDesign = FC<Props> {
 private object MaterialDesignStyles : DynamicStyleSheet() {
 
     val root: NamedRuleSet by css {
-        +RobotoFontStyles.regular.rules
+        +FontStyles.regular.rules
         fontSize = 100.pct
     }
 

@@ -5,10 +5,10 @@ import kotlinx.css.Color
 import kotlinx.css.LinearDimension
 
 /**
- * A protocol to describe dynamic themed font sizes:
- * returns some specific font size according to the provided [Context].
+ * A protocol to describe dynamic themed sizes:
+ * returns some specific size ([LinearDimension]) according to the provided [Context].
  * */
-typealias ThemedFontSize = (Context) -> LinearDimension
+typealias ThemedSize = (Context) -> LinearDimension
 
 /**
  * A protocol to describe dynamic themed colors:

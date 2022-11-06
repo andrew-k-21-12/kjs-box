@@ -12,4 +12,5 @@ internal external interface ReactI18next {
 
 internal external interface Translation {
     fun t(key: String): String
+    val i18n: I18n
 }

@@ -43,6 +43,15 @@
     "foundation": "Foundation",
     "guidelines": "Guidelines",
     "learnHowToDesignADarkThemeVersionOfYourMaterialUI": "Learn how to design a dark theme version of your Material UI",
-    "useSoundToCommunicateInformationInWaysThatAugment": "Use sound to communicate information in ways that augment the user experience"
+    "useSoundToCommunicateInformationInWaysThatAugment": "Use sound to communicate information in ways that augment the user experience",
+    "whatsNew": "What's new",
+    "theLatestMaterialDesignUpdatesAndGuidance": "The latest Material Design updates and guidance",
+    "designAndBuildForLargeScreens": "Design and build for large screens",
+    "newGuidanceForAdaptingLayoutsAndComponents": "New guidance for adapting layouts and components to work seamlessly on tablets and larger screens",
+    "combinedComponentPages": "Combined component pages",
+    "developerDocsAndDesignGuidelinesForComponents": "Developer docs and design guidelines for components now live in one place, separated by tabs",
+    "materialDesignAwardWinners": "Material Design Award winners",
+    "moooiEpsyAndKayak": "Moooi, Epsy and KAYAK",
+    "viewAll": "View all"
   }
 }

@@ -10,4 +10,5 @@ internal external val i18next: I18n
 internal external interface I18n {
     fun use(module: dynamic): I18n
     fun init(options: dynamic)
+    val language: String
 }

@@ -7,7 +7,7 @@ import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useRefHeightMonitor
-import io.github.andrewk2112.md.resources.endpoints.MaterialDesignEndpoint
+import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints
 import io.github.andrewk2112.md.styles.ShadowStyles
 import kotlinx.css.*
 import kotlinx.css.properties.transform
@@ -28,10 +28,9 @@ val header = FC<HeaderProps> { props ->
 
     // State, callbacks logic.
 
-    val context                = useAppContext()
-    val localizator            = useLocalizator()
-    val materialDesignEndpoint by useState { MaterialDesignEndpoint() }
-    val headerRef              = useRef<Element>(null)
+    val context     = useAppContext()
+    val localizator = useLocalizator()
+    val headerRef   = useRef<Element>(null)
     useRefHeightMonitor(headerRef, props.onHeightChanged)
 
 
@@ -48,7 +47,7 @@ val header = FC<HeaderProps> { props ->
             localizator("md.theLatestVersionOfMaterialDesignIsNowAvailableForAndroid"),
             localizator("md.learnAboutMaterial3sNewFeatures"),
             localizator("md.startExploringMaterial3"),
-            materialDesignEndpoint.designEndpoint
+            MainMaterialEndpoints.design
         )
 
         headerNavigation {}
@@ -78,7 +77,7 @@ private object HeaderStyles : DynamicStyleSheet() {
             StyleValues.timing.cubicBezier1,
             if (it) StyleValues.time.ms300 else StyleValues.time.immediate
         )
-        opacity = if (it) 1 else 0
+        opacity = if (it) StyleValues.opacities.full else StyleValues.opacities.transparent
         transition(
             ::opacity,
             StyleValues.time.immediate,

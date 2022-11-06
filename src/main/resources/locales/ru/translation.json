@@ -36,13 +36,22 @@
     "usability": "Удобство использования",
     "platformGuidance": "Руководство платформы",
     "createIntuitiveAndBeautifulProductsWithMaterialDesign": "Создавайте интуитивные и красивые продукты с Материальным дизайном",
-    "popular": "Популярно",
+    "popular": "Популярное",
     "textFields": "Текстовые поля",
     "materialDarkTheme": "Тёмная тема в Material",
     "soundGuidelines": "Гайдлайны для звука",
     "foundation": "Основы",
     "guidelines": "Гайдлайны",
     "learnHowToDesignADarkThemeVersionOfYourMaterialUI": "Узнайте, как создать версию с тёмной темой для вашего Material UI",
-    "useSoundToCommunicateInformationInWaysThatAugment": "Используйте звук для передачи информации, чтобы дополнить пользовательский опыт"
+    "useSoundToCommunicateInformationInWaysThatAugment": "Используйте звук для передачи информации, чтобы дополнить пользовательский опыт",
+    "whatsNew": "Что нового",
+    "theLatestMaterialDesignUpdatesAndGuidance": "Последние обновления и руководства в Material Design",
+    "designAndBuildForLargeScreens": "Проектируйте и стройте для больших экранов",
+    "newGuidanceForAdaptingLayoutsAndComponents": "Новое руководство по адаптации макетов и компонентов для бесшовной работы на планшетах и больших экранах",
+    "combinedComponentPages": "Страницы о компонентах собраны воедино",
+    "developerDocsAndDesignGuidelinesForComponents": "Документации для разработчиков и гайдлайны по дизайну компонентов теперь живут в одном месте, разделённом вкладками",
+    "materialDesignAwardWinners": "Победители Material Design Award",
+    "moooiEpsyAndKayak": "Moooi, Epsy и KAYAK",
+    "viewAll": "Смотреть все"
   }
 }

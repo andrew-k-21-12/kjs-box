@@ -11,6 +11,7 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.iconMagnify
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
+import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.IconStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
 import kotlinx.css.*
@@ -114,6 +115,7 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
     }
 
     val materialDesignLabel: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.mono.rules
         marginLeft = StyleValues.spacing.absolute16
         fontSize   = StyleValues.fontSizes.relativep95
         color      = Theme.palette.onSurface1(it)
@@ -134,7 +136,7 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
     }
 
     val navigationButton: DynamicCssProvider<Context> by dynamicCss {
-        +TransitionStyles.defaultTransition(::color).rules
+        +TransitionStyles.flashingTransition(::color).rules
         display = Display.grid
         height  = 100.pct
         padding(horizontal = StyleValues.spacing.absolute16)
@@ -150,12 +152,13 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
     }
 
     val navigationButtonLabel: NamedRuleSet by css {
+        +FontStyles.light.rules
         gridRow   = GridRow("2")
         alignSelf = Align.center
     }
 
     val navigationButtonSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
-        +TransitionStyles.defaultTransition(::backgroundColor).rules
+        +TransitionStyles.flashingTransition(::backgroundColor).rules
         gridRow   = GridRow("3")
         alignSelf = Align.end
         width     = 100.pct

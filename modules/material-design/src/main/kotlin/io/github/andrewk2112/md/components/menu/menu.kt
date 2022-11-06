@@ -9,8 +9,9 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.md.resources.endpoints.MaterialDesignTopicsEndpoints
+import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
+import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.IconStyles
 import io.github.andrewk2112.md.styles.StrokeColor.DEFAULT
 import io.github.andrewk2112.md.styles.StrokeConfigs
@@ -34,7 +35,7 @@ val menu = FC<MenuProps> { props ->
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data by useState { MenuData() }
+    val data       by useState { MenuData(NavMenuMaterialEndpoints()) }
 
     // Topmost container.
     withClassName(div, MenuStyles.container(context).name) {
@@ -107,6 +108,7 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val headerLabel: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.mono.rules
         fontSize = StyleValues.fontSizes.relativep95
         color    = Theme.palette.onSurface2(it)
     }
@@ -135,38 +137,33 @@ private sealed class MenuItem {
 
 }
 
-private class MenuData {
+private class MenuData(endpoints: NavMenuMaterialEndpoints) {
 
-    val menuItems: Array<MenuItem>
-
-    init {
-        val endpoints = MaterialDesignTopicsEndpoints()
-        menuItems = arrayOf(
-            MenuItem.Category("md.materialSystem"),
-            MenuItem.Item("md.introduction", endpoints.introduction, MenuItemBottomSpacing.MEDIUM),
-            MenuItem.Item("md.materialStudies", endpoints.aboutOurMaterialStudies, MenuItemBottomSpacing.MEDIUM),
-            MenuItem.Divider,
-            MenuItem.Category("md.materialFoundation"),
-            MenuItem.Item("md.foundationOverview", endpoints.foundationOverview, MenuItemBottomSpacing.MEDIUM),
-            MenuItem.Item("md.environment", endpoints.environmentSurfaces),
-            MenuItem.Item("md.layout", endpoints.understandingLayout),
-            MenuItem.Item("md.navigation", endpoints.understandingNavigation),
-            MenuItem.Item("md.color", endpoints.colorSystem),
-            MenuItem.Item("md.typography", endpoints.typographySystem),
-            MenuItem.Item("md.sound", endpoints.aboutSound),
-            MenuItem.Item("md.iconography", endpoints.productIconography),
-            MenuItem.Item("md.shape", endpoints.aboutShape),
-            MenuItem.Item("md.motion", endpoints.understandingMotion),
-            MenuItem.Item("md.interaction", endpoints.interactionGestures),
-            MenuItem.Item("md.communication", endpoints.confirmationAcknowledgement),
-            MenuItem.Item("md.machineLearning", endpoints.understandingMLPatterns, MenuItemBottomSpacing.MEDIUM),
-            MenuItem.Divider,
-            MenuItem.Category("md.materialGuidelines"),
-            MenuItem.Item("md.guidelinesOverview", endpoints.guidelinesOverview, MenuItemBottomSpacing.MEDIUM),
-            MenuItem.Item("md.materialTheming", endpoints.materialThemingOverview),
-            MenuItem.Item("md.usability", endpoints.accessibility),
-            MenuItem.Item("md.platformGuidance", endpoints.platformGuidanceAndroidBars, MenuItemBottomSpacing.BIG)
-        )
-    }
+    val menuItems: Array<MenuItem> = arrayOf(
+        MenuItem.Category("md.materialSystem"),
+        MenuItem.Item("md.introduction",    endpoints.introduction,            MenuItemBottomSpacing.MEDIUM),
+        MenuItem.Item("md.materialStudies", endpoints.aboutOurMaterialStudies, MenuItemBottomSpacing.MEDIUM),
+        MenuItem.Divider,
+        MenuItem.Category("md.materialFoundation"),
+        MenuItem.Item("md.foundationOverview", endpoints.foundationOverview,      MenuItemBottomSpacing.MEDIUM),
+        MenuItem.Item("md.environment",        endpoints.environmentSurfaces),
+        MenuItem.Item("md.layout",             endpoints.understandingLayout),
+        MenuItem.Item("md.navigation",         endpoints.understandingNavigation),
+        MenuItem.Item("md.color",              endpoints.colorSystem),
+        MenuItem.Item("md.typography",         endpoints.typographySystem),
+        MenuItem.Item("md.sound",              endpoints.aboutSound),
+        MenuItem.Item("md.iconography",        endpoints.productIconography),
+        MenuItem.Item("md.shape",              endpoints.aboutShape),
+        MenuItem.Item("md.motion",             endpoints.understandingMotion),
+        MenuItem.Item("md.interaction",        endpoints.interactionGestures),
+        MenuItem.Item("md.communication",      endpoints.confirmationAcknowledgement),
+        MenuItem.Item("md.machineLearning",    endpoints.understandingMLPatterns, MenuItemBottomSpacing.MEDIUM),
+        MenuItem.Divider,
+        MenuItem.Category("md.materialGuidelines"),
+        MenuItem.Item("md.guidelinesOverview", endpoints.guidelinesOverview,          MenuItemBottomSpacing.MEDIUM),
+        MenuItem.Item("md.materialTheming",    endpoints.materialThemingOverview),
+        MenuItem.Item("md.usability",          endpoints.accessibility),
+        MenuItem.Item("md.platformGuidance",   endpoints.platformGuidanceAndroidBars, MenuItemBottomSpacing.BIG)
+    )
 
 }

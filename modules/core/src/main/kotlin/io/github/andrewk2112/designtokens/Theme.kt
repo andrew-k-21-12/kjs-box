@@ -2,6 +2,7 @@ package io.github.andrewk2112.designtokens
 
 import io.github.andrewk2112.designtokens.system.ThemedFontSizes
 import io.github.andrewk2112.designtokens.system.ThemedPalette
+import io.github.andrewk2112.designtokens.system.ThemedSizes
 import io.github.andrewk2112.dinjection.di
 import org.kodein.di.instance
 
@@ -11,4 +12,5 @@ import org.kodein.di.instance
 object Theme {
     val fontSizes: ThemedFontSizes by di.instance()
     val palette:   ThemedPalette   by di.instance()
+    val sizes:     ThemedSizes     by di.instance()
 }

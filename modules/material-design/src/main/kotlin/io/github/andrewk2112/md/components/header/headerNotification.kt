@@ -8,10 +8,10 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.md.resources.iconArrowRightThin
+import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
-import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
@@ -42,8 +42,7 @@ fun ChildrenBuilder.headerNotification(
         // Action button.
         withClassName(a, HeaderNotificationStyles.actionButton(context).name) {
 
-            target = AnchorTarget._blank
-            href   = actionDestinationEndpoint
+            safeBlankHref = actionDestinationEndpoint
 
             +actionLabel
 
@@ -97,7 +96,7 @@ private object HeaderNotificationStyles : DynamicStyleSheet() {
         paddingRight  = StyleValues.spacing.absolute18
         marginRight   = StyleValues.spacing.absolute40
         borderRadius  = StyleValues.radii.cornerAbsolute24
-        fontSize       = StyleValues.fontSizes.relativep90
+        fontSize       = StyleValues.fontSizes.relativep9
         textDecoration = TextDecoration.none
         backgroundColor = Theme.palette.action2(it)
         hover {

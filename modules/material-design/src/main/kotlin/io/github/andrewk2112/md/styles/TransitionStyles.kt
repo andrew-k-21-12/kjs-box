@@ -11,8 +11,12 @@ import kotlin.reflect.KProperty
  * */
 object TransitionStyles : DynamicStyleSheet() {
 
-    val defaultTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {
+    val flashingTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {
         transition(it, StyleValues.time.ms100, StyleValues.timing.cubicBezier1)
+    }
+
+    val fastTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {
+        transition(it, StyleValues.time.ms200, StyleValues.timing.cubicBezier1)
     }
 
 }

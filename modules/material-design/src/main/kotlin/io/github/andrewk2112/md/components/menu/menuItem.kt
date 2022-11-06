@@ -6,12 +6,14 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.extensions.withClassName
-import io.github.andrewk2112.md.components.ripple
+import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
+import io.github.andrewk2112.md.styles.SelectionStyles
+import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
-import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.div
 
 // Utility.
 
@@ -32,17 +34,18 @@ fun ChildrenBuilder.menuItem(
     destinationEndpoint: String
 ) {
 
-    // Just a background with a ripple touch effect and bottom spacing.
-    withClassName(ripple, MenuItemStyles.wrapper(bottomSpacing).name) {
+    // Wrapper with the bottom spacing and highlighting.
+    withClassName(
+        div,
+        MenuItemStyles.wrapperWithPositioning(bottomSpacing).name,
+        SelectionStyles.simpleHighlightingAndSelection(context).name
+    ) {
 
         // Item's link itself.
         withClassName(a, MenuItemStyles.link(context).name) {
-
-            target = AnchorTarget._blank
-            href   = destinationEndpoint
-
+            safeBlankHref = destinationEndpoint
+            addTapHighlighting()
             +name
-
         }
 
     }
@@ -55,13 +58,16 @@ fun ChildrenBuilder.menuItem(
 
 private object MenuItemStyles : DynamicStyleSheet() {
 
-    val wrapper: DynamicCssProvider<MenuItemBottomSpacing> by dynamicCss {
+    val wrapperWithPositioning: DynamicCssProvider<MenuItemBottomSpacing> by dynamicCss {
+        position = Position.relative
         marginBottom = it.value
+        overflow = Overflow.hidden // to prevent the animation from getting outside
     }
 
     val link: DynamicCssProvider<Context> by dynamicCss {
-        display = Display.inlineBlock
-        width   = 100.pct
+        position = Position.relative // or the animation will appear on top
+        display  = Display.inlineBlock
+        width    = 100.pct
         paddingLeft   = StyleValues.spacing.absolute24
         paddingRight  = StyleValues.spacing.absolute24
         paddingTop    = StyleValues.spacing.absolute12
@@ -70,8 +76,7 @@ private object MenuItemStyles : DynamicStyleSheet() {
         textDecoration = TextDecoration.none
         color = Theme.palette.onSurfaceLighter2(it)
         hover {
-            color           = Theme.palette.onSelection1(it)
-            backgroundColor = Theme.palette.selection1(it)
+            color = Theme.palette.onSelection1(it)
         }
     }
 

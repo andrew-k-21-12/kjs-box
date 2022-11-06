@@ -110,9 +110,12 @@ internal class FontTemplatesWriter(
     ): String {
 
         // Preparing configs to be inflated.
-        val variableName            = fontVariant.variantName.toLowerCase()
-        val fontWeight              = when (fontVariant.variantName) { else -> "FontWeight.normal" }
-        val fontStyle               = when (fontVariant.variantName) { else -> "FontStyle.normal"  }
+        val variableName = fontVariant.variantName.decapitalize()
+        val fontWeight   = when (fontVariant.variantName) {
+            "Light" -> "FontWeight.w300"
+            else    -> "FontWeight.normal"
+        }
+        val fontStyle               = when (fontVariant.variantName) { else -> "FontStyle.normal" }
         val fontFamilyWithFallbacks = listOf(fontFamily, *fallbackFontFamilies).joinToString()
 
         // Inflating with all configs.

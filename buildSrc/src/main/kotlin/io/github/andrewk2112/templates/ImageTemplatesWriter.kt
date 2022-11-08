@@ -2,6 +2,7 @@ package io.github.andrewk2112.templates
 
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.extensions.joinCapitalized
+import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.extensions.writeTo
 import io.github.andrewk2112.models.ImageResource
 import java.io.File
@@ -63,7 +64,7 @@ internal class ImageTemplatesWriter(
                 objectName,
                 imageResource.imageSize.width,
                 imageResource.imageSize.height,
-                imageResource.relativeImagePath
+                imageResource.relativeImagePath.toUniversalPathString()
             )
             .writeTo(File(outDir, "$objectName.kt"))
 

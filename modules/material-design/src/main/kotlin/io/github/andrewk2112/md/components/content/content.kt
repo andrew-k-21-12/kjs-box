@@ -36,7 +36,6 @@ import react.useRef
 //     as it will require to rebuild and reload everything each time a resource changes.
 //  7. Write some custom server with all required configs (caches, routing) and place it here.
 //  8. Introduce better modular structure (which should separate resources and style values as well).
-//     Check / add Windows support.
 //  9. Write about the project's features in the central README.md.
 //  10. Change the package name when the project gets its final name.
 //  11. Remove locale keys unmet in the source code when bundling.

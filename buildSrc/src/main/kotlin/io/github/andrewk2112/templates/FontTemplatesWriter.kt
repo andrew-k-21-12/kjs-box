@@ -3,6 +3,7 @@ package io.github.andrewk2112.templates
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.extensions.joinCapitalized
 import io.github.andrewk2112.extensions.slashesToDots
+import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.models.FontResource
 import java.io.File
 import java.io.FileNotFoundException
@@ -138,6 +139,10 @@ internal class FontTemplatesWriter(
      * */
     @Throws(IOException::class)
     private fun generateReferenceProperty(propertyName: String, relativeFontPath: String): String =
-        simpleTemplatesInflater.inflate("/template_font_styles_reference.txt", relativeFontPath, propertyName)
+        simpleTemplatesInflater.inflate(
+            "/template_font_styles_reference.txt",
+            relativeFontPath.toUniversalPathString(),
+            propertyName
+        )
 
 }

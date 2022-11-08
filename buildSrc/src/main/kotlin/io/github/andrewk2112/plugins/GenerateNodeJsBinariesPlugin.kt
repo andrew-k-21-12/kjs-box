@@ -1,6 +1,7 @@
 package io.github.andrewk2112.plugins
 
 import io.github.andrewk2112.extensions.joinWithPath
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.*
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.kotlin.dsl.named
@@ -33,9 +34,11 @@ class GenerateNodeJsBinariesPlugin : Plugin<Project> {
      * Looks for a Node.js binary [File].
      * */
     @Throws(UnknownTaskException::class)
-    private fun Project.findNodeJsBinary(): File = tasks.named("kotlinNodeJsSetup", NodeJsSetupTask::class)
-                                                        .get().destination
-                                                        .joinWithPath("bin/node")
+    private fun Project.findNodeJsBinary(): File =
+        tasks
+            .named("kotlinNodeJsSetup", NodeJsSetupTask::class)
+            .get().destination
+            .joinWithPath(if (Os.isFamily(Os.FAMILY_WINDOWS)) "node" else "bin/node")
 
     /**
      * Registers a task making Node.js generate a required binary manually.

@@ -2,7 +2,7 @@ package io.github.andrewk2112.md.components.content
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
-import io.github.andrewk2112.extensions.withClassName
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useCurrentLanguageAndLocalizator
 import io.github.andrewk2112.md.components.common.rectButton
@@ -43,16 +43,16 @@ val contentWhatsNew = FC<Props> {
     // Rendering.
 
     // Common spacing.
-    withClassName(div, ContentWhatsNewStyles.container.name) {
+    +div(ContentWhatsNewStyles.container.name) {
 
         // Section's title.
-        withClassName(a, LabelStyles.contentBlockLinkTitle(context).name) {
+        +a(LabelStyles.contentBlockLinkTitle(context).name) {
             safeBlankHref = endpoints.whatsNew
             +localizator("md.whatsNew")
         }
 
         // Section's short description.
-        withClassName(p, ContentWhatsNewStyles.titleDescriptionWithSpacing(context).name) {
+        +p(ContentWhatsNewStyles.titleDescriptionWithSpacing(context).name) {
             +localizator("md.theLatestMaterialDesignUpdatesAndGuidance")
         }
 
@@ -68,7 +68,7 @@ val contentWhatsNew = FC<Props> {
         }
 
         // Button to view all articles.
-        withClassName(rectButton, ContentWhatsNewStyles.viewAllButton.name) {
+        +rectButton(ContentWhatsNewStyles.viewAllButton.name) {
             text   = localizator("md.viewAll")
             action = { openBlankWindowSafely(endpoints.whatsNew) }
         }
@@ -90,16 +90,16 @@ private fun ChildrenBuilder.blogItemRow(
 ) {
 
     // Date stamp.
-    withClassName(p, ContentWhatsNewStyles.blogItemDateWithSpacing(context).name) { +formattedDate }
+    +p(ContentWhatsNewStyles.blogItemDateWithSpacing(context).name) { +formattedDate }
 
     // Clickable title.
-    withClassName(a, ContentWhatsNewStyles.blogItemTitleWithSpacing(context).name) {
+    +a(ContentWhatsNewStyles.blogItemTitleWithSpacing(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
 
     // Short description.
-    withClassName(p, ContentWhatsNewStyles.blogItemDescriptionWithSpacing(context).name) { +description }
+    +p(ContentWhatsNewStyles.blogItemDescriptionWithSpacing(context).name) { +description }
 
 }
 
@@ -111,15 +111,14 @@ private object ContentWhatsNewStyles : DynamicStyleSheet() {
 
     val container: NamedRuleSet by css {
         padding(
-            top    = StyleValues.spacing.absolute89,
-            right  = StyleValues.spacing.absolute40,
-            bottom = StyleValues.spacing.absolute47,
-            left   = StyleValues.spacing.absolute40
+            top        = StyleValues.spacing.absolute89,
+            bottom     = StyleValues.spacing.absolute47,
+            horizontal = StyleValues.spacing.absolute40
         )
     }
 
     val titleDescriptionWithSpacing: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockTitleDescription(it).rules
+        +LabelStyles.contentBlockDescription(it).rules
         marginTop    = StyleValues.spacing.absolute12
         marginBottom = StyleValues.spacing.absolute38
     }
@@ -136,7 +135,7 @@ private object ContentWhatsNewStyles : DynamicStyleSheet() {
     }
 
     val blogItemDescriptionWithSpacing: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockTitleDescription(it).rules
+        +LabelStyles.contentBlockSmallerDescription(it).rules
         marginTop = StyleValues.spacing.absolute6
     }
 

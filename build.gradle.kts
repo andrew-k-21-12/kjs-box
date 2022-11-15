@@ -1,3 +1,4 @@
+import io.github.andrewk2112.extensions.joinWithPath
 import io.github.andrewk2112.plugins.GenerateNodeJsBinariesPlugin
 import io.github.andrewk2112.plugins.GenerateResourceWrappersPlugin
 
@@ -44,7 +45,15 @@ dependencies {
 
 }
 
-tasks { // to avoid optimization issues because of the custom modules structure
+tasks {
+
+    // To avoid optimization issues because of the custom modules structure.
     named("browserDevelopmentRun").get().dependsOn(named("developmentExecutableCompileSync"))
     named("browserProductionRun").get().dependsOn(named("productionExecutableCompileSync"))
+
+    // Cleaning up the buildSrc build files as well.
+    named("clean").get().doLast {
+        projectDir.joinWithPath("buildSrc").joinWithPath("build").deleteRecursively()
+    }
+
 }

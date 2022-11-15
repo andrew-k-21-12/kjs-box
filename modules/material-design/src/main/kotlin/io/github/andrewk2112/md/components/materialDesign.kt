@@ -1,8 +1,8 @@
 package io.github.andrewk2112.md.components
 
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.md.components.content.content
 import io.github.andrewk2112.md.components.header.header
@@ -41,7 +41,7 @@ val materialDesign = FC<Props> {
     // Rendering.
 
     // Default styles and context.
-    withClassName(div, MaterialDesignStyles.root.name) {
+    +div(MaterialDesignStyles.root.name) {
 
         // Sliding header.
         header {
@@ -50,7 +50,7 @@ val materialDesign = FC<Props> {
         }
 
         // A wrapper for all relative blocks aligned with each other.
-        withClassName(div, MaterialDesignStyles.alignedBlocks.name) {
+        +div(MaterialDesignStyles.alignedBlocks.name) {
 
             // Menu block.
             menu { this.headerHeight = headerHeight }

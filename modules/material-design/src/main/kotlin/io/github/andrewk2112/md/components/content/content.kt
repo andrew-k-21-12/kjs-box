@@ -3,9 +3,9 @@ package io.github.andrewk2112.md.components.content
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useRefScrollMonitor
 import io.github.andrewk2112.md.components.common.horizontalDivider
@@ -62,17 +62,18 @@ val content = FC<ContentProps> { props ->
 
     // Rendering.
 
-    withClassName(div, ContentStyles.container(context).name) {
+    +div(ContentStyles.container(context).name) {
 
         ref = contentRef
 
         // Top spacing to fit the header.
-        withClassName(div, ContentStyles.headerSpacer(props.topSpacing).name) {}
+        +div(ContentStyles.headerSpacer(props.topSpacing).name)
 
         // Content blocks.
         contentDesign {}
         contentWhatsNew {}
-        withClassName(horizontalDivider, ContentStyles.dividerSpacing.name) {}
+        +horizontalDivider(ContentStyles.dividerSpacing.name)
+        contentMaterialArticles {}
 
     }
 

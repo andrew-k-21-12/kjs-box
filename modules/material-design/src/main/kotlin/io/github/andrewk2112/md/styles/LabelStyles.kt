@@ -5,6 +5,7 @@ import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 
@@ -26,16 +27,14 @@ object LabelStyles : DynamicStyleSheet() {
         color = Theme.palette.onSurface2(it)
     }
 
-    val contentBlockTitleDescription: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.light.rules
-        fontSize = StyleValues.fontSizes.relative1
-        color = Theme.palette.onSurfaceLighter2(it)
+    val contentBlockSubTitle: DynamicCssProvider<Context> by dynamicCss {
+        +contentBlockSubTitleSize.rules
+        color = Theme.palette.onSurface2(it)
     }
 
-    val contentBlockDate: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.mono.rules
-        fontSize = StyleValues.fontSizes.relativep875
-        color = Theme.palette.onSurfaceLighter2(it)
+    val contentBlockDarkSubTitle: DynamicCssProvider<Context> by dynamicCss {
+        +contentBlockSubTitleSize.rules
+        color = Theme.palette.onSurface1(it)
     }
 
     val contentBlockLinkSmallTitle: DynamicCssProvider<Context> by dynamicCss {
@@ -44,12 +43,38 @@ object LabelStyles : DynamicStyleSheet() {
         fontWeight = FontWeight.w600
     }
 
+    val contentBlockDescription: DynamicCssProvider<Context> by dynamicCss {
+        +contentBlockBaseDescription(it).rules
+        fontSize = StyleValues.fontSizes.relative1
+    }
+
+    val contentBlockSmallerDescription: DynamicCssProvider<Context> by dynamicCss {
+        +contentBlockBaseDescription(it).rules
+        fontSize = StyleValues.fontSizes.relativep95
+    }
+
+    val contentBlockDate: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.mono.rules
+        fontSize = StyleValues.fontSizes.relativep875
+        color = Theme.palette.onSurfaceLighter2(it)
+    }
+
 
 
     // Private.
 
     private val contentBlockTitleSize: DynamicCssProvider<Context> by dynamicCss {
-        fontSize = Theme.fontSizes.adaptive4(it)
+        fontSize   = Theme.fontSizes.adaptive4(it)
+        fontWeight = FontWeight.w500
+    }
+
+    private val contentBlockSubTitleSize: NamedRuleSet by css {
+        fontSize = StyleValues.fontSizes.relative1p25
+    }
+
+    private val contentBlockBaseDescription: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.light.rules
+        color = Theme.palette.onSurfaceLighter2(it)
     }
 
     private val contentBlockLinkColor: DynamicCssProvider<Context> by dynamicCss {

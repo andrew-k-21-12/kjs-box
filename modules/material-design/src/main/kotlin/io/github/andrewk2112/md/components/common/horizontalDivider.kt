@@ -2,7 +2,7 @@ package io.github.andrewk2112.md.components.common
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.extensions.withClassName
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
@@ -17,7 +17,7 @@ val horizontalDivider = FC<DOMProps> { props ->
 
     val context = useAppContext()
 
-    withClassName(div, HorizontalDividerStyles.horizontalDivider(context).name, props.className.toString()) {}
+    +div(HorizontalDividerStyles.horizontalDivider(context).name, props.className.toString())
 
 }
 

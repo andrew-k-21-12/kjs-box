@@ -3,7 +3,7 @@ package io.github.andrewk2112.md.components.common
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
-import io.github.andrewk2112.extensions.withClassName
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
@@ -29,12 +29,12 @@ val rectButton = FC<RectButtonProps> { props ->
     val context = useAppContext()
 
     // Root button itself.
-    withClassName(button, RectButtonStyles.rectButtonBase(context).name, props.className.toString()) {
+    +button(RectButtonStyles.rectButtonBase(context).name, props.className.toString()) {
 
         onClick = props.action.asDynamic() as? MouseEventHandler<*>
 
         // Animation activation area with spacing.
-        withClassName(div, RectButtonStyles.animationActivationArea.name) {
+        +div(RectButtonStyles.animationActivationArea.name) {
 
             addTapHighlighting()
 

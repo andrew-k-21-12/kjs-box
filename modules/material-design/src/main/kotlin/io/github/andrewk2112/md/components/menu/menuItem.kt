@@ -3,9 +3,9 @@ package io.github.andrewk2112.md.components.menu
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.md.styles.SelectionStyles
 import io.github.andrewk2112.utility.safeBlankHref
@@ -35,14 +35,13 @@ fun ChildrenBuilder.menuItem(
 ) {
 
     // Wrapper with the bottom spacing and highlighting.
-    withClassName(
-        div,
+    +div(
         MenuItemStyles.wrapperWithPositioning(bottomSpacing).name,
         SelectionStyles.simpleHighlightingAndSelection(context).name
     ) {
 
         // Item's link itself.
-        withClassName(a, MenuItemStyles.link(context).name) {
+        +a(MenuItemStyles.link(context).name) {
             safeBlankHref = destinationEndpoint
             addTapHighlighting()
             +name

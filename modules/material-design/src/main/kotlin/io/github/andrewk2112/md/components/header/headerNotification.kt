@@ -3,10 +3,10 @@ package io.github.andrewk2112.md.components.header
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.md.resources.iconArrowRightThin
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
@@ -26,28 +26,28 @@ fun ChildrenBuilder.headerNotification(
     actionDestinationEndpoint: String
 ) {
 
-    withClassName(div, HeaderNotificationStyles.container(context).name) {
+    +div(HeaderNotificationStyles.container(context).name) {
 
         // Title and description rows.
-        withClassName(div, HeaderNotificationStyles.titleAndDescriptionRows.name) {
+        +div(HeaderNotificationStyles.titleAndDescriptionRows.name) {
 
             // Title.
-            withClassName(p, HeaderNotificationStyles.title(context).name) { +title }
+            +p(HeaderNotificationStyles.title(context).name) { +title }
 
             // Description.
-            withClassName(p, HeaderNotificationStyles.description(context).name) { +description }
+            +p(HeaderNotificationStyles.description(context).name) { +description }
 
         }
 
         // Action button.
-        withClassName(a, HeaderNotificationStyles.actionButton(context).name) {
+        +a(HeaderNotificationStyles.actionButton(context).name) {
 
             safeBlankHref = actionDestinationEndpoint
 
             +actionLabel
 
             // Arrow icon.
-            withClassName(iconArrowRightThin.component, HeaderNotificationStyles.actionButtonArrow.name) {}
+            +iconArrowRightThin.component(HeaderNotificationStyles.actionButtonArrow.name)
 
         }
 

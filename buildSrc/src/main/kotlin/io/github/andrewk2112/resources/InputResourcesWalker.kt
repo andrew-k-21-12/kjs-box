@@ -1,6 +1,7 @@
 package io.github.andrewk2112.resources
 
 import io.github.andrewk2112.resources.visitors.ResourceVisitor
+import org.apache.tools.ant.taskdefs.condition.Os
 import java.io.File
 import java.nio.file.InvalidPathException
 
@@ -10,6 +11,8 @@ import java.nio.file.InvalidPathException
  * and call the required visitor for it.
  * */
 internal class InputResourcesWalker {
+
+    // API.
 
     /**
      * Walks through all files inside the [targetResourcesDir] and applies the [resourceVisitor] for each of them.
@@ -26,12 +29,28 @@ internal class InputResourcesWalker {
             throw IllegalArgumentException("Not a directory: ${targetResourcesDir.absolutePath}")
         }
 
+        // Reusable paths for optimization.
+        val rootResourcesPath   = rootResourcesDir.toPath()
+        val targetResourcesPath = targetResourcesDir.toPath()
+
         // Launching the visitor for each file.
         targetResourcesDir
             .walk()
-            .filter(File::isFile)
-            .forEach { resourceVisitor.visit(rootResourcesDir.toPath(), targetResourcesDir.toPath(), it) }
+            .filter(createFilteringPredicate())
+            .forEach { resourceVisitor.visit(rootResourcesPath, targetResourcesPath, it) }
 
+    }
+
+
+
+    // Private.
+
+    /**
+     * Creates the predicate to filter out only valid files.
+     * */
+    private fun createFilteringPredicate(): (File) -> Boolean = when {
+        Os.isFamily(Os.FAMILY_MAC) -> { file -> file.isFile && file.name != ".DS_Store" }
+        else                       -> File::isFile
     }
 
 }

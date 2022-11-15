@@ -3,9 +3,9 @@ package io.github.andrewk2112.exercises.components
 import history.To
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.extensions.setClassName
 import io.github.andrewk2112.resources.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -16,14 +16,10 @@ import react.router.dom.Link
 
 fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
 
-    // There is also a possibility to use CSS in a styled way, see previous commits.
-    Link {
-
-        setClassName(ExerciseLinkStyles.exerciseLink(context).name)
+    // There is also a possibility to use CSS in a styled way, see the previous commits.
+    +Link(ExerciseLinkStyles.exerciseLink(context).name) {
         this.to = to
-
         +text
-
     }
 
 }

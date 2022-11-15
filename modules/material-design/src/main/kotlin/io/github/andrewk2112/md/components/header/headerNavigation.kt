@@ -3,10 +3,10 @@ package io.github.andrewk2112.md.components.header
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.iconMagnify
@@ -32,26 +32,26 @@ val headerNavigation = FC<Props> {
     val localizator = useLocalizator()
     val data by useState { HeaderNavigationData() }
 
-    withClassName(header, HeaderNavigationStyles.container(context).name) {
+    +header(HeaderNavigationStyles.container(context).name) {
 
         // Logo block.
-        withClassName(div, HeaderNavigationStyles.materialLogoBlock.name) {
+        +div(HeaderNavigationStyles.materialLogoBlock.name) {
 
             // Icon.
-            withClassName(iconMaterialDesignLogo.component, HeaderNavigationStyles.materialDesignIcon.name) {}
+            +iconMaterialDesignLogo.component(HeaderNavigationStyles.materialDesignIcon.name)
 
             // Label.
-            withClassName(span, HeaderNavigationStyles.materialDesignLabel(context).name) {
+            +span(HeaderNavigationStyles.materialDesignLabel(context).name) {
                 +localizator("md.materialDesign").uppercase()
             }
 
         }
 
         // Navigation block.
-        withClassName(div, HeaderNavigationStyles.navigationBlock.name) {
+        +div(HeaderNavigationStyles.navigationBlock.name) {
 
             // Navigation buttons block.
-            withClassName(ul, HeaderNavigationStyles.navigationButtonsWrapper(context).name) {
+            +ul(HeaderNavigationStyles.navigationButtonsWrapper(context).name) {
 
                 for (navigationButtonData in data.navigationButtons) {
                     val (localizationKey, isSelected) = navigationButtonData
@@ -61,8 +61,8 @@ val headerNavigation = FC<Props> {
             }
 
             // Search button.
-            withClassName(div, HeaderNavigationStyles.searchIconWrapper.name) {
-                withClassName(iconMagnify.component, HeaderNavigationStyles.searchIcon(context).name) {}
+            +div(HeaderNavigationStyles.searchIconWrapper.name) {
+                +iconMagnify.component(HeaderNavigationStyles.searchIcon(context).name)
             }
 
         }
@@ -77,14 +77,14 @@ val headerNavigation = FC<Props> {
 
 private fun ChildrenBuilder.navigationButton(context: Context, label: String, isSelected: Boolean) {
 
-    withClassName(li, HeaderNavigationStyles.navigationButton(context).name) {
+    +li(HeaderNavigationStyles.navigationButton(context).name) {
 
         // Label.
-        withClassName(span, HeaderNavigationStyles.navigationButtonLabel.name) { +label }
+        +span(HeaderNavigationStyles.navigationButtonLabel.name) { +label }
 
         // Selection indicator.
         if (isSelected) {
-            withClassName(div, HeaderNavigationStyles.navigationButtonSelectionIndicator(context).name) {}
+            +div(HeaderNavigationStyles.navigationButtonSelectionIndicator(context).name)
         }
 
     }

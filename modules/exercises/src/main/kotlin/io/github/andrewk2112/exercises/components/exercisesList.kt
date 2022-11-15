@@ -2,9 +2,9 @@ package io.github.andrewk2112.exercises.components
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.resources.fonts.exercises.SourceSansProFontStyles
@@ -22,7 +22,7 @@ val exercisesList = FC<Props> {
     val context     = useAppContext()
     val localizator = useLocalizator()
 
-    withClassName(div, ExercisesListStyles.root.name) {
+    +div(ExercisesListStyles.root.name) {
 
         ul {
             exerciseLiWithLink(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
@@ -38,7 +38,7 @@ val exercisesList = FC<Props> {
 // Private - reusable views.
 
 private inline fun ChildrenBuilder.exerciseLiWithContents(crossinline block: ChildrenBuilder.() -> Unit) =
-    withClassName(li, ExercisesListStyles.listItem.name, block = block)
+    +li(ExercisesListStyles.listItem.name, block = block)
 
 private fun ChildrenBuilder.exerciseLiWithLink(context: Context, label: String, destinationEndpoint: String) =
     exerciseLiWithContents { exerciseLink(context, label, destinationEndpoint) }

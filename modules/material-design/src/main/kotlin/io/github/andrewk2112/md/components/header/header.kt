@@ -1,9 +1,9 @@
 package io.github.andrewk2112.md.components.header
 
 import io.github.andrewk2112.designtokens.StyleValues
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.useRefHeightMonitor
@@ -38,7 +38,7 @@ val header = FC<HeaderProps> { props ->
     // Rendering.
 
     // Wrapper with sliding logic.
-    withClassName(div, HeaderStyles.slidingHeader(props.isVisible).name) {
+    +div(HeaderStyles.slidingHeader(props.isVisible).name) {
 
         ref = headerRef
 

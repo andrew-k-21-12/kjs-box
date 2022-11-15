@@ -52,6 +52,16 @@
     "developerDocsAndDesignGuidelinesForComponents": "Документации для разработчиков и гайдлайны по дизайну компонентов теперь живут в одном месте, разделённом вкладками",
     "materialDesignAwardWinners": "Победители Material Design Award",
     "moooiEpsyAndKayak": "Moooi, Epsy и KAYAK",
-    "viewAll": "Смотреть все"
+    "viewAll": "Смотреть все",
+    "materialArticles": "Статьи о Material",
+    "makeProgressFasterWithTheseHelpfulArticles": "Достигайте результатов быстрее с этими полезными статьями",
+    "systemIcons": "Системные иконки",
+    "systemIconsSymbolizeCommonActions": "Системные иконки символизируют общие действия, устройства и директории. Каждая иконка упрощена до её минимальной формы, передаёт основные характеристики.",
+    "generateCustomColorPalettes": "Генерируйте собственные цветовые палитры",
+    "craftUniqueColorSchemeForYourBrandWithThisOnlineTool": "Изготовьте уникальную цветовую схему для своего бренда с этим онлайн инструментом.",
+    "theTypeSystem": "Система типов",
+    "useTypographyToPresentYourDesignAndContent": "Используйте типографию, чтобы представить свой дизайн и контент как можно более ясно и эффективно.",
+    "harnessThePowerOfShape": "Обуздайте мощь формы",
+    "shapesCanDirectAttentionIdentifyComponents": "Формы могут направлять внимание, идентифицировать компоненты, передавать состояние и выражать бренд."
   }
 }

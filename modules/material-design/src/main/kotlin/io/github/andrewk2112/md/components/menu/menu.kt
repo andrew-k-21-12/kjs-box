@@ -3,10 +3,10 @@ package io.github.andrewk2112.md.components.menu
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
@@ -38,26 +38,21 @@ val menu = FC<MenuProps> { props ->
     val data       by useState { MenuData(NavMenuMaterialEndpoints()) }
 
     // Topmost container.
-    withClassName(div, MenuStyles.container(context).name) {
+    +div(MenuStyles.container(context).name) {
 
         // Menu header - lays below the sliding header.
-        withClassName(
-            div,
-            MenuStyles.headerAppearance(context).name, MenuStyles.headerSize(props.headerHeight).name
-        ) {
+        +div(MenuStyles.headerAppearance(context).name, MenuStyles.headerSize(props.headerHeight).name) {
 
             // Material icon.
-            withClassName(iconMaterialDesignLogo.component, MenuStyles.headerIcon.name) {}
+            +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
 
             // Material label.
-            withClassName(span, MenuStyles.headerLabel(context).name) {
-                +localizator("md.materialDesign").uppercase()
-            }
+            +span(MenuStyles.headerLabel(context).name) { +localizator("md.materialDesign").uppercase() }
 
         }
 
         // Menu items.
-        withClassName(div, MenuStyles.itemsContainer.name) {
+        +div(MenuStyles.itemsContainer.name) {
 
             // Inserting each item according to the declared structure.
             for (item in data.menuItems) {

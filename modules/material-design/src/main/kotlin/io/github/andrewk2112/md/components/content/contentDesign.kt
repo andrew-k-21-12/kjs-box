@@ -3,10 +3,10 @@ package io.github.andrewk2112.md.components.content
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import io.github.andrewk2112.extensions.withClassName
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.resources.images.Image
@@ -14,11 +14,8 @@ import io.github.andrewk2112.resources.images.MdMaterialDarkThemeImage
 import io.github.andrewk2112.resources.images.MdSoundGuidelinesImage
 import io.github.andrewk2112.components.image
 import io.github.andrewk2112.md.resources.endpoints.PopularMaterialEndpoints
-import io.github.andrewk2112.md.styles.FontStyles
+import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.StrokeColor.INTENSE
-import io.github.andrewk2112.md.styles.StrokeConfigs
-import io.github.andrewk2112.md.styles.StrokeStyles
-import io.github.andrewk2112.md.styles.TransitionStyles
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
@@ -48,30 +45,26 @@ val contentDesign = FC<Props> {
     // Rendering.
 
     // A grid with contents.
-    withClassName(div, ContentDesignStyles.gridContainer(context).name) {
+    +div(ContentDesignStyles.gridContainer(context).name) {
 
         // Block with a title and caption.
-        withClassName(div, ContentDesignStyles.horizontalSpacingGridBlock(context).name) {
+        +div(ContentDesignStyles.horizontalSpacingGridBlock(context).name) {
 
             // Title.
-            withClassName(p, ContentDesignStyles.bigLabel(context).name) { +localizator("md.design") }
+            +p(ContentDesignStyles.bigLabel(context).name) { +localizator("md.design") }
 
             // Caption.
-            withClassName(p, ContentDesignStyles.captionLabel(context).name) {
+            +p(ContentDesignStyles.captionLabel(context).name) {
                 +localizator("md.createIntuitiveAndBeautifulProductsWithMaterialDesign")
             }
 
         }
 
         // Block with a popular topics list.
-        withClassName(div, ContentDesignStyles.horizontalSpacingGridBlock(context).name) {
+        +div(ContentDesignStyles.horizontalSpacingGridBlock(context).name) {
 
             // Topics header.
-            withClassName(
-                p,
-                ContentDesignStyles.categoryLabel(context).name,
-                ContentDesignStyles.topicsCategorySpacing.name
-            ) {
+            +p(ContentDesignStyles.categoryLabel(context).name, ContentDesignStyles.topicsCategorySpacing.name) {
                 +localizator("md.popular").uppercase()
             }
 
@@ -112,7 +105,7 @@ val contentDesign = FC<Props> {
 
 private fun ChildrenBuilder.popularLi(context: Context, label: String, destinationEndpoint: String) {
 
-    withClassName(li, ContentDesignStyles.popularListItem(context).name) {
+    +li(ContentDesignStyles.popularListItem(context).name) {
 
         a {
             safeBlankHref = destinationEndpoint
@@ -132,11 +125,11 @@ private fun ChildrenBuilder.topicBlock(
     descriptionText: String
 ) {
 
-    // Takes the entire grid height.
+    // To prevent the item from taking the entire height of the grid's row.
     div {
 
         // Block with a hover style.
-        withClassName(div, ContentDesignStyles.selectableContentBlock(context).name) {
+        +div(SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
 
             // Topic's illustration.
             image(
@@ -146,19 +139,15 @@ private fun ChildrenBuilder.topicBlock(
             )
 
             // Category.
-            withClassName(
-                p,
-                ContentDesignStyles.categoryLabel(context).name,
-                ContentDesignStyles.topicCategorySpacing.name
-            ) {
+            +p(ContentDesignStyles.categoryLabel(context).name, ContentDesignStyles.topicCategorySpacing.name) {
                 +categoryName.uppercase()
             }
 
             // Title.
-            withClassName(p, ContentDesignStyles.topicTitle(context).name) { +title }
+            +p(ContentDesignStyles.topicTitle(context).name) { +title }
 
             // Description.
-            withClassName(p, ContentDesignStyles.topicDescription(context).name) { +descriptionText }
+            +p(ContentDesignStyles.topicDescription(context).name) { +descriptionText }
 
         }
 
@@ -212,7 +201,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val topicCategorySpacing: NamedRuleSet by css {
-        marginTop = StyleValues.spacing.absolute23
+        marginTop = StyleValues.spacing.absolute24
     }
 
     val popularListItem: DynamicCssProvider<Context> by dynamicCss {
@@ -231,14 +220,6 @@ private object ContentDesignStyles : DynamicStyleSheet() {
         }
     }
 
-    val selectableContentBlock: DynamicCssProvider<Context> by dynamicCss {
-        padding(StyleValues.spacing.absolute20)
-        cursor = Cursor.pointer
-        hover {
-            +StrokeStyles.outlineStroke(StrokeConfigs(it, INTENSE)).rules
-        }
-    }
-
     val widthRestrictedStrokedImage: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.outlineStroke(StrokeConfigs(it, INTENSE)).rules
         width  = 100.pct
@@ -246,9 +227,8 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val topicTitle: DynamicCssProvider<Context> by dynamicCss {
+        +LabelStyles.contentBlockDarkSubTitle(it).rules
         marginTop = StyleValues.spacing.absolute6
-        fontSize = StyleValues.fontSizes.relative1p25
-        color = Theme.palette.onSurface1(it)
     }
 
     val topicDescription: DynamicCssProvider<Context> by dynamicCss {

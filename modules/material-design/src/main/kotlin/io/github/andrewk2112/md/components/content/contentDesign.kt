@@ -184,10 +184,8 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val captionLabel: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.light.rules
+        +LabelStyles.contentBlockDarkDescription(it).rules
         marginTop = StyleValues.spacing.absolute20
-        fontSize = StyleValues.fontSizes.relative1
-        color = Theme.palette.onSurface1(it)
     }
 
     val categoryLabel: DynamicCssProvider<Context> by dynamicCss {
@@ -232,10 +230,8 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val topicDescription: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.light.rules
+        +LabelStyles.contentBlockDarkSmallerDescription(it).rules
         marginTop = StyleValues.spacing.absolute11
-        fontSize = StyleValues.fontSizes.relativep95
-        color = Theme.palette.onSurface1(it)
     }
 
 }

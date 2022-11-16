@@ -74,6 +74,7 @@ val content = FC<ContentProps> { props ->
         contentWhatsNew {}
         +horizontalDivider(ContentStyles.dividerSpacing.name)
         contentMaterialArticles {}
+        contentMaterialStudies {}
 
     }
 

@@ -12,14 +12,14 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import react.FC
-import react.dom.DOMProps
+import react.PropsWithClassName
 import react.dom.events.MouseEventHandler
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 
 // Public.
 
-external interface RectButtonProps : DOMProps {
+external interface RectButtonProps : PropsWithClassName {
     var text: String
     var action: () -> Unit
 }

@@ -8,12 +8,12 @@ import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import kotlinx.css.*
 import react.FC
-import react.dom.DOMProps
+import react.PropsWithClassName
 import react.dom.html.ReactHTML.div
 
 // Public.
 
-val horizontalDivider = FC<DOMProps> { props ->
+val horizontalDivider = FC<PropsWithClassName> { props ->
 
     val context = useAppContext()
 

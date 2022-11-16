@@ -12,7 +12,7 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.styles.FontStyles
-import io.github.andrewk2112.md.styles.IconStyles
+import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.StrokeColor.DEFAULT
 import io.github.andrewk2112.md.styles.StrokeConfigs
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
@@ -97,7 +97,7 @@ private object MenuStyles : DynamicStyleSheet() {
     val headerSize: DynamicCssProvider<Double> by dynamicCss { height = it.px }
 
     val headerIcon: NamedRuleSet by css {
-        +IconStyles.smallSizedIcon.rules
+        +ImageStyles.smallSizedIcon.rules
         marginLeft  = StyleValues.spacing.absolute24
         marginRight = StyleValues.spacing.absolute16
     }

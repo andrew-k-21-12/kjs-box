@@ -12,7 +12,7 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.iconMagnify
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.styles.FontStyles
-import io.github.andrewk2112.md.styles.IconStyles
+import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
@@ -110,7 +110,7 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
     }
 
     val materialDesignIcon: NamedRuleSet by css {
-        +IconStyles.smallSizedIcon.rules
+        +ImageStyles.smallSizedIcon.rules
         marginLeft = StyleValues.spacing.absolute24
     }
 

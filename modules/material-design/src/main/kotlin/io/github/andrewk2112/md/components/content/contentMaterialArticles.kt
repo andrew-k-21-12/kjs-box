@@ -1,11 +1,11 @@
 package io.github.andrewk2112.md.components.content
 
-import io.github.andrewk2112.components.image
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.md.components.common.strokedImage
 import io.github.andrewk2112.md.models.ArticleItem
 import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.resources.images.*
@@ -27,7 +27,6 @@ val contentMaterialArticles = FC<Props> {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-
     val data by useState { ContentMaterialArticlesData() }
 
 
@@ -81,19 +80,10 @@ private fun ChildrenBuilder.articleBlock(
         // Block with a hover style.
         +div(SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
 
-            // Wrapper to position the stroke inside the image's bounds, on top of it.
-            +div(ContentMaterialArticlesStyles.strokedImageWrapper.name) {
-
-                // Article's illustration.
-                image(
-                    illustration,
-                    illustrationAlternativeText,
-                    ContentMaterialArticlesStyles.widthRestrictedImage.name
-                )
-
-                // Inner semi-transparent image stroke.
-                +div(ContentMaterialArticlesStyles.innerStrokeForImage(context).name)
-
+            // Illustration.
+            +strokedImage(ImageStyles.fitWidthKeepAspectImage.name) {
+                image           = illustration
+                alternativeText = illustrationAlternativeText
             }
 
             // Title.
@@ -141,21 +131,6 @@ private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
         gridTemplateColumns = GridTemplateColumns("2fr 1fr")
         rowGap              = StyleValues.spacing.absolute50
         padding(top = StyleValues.spacing.absolute26)
-    }
-
-    val strokedImageWrapper: NamedRuleSet by css {
-        position = Position.relative
-    }
-
-    val widthRestrictedImage: NamedRuleSet by css {
-        width  = 100.pct
-        height = LinearDimension.auto
-    }
-
-    val innerStrokeForImage: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.INTENSE)).rules
-        position = Position.absolute
-        inset(0.px)
     }
 
     val articleTitle: DynamicCssProvider<Context> by dynamicCss {

@@ -2,29 +2,36 @@ package io.github.andrewk2112.md.styles
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.designtokens.system.ThemedColor
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.HasCssSuffix
 import io.github.andrewk2112.extensions.OutlineStyle
 import io.github.andrewk2112.extensions.camelCaseWord
+import io.github.andrewk2112.extensions.capitalize
 import io.github.andrewk2112.extensions.outlineStyle
 import kotlinx.css.*
 import kotlinx.css.properties.*
+import kotlin.reflect.KProperty0
 
 // Utility - stroke color.
 
 /**
- * A preferred coloring mode for a stroke.
+ * A preferred coloring mode for the stroke.
  * */
-enum class StrokeColor { DEFAULT, INTENSE, DARK }
+sealed class StrokeColor {
+    object Default : StrokeColor()
+    object Intense : StrokeColor()
+    class Custom(val colorReference: KProperty0<ThemedColor>) : StrokeColor()
+}
 
 /**
  * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
  * */
 private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
-    StrokeColor.DEFAULT -> Theme.palette.stroke1(context)
-    StrokeColor.INTENSE -> Theme.palette.stroke2(context)
-    StrokeColor.DARK    -> Theme.palette.stroke3(context)
+    StrokeColor.Default   -> Theme.palette.stroke1(context)
+    StrokeColor.Intense   -> Theme.palette.stroke2(context)
+    is StrokeColor.Custom -> colorReference.get().invoke(context)
 }
 
 
@@ -60,7 +67,7 @@ class StrokeConfigs(
 
     override val cssSuffix: String
         get() = context.cssSuffix +
-                color.name.camelCaseWord() +
+                color::class.simpleName + ((color as? StrokeColor.Custom)?.colorReference?.name?.capitalize() ?: "") +
                 positions
                     .sorted()
                     .joinToString(separator = "") { it.name.camelCaseWord() }

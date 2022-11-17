@@ -118,7 +118,7 @@ object AnimationStyles : DynamicStyleSheet() {
                 opacity = StyleValues.opacities.transparent
             }
         })
-        backgroundColor = Theme.palette.selectionFocused1(it)
+        backgroundColor = Theme.palette.selectionActive1(it)
         pointerEvents = PointerEvents.none // to avoid intercepting taps
     }
 

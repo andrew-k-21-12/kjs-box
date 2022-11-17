@@ -15,7 +15,6 @@ import io.github.andrewk2112.resources.images.MdSoundGuidelinesImage
 import io.github.andrewk2112.components.image
 import io.github.andrewk2112.md.resources.endpoints.PopularMaterialEndpoints
 import io.github.andrewk2112.md.styles.*
-import io.github.andrewk2112.md.styles.StrokeColor.INTENSE
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
@@ -219,7 +218,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val widthRestrictedStrokedImage: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.outlineStroke(StrokeConfigs(it, INTENSE)).rules
+        +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
         width  = 100.pct
         height = LinearDimension.auto
     }

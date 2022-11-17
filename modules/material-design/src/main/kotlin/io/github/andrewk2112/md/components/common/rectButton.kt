@@ -22,6 +22,7 @@ import react.dom.html.ReactHTML.div
 external interface RectButtonProps : PropsWithClassName {
     var text: String
     var action: () -> Unit
+    var isDark: Boolean
 }
 
 val rectButton = FC<RectButtonProps> { props ->
@@ -29,7 +30,10 @@ val rectButton = FC<RectButtonProps> { props ->
     val context = useAppContext()
 
     // Root button itself.
-    +button(RectButtonStyles.rectButtonBase(context).name, props.className.toString()) {
+    +button(
+        with(RectButtonStyles) { if (props.isDark) darkRectButton else defaultRectButton }.invoke(context).name,
+        props.className.toString(),
+    ) {
 
         onClick = props.action.asDynamic() as? MouseEventHandler<*>
 
@@ -52,18 +56,37 @@ val rectButton = FC<RectButtonProps> { props ->
 
 private object RectButtonStyles : DynamicStyleSheet() {
 
-    val rectButtonBase: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke.invoke(StrokeConfigs(it, StrokeColor.DARK)).rules
+    // Public.
+
+    val defaultRectButton: DynamicCssProvider<Context> by dynamicCss {
+        +rectButtonBase(it).rules
+        +StrokeStyles.borderStroke(
+            StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurfaceSlightlyLighter2))
+        ).rules
         +SelectionStyles.simpleHighlightingAndSelection(it).rules
-        position = Position.relative
-        overflow = Overflow.hidden                        // to cut spreading of the animation
-        fontSize = StyleValues.fontSizes.relativep875
-        backgroundColor = StyleValues.palette.transparent // resetting the default button color
         color = Theme.palette.onSurfaceSlightlyLighter2(it)
         hover {
             color = Theme.palette.onSurfaceLighter2(it)
         }
-        cursor = Cursor.pointer
+    }
+
+    val darkRectButton: DynamicCssProvider<Context> by dynamicCss {
+        +rectButtonBase(it).rules
+        +StrokeStyles.borderStroke(
+            StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurface1))
+        ).rules
+        +TransitionStyles.fastTransition(::backgroundColor).rules
+        color = Theme.palette.onSurface1(it)
+        hover {
+            +StrokeStyles.borderStroke(
+                StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurfaceFocused1))
+            ).rules
+            color           = Theme.palette.onSurfaceFocused1(it)
+            backgroundColor = Theme.palette.selectionFocused2(it)
+        }
+        active {
+            backgroundColor = Theme.palette.selectionActive2(it)
+        }
     }
 
     val animationActivationArea: NamedRuleSet by css {
@@ -71,6 +94,18 @@ private object RectButtonStyles : DynamicStyleSheet() {
         width  = 100.pct
         height = 100.pct
         padding(vertical = StyleValues.spacing.absolute9, horizontal = StyleValues.spacing.absolute15)
+    }
+
+
+
+    // Private.
+
+    private val rectButtonBase: DynamicCssProvider<Context> by dynamicCss {
+        position = Position.relative
+        overflow = Overflow.hidden                        // to cut spreading of the animation
+        fontSize = StyleValues.fontSizes.relativep875
+        backgroundColor = StyleValues.palette.transparent // resetting the default button color
+        cursor = Cursor.pointer
     }
 
 }

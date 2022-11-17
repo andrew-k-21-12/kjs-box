@@ -11,13 +11,9 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
-import io.github.andrewk2112.md.styles.FontStyles
-import io.github.andrewk2112.md.styles.ImageStyles
-import io.github.andrewk2112.md.styles.StrokeColor.DEFAULT
-import io.github.andrewk2112.md.styles.StrokeConfigs
+import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
-import io.github.andrewk2112.md.styles.StrokeStyles
 import kotlinx.css.*
 import react.FC
 import react.Props
@@ -78,7 +74,7 @@ val menu = FC<MenuProps> { props ->
 private object MenuStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, DEFAULT, RIGHT)).rules
+        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, RIGHT)).rules
         flexShrink    = 0.0
         display       = Display.flex
         flexDirection = FlexDirection.column
@@ -87,7 +83,7 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val headerAppearance: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, DEFAULT, BOTTOM)).rules
+        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
         flexShrink    = 0.0
         display       = Display.flex
         alignItems    = Align.center

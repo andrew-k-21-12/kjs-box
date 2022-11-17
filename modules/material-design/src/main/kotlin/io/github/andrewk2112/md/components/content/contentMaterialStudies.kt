@@ -6,8 +6,10 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.md.components.common.rectButton
 import io.github.andrewk2112.md.components.common.strokedImage
 import io.github.andrewk2112.md.models.ArticleItem
+import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
@@ -18,6 +20,7 @@ import io.github.andrewk2112.resources.images.MdShrineImage
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
+import io.github.andrewk2112.utility.openBlankWindowSafely
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -40,6 +43,12 @@ val contentMaterialStudies = FC<Props> {
 
         // Common spaces for the header block.
         +div(ContentMaterialStudiesStyles.header.name) {
+
+            +rectButton(ContentMaterialStudiesStyles.viewAll.name) {
+                text   = localizator("md.viewAll")
+                action = { openBlankWindowSafely(MainMaterialEndpoints.studies) }
+                isDark = true
+            }
 
             // Title.
             +h2(LabelStyles.contentBlockDarkTitle(context).name) { +localizator("md.materialStudies") }
@@ -121,6 +130,10 @@ private object ContentMaterialStudiesStyles : DynamicStyleSheet() {
             left  = StyleValues.spacing.absolute40,
             right = StyleValues.spacing.absolute40
         )
+    }
+
+    val viewAll: NamedRuleSet by css {
+        float = Float.right
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {

@@ -1,13 +1,14 @@
 package io.github.andrewk2112.md.resources.endpoints
 
 import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.design
+import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.studies
 
 /**
  * All Material Design endpoints used at the main navigation menu.
  * */
 class NavMenuMaterialEndpoints {
     val introduction                = "$design/introduction"
-    val aboutOurMaterialStudies     = "$design/material-studies/about-our-material-studies"
+    val aboutOurMaterialStudies     = "$studies/about-our-material-studies"
     val foundationOverview          = "$design/foundation-overview"
     val environmentSurfaces         = "$design/environment/surfaces"
     val understandingLayout         = "$design/layout/understanding-layout"

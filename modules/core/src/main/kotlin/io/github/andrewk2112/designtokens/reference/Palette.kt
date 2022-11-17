@@ -9,7 +9,7 @@ class Palette {
 
     // The order of tones is from lighter to darker.
 
-    val transparent get() = Color("#FFFFFFFF")
+    val transparent get() = Color("#FFFFFF00")
 
     val white get() = Color("#FFFFFF")
 
@@ -19,8 +19,10 @@ class Palette {
     val gray4          get() = Color("#9E9E9E")
     val gray4WithAlpha get() = Color("#9E9E9E4C")
     val gray5          get() = Color("#616161")
-    val gray6          get() = Color("#424242")
-    val gray7          get() = Color("#212121")
+    val gray6          get() = Color("#494949")
+    val gray7          get() = Color("#424242")
+    val gray8          get() = Color("#282828")
+    val gray9          get() = Color("#212121")
 
     val blackWithAlpha1 get() = Color("#0000001f")
     val blackWithAlpha2 get() = Color("#00000080")

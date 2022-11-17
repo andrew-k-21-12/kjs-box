@@ -21,24 +21,24 @@ object SelectionStyles : DynamicStyleSheet() {
     val simpleHighlightingAndSelection: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.fastTransition(::backgroundColor).rules
         hover {
-            backgroundColor = Theme.palette.selection1(it)
+            backgroundColor = Theme.palette.selectionFocused1(it)
         }
         active {
-            backgroundColor = Theme.palette.selectionFocused1(it)
+            backgroundColor = Theme.palette.selectionActive1(it)
         }
     }
 
     val hoverableWithDefaultPaddedStroke: DynamicCssProvider<Context> by dynamicCss {
         +hoverableWithPaddedStrokeBase.rules
         hover {
-            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.DEFAULT)).rules
+            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Default)).rules
         }
     }
 
     val hoverableWithIntensePaddedStroke: DynamicCssProvider<Context> by dynamicCss {
         +hoverableWithPaddedStrokeBase.rules
         hover {
-            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.INTENSE)).rules
+            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
         }
     }
 

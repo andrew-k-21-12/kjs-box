@@ -14,4 +14,7 @@ object MainMaterialEndpoints {
     /** Points to the Material Design blog articles. */
     val blog = "$root/blog"
 
+    /** Points to the Material studies articles. */
+    val studies = "$design/material-studies"
+
 }

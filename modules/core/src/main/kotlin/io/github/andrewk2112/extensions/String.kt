@@ -1,11 +1,6 @@
 package io.github.andrewk2112.extensions
 
 /**
- * Checks if all chars in this string are uppercase.
- * */
-fun String.isUppercase(): Boolean = all { it.isUpperCase() }
-
-/**
  * Capitalizes only the first char and converts the rest ones to lowercase.
  * */
 fun String.camelCaseWord(): String = lowercase().replaceFirstChar { it.titlecase() }
@@ -20,6 +15,16 @@ fun String.camelCaseFromKebabOrSnakeCase(): String = split("-", "_").let { parts
         parts.joinToString(separator = "") { it.camelCaseWord() }
     }
 }
+
+/**
+ * Capitalizes the first char.
+ * */
+fun String.capitalize(): String = replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+
+/**
+ * Checks if all chars in this string are uppercase.
+ * */
+fun String.isUppercase(): Boolean = all { it.isUpperCase() }
 
 /**
  * Converts kebab or snake cases into the lower camel case.

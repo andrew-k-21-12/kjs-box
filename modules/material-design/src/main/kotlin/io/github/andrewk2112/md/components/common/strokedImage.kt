@@ -54,7 +54,7 @@ private object StrokedImageStyles : DynamicStyleSheet() {
     }
 
     val innerStroke: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.INTENSE)).rules
+        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
         position = Position.absolute
         inset(0.px)
     }

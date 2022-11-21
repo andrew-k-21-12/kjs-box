@@ -13,6 +13,10 @@ import react.useEffect
  * @param dependencies Registers the underlying listener again on changes of these dependencies.
  * @param onScrolled   Notifies about the scrolling events observed.
  * */
+@Deprecated(
+    "Doesn't provide any optimizations in allocations.",
+    ReplaceWith("WheelEventHandler", "react.dom.events.WheelEventHandler"),
+)
 inline fun useRefScrollMonitor(
     ref: RefObject<Element>,
     vararg dependencies: Any?,

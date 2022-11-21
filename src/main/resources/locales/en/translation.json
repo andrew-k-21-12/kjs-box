@@ -69,6 +69,15 @@
     "travelTreatment": "Travel treatment",
     "discoverTheWaysMaterialWasUsedToDesignAndBuildCrane": "Discover the ways Material was used to design and build Crane, a travel app for managing trips.",
     "craftingCommunication": "Crafting communication",
-    "materialCanBeUsedInCommunicationAndPlanningProducts": "Material can be used in communication and planning products. Learn how with Reply, an efficient email app."
+    "materialCanBeUsedInCommunicationAndPlanningProducts": "Material can be used in communication and planning products. Learn how with Reply, an efficient email app.",
+    "materialIsAdaptableSystemOfGuidelinesComponentsAndTools": "Material is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. Backed by open-source code, Material streamlines collaboration between designers and developers, and helps teams quickly build beautiful products.",
+    "github": "GitHub",
+    "twitter": "Twitter",
+    "youtube": "YouTube",
+    "blogRss": "Blog RSS",
+    "subscribeForUpdates": "Subscribe for updates",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "feedback": "Feedback"
   }
 }

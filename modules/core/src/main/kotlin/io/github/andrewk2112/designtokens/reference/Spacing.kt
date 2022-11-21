@@ -27,11 +27,16 @@ class Spacing {
     val absolute25:   LinearDimension get() = 25.px
     val absolute26:   LinearDimension get() = 26.px
     val absolute27:   LinearDimension get() = 27.px
+    val absolute32:   LinearDimension get() = 32.px
+    val absolute34:   LinearDimension get() = 34.px
+    val absolute35:   LinearDimension get() = 35.px
+    val absolute37:   LinearDimension get() = 37.px
     val absolute38:   LinearDimension get() = 38.px
     val absolute40:   LinearDimension get() = 40.px
     val absolute42:   LinearDimension get() = 42.px
     val absolute43:   LinearDimension get() = 43.px
     val absolute47:   LinearDimension get() = 47.px
+    val absolute48:   LinearDimension get() = 48.px
     val absolute49:   LinearDimension get() = 49.px
     val absolute50:   LinearDimension get() = 50.px
     val absolute52:   LinearDimension get() = 52.px

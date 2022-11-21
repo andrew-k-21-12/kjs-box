@@ -1,5 +1,6 @@
 package io.github.andrewk2112.md.components.menu
 
+import csstype.px as pixels
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
@@ -15,6 +16,7 @@ import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
 import kotlinx.css.*
+import kotlinx.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
@@ -37,7 +39,12 @@ val menu = FC<MenuProps> { props ->
     +div(MenuStyles.container(context).name) {
 
         // Menu header - lays below the sliding header.
-        +div(MenuStyles.headerAppearance(context).name, MenuStyles.headerSize(props.headerHeight).name) {
+        +div(MenuStyles.headerAppearance(context).name) {
+
+            // Setting the appropriate dynamic height.
+            style = jso {
+                height = props.headerHeight.pixels
+            }
 
             // Material icon.
             +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
@@ -89,8 +96,6 @@ private object MenuStyles : DynamicStyleSheet() {
         alignItems    = Align.center
         flexDirection = FlexDirection.row
     }
-
-    val headerSize: DynamicCssProvider<Double> by dynamicCss { height = it.px }
 
     val headerIcon: NamedRuleSet by css {
         +ImageStyles.smallSizedIcon.rules

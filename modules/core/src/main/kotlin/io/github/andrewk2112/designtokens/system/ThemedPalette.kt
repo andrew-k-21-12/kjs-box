@@ -14,28 +14,35 @@ class ThemedPalette {
     val actionFocused2: ThemedColor get() = { StyleValues.palette.blue3 }
     val onAction2:      ThemedColor get() = { StyleValues.palette.blueDark2 }
 
+    val action3: ThemedColor get() = { StyleValues.palette.black }
+
+    val action4: ThemedColor get() = { StyleValues.palette.gray10 }
+
     val backSpecial1:   ThemedColor get() = { StyleValues.palette.blue1 }
     val onBackSpecial1: ThemedColor get() = { StyleValues.palette.blueDark1 }
 
-    val selectionFocused1: ThemedColor get() = { StyleValues.palette.gray1 }
-    val selectionActive1:  ThemedColor get() = { StyleValues.palette.gray2 }
-    val onSelection1:      ThemedColor get() = { StyleValues.palette.gray9 }
+    val selectionFocused1: ThemedColor get() = { StyleValues.palette.gray2 }
+    val selectionActive1:  ThemedColor get() = { StyleValues.palette.gray3 }
+    val onSelection1:      ThemedColor get() = { StyleValues.palette.gray10 }
 
-    val selectionFocused2: ThemedColor get() = { StyleValues.palette.gray8 }
-    val selectionActive2:  ThemedColor get() = { StyleValues.palette.gray6 }
+    val selectionFocused2: ThemedColor get() = { StyleValues.palette.gray9 }
+    val selectionActive2:  ThemedColor get() = { StyleValues.palette.gray7 }
 
-    val surface1:          ThemedColor get() = { StyleValues.palette.gray9 }
+    val surface1:          ThemedColor get() = { StyleValues.palette.gray10 }
     val onSurface1:        ThemedColor get() = { StyleValues.palette.white }
-    val onSurfaceWeaker1:  ThemedColor get() = { StyleValues.palette.gray1 }
-    val onSurfaceFocused1: ThemedColor get() = { StyleValues.palette.gray3 }
-    val onSurfaceDimmed1:  ThemedColor get() = { StyleValues.palette.gray4 }
+    val onSurfaceWeaker1:  ThemedColor get() = { StyleValues.palette.gray2 }
+    val onSurfaceFocused1: ThemedColor get() = { StyleValues.palette.gray4 }
+    val onSurfaceDimmed1:  ThemedColor get() = { StyleValues.palette.gray5 }
 
     val surface2:                  ThemedColor get() = { StyleValues.palette.white }
-    val onSurface2:                ThemedColor get() = { StyleValues.palette.gray9 }
-    val onSurfaceSlightlyLighter2: ThemedColor get() = { StyleValues.palette.gray7 }
-    val onSurfaceLighter2:         ThemedColor get() = { StyleValues.palette.gray5 }
+    val onSurface2:                ThemedColor get() = { StyleValues.palette.gray10 }
+    val onSurfaceSlightlyLighter2: ThemedColor get() = { StyleValues.palette.gray8 }
+    val onSurfaceLighter2:         ThemedColor get() = { StyleValues.palette.gray6 }
+
+    val surface3:   ThemedColor get() = { StyleValues.palette.gray1 }
+    val onSurface3: ThemedColor get() = { StyleValues.palette.gray8 }
 
     val stroke1: ThemedColor get() = { StyleValues.palette.blackWithAlpha1 }
-    val stroke2: ThemedColor get() = { StyleValues.palette.gray4WithAlpha }
+    val stroke2: ThemedColor get() = { StyleValues.palette.gray5WithAlpha }
 
 }

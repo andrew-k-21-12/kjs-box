@@ -6,15 +6,15 @@ package io.github.andrewk2112.md.resources.endpoints
 object MainMaterialEndpoints {
 
     /** Points to the root Material page. */
-    val root = "https://material.io"
+    const val root = "https://m2.material.io"
 
     /** Points to the Material Design page. */
-    val design = "$root/design"
+    const val design = "$root/design"
 
     /** Points to the Material Design blog articles. */
-    val blog = "$root/blog"
+    const val blog = "$root/blog"
 
     /** Points to the Material studies articles. */
-    val studies = "$design/material-studies"
+    const val studies = "$design/material-studies"
 
 }

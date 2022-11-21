@@ -8,6 +8,8 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
+import kotlinx.css.properties.TextDecorationLine
+import kotlinx.css.properties.textDecoration
 
 /**
  * Styles for reusable labels.
@@ -15,6 +17,15 @@ import kotlinx.css.properties.TextDecoration
 object LabelStyles : DynamicStyleSheet() {
 
     // Public.
+
+    val link: DynamicCssProvider<Context> by dynamicCss {
+        textDecoration(TextDecorationLine.underline)
+        fontSize = StyleValues.fontSizes.relativep875
+        color = Theme.palette.action4(it)
+        hover {
+            opacity = StyleValues.opacities.p8
+        }
+    }
 
     val contentBlockTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockTitleSize(it).rules

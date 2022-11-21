@@ -6,10 +6,7 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
-import kotlinx.css.Cursor
-import kotlinx.css.backgroundColor
-import kotlinx.css.cursor
-import kotlinx.css.padding
+import kotlinx.css.*
 
 /**
  * Common styles for selection and highlighting.
@@ -17,6 +14,14 @@ import kotlinx.css.padding
 object SelectionStyles : DynamicStyleSheet() {
 
     // Public.
+
+    val simpleActionHighlighting: DynamicCssProvider<Context> by dynamicCss {
+        color   = Theme.palette.action3(it)
+        opacity = StyleValues.opacities.p5
+        hover {
+            opacity = StyleValues.opacities.p4
+        }
+    }
 
     val simpleHighlightingAndSelection: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.fastTransition(::backgroundColor).rules

@@ -46,7 +46,7 @@
     "useSoundToCommunicateInformationInWaysThatAugment": "Используйте звук для передачи информации, чтобы дополнить пользовательский опыт",
     "whatsNew": "Что нового",
     "theLatestMaterialDesignUpdatesAndGuidance": "Последние обновления и руководства в Material Design",
-    "designAndBuildForLargeScreens": "Проектируйте и стройте для больших экранов",
+    "designAndBuildForLargeScreens": "Проектируйте и создавайте для больших экранов",
     "newGuidanceForAdaptingLayoutsAndComponents": "Новое руководство по адаптации макетов и компонентов для бесшовной работы на планшетах и больших экранах",
     "combinedComponentPages": "Страницы о компонентах собраны воедино",
     "developerDocsAndDesignGuidelinesForComponents": "Документации для разработчиков и гайдлайны по дизайну компонентов теперь живут в одном месте, разделённом вкладками",
@@ -69,6 +69,12 @@
     "travelTreatment": "Обработка путешествий",
     "discoverTheWaysMaterialWasUsedToDesignAndBuildCrane": "Откройте для себя, как Material был использован в проектировании и построении Crane, приложения для организации путешествий.",
     "craftingCommunication": "Налаживание коммуникаций",
-    "materialCanBeUsedInCommunicationAndPlanningProducts": "Material может быть использован в продуктах для коммуникаций и планирований. Узнайте как с Reply, эффективным приложением эл. почты."
+    "materialCanBeUsedInCommunicationAndPlanningProducts": "Material может быть использован в продуктах для коммуникаций и планирований. Узнайте как с Reply, эффективным приложением эл. почты.",
+    "materialIsAdaptableSystemOfGuidelinesComponentsAndTools": "Material - это адаптируемая система гайдлайнов, компонентов и инструментов, поддерживающих лучшие практики дизайна пользовательского интерфейса. Основанный на открытом коде, Material упрощает сотрудничество между дизайнерами и разработчиками и помогает командам быстро создавать красивые продукты.",
+    "blogRss": "RSS-лента блога",
+    "subscribeForUpdates": "Подписаться на обновления",
+    "privacyPolicy": "Политика конфиденциальности",
+    "termsOfService": "Условия использования",
+    "feedback": "Обратная связь"
   }
 }

@@ -7,9 +7,7 @@ import react.*
  * */
 external interface SvgFile {
 
-    /**
-     * Returns SVG file's contents as a React component.
-     * */
+    /** Returns SVG file's contents as a React component. */
     @JsName("default")
     val component: ElementType<PropsWithClassName>
 

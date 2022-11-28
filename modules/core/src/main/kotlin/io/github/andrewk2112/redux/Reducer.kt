@@ -12,7 +12,7 @@ import redux.RAction
  * @param P Parent state.
  * @param S Reducer-related state.
  * @param A Action.
- * */
+ */
 abstract class Reducer<P, S, A : RAction> {
 
     // Public.
@@ -22,7 +22,7 @@ abstract class Reducer<P, S, A : RAction> {
      * it accepts the current [parentState] to extract a reducer-related state from it,
      * processes it according to the input [action]
      * and returns the corresponding new state.
-     * */
+     */
     operator fun invoke(parentState: P, action: RAction): S = reduce(extractCurrentState(parentState), action)
 
 
@@ -36,12 +36,12 @@ abstract class Reducer<P, S, A : RAction> {
      * @param action An incoming action to be processed.
      *
      * @return A new state according to the [action]'s processing.
-     * */
+     */
     protected abstract fun reduce(state: S, action: RAction): S
 
     /**
      * Describes how to extract a reducer-related state from the [parentState].
-     * */
+     */
     protected abstract fun extractCurrentState(parentState: P): S
 
 
@@ -51,13 +51,13 @@ abstract class Reducer<P, S, A : RAction> {
     /**
      * Provides a hook (a kind of live value reader in this case) for the reducer-related state.
      * It's hidden (protected) by default, so it's up to a particular implementation to make it public.
-     * */
+     */
     protected open fun useSelector(): S = reduxUseSelector(::extractCurrentState)
 
     /**
      * Provides an update hook allowing to send actions to the reducer.
      * It's hidden (protected) by default, so it's up to a particular implementation to make it public.
-     * */
+     */
     protected open fun useDispatch(): (A) -> dynamic = reduxUseDispatch()
 
 }

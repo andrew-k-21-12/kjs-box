@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * Configures the way how all required resource wrappers are going to be generated.
- * */
+ */
 class GenerateResourceWrappersPlugin : Plugin<Project> {
 
     // Action.
@@ -50,7 +50,7 @@ class GenerateResourceWrappersPlugin : Plugin<Project> {
 
     /**
      * Gets a directory [File] to write all wrappers grouped by the [wrappersName].
-     * */
+     */
     private fun Project.getOutDirectoryForWrappers(wrappersName: String): File =
         buildDir.joinWithPath("generated/wrappers/$wrappersName")
 
@@ -62,7 +62,7 @@ class GenerateResourceWrappersPlugin : Plugin<Project> {
      * @param basePackage  Sets the base package for all wrappers.
      *
      * @return A fully configured and registered [GenerateImageWrappersTask].
-     * */
+     */
     @Throws(InvalidUserDataException::class)
     private fun Project.registerImageWrappersGenerationTask(
         resourcesDir: File,
@@ -83,7 +83,7 @@ class GenerateResourceWrappersPlugin : Plugin<Project> {
      * @param basePackage  Sets the base package for all wrappers.
      *
      * @return A fully configured and registered [GenerateFontWrappersTask].
-     * */
+     */
     @Throws(InvalidUserDataException::class)
     private fun Project.registerFontWrappersGenerationTask(
         resourcesDir: File,

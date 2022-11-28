@@ -8,7 +8,7 @@ import kotlin.reflect.KProperty
 
 /**
  * Mostly an equivalent of [StyleSheet] but allows providing dynamic styles in addition to static ones.
- * */
+ */
 open class DynamicStyleSheet(
     name: String? = null,
     val isStatic: Boolean = true,
@@ -23,12 +23,12 @@ open class DynamicStyleSheet(
      * @param builder Describes how to prepare a style according to the current argument.
      *
      * @return An instance of the [DynamicCssDelegate] allowing the target property to invoke required styles.
-     * */
+     */
     fun <T : Any> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
 
     /**
      * Provides a delegate for regular static style holders.
-     * */
+     */
     fun css(vararg parents: RuleSet, builder: RuleSet) =
         StaticCssHolder(this, *parents, builder)
             .also { addCssHolder(it) }
@@ -46,7 +46,7 @@ open class DynamicStyleSheet(
      * @param argument Some kind of seed and identifier to prepare a [RuleSet].
      *
      * @return A prepared [NamedRuleSet] ready to be used.
-     * */
+     */
     internal fun <T : Any> prepareCachedRuleSet(
         staticCssSuffix: String,
         builder: CssBuilder.(T) -> Unit,
@@ -94,7 +94,7 @@ open class DynamicStyleSheet(
      * Extracts a CSS suffix according to the argument type.
      *
      * @throws IllegalArgumentException When some unsupported argument type is encountered.
-     * */
+     */
     private fun Any.extractCssSuffix(): String = when (this) {
         is Boolean      -> toString()
         is Number       -> toString().revampCssSuffix()
@@ -107,7 +107,7 @@ open class DynamicStyleSheet(
 
     /**
      * Revamps the receiver [String] to work correctly as a part of a CSS class name.
-     * */
+     */
     private fun String.revampCssSuffix() = replace(" ", "-").replace(".", "-") // removing CSS.escape(...) for now
                                                                                // as it converts numbers to Unicode
 

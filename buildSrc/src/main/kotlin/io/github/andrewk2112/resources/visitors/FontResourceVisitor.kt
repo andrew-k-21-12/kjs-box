@@ -8,7 +8,7 @@ import java.nio.file.Path
 
 /**
  * A [ResourceVisitor] to collect all [FontResource] metadata.
- * */
+ */
 internal class FontResourceVisitor : ResourceVisitor {
 
     // API.
@@ -38,7 +38,7 @@ internal class FontResourceVisitor : ResourceVisitor {
 
     /**
      * Clears all previously collected metadata about [FontResource]s.
-     * */
+     */
     internal fun reset() = _fontResources.clear()
 
     /** Provides collected metadata for all [FontResource]s. */
@@ -51,7 +51,7 @@ internal class FontResourceVisitor : ResourceVisitor {
 
     /**
      * Adds a new [fontVariant] to the list of visited [fontResources].
-     * */
+     */
     private fun appendFontVariant(fontFamily: String, relativePath: String, fontVariant: FontResource.Variant) {
 
         // Trying to find the font of the same family group.

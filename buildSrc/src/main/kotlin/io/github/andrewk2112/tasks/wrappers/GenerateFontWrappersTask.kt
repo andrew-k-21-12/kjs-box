@@ -17,7 +17,7 @@ import java.nio.file.InvalidPathException
 
 /**
  * Generates wrapper classes for required source fonts.
- * */
+ */
 abstract class GenerateFontWrappersTask : DefaultTask() {
 
     // Required inputs.
@@ -25,14 +25,14 @@ abstract class GenerateFontWrappersTask : DefaultTask() {
     /**
      * Must point to the project's resources directory.
      * Such separated configuration is needed to construct relative paths correctly.
-     * */
+     */
     @get:Internal
     var resourcesDir: File? by changeMonitor(::setupSrcFontsDir)
 
     /**
      * Must state the relative path to source fonts inside the resources.
      * Such separated configuration is needed to construct relative paths correctly.
-     * */
+     */
     @get:Internal
     var pathToFonts: String? by changeMonitor(::setupSrcFontsDir)
 
@@ -50,7 +50,7 @@ abstract class GenerateFontWrappersTask : DefaultTask() {
 
     /**
      * Sets the [srcFonts] directory from the partial inputs.
-     * */
+     */
     private fun setupSrcFontsDir() {
         val resourcesDir = resourcesDir ?: return
         val pathToFonts  = pathToFonts  ?: return

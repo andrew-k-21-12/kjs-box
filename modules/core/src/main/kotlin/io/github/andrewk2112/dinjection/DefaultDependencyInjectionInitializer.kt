@@ -8,7 +8,7 @@ import org.kodein.di.DI
 
 /**
  * Includes default modules to provide injectable dependencies.
- * */
+ */
 internal class DefaultDependencyInjectionInitializer : DependencyInjectionInitializer {
 
     override fun initialize(builder: DI.MainBuilder) = with(builder) {

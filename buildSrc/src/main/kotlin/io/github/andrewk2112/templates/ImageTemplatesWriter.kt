@@ -11,7 +11,7 @@ import java.io.IOException
 
 /**
  * Inflates and writes to files image wrappers-related classes.
- * */
+ */
 internal class ImageTemplatesWriter(
     private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
 ) {
@@ -20,7 +20,7 @@ internal class ImageTemplatesWriter(
 
     /**
      * Performs checks and writes all required base interfaces with the [packageName] into the [outDir].
-     * */
+     */
     @Throws(IOException::class, FileNotFoundException::class, SecurityException::class)
     internal fun writeBaseInterfaces(outDir: File, packageName: String) {
 
@@ -44,7 +44,7 @@ internal class ImageTemplatesWriter(
     /**
      * Performs checks and writes an image wrapper into the [outDir]
      * using the [packageName] with all data from the [imageResource].
-     * */
+     */
     @Throws(IOException::class, FileNotFoundException::class, SecurityException::class)
     internal fun writeSimpleImageObject(outDir: File, packageName: String, imageResource: ImageResource) {
 
@@ -79,7 +79,7 @@ internal class ImageTemplatesWriter(
      *
      * @param relativeSubPath A path to be included into the name.
      * @param name            A base name, should be in kebab-case.
-     * */
+     */
     private fun generateSimpleImageObjectName(relativeSubPath: String, name: String): String =
         relativeSubPath.split("/").joinCapitalized() + name.split("-").joinCapitalized() + "Image"
 

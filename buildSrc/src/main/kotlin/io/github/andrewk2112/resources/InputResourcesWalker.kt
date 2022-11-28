@@ -9,7 +9,7 @@ import java.nio.file.InvalidPathException
  * This is a kind of frontend for generating various resource wrapper classes.
  * The main purpose of it is just to walk through each file in the target directory
  * and call the required visitor for it.
- * */
+ */
 internal class InputResourcesWalker {
 
     // API.
@@ -20,7 +20,7 @@ internal class InputResourcesWalker {
      * @throws Exception When any error happens.
      *                   It is represented by [IllegalArgumentException], [SecurityException], [InvalidPathException]
      *                   or any other exception thrown by the particular [resourceVisitor].
-     * */
+     */
     @Throws(Exception::class)
     internal fun walk(rootResourcesDir: File, targetResourcesDir: File, resourceVisitor: ResourceVisitor) {
 
@@ -47,7 +47,7 @@ internal class InputResourcesWalker {
 
     /**
      * Creates the predicate to filter out only valid files.
-     * */
+     */
     private fun createFilteringPredicate(): (File) -> Boolean = when {
         Os.isFamily(Os.FAMILY_MAC) -> { file -> file.isFile && file.name != ".DS_Store" }
         else                       -> File::isFile

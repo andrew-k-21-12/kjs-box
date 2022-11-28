@@ -9,7 +9,7 @@ import react.Props
  * This boilerplate is needed to remove the package from the component being exported
  * without harming its internal imports.
  * It seems reasonable to create some automation for such dirty exports.
- * */
+ */
 @JsExport
 @OptIn(ExperimentalJsExport::class)
 @JsName("default")

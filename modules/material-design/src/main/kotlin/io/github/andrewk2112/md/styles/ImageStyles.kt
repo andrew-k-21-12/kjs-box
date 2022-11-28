@@ -10,7 +10,7 @@ import kotlinx.css.width
 
 /**
  * Typical image and icon styles.
- * */
+ */
 object ImageStyles : DynamicStyleSheet() {
 
     val fitWidthKeepAspectImage: NamedRuleSet by css {

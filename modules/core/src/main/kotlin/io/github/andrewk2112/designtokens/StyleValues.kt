@@ -6,7 +6,7 @@ import org.kodein.di.instance
 
 /**
  * Provides access to source style values (reference design tokens).
- * */
+ */
 object StyleValues {
     val fontSizes: FontSizes by di.instance()
     val opacities: Opacities by di.instance()

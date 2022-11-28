@@ -18,7 +18,7 @@ import kotlin.reflect.KProperty0
 
 /**
  * A preferred coloring mode for the stroke.
- * */
+ */
 sealed class StrokeColor {
     object Default : StrokeColor()
     object Intense : StrokeColor()
@@ -27,7 +27,7 @@ sealed class StrokeColor {
 
 /**
  * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
- * */
+ */
 private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
     StrokeColor.Default   -> Theme.palette.stroke1(context)
     StrokeColor.Intense   -> Theme.palette.stroke2(context)
@@ -40,7 +40,7 @@ private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
 
 /**
  * Denotes the position of a stroke.
- * */
+ */
 enum class StrokePosition { LEFT, TOP, RIGHT, BOTTOM }
 
 /** Lookup for the matching border styling function. */
@@ -58,7 +58,7 @@ private val StrokePosition.matchingStylingFunction: StyledElement.(LinearDimensi
 
 /**
  * All configs required to evaluate a stroke's style.
- * */
+ */
 class StrokeConfigs(
     val context: Context,
     val color: StrokeColor,
@@ -80,7 +80,7 @@ class StrokeConfigs(
 
 /**
  * A compilation of stroke styles to be reused.
- * */
+ */
 object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies a border-based stroke. */

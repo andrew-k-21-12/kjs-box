@@ -8,7 +8,7 @@ package io.github.andrewk2112.models
  *                     starting (excluding) from the directory with all resources of the font type
  *                     and ending (including) at the particular folder holding all font variants of the family.
  * @param variants     Keeps all metadata about each particular [Variant] of the font.
- * */
+ */
 internal class FontResource(
     internal val fontFamily: String,
     internal val relativePath: String,
@@ -22,7 +22,7 @@ internal class FontResource(
      * @param format           Font's format - usually comes as an extension: "woff2", "ttf" and so on.
      * @param relativeFontPath Describes the full relative path to the particular font resource of the family
      *                         starting from the root resources directory.
-     * */
+     */
     internal class Variant(
         internal val variantName: String,
         internal val format: String,

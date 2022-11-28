@@ -6,7 +6,7 @@ import kotlinx.css.rem
 
 /**
  * All source font sizes - to be used in derived design tokens and styles.
- * */
+ */
 class FontSizes {
 
     val relativep85:  LinearDimension get() = 0.85.rem

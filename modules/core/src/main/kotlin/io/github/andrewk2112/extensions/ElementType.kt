@@ -8,7 +8,7 @@ import react.*
  * As it's used very frequently, it was decided to avoid any function names at all.
  * The drawback of the requirement to prepend "+" is going to be resolved
  * when Kotlin starts to support `context(...)` in production.
- * */
+ */
 inline operator fun <P> ElementType<P>.invoke(
     vararg classNames: String,
     crossinline block: @ReactDsl P.() -> Unit,
@@ -20,7 +20,7 @@ inline operator fun <P> ElementType<P>.invoke(
 
 /**
  * The same as the other [invoke] - for cases when the initialization block is not needed.
- * */
+ */
 inline operator fun <P> ElementType<P>.invoke(
     vararg classNames: String
 ): ReactElement<P> where P : PropsWithClassName,

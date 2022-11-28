@@ -22,7 +22,7 @@ private val main = run {
 
 /**
  * Creates basic styles to be applied to all elements (including ones outside React components).
- * */
+ */
 private fun createClearfixCss() = CssBuilder(allowClasses = false).apply {
     rule("*") {
         boxSizing = BoxSizing.borderBox // width and height of boxes include borders, margins and padding

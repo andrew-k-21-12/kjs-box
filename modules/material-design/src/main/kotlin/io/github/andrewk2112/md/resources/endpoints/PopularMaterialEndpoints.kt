@@ -5,7 +5,7 @@ import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.root
 
 /**
  * All popular Material articles endpoints.
- * */
+ */
 class PopularMaterialEndpoints {
     val materialTheming = "$design/material-theming"
     val iconography     = "$design/iconography"

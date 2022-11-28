@@ -8,7 +8,7 @@ import org.kodein.di.instance
 
 /**
  * Provides access to themed style values (system design tokens).
- * */
+ */
 object Theme {
     val fontSizes: ThemedFontSizes by di.instance()
     val palette:   ThemedPalette   by di.instance()

@@ -21,7 +21,7 @@ import react.dom.html.ReactHTML.source
  * @param image           An image to be rendered.
  * @param alternativeText A description to be displayed when the image fails to load.
  * @param classNames      Styling classes to be applied for the image.
- * */
+ */
 fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) = when (image) {
     is SimpleImage -> {
 

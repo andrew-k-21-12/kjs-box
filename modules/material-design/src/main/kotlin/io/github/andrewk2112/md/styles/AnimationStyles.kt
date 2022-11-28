@@ -23,16 +23,16 @@ import kotlin.math.max
  * All styled reusable animations in a single place.
  *
  * Don't forget to [initialize] it at some root component!
- * */
+ */
 object AnimationStyles : DynamicStyleSheet() {
 
     // Public.
 
     /**
-     * Must be called before any other usage to set the [contextProvider] as some animations require the [Context].
-     * */
-    fun initialize(contextProvider: () -> Context) {
-        this.contextProvider = contextProvider
+     * Must be called before any usage and on each [Context] update as some animations require the [Context].
+     */
+    fun setContext(context: Context) {
+        this.context = context
     }
 
     /**
@@ -41,7 +41,7 @@ object AnimationStyles : DynamicStyleSheet() {
      * Note that:
      * 1. The animation spreads without bounds: make sure the receiver is wrapped into something with [Overflow.hidden].
      * 2. The animation node is added as the preceding node to the same level with the receiver.
-     * */
+     */
     fun DOMAttributes<*>.addTapHighlighting() {
         onTouchStart = tapHighlightingTouchEventHandler
         onMouseDown  = tapHighlightingMouseEventHandler
@@ -53,23 +53,23 @@ object AnimationStyles : DynamicStyleSheet() {
 
     /**
      * Launches the ripple animation for the [target] starting from the tap point with [tapX] and [tapY].
-     * */
+     */
     private fun launchRippleAnimation(target: Element, tapX: Int, tapY: Int) {
+
+        // Checking if it's possible to launch the animation at all.
+        val parentElement = target.parentElement ?: return
 
         // Preparing sizes and positions.
         val diameter   = max(target.clientWidth, target.clientHeight)
         val radius     = diameter / 2
         val targetRect = target.getBoundingClientRect()
 
-        // Just a reusable variable.
-        val animationClassName = rippleAnimationElement(contextProvider.invoke()).name
-
         // Cleaning up the previous animation elements.
-        target.parentElement
-            ?.getElementsByClassName(animationClassName)
-            ?.run {
-                for (i in 0 until length) {
-                    this[i]?.remove()
+        parentElement
+            .querySelectorAll("[class*=${rippleAnimationElement.staticCssSuffix}]")
+            .run {
+                for (childIndex in 0 until length) {
+                    parentElement.removeChild(this[childIndex] ?: continue)
                 }
             }
 
@@ -81,16 +81,14 @@ object AnimationStyles : DynamicStyleSheet() {
                 left   = (tapX - targetRect.left - radius).px
                 top    = (tapY - targetRect.top  - radius).px
             }
-            classList.add(animationClassName)
-            target.parentElement?.prepend(this)
+            classList.add(rippleAnimationElement(context).name)
+            parentElement.prepend(this)
         }
 
     }
 
-    /** The dynamic [Context] source - must be set. */
-    private var contextProvider: () -> Context = {
-        throw IllegalStateException("Make sure to perform the initialization before any usage")
-    }
+    /** The latest actual [Context] - any of the [Context] update must be set by [setContext]. */
+    private lateinit var context: Context
 
     /** [MouseEventHandler] to launch the animation - for desktop (mouse-compatible) devices. */
     private val tapHighlightingMouseEventHandler: MouseEventHandler<*> = {

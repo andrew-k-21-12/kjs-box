@@ -2,7 +2,7 @@ package io.github.andrewk2112.md.resources.endpoints
 
 /**
  * All basic Material endpoints.
- * */
+ */
 object MainMaterialEndpoints {
 
     /** Points to the root Material page. */

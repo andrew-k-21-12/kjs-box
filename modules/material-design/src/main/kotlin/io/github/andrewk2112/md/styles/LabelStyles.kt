@@ -13,7 +13,7 @@ import kotlinx.css.properties.textDecoration
 
 /**
  * Styles for reusable labels.
- * */
+ */
 object LabelStyles : DynamicStyleSheet() {
 
     // Public.

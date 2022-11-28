@@ -10,7 +10,7 @@ import kotlinx.css.*
 
 /**
  * Common styles for selection and highlighting.
- * */
+ */
 object SelectionStyles : DynamicStyleSheet() {
 
     // Public.

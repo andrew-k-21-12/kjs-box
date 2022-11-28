@@ -6,14 +6,14 @@ import java.io.InputStream
 /**
  * Does pretty primitive template inflation by just loading a raw template from the resources
  * and inserting simple values into it.
- * */
+ */
 internal class SimpleTemplatesInflater {
 
     // API.
 
     /**
      * Inflates a template from the resources by the [templateName] and inserts the provided [args] into it.
-     * */
+     */
     @Throws(IOException::class)
     internal fun inflate(templateName: String, vararg args: Any): String =
         cache
@@ -26,7 +26,7 @@ internal class SimpleTemplatesInflater {
 
     /**
      * Reads a template by the [templateName] from the resources.
-     * */
+     */
     @Throws(IOException::class)
     private fun readTemplateFromResources(templateName: String): String =
         this::class.java.getResourceAsStream(templateName)

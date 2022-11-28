@@ -12,7 +12,7 @@ import java.awt.Dimension
  * @param relativeImagePath Describes the full relative path to the image resource
  *                          starting from the root resources directory.
  * @param imageSize         A [Dimension] of this image resource.
- * */
+ */
 internal class ImageResource(
     internal val name: String,
     internal val relativePath: String,

@@ -6,7 +6,7 @@ import react.useEffectOnce
 
 /**
  * Provides a hook to monitor the current window width.
- * */
+ */
 class WindowWidthMonitor {
 
     // Public.
@@ -15,7 +15,7 @@ class WindowWidthMonitor {
      * Reads a window width once when mounted and each time a window resizes.
      *
      * @param onNewWidth Delivers the updated window width.
-     * */
+     */
     fun useWindowWidthMonitor(onNewWidth: (Int) -> Unit) {
         useEffectOnce {
             onNewWidth.invoke(windowWidth)

@@ -7,6 +7,7 @@ import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
+import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
@@ -64,6 +65,7 @@ private object MenuItemStyles : DynamicStyleSheet() {
     }
 
     val link: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.light.rules
         position = Position.relative // or the animation will appear on top
         display  = Display.inlineBlock
         width    = 100.pct

@@ -8,7 +8,7 @@ import redux.RAction
 
 /**
  * Means of managing the global [Context] of the app.
- * */
+ */
 class ContextReducer(
     private val windowWidthMonitor: WindowWidthMonitor
 ) : Reducer<AppState, Context, ContextReducer.Action>() {
@@ -26,7 +26,7 @@ class ContextReducer(
 
     /**
      * Turns on the hook to update the current [Context] according to screen size changes.
-     * */
+     */
     fun useScreenSizeMonitor() {
         val dispatch = useDispatch()
         windowWidthMonitor.useWindowWidthMonitor {

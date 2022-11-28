@@ -16,6 +16,10 @@ external val iconArrowRightThin: SvgFile
 @JsNonModule
 external val iconGoogleLogo: SvgFile
 
+@JsModule("./icons/md/magnify.svg")
+@JsNonModule
+external val iconMagnify: SvgFile
+
 @JsModule("./icons/md/material-design-logo.svg")
 @JsNonModule
 external val iconMaterialDesignLogo: SvgFile
@@ -24,6 +28,6 @@ external val iconMaterialDesignLogo: SvgFile
 @JsNonModule
 external val iconMaterialDesignLogoEmpty: SvgFile
 
-@JsModule("./icons/md/magnify.svg")
+@JsModule("./icons/md/menu.svg")
 @JsNonModule
-external val iconMagnify: SvgFile
+external val iconMenu: SvgFile

@@ -11,7 +11,7 @@ import java.io.File
 /**
  * Generates all Node.js binaries required for production
  * (the ones not generated automatically for some reason).
- * */
+ */
 class GenerateNodeJsBinariesPlugin : Plugin<Project> {
 
     // Action.
@@ -32,7 +32,7 @@ class GenerateNodeJsBinariesPlugin : Plugin<Project> {
 
     /**
      * Looks for a Node.js binary [File].
-     * */
+     */
     @Throws(UnknownTaskException::class)
     private fun Project.findNodeJsBinary(): File =
         tasks
@@ -47,7 +47,7 @@ class GenerateNodeJsBinariesPlugin : Plugin<Project> {
      * @param libraryName  A Node.js library name to generate the binary for.
      *
      * @return A reference to the registered [Task].
-     * */
+     */
     @Throws(InvalidUserDataException::class, SecurityException::class)
     private fun Project.registerNodeJsBinaryGenerationTask(
         nodeJsBinary: File,

@@ -5,7 +5,7 @@ import kotlinx.css.px
 
 /**
  * All spacing values - for margins and padding primarily.
- * */
+ */
 class Spacing {
     val absolute1:    LinearDimension get() = 1.px
     val absolute2:    LinearDimension get() = 2.px

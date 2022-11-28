@@ -10,7 +10,7 @@ import kotlinext.js.js
 
 /**
  * Helps to access localizations.
- * */
+ */
 internal class LocalizationEngine {
 
     // Initialization.
@@ -31,12 +31,12 @@ internal class LocalizationEngine {
      * A hook to start getting localized strings.
      *
      * @return A localized strings getter.
-     * */
+     */
     internal fun useLocalizator(): StringMapper = reactI18next.useTranslation()::t
 
     /**
      * Hooks fetching both of the current active language and the localizator.
-     * */
+     */
     internal fun useCurrentLanguageAndLocalizator(): Pair<String, StringMapper> =
         with(reactI18next.useTranslation()) { Pair(i18n.language, ::t) }
 
@@ -48,7 +48,7 @@ internal class LocalizationEngine {
      * Creates all required options for the underlying translation library.
      *
      * @return Options in the format of the plain JS object.
-     * */
+     */
     private fun createI18NextOptions(): dynamic {
         val fallbackLanguageCode = Language.ENGLISH.code // it's not possible to inject a string from Kotlin otherwise
         return js {

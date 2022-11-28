@@ -10,5 +10,5 @@ val di by lazy {
 /**
  * A dependency injection initializer - can be substituted with other instances before any access to the [di]
  * to provide other (e.g. mock) injection modules and configs.
- * */
+ */
 var diInitializer: DependencyInjectionInitializer = DefaultDependencyInjectionInitializer()

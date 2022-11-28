@@ -9,12 +9,12 @@ import javax.imageio.stream.FileImageInputStream
 
 /**
  * Reads images' descriptions without loading their files entirely into memory.
- * */
+ */
 internal class ImageMetadataReader {
 
     /**
      * Reads sizes ([Dimension]) of an [image].
-     * */
+     */
     @Throws(SecurityException::class, FileNotFoundException::class, IOException::class, IllegalArgumentException::class)
     internal fun readDimension(image: File): Dimension {
         val imageReaders = ImageIO.getImageReadersBySuffix(image.extension)

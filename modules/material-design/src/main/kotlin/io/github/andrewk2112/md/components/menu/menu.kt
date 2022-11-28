@@ -1,6 +1,5 @@
 package io.github.andrewk2112.md.components.menu
 
-import csstype.px as pixels
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
@@ -16,7 +15,6 @@ import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
 import kotlinx.css.*
-import kotlinx.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
@@ -25,11 +23,7 @@ import react.useState
 
 // Public.
 
-external interface MenuProps : Props {
-    var headerHeight: Double
-}
-
-val menu = FC<MenuProps> { props ->
+val menu = FC<Props> {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -40,11 +34,6 @@ val menu = FC<MenuProps> { props ->
 
         // Menu header - lays below the sliding header.
         +div(MenuStyles.headerAppearance(context).name) {
-
-            // Setting the appropriate dynamic height.
-            style = jso {
-                height = props.headerHeight.pixels
-            }
 
             // Material icon.
             +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
@@ -82,16 +71,17 @@ private object MenuStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, RIGHT)).rules
-        flexShrink    = 0.0
+        position = Position.absolute
+        inset(0.px)
         display       = Display.flex
         flexDirection = FlexDirection.column
-        width = StyleValues.sizes.absolute280
         backgroundColor = Theme.palette.surface2(it)
     }
 
     val headerAppearance: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
         flexShrink    = 0.0
+        height        = StyleValues.sizes.absolute170
         display       = Display.flex
         alignItems    = Align.center
         flexDirection = FlexDirection.row

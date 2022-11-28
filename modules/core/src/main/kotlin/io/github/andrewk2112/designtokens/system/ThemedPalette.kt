@@ -4,7 +4,7 @@ import io.github.andrewk2112.designtokens.StyleValues
 
 /**
  * Provides context-based colors according to the current dynamic configuration.
- * */
+ */
 class ThemedPalette {
 
     val action1:       ThemedColor get() = { StyleValues.palette.blue4 }
@@ -44,5 +44,7 @@ class ThemedPalette {
 
     val stroke1: ThemedColor get() = { StyleValues.palette.blackWithAlpha1 }
     val stroke2: ThemedColor get() = { StyleValues.palette.gray5WithAlpha }
+
+    val scrim: ThemedColor get() = { StyleValues.palette.blackWithAlpha4 }
 
 }

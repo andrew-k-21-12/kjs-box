@@ -9,5 +9,5 @@ import react.useState
 
 /**
  * A getter hook to read the app's [Context] simpler.
- * */
+ */
 fun useAppContext(): Context = useState { di.direct.instance<ContextReducer>() }.component1().useSelector()

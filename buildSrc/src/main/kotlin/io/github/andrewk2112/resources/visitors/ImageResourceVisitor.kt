@@ -11,7 +11,7 @@ import java.nio.file.Path
 
 /**
  * A [ResourceVisitor] to collect all [ImageResource] metadata.
- * */
+ */
 internal class ImageResourceVisitor(
     private val imageMetadataReader: ImageMetadataReader = ImageMetadataReader()
 ) : ResourceVisitor {
@@ -44,7 +44,7 @@ internal class ImageResourceVisitor(
 
     /**
      * Clears all previously collected metadata about [ImageResource]s.
-     * */
+     */
     internal fun reset() = _imageResources.clear()
 
     /** Provides collected metadata for all [ImageResource]s. */

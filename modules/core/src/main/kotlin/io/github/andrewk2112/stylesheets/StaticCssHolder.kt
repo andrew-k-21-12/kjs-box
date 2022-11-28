@@ -4,18 +4,19 @@ import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
 import styled.CssHolder
 import styled.GlobalStyles
-import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 /**
  * Copy-paste of the [CssHolder] configured to work with the [DynamicStyleSheet] instead.
- * */
+ */
 class StaticCssHolder(private val sheet: DynamicStyleSheet, private vararg val ruleSets: RuleSet) {
 
-    operator fun provideDelegate(thisRef: Any?, providingProperty: KProperty<*>): ReadOnlyProperty<Any?, NamedRuleSet> {
+    operator fun provideDelegate(thisRef: Any?, providingProperty: KProperty<*>): Lazy<NamedRuleSet> {
         val className = sheet.getClassName(providingProperty)
         classNamesToInject[className] = true
-        return ReadOnlyProperty { _, property ->
+        return lazy {
+            // In contrary to the default implementation, the rules itself are not called directly every time:
+            // for cases when the rules are read by the name, it should be guaranteed that the stylesheets are imported.
             sheet.scheduleImports()
             if (sheet.isStatic) {
                 scheduleToInject(className)
@@ -25,7 +26,7 @@ class StaticCssHolder(private val sheet: DynamicStyleSheet, private vararg val r
                     +className
                 }
                 if (!sheet.isStatic || !allowClasses || isHolder) {
-                    styleName.add(sheet.getClassName(property))
+                    styleName.add(sheet.getClassName(providingProperty))
                     ruleSets.forEach { it() }
                 }
             }

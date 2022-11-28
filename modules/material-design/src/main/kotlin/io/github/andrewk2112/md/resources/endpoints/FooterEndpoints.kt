@@ -4,7 +4,7 @@ import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.root
 
 /**
  * Endpoints used in the footer leading to various external pages.
- * */
+ */
 class FooterEndpoints {
     val github                 = "https://www.github.com/material-components"
     val twitter                = "https://www.twitter.com/materialdesign"

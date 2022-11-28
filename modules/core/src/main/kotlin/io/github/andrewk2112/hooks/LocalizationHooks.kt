@@ -11,12 +11,12 @@ import react.useState
 
 /**
  * Invokes the hook to get the localizator for retrieving translated strings by keys.
- * */
+ */
 fun useLocalizator(): StringMapper = useLocalizationEngine().useLocalizator()
 
 /**
  * Invokes the hook to get both the current active language and the localizator.
- * */
+ */
 fun useCurrentLanguageAndLocalizator(): Pair<String, StringMapper> =
     useLocalizationEngine().useCurrentLanguageAndLocalizator()
 
@@ -26,6 +26,6 @@ fun useCurrentLanguageAndLocalizator(): Pair<String, StringMapper> =
 
 /**
  * Retrieves an instance of the [LocalizationEngine] by the state hook.
- * */
+ */
 private fun useLocalizationEngine(): LocalizationEngine =
     useState { di.direct.instance<LocalizationEngine>() }.component1()

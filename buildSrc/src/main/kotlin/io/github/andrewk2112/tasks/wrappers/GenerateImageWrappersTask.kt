@@ -26,7 +26,7 @@ import java.nio.file.InvalidPathException
  * Maybe in future it will process more complicated generation cases
  * when according to image names it will generate multiple different wrapper variants
  * (extending multiple common sealed interfaces for convenience).
- * */
+ */
 abstract class GenerateImageWrappersTask : DefaultTask() {
 
     // Required setups.
@@ -34,14 +34,14 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
     /**
      * Must point to the project's resources directory.
      * Such separated configuration is needed to construct relative paths correctly.
-     * */
+     */
     @get:Internal
     var resourcesDir: File? by changeMonitor(::setupSrcImagesDir)
 
     /**
      * Must state the relative path to source images inside the resources.
      * Such separated configuration is needed to construct relative paths correctly.
-     * */
+     */
     @get:Internal
     var pathToImages: String? by changeMonitor(::setupSrcImagesDir)
 
@@ -63,7 +63,7 @@ abstract class GenerateImageWrappersTask : DefaultTask() {
 
     /**
      * Sets the [srcImages] directory from the partial inputs.
-     * */
+     */
     private fun setupSrcImagesDir() {
         val resourcesDir = resourcesDir ?: return
         val pathToImages = pathToImages ?: return

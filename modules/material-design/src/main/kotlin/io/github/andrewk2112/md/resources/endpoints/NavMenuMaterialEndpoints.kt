@@ -5,7 +5,7 @@ import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.studie
 
 /**
  * All Material Design endpoints used at the main navigation menu.
- * */
+ */
 class NavMenuMaterialEndpoints {
     val introduction                = "$design/introduction"
     val aboutOurMaterialStudies     = "$studies/about-our-material-studies"

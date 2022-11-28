@@ -14,7 +14,7 @@ import react.dom.html.AnchorTarget
  *   as there is an opinion that new tabs with a reference to the opener are executed on the same process
  *
  * By using one wrapper method for all external navigation actions it's possible to extend it (e.g. add logging) easier.
- * */
+ */
 fun openBlankWindowSafely(url: String) {
     window.open(url, "_blank", "noopener,noreferrer")?.also { it.opener = null }
 }
@@ -23,7 +23,7 @@ fun openBlankWindowSafely(url: String) {
  * Sets the destination endpoint to be opened in a new blank window for an anchor element safely.
  *
  * Read the docs for [openBlankWindowSafely] to get additional explanations.
- * */
+ */
 var AnchorHTMLAttributes<*>.safeBlankHref: String?
     get() = href
     set(value) {

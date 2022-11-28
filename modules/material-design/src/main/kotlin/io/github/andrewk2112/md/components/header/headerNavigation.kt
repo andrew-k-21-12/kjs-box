@@ -1,8 +1,10 @@
 package io.github.andrewk2112.md.components.header
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.asMouseEventHandler
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
@@ -11,12 +13,14 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.resources.iconMagnify
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
+import io.github.andrewk2112.md.resources.iconMenu
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.*
+import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.header
 import react.dom.html.ReactHTML.li
@@ -25,7 +29,7 @@ import react.dom.html.ReactHTML.ul
 
 // Public.
 
-val headerNavigation = FC<Props> {
+val headerNavigation = FC<HeaderProps> { props ->
 
     // Preparing the state.
     val context     = useAppContext()
@@ -37,8 +41,14 @@ val headerNavigation = FC<Props> {
         // Logo block.
         +div(HeaderNavigationStyles.materialLogoBlock.name) {
 
+            // Menu button.
+            +button(HeaderNavigationStyles.menuButton(context).name) {
+                onClick = props.onMenuClick.asMouseEventHandler()
+                +iconMenu.component(HeaderNavigationStyles.menuButtonIcon.name)
+            }
+
             // Icon.
-            +iconMaterialDesignLogo.component(HeaderNavigationStyles.materialDesignIcon.name)
+            +iconMaterialDesignLogo.component(HeaderNavigationStyles.materialDesignIcon(context).name)
 
             // Label.
             +span(HeaderNavigationStyles.materialDesignLabel(context).name) {
@@ -109,9 +119,29 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         alignItems = Align.center
     }
 
-    val materialDesignIcon: NamedRuleSet by css {
+    val menuButton: DynamicCssProvider<Context> by dynamicCss {
+        height      = 100.pct
+        aspectRatio = AspectRatio(1)
+        backgroundColor = StyleValues.palette.transparent
+        color           = Theme.palette.onSurface1(it)
+        borderStyle = BorderStyle.none
+        cursor = Cursor.pointer
+        if (it.screenSize.equalsOrBigger(DESKTOP)) {
+            display = Display.none
+        }
+    }
+
+    val menuButtonIcon: NamedRuleSet by css {
+        display = Display.block
+        margin(LinearDimension.auto)
+    }
+
+    val materialDesignIcon: DynamicCssProvider<Context> by dynamicCss {
         +ImageStyles.smallSizedIcon.rules
-        marginLeft = StyleValues.spacing.absolute24
+        flexShrink = .0
+        if (it.screenSize.equalsOrBigger(DESKTOP)) {
+            marginLeft = StyleValues.spacing.absolute24
+        }
     }
 
     val materialDesignLabel: DynamicCssProvider<Context> by dynamicCss {
@@ -119,6 +149,9 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         marginLeft = StyleValues.spacing.absolute16
         fontSize   = StyleValues.fontSizes.relativep95
         color      = Theme.palette.onSurface1(it)
+        if (it.screenSize.equalsOrSmaller(Context.ScreenSize.BIG_TABLET)) {
+            display = Display.none
+        }
     }
 
     val navigationBlock: NamedRuleSet by css {

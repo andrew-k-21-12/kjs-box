@@ -4,7 +4,7 @@ import kotlinx.css.Color
 
 /**
  * All source colors - to be used in derived design tokens and styles.
- * */
+ */
 class Palette {
 
     // The order of tones is from lighter to darker.
@@ -27,7 +27,10 @@ class Palette {
 
     val black           get() = Color("#000000")
     val blackWithAlpha1 get() = Color("#0000001f")
-    val blackWithAlpha2 get() = Color("#00000080")
+    val blackWithAlpha2 get() = Color("#00000024")
+    val blackWithAlpha3 get() = Color("#00000033")
+    val blackWithAlpha4 get() = Color("#00000052")
+    val blackWithAlpha5 get() = Color("#00000080")
 
     val blue1 get() = Color("#E9F0F6")
     val blue2 get() = Color("#CBE6FD")

@@ -4,7 +4,7 @@ import kotlinx.css.CssValue
 
 /**
  * A wrapper to provide [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) values.
- * */
+ */
 class OutlineStyle constructor(value: String) : CssValue(value) {
 
     companion object {

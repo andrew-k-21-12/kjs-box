@@ -2,14 +2,14 @@ package io.github.andrewk2112
 
 /**
  * Descriptions and configurations of the current environment.
- * */
+ */
 object Environment {
 
     // Utility.
 
     /**
      * A build mode this application can run under.
-     * */
+     */
     enum class BuildMode { DEVELOPMENT, PRODUCTION }
 
 

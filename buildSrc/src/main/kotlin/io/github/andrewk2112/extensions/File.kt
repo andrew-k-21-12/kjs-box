@@ -5,7 +5,7 @@ import java.io.IOException
 
 /**
  * Concatenates the current directory with a new [path] - just syntax sugar.
- * */
+ */
 fun File.joinWithPath(path: String) = File(this, path)
 
 /**
@@ -14,7 +14,7 @@ fun File.joinWithPath(path: String) = File(this, path)
  * @param errorMessage A message to be used in the [IOException] in the case of failure.
  *
  * @throws IOException When the directory doesn't exist and can not be created.
- * */
+ */
 @Throws(IOException::class)
 internal fun File.ensureDirectoryExistsOrThrow(errorMessage: String) {
     if (!isDirectory && !mkdirs()) {

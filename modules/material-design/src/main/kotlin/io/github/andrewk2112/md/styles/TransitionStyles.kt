@@ -8,7 +8,7 @@ import kotlin.reflect.KProperty
 
 /**
  * Contains some common transition configs.
- * */
+ */
 object TransitionStyles : DynamicStyleSheet() {
 
     val flashingTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {

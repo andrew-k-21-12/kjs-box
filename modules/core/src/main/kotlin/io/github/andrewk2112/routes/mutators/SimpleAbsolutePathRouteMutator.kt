@@ -3,7 +3,7 @@ package io.github.andrewk2112.routes.mutators
 /**
  * Provides a simple way to get a trivial route's [absolutePath]:
  * helpful to describe links' references targeting a route.
- * */
+ */
 interface SimpleAbsolutePathRouteMutator : RouteMutator, NestedRouteMutator {
 
     /** An absolute path targeting this route. */

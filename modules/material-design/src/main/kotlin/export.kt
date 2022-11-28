@@ -1,4 +1,4 @@
-import io.github.andrewk2112.md.components.materialDesign
+import io.github.andrewk2112.md.components.scaffold
 import react.FC
 import react.Props
 
@@ -6,4 +6,4 @@ import react.Props
 @OptIn(ExperimentalJsExport::class)
 @JsName("default")
 @Suppress("NON_CONSUMABLE_EXPORTED_IDENTIFIER")
-val materialDesign: FC<Props> = materialDesign
+val materialDesign: FC<Props> = scaffold

@@ -12,7 +12,7 @@ import kotlin.text.StringBuilder
 
 /**
  * Inflates and writes to files font wrappers-related classes.
- * */
+ */
 internal class FontTemplatesWriter(
     private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
 ) {
@@ -24,7 +24,7 @@ internal class FontTemplatesWriter(
      * using the [basePackageName] with all data from the [fontResource].
      * This font wrapper will be configured to fallback into [fallbackFontFamilies]
      * when the target font can't be fetched.
-     * */
+     */
     @Throws(IOException::class, FileNotFoundException::class, SecurityException::class)
     internal fun writeFontStylesObject(
         outDir: File,
@@ -78,12 +78,12 @@ internal class FontTemplatesWriter(
 
     /**
      * Generates a particular class name for the [fontResource].
-     * */
+     */
     private fun generateClassName(fontResource: FontResource): String = fontResource.fontFamily + "FontStyles"
 
     /**
      * Generates a unique property name using the [fullPackageName] and [fontFamily] for pointing to the [fontVariant].
-     * */
+     */
     private fun generateReferencePropertyName(
         fullPackageName: String,
         fontFamily: String,
@@ -101,7 +101,7 @@ internal class FontTemplatesWriter(
      * @param referencePropertyName The name of a variable to point to the font resource.
      * @param fontVariant           All data about the [FontResource.Variant] to be inflated.
      * @param fallbackFontFamilies  Font families to be used if the font resource is unavailable for some reason.
-     * */
+     */
     @Throws(IOException::class)
     private fun generateStyleProperty(
         fontFamily: String,
@@ -136,7 +136,7 @@ internal class FontTemplatesWriter(
 
     /**
      * Inflates a property named by the [propertyName] and pointing to the [relativeFontPath].
-     * */
+     */
     @Throws(IOException::class)
     private fun generateReferenceProperty(propertyName: String, relativeFontPath: String): String =
         simpleTemplatesInflater.inflate(

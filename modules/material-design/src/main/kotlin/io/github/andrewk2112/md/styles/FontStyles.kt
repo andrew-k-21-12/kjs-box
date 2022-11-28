@@ -7,7 +7,7 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 
 /**
  * Wraps reusable font faces with their appearance configurations.
- * */
+ */
 object FontStyles : DynamicStyleSheet() {
 
     val regular: NamedRuleSet by css {

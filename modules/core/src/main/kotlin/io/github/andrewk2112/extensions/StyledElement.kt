@@ -14,7 +14,7 @@ var StyledElement.outlineStyle: OutlineStyle by CssProperty()
 
 /**
  * Just a copy-paste from the original [kotlinx.css] package to make declarations of additional properties possible.
- * */
+ */
 private class CssProperty<T>(private val default: (() -> T)? = null) {
 
     operator fun getValue(thisRef: StyledElement, property: KProperty<*>): T {

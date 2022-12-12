@@ -32,7 +32,7 @@ private object ExerciseLinkStyles : DynamicStyleSheet() {
 
     val exerciseLink: DynamicCssProvider<Context> by dynamicCss {
         +ComfortaaFontStyles.regular.rules
-        fontSize       = Theme.fontSizes.adaptive3(it)
+        fontSize       = Theme.fontSizes.adaptive2(it)
         overflowWrap   = OverflowWrap.breakWord
         textDecoration = TextDecoration.none
         color          = Theme.palette.action1(it)

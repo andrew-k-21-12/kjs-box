@@ -1,7 +1,7 @@
 package io.github.andrewk2112.md.components.header
 
 import io.github.andrewk2112.designtokens.Context
-import io.github.andrewk2112.designtokens.Context.ScreenSize.DESKTOP
+import io.github.andrewk2112.designtokens.Context.ScreenSize.*
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.extensions.asMouseEventHandler
@@ -24,6 +24,7 @@ import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.header
 import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.nav
 import react.dom.html.ReactHTML.span
 import react.dom.html.ReactHTML.ul
 
@@ -39,7 +40,7 @@ val headerNavigation = FC<HeaderProps> { props ->
     +header(HeaderNavigationStyles.container(context).name) {
 
         // Logo block.
-        +div(HeaderNavigationStyles.materialLogoBlock.name) {
+        +div(HeaderNavigationStyles.materialLogoBlock(context).name) {
 
             // Menu button.
             +button(HeaderNavigationStyles.menuButton(context).name) {
@@ -58,7 +59,7 @@ val headerNavigation = FC<HeaderProps> { props ->
         }
 
         // Navigation block.
-        +div(HeaderNavigationStyles.navigationBlock.name) {
+        +nav(HeaderNavigationStyles.navigationBlock(context).name) {
 
             // Navigation buttons block.
             +ul(HeaderNavigationStyles.navigationButtonsWrapper(context).name) {
@@ -70,11 +71,11 @@ val headerNavigation = FC<HeaderProps> { props ->
 
             }
 
-            // Search button.
-            +div(HeaderNavigationStyles.searchIconWrapper.name) {
-                +iconMagnify.component(HeaderNavigationStyles.searchIcon(context).name)
-            }
+        }
 
+        // Search button.
+        +div(HeaderNavigationStyles.searchIconWrapper(context).name) {
+            +iconMagnify.component(HeaderNavigationStyles.searchIcon(context).name)
         }
 
     }
@@ -90,7 +91,7 @@ private fun ChildrenBuilder.navigationButton(context: Context, label: String, is
     +li(HeaderNavigationStyles.navigationButton(context).name) {
 
         // Label.
-        +span(HeaderNavigationStyles.navigationButtonLabel.name) { +label }
+        +span(HeaderNavigationStyles.navigationButtonLabel(context).name) { +label }
 
         // Selection indicator.
         if (isSelected) {
@@ -108,15 +109,22 @@ private fun ChildrenBuilder.navigationButton(context: Context, label: String, is
 private object HeaderNavigationStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        display         = Display.flex
-        justifyContent  = JustifyContent.spaceBetween
-        height          = StyleValues.sizes.absolute72
+        display        = Display.flex
+        justifyContent = JustifyContent.spaceBetween
         backgroundColor = Theme.palette.surface1(it)
+        height = if (it.screenSize.equalsOrSmaller(SMALL_TABLET)) {
+            StyleValues.sizes.absolute112
+        } else {
+            StyleValues.sizes.absolute72
+        }
     }
 
-    val materialLogoBlock: NamedRuleSet by css {
+    val materialLogoBlock: DynamicCssProvider<Context> by dynamicCss {
         display    = Display.flex
         alignItems = Align.center
+        if (it.screenSize.equalsOrSmaller(SMALL_TABLET)) {
+            height = StyleValues.sizes.absolute72
+        }
     }
 
     val menuButton: DynamicCssProvider<Context> by dynamicCss {
@@ -148,23 +156,37 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         +FontStyles.mono.rules
         marginLeft = StyleValues.spacing.absolute16
         fontSize   = StyleValues.fontSizes.relativep95
+        fontWeight = FontWeight.w600
         color      = Theme.palette.onSurface1(it)
         if (it.screenSize.equalsOrSmaller(Context.ScreenSize.BIG_TABLET)) {
             display = Display.none
         }
     }
 
-    val navigationBlock: NamedRuleSet by css {
+    val navigationBlock: DynamicCssProvider<Context> by dynamicCss {
         display = Display.flex
-        height  = 100.pct
+        if (it.screenSize.equalsOrBigger(BIG_TABLET)) {
+            height     = 100.pct
+            marginLeft = LinearDimension.auto
+        } else {
+            position = Position.absolute
+            left     = 0.px
+            right    = 0.px
+            bottom   = 0.px
+        }
     }
 
     val navigationButtonsWrapper: DynamicCssProvider<Context> by dynamicCss {
-        display = Display.flex
+        display        = Display.flex
+        width          = 100.pct
+        justifyContent = JustifyContent.spaceAround
         hover {
             descendants(".${navigationButton(it).name}:not(:hover)") {
                 color = Theme.palette.onSurfaceDimmed1(it)
             }
+        }
+        if (it.screenSize.equalsOrSmaller(SMALL_TABLET)) {
+            height = StyleValues.sizes.absolute48
         }
     }
 
@@ -172,7 +194,6 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         +TransitionStyles.flashingTransition(::color).rules
         display = Display.grid
         height  = 100.pct
-        padding(horizontal = StyleValues.spacing.absolute16)
         gridTemplateRows = GridTemplateRows.repeat("3, 1fr")
         cursor = Cursor.pointer
         color = Theme.palette.onSurface1(it)
@@ -182,12 +203,16 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
                 backgroundColor = Theme.palette.onSurfaceFocused1(it)
             }
         }
+        if (it.screenSize.equalsOrBigger(SMALL_TABLET)) {
+            padding(horizontal = StyleValues.spacing.absolute16)
+        }
     }
 
-    val navigationButtonLabel: NamedRuleSet by css {
+    val navigationButtonLabel: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.light.rules
         gridRow   = GridRow("2")
         alignSelf = Align.center
+        fontSize  = Theme.fontSizes.adaptive1(it)
     }
 
     val navigationButtonSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
@@ -199,11 +224,11 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.onSurface1(it)
     }
 
-    val searchIconWrapper: NamedRuleSet by css {
+    val searchIconWrapper: DynamicCssProvider<Context> by dynamicCss {
         display     = Display.flex
-        height      = 100.pct
         aspectRatio = AspectRatio(1)
         marginLeft  = StyleValues.spacing.absolute24
+        height      = if (it.screenSize.equalsOrSmaller(SMALL_TABLET)) StyleValues.sizes.absolute72 else 100.pct
     }
 
     val searchIcon: DynamicCssProvider<Context> by dynamicCss {

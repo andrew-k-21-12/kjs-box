@@ -28,18 +28,18 @@ object LabelStyles : DynamicStyleSheet() {
     }
 
     val contentBlockTitle: DynamicCssProvider<Context> by dynamicCss {
-        +contentBlockTitleSize(it).rules
+        +contentBlockTitleSize.rules
         color = Theme.palette.onSurface2(it)
     }
 
     val contentBlockLinkTitle: DynamicCssProvider<Context> by dynamicCss {
-        +contentBlockTitleSize(it).rules
+        +contentBlockTitleSize.rules
         +contentBlockLinkColor(it).rules
         textDecoration = TextDecoration.none
     }
 
     val contentBlockDarkTitle: DynamicCssProvider<Context> by dynamicCss {
-        +contentBlockTitleSize(it).rules
+        +contentBlockTitleSize.rules
         color = Theme.palette.onSurface1(it)
     }
 
@@ -55,7 +55,7 @@ object LabelStyles : DynamicStyleSheet() {
 
     val contentBlockLinkSmallTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockLinkColor(it).rules
-        fontSize = StyleValues.fontSizes.relative1
+        fontSize   = StyleValues.fontSizes.relative1
         fontWeight = FontWeight.w600
     }
 
@@ -89,8 +89,8 @@ object LabelStyles : DynamicStyleSheet() {
 
     // Private.
 
-    private val contentBlockTitleSize: DynamicCssProvider<Context> by dynamicCss {
-        fontSize   = Theme.fontSizes.adaptive4(it)
+    private val contentBlockTitleSize: NamedRuleSet by css {
+        fontSize   = StyleValues.fontSizes.relative2
         fontWeight = FontWeight.w500
     }
 

@@ -8,9 +8,16 @@ import io.github.andrewk2112.designtokens.StyleValues
  */
 class ThemedFontSizes {
 
-    val adaptive1: ThemedSize get() = { StyleValues.fontSizes.relativep85 }
-    val adaptive2: ThemedSize get() = { StyleValues.fontSizes.relative1p2 }
-    val adaptive3: ThemedSize
+    val adaptive1: ThemedSize
+        get() = {
+            if (it.screenSize.equalsOrBigger(SMALL_TABLET)) {
+                StyleValues.fontSizes.relative1
+            } else {
+                StyleValues.fontSizes.relativep875
+            }
+        }
+
+    val adaptive2: ThemedSize
         get() = {
             if (it.screenSize.equalsOrBigger(SMALL_TABLET)) {
                 StyleValues.fontSizes.relative1p5
@@ -18,7 +25,5 @@ class ThemedFontSizes {
                 StyleValues.fontSizes.relative2
             }
         }
-    val adaptive4: ThemedSize get() = { StyleValues.fontSizes.relative2 }
-    val adaptive5: ThemedSize get() = { StyleValues.fontSizes.relative3p65 }
 
 }

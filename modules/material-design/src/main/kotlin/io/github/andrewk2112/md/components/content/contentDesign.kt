@@ -178,7 +178,7 @@ private object ContentDesignStyles : DynamicStyleSheet() {
     }
 
     val bigLabel: DynamicCssProvider<Context> by dynamicCss {
-        fontSize = Theme.fontSizes.adaptive5(it)
+        fontSize = StyleValues.fontSizes.relative3p65
         color = Theme.palette.onSurface1(it)
     }
 

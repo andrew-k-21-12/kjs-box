@@ -20,13 +20,17 @@ import react.dom.html.ReactHTML.p
 
 fun ChildrenBuilder.headerNotification(
     context: Context,
+    isVisible: Boolean,
     title: String,
     description: String,
     actionLabel: String,
     actionDestinationEndpoint: String
 ) {
 
-    +div(HeaderNotificationStyles.container(context).name) {
+    +div(
+        HeaderNotificationStyles.container(context).name,
+        HeaderNotificationStyles.containerVisibility(isVisible).name
+    ) {
 
         // Title and description rows.
         +div(HeaderNotificationStyles.titleAndDescriptionRows.name) {
@@ -62,8 +66,11 @@ fun ChildrenBuilder.headerNotification(
 private object HeaderNotificationStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        display         = Display.flex
         backgroundColor = Theme.palette.backSpecial1(it)
+    }
+
+    val containerVisibility: DynamicCssProvider<Boolean> by dynamicCss {
+        display = if (it) Display.flex else Display.none
     }
 
     val titleAndDescriptionRows: NamedRuleSet by css { flexGrow = 1.0 }
@@ -72,7 +79,8 @@ private object HeaderNotificationStyles : DynamicStyleSheet() {
         paddingTop   = StyleValues.spacing.absolute25
         paddingLeft  = StyleValues.spacing.absolute40
         paddingRight = StyleValues.spacing.absolute40
-        fontSize     = Theme.fontSizes.adaptive2(it)
+        fontSize     = StyleValues.fontSizes.relative1p2
+        fontWeight   = FontWeight.w600
         color        = Theme.palette.onBackSpecial1(it)
     }
 
@@ -81,7 +89,7 @@ private object HeaderNotificationStyles : DynamicStyleSheet() {
         paddingLeft   = StyleValues.spacing.absolute40
         paddingRight  = StyleValues.spacing.absolute40
         paddingBottom = StyleValues.spacing.absolute26
-        fontSize      = Theme.fontSizes.adaptive1(it)
+        fontSize      = StyleValues.fontSizes.relativep85
         color         = Theme.palette.onBackSpecial1(it)
     }
 

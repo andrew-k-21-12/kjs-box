@@ -17,7 +17,7 @@ import react.dom.html.ReactHTML.ul
 
 // Public.
 
-val exercisesList = FC<Props> {
+val exercisesList = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()

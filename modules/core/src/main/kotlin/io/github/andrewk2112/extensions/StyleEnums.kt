@@ -3,9 +3,26 @@ package io.github.andrewk2112.extensions
 import kotlinx.css.CssValue
 
 /**
+ * A wrapper to provide [order](https://developer.mozilla.org/docs/Web/CSS/order) values.
+ */
+class Order(value: String) : CssValue(value) {
+
+    constructor(value: Int) : this(value.toString())
+
+    companion object {
+        val inherit     = Order("inherit")
+        val initial     = Order("initial")
+        val revert      = Order("revert")
+        val revertLayer = Order("revert-layer")
+        val unset       = Order("unset")
+    }
+
+}
+
+/**
  * A wrapper to provide [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) values.
  */
-class OutlineStyle constructor(value: String) : CssValue(value) {
+class OutlineStyle(value: String) : CssValue(value) {
 
     companion object {
 

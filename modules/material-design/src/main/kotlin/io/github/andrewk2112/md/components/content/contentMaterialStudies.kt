@@ -1,15 +1,19 @@
 package io.github.andrewk2112.md.components.content
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.Order
 import io.github.andrewk2112.extensions.invoke
+import io.github.andrewk2112.extensions.order
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.components.common.rectButton
 import io.github.andrewk2112.md.components.common.strokedImage
 import io.github.andrewk2112.md.models.ArticleItem
 import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints
+import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
@@ -22,17 +26,14 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.utility.openBlankWindowSafely
 import kotlinx.css.*
-import react.ChildrenBuilder
-import react.FC
-import react.Props
+import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.p
-import react.useState
 
 // Public.
 
-val contentMaterialStudies = FC<Props> {
+val contentMaterialStudies = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -41,37 +42,42 @@ val contentMaterialStudies = FC<Props> {
     // Dark container.
     +div(ContentMaterialStudiesStyles.container(context).name) {
 
-        // Common spaces for the header block.
-        +div(ContentMaterialStudiesStyles.header.name) {
+        // Positioning container.
+        +div(LayoutStyles.contentContainer.name) {
 
-            +rectButton(ContentMaterialStudiesStyles.viewAll.name) {
-                text   = localizator("md.viewAll")
-                action = { openBlankWindowSafely(MainMaterialEndpoints.studies) }
-                isDark = true
+            // Common spaces for the header block and adaptive logic.
+            +div(ContentMaterialStudiesStyles.header.name) {
+
+                // Title.
+                +h2(ContentMaterialStudiesStyles.title(context).name) { +localizator("md.materialStudies") }
+
+                // Description.
+                +p(ContentMaterialStudiesStyles.description(context).name) {
+                    +localizator("md.getInspiredByTheWaysMaterialAdapts")
+                }
+
+                +rectButton(ContentMaterialStudiesStyles.viewAllButton(context).name) {
+                    text   = localizator("md.viewAll")
+                    action = { openBlankWindowSafely(MainMaterialEndpoints.studies) }
+                    isDark = true
+                }
+
             }
 
-            // Title.
-            +h2(LabelStyles.contentBlockDarkTitle(context).name) { +localizator("md.materialStudies") }
-
-            // Description.
-            +p(ContentMaterialStudiesStyles.description(context).name) {
-                +localizator("md.getInspiredByTheWaysMaterialAdapts")
+            // All study items in the grid.
+            +div(ContentMaterialStudiesStyles.itemsGrid(context).name) {
+                for (studyItem in data.studyItems) {
+                    val studyItemTitle = localizator(studyItem.title)
+                    studyItem(
+                        context,
+                        studyItem.illustration,
+                        studyItemTitle,
+                        studyItemTitle,
+                        localizator(studyItem.description)
+                    )
+                }
             }
 
-        }
-
-        // All study items in the grid.
-        +div(ContentMaterialStudiesStyles.itemsGrid.name) {
-            for (studyItem in data.studyItems) {
-                val studyItemTitle = localizator(studyItem.title)
-                studyItem(
-                    context,
-                    studyItem.illustration,
-                    studyItemTitle,
-                    studyItemTitle,
-                    localizator(studyItem.description)
-                )
-            }
         }
 
     }
@@ -125,6 +131,8 @@ private object ContentMaterialStudiesStyles : DynamicStyleSheet() {
     }
 
     val header: NamedRuleSet by css {
+        display  = Display.flex
+        flexWrap = FlexWrap.wrap
         padding(
             top   = StyleValues.spacing.absolute42,
             left  = StyleValues.spacing.absolute40,
@@ -132,21 +140,38 @@ private object ContentMaterialStudiesStyles : DynamicStyleSheet() {
         )
     }
 
-    val viewAll: NamedRuleSet by css {
-        float = Float.right
+    val title: DynamicCssProvider<Context> by dynamicCss {
+        +LabelStyles.contentBlockDarkTitle(it).rules
+        flexBasis = FlexBasis.zero
+        flexGrow  = 1
+        if (it.screenSize > PHONE) {
+            marginRight = StyleValues.spacing.absolute40
+        }
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkDescription(it).rules
         marginTop = StyleValues.spacing.absolute20
+        if (it.screenSize > PHONE) {
+            order = Order(2)
+        }
     }
 
-    val itemsGrid: NamedRuleSet by css {
-        display             = Display.grid
-        gridTemplateColumns = GridTemplateColumns.repeat("3, 1fr")
+    val viewAllButton: DynamicCssProvider<Context> by dynamicCss {
+        flexShrink = 0.0
+        alignSelf  = Align.selfStart
+        if (it.screenSize > PHONE) {
+            order = Order(1)
+        } else {
+            marginTop = StyleValues.spacing.absolute25
+        }
+    }
+
+    val itemsGrid: DynamicCssProvider<Context> by dynamicCss {
+        +LayoutStyles.grid(it).rules
         padding(
             horizontal = StyleValues.spacing.absolute20,
-            top        = StyleValues.spacing.absolute26,
+            top        = if (it.screenSize > PHONE) StyleValues.spacing.absolute26 else 0.px,
             bottom     = StyleValues.spacing.absolute52
         )
     }

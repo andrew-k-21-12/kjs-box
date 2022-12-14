@@ -8,6 +8,7 @@ import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.md.resources.iconArrowRightThin
+import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -76,11 +77,11 @@ private object HeaderNotificationStyles : DynamicStyleSheet() {
     val titleAndDescriptionRows: NamedRuleSet by css { flexGrow = 1.0 }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.bold.rules
         paddingTop   = StyleValues.spacing.absolute25
         paddingLeft  = StyleValues.spacing.absolute40
         paddingRight = StyleValues.spacing.absolute40
         fontSize     = StyleValues.fontSizes.relative1p2
-        fontWeight   = FontWeight.w600
         color        = Theme.palette.onBackSpecial1(it)
     }
 

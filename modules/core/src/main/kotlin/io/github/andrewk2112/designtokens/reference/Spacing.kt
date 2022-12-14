@@ -37,8 +37,10 @@ class Spacing {
     val absolute43:   LinearDimension get() = 43.px
     val absolute47:   LinearDimension get() = 47.px
     val absolute48:   LinearDimension get() = 48.px
-    val absolute49:   LinearDimension get() = 49.px
     val absolute50:   LinearDimension get() = 50.px
     val absolute52:   LinearDimension get() = 52.px
+    val absolute64:   LinearDimension get() = 64.px
+    val absolute66:   LinearDimension get() = 66.px
     val absolute89:   LinearDimension get() = 89.px
+    val absolute177:  LinearDimension get() = 177.px
 }

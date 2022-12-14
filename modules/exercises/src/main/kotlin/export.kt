@@ -1,6 +1,5 @@
 import io.github.andrewk2112.exercises.components.exercisesList
-import react.FC
-import react.Props
+import react.VFC
 
 /**
  * For lazy loading of components they should be exported as default.
@@ -14,4 +13,4 @@ import react.Props
 @OptIn(ExperimentalJsExport::class)
 @JsName("default")
 @Suppress("NON_CONSUMABLE_EXPORTED_IDENTIFIER") // to avoid pointless warnings in the console which are not true
-val exercisesList: FC<Props> = exercisesList
+val exercisesList: VFC = exercisesList

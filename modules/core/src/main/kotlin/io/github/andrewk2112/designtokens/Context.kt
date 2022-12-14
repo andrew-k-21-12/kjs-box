@@ -14,15 +14,15 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
     /**
      * Supported screen sizes.
      *
-     * @param startsFromWidth A minimal width of the concrete [ScreenSize].
+     * @param maxWidth The maximal width of the concrete [ScreenSize].
      */
-    enum class ScreenSize(private val startsFromWidth: Int) {
+    enum class ScreenSize(private val maxWidth: Int) {
 
-        // Keep the same order of the declarations here as it can harm the values' retrievals.
-        DESKTOP(1340),
-        BIG_TABLET(920),
-        SMALL_TABLET(520),
-        PHONE(0);
+        // Keep the same order of the declarations here as it can harm the values' retrievals and comparisons.
+        PHONE(520),
+        SMALL_TABLET(920),
+        BIG_TABLET(1340),
+        DESKTOP(Int.MAX_VALUE);
 
         companion object {
 
@@ -31,22 +31,12 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
              */
             fun fromRawWidth(rawWidth: Int): ScreenSize {
                 for (value in values()) {
-                    if (rawWidth >= value.startsFromWidth) return value
+                    if (rawWidth <= value.maxWidth) return value
                 }
                 return DESKTOP
             }
 
         }
-
-        /**
-         * Checks whether the current [ScreenSize] is equals or bigger than the provided [screenSize].
-         */
-        fun equalsOrBigger(screenSize: ScreenSize): Boolean = startsFromWidth >= screenSize.startsFromWidth
-
-        /**
-         * Checks whether the current [ScreenSize] is equals or smaller than the provided [screenSize].
-         */
-        fun equalsOrSmaller(screenSize: ScreenSize): Boolean = startsFromWidth <= screenSize.startsFromWidth
 
     }
 

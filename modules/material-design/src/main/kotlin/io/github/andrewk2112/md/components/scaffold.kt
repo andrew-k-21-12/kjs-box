@@ -1,6 +1,8 @@
 package io.github.andrewk2112.md.components
 
+import dom.Element
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.extensions.invoke
@@ -25,7 +27,6 @@ import kotlinx.css.Overflow
 import kotlinx.css.Position
 import kotlinx.css.pct
 import kotlinx.css.properties.*
-import org.w3c.dom.Element
 import react.*
 import react.dom.events.MouseEventHandler
 import react.dom.events.UIEventHandler
@@ -35,13 +36,16 @@ import react.dom.html.ReactHTML.div
 // TODO - optimizations and modularization:
 //  1. Suggest styles (classes) wrapping to avoid the direct usage of kotlin-styled-next (another proposal and PR).
 //  2. Use the latest version of the kotlin-styled-next with my PR (drop my stylesheets package).
-//  3. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner.
+//  3. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner,
+//     maybe it is even better to drop this idea and use a combination of the React context and media queries?
+//     Use initialized variables instead of getters for styling properties?
 //  4. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Simplify WindowWidthMonitor, icons.kt.
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Introduce better modular structure (which should separate resources and style values as well).
+//  7. Introduce better modular structure (which should separate resources and style values as well),
+//     hide intermediate stuff via single files to emulate something like Java's package-private.
 //  8. Remove locale keys unmet in the source code when bundling.
 
 // TODO - deployment and finalization:
@@ -59,7 +63,7 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-val scaffold = FC<Props> {
+val scaffold = VFC {
 
     // Global initializations.
 
@@ -74,7 +78,8 @@ val scaffold = FC<Props> {
     val (headerHeight,    setHeaderHeight)  = useState(0.0)
 
     val (isMenuOpened, setMenuOpened) = useState(false)
-    val menuContext = MenuContext(context, isMenuOpened != usePrevious(isMenuOpened), isMenuOpened)
+    val hasSlidingMenu = context.screenSize < DESKTOP
+    val menuContext = MenuContext(context, hasSlidingMenu, isMenuOpened != usePrevious(isMenuOpened), isMenuOpened)
 
     // This value doesn't trigger re-rendering on each of its update.
     val lastScrollTop = useRef(.0)
@@ -126,7 +131,8 @@ val scaffold = FC<Props> {
         +div(ScaffoldStyles.slidingHeader(isHeaderVisible).name) {
             ref = headerRef
             header {
-                onMenuClick = { setMenuOpened(!isMenuOpened) }
+                this.hasSlidingMenu = hasSlidingMenu
+                onMenuClick         = { setMenuOpened(!isMenuOpened) }
             }
         }
 
@@ -134,7 +140,7 @@ val scaffold = FC<Props> {
         +div(ScaffoldStyles.alignedBlocks.name) {
 
             // Menu container - just adds the required spacing to position the contents.
-            +div(ScaffoldStyles.menuContainer(context.screenSize.equalsOrBigger(Context.ScreenSize.DESKTOP)).name) {
+            +div(ScaffoldStyles.menuContainer(!hasSlidingMenu).name) {
 
                 // The actual menu with any positioning regardless from its container.
                 +aside(ScaffoldStyles.menu(menuContext).name) { menu() }
@@ -162,12 +168,18 @@ val scaffold = FC<Props> {
 
 // Private.
 
-private class MenuContext(val context: Context, val isTransiting: Boolean, val isOpened: Boolean) : HasCssSuffix {
+private class MenuContext(
+    val context: Context,
+    val isSliding: Boolean,
+    val isTransiting: Boolean,
+    val isOpened: Boolean,
+) : HasCssSuffix {
 
     override val cssSuffix: String
         get() = context.cssSuffix +
+                (if (isSliding)    "Sliding"      else "Persistent") +
                 (if (isTransiting) "TransitingTo" else "Idle") +
-                (if (isOpened) "Opened" else "Closed")
+                (if (isOpened)     "Opened"       else "Closed")
 
 }
 
@@ -228,7 +240,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         width    = StyleValues.sizes.absolute280
 
         // Sliding appearance for smaller screens.
-        if (it.context.screenSize.equalsOrSmaller(Context.ScreenSize.BIG_TABLET)) {
+        if (it.isSliding) {
 
             zIndex = 3
             transform {
@@ -257,7 +269,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.scrim(it.context)
 
         // Styling for the hidden state.
-        if (!it.isOpened || it.context.screenSize.equalsOrBigger(Context.ScreenSize.DESKTOP)) {
+        if (!it.isOpened || !it.isSliding) {
             opacity = StyleValues.opacities.transparent
             pointerEvents = PointerEvents.none
         }

@@ -33,10 +33,10 @@ dependencies {
     implementation(project(":material-design"))
 
     // Bundling.
-    implementation(devNpm("@svgr/webpack", "6.3.1"))
+    implementation(devNpm("@svgr/webpack", "6.5.1"))
     implementation(devNpm("html-webpack-plugin", "5.5.0"))
     implementation(devNpm("terser-webpack-plugin", "5.3.6"))
-    implementation(devNpm("image-minimizer-webpack-plugin", "3.6.1"))
+    implementation(devNpm("image-minimizer-webpack-plugin", "3.8.1"))
     implementation(devNpm("imagemin", "8.0.1"))         // the minification engine to be used for the plugin above
     implementation(devNpm("imagemin-webp", "7.0.0"))    // WebP generation
     implementation(devNpm("imagemin-optipng", "8.0.0")) // lossless PNG optimization

@@ -17,9 +17,9 @@ internal class LocalizationEngine {
 
     init {
         i18next
-            .use(i18nextHttpBackend)                              // loading translations only on demand
-            .use(i18nextBrowserLanguageDetector.LanguageDetector) // detecting browser's language automatically
-            .use(reactI18next.initReactI18next)                   // using React integrations
+            .use(i18nextHttpBackend)             // loading translations only on demand
+            .use(i18nextBrowserLanguageDetector) // detecting browser's language automatically
+            .use(reactI18next.initReactI18next)  // using React integrations
             .init(createI18NextOptions())
     }
 

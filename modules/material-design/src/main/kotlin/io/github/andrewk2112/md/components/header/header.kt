@@ -13,13 +13,16 @@ val header = FC<HeaderProps> { props ->
 
      headerNotification(
          context,
-         isVisible = context.screenSize.equalsOrBigger(Context.ScreenSize.SMALL_TABLET),
+         isVisible = context.screenSize > Context.ScreenSize.PHONE,
          localizator("md.theLatestVersionOfMaterialDesignIsNowAvailableForAndroid"),
          localizator("md.learnAboutMaterial3sNewFeatures"),
          localizator("md.startExploringMaterial3"),
          MainMaterialEndpoints.design
      )
 
-    headerNavigation { onMenuClick = props.onMenuClick }
+    headerNavigation {
+        hasSlidingMenu = props.hasSlidingMenu
+        onMenuClick    = props.onMenuClick
+    }
 
 }

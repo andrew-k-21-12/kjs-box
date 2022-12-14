@@ -1,7 +1,7 @@
 package io.github.andrewk2112.hooks
 
+import dom.Element
 import dom.observers.ResizeObserver
-import org.w3c.dom.Element
 import react.RefObject
 import react.useEffectOnce
 

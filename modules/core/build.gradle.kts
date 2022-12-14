@@ -35,13 +35,13 @@ dependencies {
     implementation(kotlinWrapper("js"))          // wrappers for JS entities
 
     // Dependency injection.
-    implementation("org.kodein.di:kodein-di:7.15.0")
+    implementation("org.kodein.di:kodein-di:7.16.0")
 
     // Localization.
-    implementation(npm("i18next", "21.9.2"))
-    implementation(npm("react-i18next", "11.18.6"))
-    implementation(npm("i18next-browser-languagedetector", "6.1.5"))
-    implementation(npm("i18next-http-backend", "1.4.4")) // to download translations on demand
+    implementation(npm("i18next", "22.4.6"))
+    implementation(npm("react-i18next", "12.1.1"))
+    implementation(npm("i18next-browser-languagedetector", "7.0.1"))
+    implementation(npm("i18next-http-backend", "2.1.1")) // to download translations on demand
 
 }
 

@@ -1,5 +1,6 @@
 package io.github.andrewk2112.md.styles
 
+import dom.Element
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
@@ -7,12 +8,11 @@ import io.github.andrewk2112.extensions.isLeftButton
 import io.github.andrewk2112.extensions.setStyle
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
+import js.core.get
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
 import kotlinx.css.properties.transform
-import org.w3c.dom.Element
-import org.w3c.dom.get
 import react.dom.DOMAttributes
 import react.dom.events.MouseEventHandler
 import react.dom.events.TouchEventHandler
@@ -54,7 +54,7 @@ object AnimationStyles : DynamicStyleSheet() {
     /**
      * Launches the ripple animation for the [target] starting from the tap point with [tapX] and [tapY].
      */
-    private fun launchRippleAnimation(target: Element, tapX: Int, tapY: Int) {
+    private fun launchRippleAnimation(target: Element, tapX: Double, tapY: Double) {
 
         // Checking if it's possible to launch the animation at all.
         val parentElement = target.parentElement ?: return
@@ -67,11 +67,7 @@ object AnimationStyles : DynamicStyleSheet() {
         // Cleaning up the previous animation elements.
         parentElement
             .querySelectorAll("[class*=${rippleAnimationElement.staticCssSuffix}]")
-            .run {
-                for (childIndex in 0 until length) {
-                    parentElement.removeChild(this[childIndex] ?: continue)
-                }
-            }
+            .forEach { parentElement.removeChild(it) }
 
         // Creating and appending the animation element.
         document.createElement("span").apply {
@@ -93,13 +89,15 @@ object AnimationStyles : DynamicStyleSheet() {
     /** [MouseEventHandler] to launch the animation - for desktop (mouse-compatible) devices. */
     private val tapHighlightingMouseEventHandler: MouseEventHandler<*> = {
         if (it.isLeftButton) {
-            launchRippleAnimation(it.currentTarget, it.clientX.toInt(), it.clientY.toInt())
+            launchRippleAnimation(it.currentTarget, it.clientX, it.clientY)
         }
     }
 
     /** [TouchEventHandler] to launch the animation - for touch devices. */
     private val tapHighlightingTouchEventHandler: TouchEventHandler<*> = { event ->
-        event.touches[0]?.let { launchRippleAnimation(event.currentTarget, it.clientX, it.clientY) }
+        event.touches[0].apply {
+            launchRippleAnimation(event.currentTarget, clientX, clientY)
+        }
     }
 
 

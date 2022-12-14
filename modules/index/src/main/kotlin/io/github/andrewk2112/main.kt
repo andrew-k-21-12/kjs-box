@@ -1,7 +1,6 @@
 package io.github.andrewk2112
 
-import kotlinx.browser.document
-import kotlinx.browser.window
+import browser.document
 import kotlinx.css.*
 import react.*
 import react.dom.client.createRoot
@@ -12,12 +11,10 @@ import styled.injectGlobal
 @OptIn(ExperimentalStdlibApi::class)
 @Suppress("unused", "DEPRECATION")
 private val main = run {
-    window.onload = {
-        injectGlobal(createClearfixCss()) // injecting global styles,
-                                          // using code instead of static files to get minification
-        createRoot(document.getElementById(reactRootElementID)!!) // looking for the root element,
-            .render(app.create())                                 // starting React configuration and rendering inside
-    }
+    injectGlobal(createClearfixCss()) // injecting global styles,
+                                      // using code instead of static files to get minification
+    createRoot(document.getElementById(reactRootElementID)!!) // looking for the root element,
+        .render(app.create())                                 // starting React configuration and rendering inside
 }
 
 /**

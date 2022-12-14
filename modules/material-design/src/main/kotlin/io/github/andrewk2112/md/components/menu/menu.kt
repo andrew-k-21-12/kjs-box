@@ -15,15 +15,14 @@ import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
 import kotlinx.css.*
-import react.FC
-import react.Props
+import react.VFC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import react.useState
 
 // Public.
 
-val menu = FC<Props> {
+val menu = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()

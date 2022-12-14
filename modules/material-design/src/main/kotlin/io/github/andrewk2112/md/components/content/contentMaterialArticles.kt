@@ -21,7 +21,7 @@ import react.dom.html.ReactHTML.p
 
 // Public.
 
-val contentMaterialArticles = FC<Props> {
+val contentMaterialArticles = VFC {
 
     // State.
 
@@ -45,11 +45,12 @@ val contentMaterialArticles = FC<Props> {
         }
 
         // Grid of the articles.
-        +div(ContentMaterialArticlesStyles.gridContainer.name) {
-            for (articleItem in data.articleItems) {
+        +div(ContentMaterialArticlesStyles.gridContainer(context).name) {
+            for ((index, articleItem) in data.articleItems.withIndex()) {
                 val articleItemTitle = localizator(articleItem.title)
                 articleBlock(
                     context,
+                    index % 2 == 0,
                     articleItem.illustration,
                     articleItemTitle,
                     articleItemTitle,
@@ -68,6 +69,7 @@ val contentMaterialArticles = FC<Props> {
 
 private fun ChildrenBuilder.articleBlock(
     context: Context,
+    hasDoubleWidth: Boolean,
     illustration: Image,
     illustrationAlternativeText: String,
     title: String,
@@ -75,7 +77,7 @@ private fun ChildrenBuilder.articleBlock(
 ) {
 
     // To prevent the item from taking the entire height of the grid's row.
-    div {
+    +div(LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
 
         // Block with a hover style.
         +div(SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
@@ -105,6 +107,7 @@ private fun ChildrenBuilder.articleBlock(
 private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
 
     val container: NamedRuleSet by css {
+        +LayoutStyles.contentContainer.rules
         padding(
             top        = StyleValues.spacing.absolute43,
             bottom     = StyleValues.spacing.absolute50,
@@ -126,10 +129,8 @@ private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
         )
     }
 
-    val gridContainer: NamedRuleSet by css {
-        display             = Display.grid
-        gridTemplateColumns = GridTemplateColumns("2fr 1fr")
-        rowGap              = StyleValues.spacing.absolute50
+    val gridContainer: DynamicCssProvider<Context> by dynamicCss {
+        +LayoutStyles.grid(it).rules
         padding(top = StyleValues.spacing.absolute26)
     }
 

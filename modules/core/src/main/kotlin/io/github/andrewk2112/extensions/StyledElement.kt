@@ -8,6 +8,9 @@ import kotlin.reflect.KProperty
 /** A wrapper for the CSS [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) property. */
 var StyledElement.outlineStyle: OutlineStyle by CssProperty()
 
+/** A wrapper for the CSS [order](https://developer.mozilla.org/docs/Web/CSS/order) property. */
+var StyledElement.order: Order by CssProperty()
+
 
 
 // Private.

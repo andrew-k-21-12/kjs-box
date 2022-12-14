@@ -4,8 +4,8 @@ import io.github.andrewk2112.dinjection.di
 import io.github.andrewk2112.redux.StoreFactory
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import io.github.andrewk2112.routes.MaterialDesignRoute
-import kotlinx.js.Module
-import kotlinx.js.import
+import js.import.Module
+import js.import.import
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*
@@ -18,7 +18,7 @@ import react.router.dom.BrowserRouter
 // Public.
 
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
-val app = FC<Props> {
+val app = VFC {
     Provider {
         store = di.direct.instance<StoreFactory>().create() // setting the global app state and its processing reducers,
         BrowserRouter {                                     // enabling routing features,
@@ -35,12 +35,12 @@ val app = FC<Props> {
 // Private - components.
 
 /** A placeholder to be shown while the application itself is loading. */
-private val appLoadingPlaceholder = FC<Props> {
+private val appLoadingPlaceholder = VFC {
     +"⌛ Loading / Загрузка"
 }
 
 /** All the actual contents available in the app. */
-private val contents = FC<Props> {
+private val contents = VFC {
 
     // Starting to monitor a screen size to update the context dynamically.
     useState { di.direct.instance<ContextReducer>() }.component1().useScreenSizeMonitor()
@@ -65,7 +65,7 @@ private val contents = FC<Props> {
         }
         Route {
             path = "*"
-            element = FC<Props> {
+            element = VFC {
                 Navigate { to = "/" }
             }.create()
         }

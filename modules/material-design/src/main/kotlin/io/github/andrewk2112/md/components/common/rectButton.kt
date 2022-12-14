@@ -3,6 +3,7 @@ package io.github.andrewk2112.md.components.common
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
+import io.github.andrewk2112.extensions.asMouseEventHandler
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.md.styles.*
@@ -13,7 +14,6 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import react.FC
 import react.PropsWithClassName
-import react.dom.events.MouseEventHandler
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 
@@ -35,7 +35,7 @@ val rectButton = FC<RectButtonProps> { props ->
         props.className.toString(),
     ) {
 
-        onClick = props.action.asDynamic() as? MouseEventHandler<*>
+        onClick = props.action.asMouseEventHandler()
 
         // Animation activation area with spacing.
         +div(RectButtonStyles.animationActivationArea.name) {
@@ -93,7 +93,7 @@ private object RectButtonStyles : DynamicStyleSheet() {
         position = Position.relative // to put the label on top
         width  = 100.pct
         height = 100.pct
-        padding(vertical = StyleValues.spacing.absolute9, horizontal = StyleValues.spacing.absolute15)
+        padding(vertical = StyleValues.spacing.absolute10, horizontal = StyleValues.spacing.absolute15)
     }
 
 
@@ -101,9 +101,10 @@ private object RectButtonStyles : DynamicStyleSheet() {
     // Private.
 
     private val rectButtonBase: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.regular.rules
         position = Position.relative
         overflow = Overflow.hidden                        // to cut spreading of the animation
-        fontSize = StyleValues.fontSizes.relativep875
+        fontSize = StyleValues.fontSizes.relativep8
         backgroundColor = StyleValues.palette.transparent // resetting the default button color
         cursor = Cursor.pointer
     }

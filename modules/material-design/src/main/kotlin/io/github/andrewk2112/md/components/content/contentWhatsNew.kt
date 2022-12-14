@@ -1,6 +1,7 @@
 package io.github.andrewk2112.md.components.content
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
@@ -8,6 +9,7 @@ import io.github.andrewk2112.hooks.useCurrentLanguageAndLocalizator
 import io.github.andrewk2112.md.components.common.rectButton
 import io.github.andrewk2112.md.models.BlogItem
 import io.github.andrewk2112.md.resources.endpoints.WhatsNewMaterialEndpoints
+import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
@@ -16,18 +18,15 @@ import io.github.andrewk2112.utility.DateFormat
 import io.github.andrewk2112.utility.openBlankWindowSafely
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
-import react.ChildrenBuilder
-import react.FC
-import react.Props
+import react.*
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
-import react.useState
 import kotlin.js.Date
 
 // Public.
 
-val contentWhatsNew = FC<Props> {
+val contentWhatsNew = VFC {
 
     // State.
 
@@ -43,7 +42,7 @@ val contentWhatsNew = FC<Props> {
     // Rendering.
 
     // Common spacing.
-    +div(ContentWhatsNewStyles.container.name) {
+    +div(ContentWhatsNewStyles.container(context).name) {
 
         // Section's title.
         +a(LabelStyles.contentBlockLinkTitle(context).name) {
@@ -109,9 +108,10 @@ private fun ChildrenBuilder.blogItemRow(
 
 private object ContentWhatsNewStyles : DynamicStyleSheet() {
 
-    val container: NamedRuleSet by css {
+    val container: DynamicCssProvider<Context> by dynamicCss {
+        +LayoutStyles.contentContainer.rules
         padding(
-            top        = StyleValues.spacing.absolute89,
+            top        = StyleValues.spacing.run { if (it.screenSize >= SMALL_TABLET) absolute89 else absolute64 },
             bottom     = StyleValues.spacing.absolute47,
             horizontal = StyleValues.spacing.absolute40
         )
@@ -135,7 +135,7 @@ private object ContentWhatsNewStyles : DynamicStyleSheet() {
     }
 
     val blogItemDescriptionWithSpacing: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockSmallerDescription(it).rules
+        +LabelStyles.contentBlockDescription(it).rules
         marginTop = StyleValues.spacing.absolute6
     }
 

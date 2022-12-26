@@ -1,6 +1,9 @@
 package io.github.andrewk2112.redux
 
 import io.github.andrewk2112.designtokens.Context
+import io.github.andrewk2112.designtokens.Context.ColorMode
+import io.github.andrewk2112.designtokens.Context.ScreenSize
+import io.github.andrewk2112.hooks.WindowWidthMonitor
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import redux.*
 
@@ -8,7 +11,7 @@ import redux.*
  * Defines how to create a [Store].
  * A [Store] can be treated like a facade on top of all global reducers enabling them to work.
  */
-class StoreFactory(private val contextReducer: ContextReducer) {
+class StoreFactory(private val windowWidthMonitor: WindowWidthMonitor, private val contextReducer: ContextReducer) {
 
     // Public.
 
@@ -40,7 +43,7 @@ class StoreFactory(private val contextReducer: ContextReducer) {
      * Creates the initial global state.
      */
     private fun createInitialState() = AppState(
-        Context(Context.ScreenSize.DESKTOP, Context.ColorMode.LIGHT)
+        Context(ScreenSize.fromRawWidth(windowWidthMonitor.windowWidth), ColorMode.LIGHT)
     )
 
 }

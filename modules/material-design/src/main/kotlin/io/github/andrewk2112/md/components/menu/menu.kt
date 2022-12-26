@@ -9,62 +9,88 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.localization.LocalizationKey
+import io.github.andrewk2112.md.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.styles.*
+import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
+import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
+import kotlinx.css.properties.TextDecoration
+import react.ChildrenBuilder
 import react.VFC
+import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
 import react.useState
 
-// Public.
+
+
+// Components.
 
 val menu = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data       by useState { MenuData(NavMenuMaterialEndpoints()) }
+    val uiState    by useState { MenuUiState(NavMenuMaterialEndpoints()) }
 
-    // Topmost container.
-    +div(MenuStyles.container(context).name) {
-
-        // Menu header - lays below the sliding header.
-        +div(MenuStyles.headerAppearance(context).name) {
-
-            // Material icon.
-            +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
-
-            // Material label.
-            +span(MenuStyles.headerLabel(context).name) { +localizator("md.materialDesign").uppercase() }
-
-        }
-
-        // Menu items.
-        +div(MenuStyles.itemsContainer.name) {
-
-            // Inserting each item according to the declared structure.
-            for (item in data.menuItems) {
-                when (item) {
-                    is MenuItem.Category -> menuCategory(context, localizator(item.localizationKey))
-                    is MenuItem.Item     -> menuItem(
-                        context, item.bottomSpacing, localizator(item.localizationKey), item.destinationEndpoint
-                    )
-                    is MenuItem.Divider  -> menuDivider(context)
+    container(context) {
+        header(context, localizator("md.materialDesign"))
+        items {
+            for ((categoryIndex, category) in uiState.categories.withIndex()) {
+                category(context, localizator(category.name))
+                for (item in category.items) {
+                    item(context, localizator(item.title), item.destinationEndpoint, item.bottomSpacing.style.name)
+                }
+                if (categoryIndex != uiState.categories.lastIndex) {
+                    divider(context)
                 }
             }
-
         }
-
     }
 
 }
 
+private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
+    +div(MenuStyles.container(context).name, block = children)
+
+/**
+ * A static header which stays at the top of the menu's layout all the time.
+ */
+private fun ChildrenBuilder.header(context: Context, title: String) =
+    +div(MenuStyles.header(context).name) {
+        +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
+        +span(MenuStyles.headerLabel(context).name) { +title.uppercase() }
+    }
+
+private inline fun ChildrenBuilder.items(crossinline children: ChildrenBuilder.() -> Unit) =
+    +div(MenuStyles.items.name, block = children)
+
+private fun ChildrenBuilder.category(context: Context, name: String) = +p(MenuStyles.category(context).name) { +name }
+
+private fun ChildrenBuilder.item(
+    context: Context,
+    name: String,
+    destinationEndpoint: String,
+    vararg classNames: String,
+) =
+    +div(MenuStyles.item.name, SelectionStyles.simpleHighlightingAndSelection(context).name, *classNames) {
+        +a(MenuStyles.itemLink(context).name) {
+            safeBlankHref = destinationEndpoint
+            addTapHighlighting()
+            +name
+        }
+    }
+
+private fun ChildrenBuilder.divider(context: Context) = +div(MenuStyles.divider(context).name)
 
 
-// Private - styles.
+
+// Styles.
 
 private object MenuStyles : DynamicStyleSheet() {
 
@@ -77,7 +103,7 @@ private object MenuStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.surface2(it)
     }
 
-    val headerAppearance: DynamicCssProvider<Context> by dynamicCss {
+    val header: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
         flexShrink    = 0.0
         height        = StyleValues.sizes.absolute170
@@ -98,57 +124,111 @@ private object MenuStyles : DynamicStyleSheet() {
         color    = Theme.palette.onSurface2(it)
     }
 
-    val itemsContainer: NamedRuleSet by css {
+    val items: NamedRuleSet by css {
         overflow = Overflow.scroll
+    }
+
+    val category: DynamicCssProvider<Context> by dynamicCss {
+        marginTop    = StyleValues.spacing.absolute43
+        marginLeft   = StyleValues.spacing.absolute24
+        marginBottom = StyleValues.spacing.absolute15
+        fontSize = StyleValues.fontSizes.relative1p1
+        color = Theme.palette.onSurface2(it)
+    }
+
+    val item: NamedRuleSet by css {
+        position = Position.relative
+        overflow = Overflow.hidden // to prevent the animation from getting outside
+    }
+
+    val itemBottomSpacingRegular: NamedRuleSet by css {
+        marginBottom = StyleValues.spacing.absolute2
+    }
+
+    val itemBottomSpacingBig: NamedRuleSet by css {
+        marginBottom = StyleValues.spacing.absolute9
+    }
+
+    val itemBottomSpacingMax: NamedRuleSet by css {
+        marginBottom = StyleValues.spacing.absolute40
+    }
+
+    val itemLink: DynamicCssProvider<Context> by dynamicCss {
+        +FontStyles.light.rules
+        position = Position.relative // or the animation will appear on top
+        display  = Display.inlineBlock
+        width    = 100.pct
+        padding(
+            horizontal = StyleValues.spacing.absolute24,
+            vertical   = StyleValues.spacing.absolute12
+        )
+        fontSize       = StyleValues.fontSizes.relativep875
+        textDecoration = TextDecoration.none
+        color = Theme.palette.onSurfaceLighter2(it)
+        hover {
+            color = Theme.palette.onSelection1(it)
+        }
+    }
+
+    val divider: DynamicCssProvider<Context> by dynamicCss {
+        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
+        marginTop = StyleValues.spacing.absolute40
     }
 
 }
 
+private val MenuItemSpacingUiState.style: NamedRuleSet
+    get() = when (this) {
+        REGULAR -> MenuStyles.itemBottomSpacingRegular
+        BIG     -> MenuStyles.itemBottomSpacingBig
+        MAX     -> MenuStyles.itemBottomSpacingMax
+    }
 
 
-// Private - menu items structure.
 
-private sealed class MenuItem {
+// UI state.
 
-    class Category(val localizationKey: String) : MenuItem()
+private class MenuUiState private constructor(vararg val categories: CategoryUiState) {
 
-    class Item(
-        val localizationKey: String,
-        val destinationEndpoint: String,
-        val bottomSpacing: MenuItemBottomSpacing = MenuItemBottomSpacing.SMALL
-    ) : MenuItem()
-
-    object Divider : MenuItem()
-
-}
-
-private class MenuData(endpoints: NavMenuMaterialEndpoints) {
-
-    val menuItems: Array<MenuItem> = arrayOf(
-        MenuItem.Category("md.materialSystem"),
-        MenuItem.Item("md.introduction",    endpoints.introduction,            MenuItemBottomSpacing.MEDIUM),
-        MenuItem.Item("md.materialStudies", endpoints.aboutOurMaterialStudies, MenuItemBottomSpacing.MEDIUM),
-        MenuItem.Divider,
-        MenuItem.Category("md.materialFoundation"),
-        MenuItem.Item("md.foundationOverview", endpoints.foundationOverview,      MenuItemBottomSpacing.MEDIUM),
-        MenuItem.Item("md.environment",        endpoints.environmentSurfaces),
-        MenuItem.Item("md.layout",             endpoints.understandingLayout),
-        MenuItem.Item("md.navigation",         endpoints.understandingNavigation),
-        MenuItem.Item("md.color",              endpoints.colorSystem),
-        MenuItem.Item("md.typography",         endpoints.typographySystem),
-        MenuItem.Item("md.sound",              endpoints.aboutSound),
-        MenuItem.Item("md.iconography",        endpoints.productIconography),
-        MenuItem.Item("md.shape",              endpoints.aboutShape),
-        MenuItem.Item("md.motion",             endpoints.understandingMotion),
-        MenuItem.Item("md.interaction",        endpoints.interactionGestures),
-        MenuItem.Item("md.communication",      endpoints.confirmationAcknowledgement),
-        MenuItem.Item("md.machineLearning",    endpoints.understandingMLPatterns, MenuItemBottomSpacing.MEDIUM),
-        MenuItem.Divider,
-        MenuItem.Category("md.materialGuidelines"),
-        MenuItem.Item("md.guidelinesOverview", endpoints.guidelinesOverview,          MenuItemBottomSpacing.MEDIUM),
-        MenuItem.Item("md.materialTheming",    endpoints.materialThemingOverview),
-        MenuItem.Item("md.usability",          endpoints.accessibility),
-        MenuItem.Item("md.platformGuidance",   endpoints.platformGuidanceAndroidBars, MenuItemBottomSpacing.BIG)
+    constructor(endpoints: NavMenuMaterialEndpoints) : this(
+        CategoryUiState(
+            "md.materialSystem",
+            MenuItemUiState("md.introduction",    endpoints.introduction,            BIG),
+            MenuItemUiState("md.materialStudies", endpoints.aboutOurMaterialStudies, BIG),
+        ),
+        CategoryUiState(
+            "md.materialFoundation",
+            MenuItemUiState("md.foundationOverview", endpoints.foundationOverview,      BIG),
+            MenuItemUiState("md.environment",        endpoints.environmentSurfaces),
+            MenuItemUiState("md.layout",             endpoints.understandingLayout),
+            MenuItemUiState("md.navigation",         endpoints.understandingNavigation),
+            MenuItemUiState("md.color",              endpoints.colorSystem),
+            MenuItemUiState("md.typography",         endpoints.typographySystem),
+            MenuItemUiState("md.sound",              endpoints.aboutSound),
+            MenuItemUiState("md.iconography",        endpoints.productIconography),
+            MenuItemUiState("md.shape",              endpoints.aboutShape),
+            MenuItemUiState("md.motion",             endpoints.understandingMotion),
+            MenuItemUiState("md.interaction",        endpoints.interactionGestures),
+            MenuItemUiState("md.communication",      endpoints.confirmationAcknowledgement),
+            MenuItemUiState("md.machineLearning",    endpoints.understandingMlPatterns, BIG),
+        ),
+        CategoryUiState(
+            "md.materialGuidelines",
+            MenuItemUiState("md.guidelinesOverview", endpoints.guidelinesOverview,          BIG),
+            MenuItemUiState("md.materialTheming",    endpoints.materialThemingOverview),
+            MenuItemUiState("md.usability",          endpoints.accessibility),
+            MenuItemUiState("md.platformGuidance",   endpoints.platformGuidanceAndroidBars, MAX),
+        ),
     )
 
 }
+
+private class CategoryUiState(val name: LocalizationKey, vararg val items: MenuItemUiState)
+
+private class MenuItemUiState(
+    val title: LocalizationKey,
+    val destinationEndpoint: String,
+    val bottomSpacing: MenuItemSpacingUiState = REGULAR
+)
+
+private enum class MenuItemSpacingUiState { REGULAR, BIG, MAX }

@@ -1,12 +1,12 @@
-package io.github.andrewk2112.md.components.content
+package io.github.andrewk2112.md.components.content.sections
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.md.components.common.strokedImage
-import io.github.andrewk2112.md.models.ArticleItem
+import io.github.andrewk2112.localization.LocalizationKey
+import io.github.andrewk2112.md.components.common.images.strokedImage
 import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.resources.images.*
 import io.github.andrewk2112.resources.images.Image
@@ -19,92 +19,79 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.p
 
-// Public.
 
-val contentMaterialArticles = VFC {
 
-    // State.
+// Components.
+
+val materialArticles = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data by useState { ContentMaterialArticlesData() }
+    val uiState    by useState { MaterialArticlesUiState() }
 
-
-
-    // Rendering.
-
-    // Container with basic spacing.
-    +div(ContentMaterialArticlesStyles.container.name) {
-
-        // Title.
-        +h2(ContentMaterialArticlesStyles.title(context).name) { +localizator("md.materialArticles") }
-
-        // Description.
-        +p(ContentMaterialArticlesStyles.description(context).name) {
-            +localizator("md.makeProgressFasterWithTheseHelpfulArticles")
-        }
-
-        // Grid of the articles.
-        +div(ContentMaterialArticlesStyles.gridContainer(context).name) {
-            for ((index, articleItem) in data.articleItems.withIndex()) {
-                val articleItemTitle = localizator(articleItem.title)
-                articleBlock(
-                    context,
+    container {
+        titleAndDescription(
+            context,
+            localizator("md.materialArticles"),
+            localizator("md.makeProgressFasterWithTheseHelpfulArticles")
+        )
+        articlesGrid(context) {
+            for ((index, article) in uiState.articles.withIndex()) {
+                it(
                     index % 2 == 0,
-                    articleItem.illustration,
-                    articleItemTitle,
-                    articleItemTitle,
-                    localizator(articleItem.description)
+                    localizator(article.title),
+                    localizator(article.description),
+                    article.illustration,
+                    localizator(article.illustrationAlternativeText),
                 )
             }
         }
-
     }
 
 }
 
+private inline fun ChildrenBuilder.container(crossinline children: ChildrenBuilder.() -> Unit) =
+    +div(MaterialArticlesStyles.container.name, block = children)
 
+private fun ChildrenBuilder.titleAndDescription(context: Context, title: String, description: String) {
+    +h2(MaterialArticlesStyles.title(context).name) { +title }
+    +p(MaterialArticlesStyles.description(context).name) { +description }
+}
 
-// Private - reusable views.
+private inline fun ChildrenBuilder.articlesGrid(
+    context: Context,
+    crossinline adapter: ((isDouble: Boolean, title: String, desc: String, Image, imageAltText: String) -> Unit) -> Unit
+) =
+    +div(MaterialArticlesStyles.grid(context).name) {
+        adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
+            articleItem(context, hasDoubleWidth, title, description, illustration, illustrationAlternativeText)
+        }
+    }
 
-private fun ChildrenBuilder.articleBlock(
+private fun ChildrenBuilder.articleItem(
     context: Context,
     hasDoubleWidth: Boolean,
+    title: String,
+    description: String,
     illustration: Image,
     illustrationAlternativeText: String,
-    title: String,
-    descriptionText: String
-) {
-
-    // To prevent the item from taking the entire height of the grid's row.
+) =
     +div(LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
-
-        // Block with a hover style.
         +div(SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
-
-            // Illustration.
             +strokedImage(ImageStyles.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
-
-            // Title.
-            +p(ContentMaterialArticlesStyles.articleTitle(context).name) { +title }
-
-            // Description.
-            +p(ContentMaterialArticlesStyles.articleDescription(context).name) { +descriptionText }
-
+            +p(MaterialArticlesStyles.articleTitle(context).name) { +title }
+            +p(MaterialArticlesStyles.articleDescription(context).name) { +description }
         }
-
     }
 
-}
 
 
+// Styles.
 
-// Private - styles.
-
-private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
+private object MaterialArticlesStyles : DynamicStyleSheet() {
 
     val container: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
@@ -129,7 +116,7 @@ private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
         )
     }
 
-    val gridContainer: DynamicCssProvider<Context> by dynamicCss {
+    val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
         padding(top = StyleValues.spacing.absolute26)
     }
@@ -148,31 +135,42 @@ private object ContentMaterialArticlesStyles : DynamicStyleSheet() {
 
 
 
-// Private - data.
+// UI state.
 
-private class ContentMaterialArticlesData {
+private class MaterialArticlesUiState private constructor(vararg val articles: MaterialArticleUiState) {
 
-    val articleItems: Array<ArticleItem> = arrayOf(
-        ArticleItem(
+    constructor() : this(
+        MaterialArticleUiState(
             "md.systemIcons",
             "md.systemIconsSymbolizeCommonActions",
-            MdSystemIconsImage
+            MdSystemIconsImage,
+            "md.systemIcons",
         ),
-        ArticleItem(
+        MaterialArticleUiState(
             "md.generateCustomColorPalettes",
             "md.craftUniqueColorSchemeForYourBrandWithThisOnlineTool",
-            MdCustomColorPalettesGenerationImage
+            MdCustomColorPalettesGenerationImage,
+            "md.generateCustomColorPalettes",
         ),
-        ArticleItem(
+        MaterialArticleUiState(
             "md.theTypeSystem",
             "md.useTypographyToPresentYourDesignAndContent",
-            MdTypeSystemImage
+            MdTypeSystemImage,
+            "md.theTypeSystem",
         ),
-        ArticleItem(
+        MaterialArticleUiState(
             "md.harnessThePowerOfShape",
             "md.shapesCanDirectAttentionIdentifyComponents",
-            MdShapePowerImage
+            MdShapePowerImage,
+            "md.harnessThePowerOfShape",
         ),
     )
 
 }
+
+private class MaterialArticleUiState(
+    val title: LocalizationKey,
+    val description: LocalizationKey,
+    val illustration: Image,
+    val illustrationAlternativeText: LocalizationKey,
+)

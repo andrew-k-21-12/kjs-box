@@ -15,13 +15,10 @@ import react.router.dom.Link
 // Public.
 
 fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
-
-    // There is also a possibility to use CSS in a styled way, see the previous commits.
-    +Link(ExerciseLinkStyles.exerciseLink(context).name) {
+    +Link(ExerciseLinkStyles.link(context).name) {
         this.to = to
         +text
     }
-
 }
 
 
@@ -30,7 +27,7 @@ fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
 
 private object ExerciseLinkStyles : DynamicStyleSheet() {
 
-    val exerciseLink: DynamicCssProvider<Context> by dynamicCss {
+    val link: DynamicCssProvider<Context> by dynamicCss {
         +ComfortaaFontStyles.regular.rules
         fontSize       = Theme.fontSizes.adaptive4(it)
         overflowWrap   = OverflowWrap.breakWord

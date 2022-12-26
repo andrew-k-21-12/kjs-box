@@ -4,6 +4,8 @@ import react.EffectBuilder
 import react.useEffect
 import react.useRef
 
+// Public.
+
 /**
  * Keeps (returns) the previous value of the provided [newValue],
  * the previous value is always updated on each rendering iteration.
@@ -19,6 +21,10 @@ fun <T : Any> usePrevious(newValue: T, vararg dependencies: Any? = arrayOf(newVa
     usePreviousBuilder(newValue) {
         useEffect(dependencies = dependencies, it)
     }
+
+
+
+// Private.
 
 private inline fun <T : Any> usePreviousBuilder(newValue: T, useEffectCaller: (EffectBuilder.() -> Unit) -> Unit): T {
 

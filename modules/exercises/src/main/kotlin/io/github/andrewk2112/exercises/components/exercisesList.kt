@@ -15,41 +15,38 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
 
-// Public.
+// Components.
 
 val exercisesList = VFC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
 
-    +div(ExercisesListStyles.root.name) {
+    +div(ExercisesListStyles.container.name) {
 
+        // The list of available exercises.
         ul {
-            exerciseLiWithLink(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
-            exerciseLiWithContents { +localizator("exercises.toBeContinued") }
+            linkItem(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
+            contentsItem { +localizator("exercises.toBeContinued") }
         }
 
     }
 
 }
 
+private fun ChildrenBuilder.linkItem(context: Context, label: String, destinationEndpoint: String) =
+    contentsItem { exerciseLink(context, label, destinationEndpoint) }
 
-
-// Private - reusable views.
-
-private inline fun ChildrenBuilder.exerciseLiWithContents(crossinline block: ChildrenBuilder.() -> Unit) =
+private inline fun ChildrenBuilder.contentsItem(crossinline block: ChildrenBuilder.() -> Unit) =
     +li(ExercisesListStyles.listItem.name, block = block)
 
-private fun ChildrenBuilder.exerciseLiWithLink(context: Context, label: String, destinationEndpoint: String) =
-    exerciseLiWithContents { exerciseLink(context, label, destinationEndpoint) }
 
 
-
-// Private - styles.
+// Styles.
 
 private object ExercisesListStyles : DynamicStyleSheet() {
 
-    val root: NamedRuleSet by css {
+    val container: NamedRuleSet by css {
         +SourceSansProFontStyles.regular.rules
         fontSize = 100.pct
     }

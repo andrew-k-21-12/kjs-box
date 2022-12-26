@@ -7,5 +7,5 @@ import org.kodein.di.*
 /** Provides all reducers and their top wrapping store. */
 internal val reduxModule = DI.Module("Redux") {
     bindSingleton { ContextReducer(instance()) }
-    bindSingleton { StoreFactory(instance()) }
+    bindSingleton { StoreFactory(instance(), instance()) }
 }

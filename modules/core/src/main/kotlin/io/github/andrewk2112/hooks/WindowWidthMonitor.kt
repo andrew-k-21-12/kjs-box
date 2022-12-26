@@ -18,7 +18,6 @@ class WindowWidthMonitor {
      */
     fun useWindowWidthMonitor(onNewWidth: (Int) -> Unit) {
         useEffectOnce {
-            onNewWidth.invoke(windowWidth)
             val eventListener: (Event) -> Unit = {
                 onNewWidth.invoke(windowWidth)
             }
@@ -29,12 +28,12 @@ class WindowWidthMonitor {
         }
     }
 
+    /** Current actual window width. */
+    val windowWidth: Int get() = window.innerWidth
+
 
 
     // Private.
-
-    /** Current actual window width. */
-    private val windowWidth: Int get() = window.innerWidth
 
     /** Target event type to listen to. */
     private val eventType = "resize"

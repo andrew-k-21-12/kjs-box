@@ -1,6 +1,7 @@
 package io.github.andrewk2112
 
 import io.github.andrewk2112.dinjection.di
+import io.github.andrewk2112.hooks.useInjected
 import io.github.andrewk2112.redux.StoreFactory
 import io.github.andrewk2112.redux.reducers.ContextReducer
 import io.github.andrewk2112.routes.MaterialDesignRoute
@@ -15,8 +16,6 @@ import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
 
-// Public.
-
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
 val app = VFC {
     Provider {
@@ -24,26 +23,25 @@ val app = VFC {
         BrowserRouter {                                     // enabling routing features,
             Suspense {                                      // configuring the app with its loading placeholder
                 fallback = appLoadingPlaceholder.create()
-                contents()
+                initializations()
+                routes()
             }
         }
     }
 }
-
-
-
-// Private - components.
 
 /** A placeholder to be shown while the application itself is loading. */
 private val appLoadingPlaceholder = VFC {
     +"⌛ Loading / Загрузка"
 }
 
-/** All the actual contents available in the app. */
-private val contents = VFC {
+/** All required initializations to be done before loading of any actual contents. */
+private val initializations = VFC {
+    useInjected<ContextReducer>().useScreenSizeMonitor() // monitoring the screen size to update the context
+}
 
-    // Starting to monitor a screen size to update the context dynamically.
-    useState { di.direct.instance<ContextReducer>() }.component1().useScreenSizeMonitor()
+/** All the actual contents available in the app bound to the corresponding routes. */
+private val routes = VFC {
 
     // All pages of the app: the root (serves as a fallback also) one,
     // the first example page and the fallback configuration.
@@ -57,11 +55,11 @@ private val contents = VFC {
     Routes {
         Route {
             path = "/"
-            element = lazyExercisesList.create()
+            element = exercisesOnDemandComponent.create()
         }
         Route {
             path = MaterialDesignRoute.path
-            element = lazyMaterialDesign.create()
+            element = materialDesignOnDemandComponent.create()
         }
         Route {
             path = "*"
@@ -73,12 +71,12 @@ private val contents = VFC {
 
 }
 
-// Elements to be loaded lazily.
-private val lazyExercisesList: ExoticComponent<Props> = lazy {
+private val exercisesOnDemandComponent: ExoticComponent<Props> = lazy {
     import<Module<dynamic>>("./${Environment.projectName}-exercises")
         .then{ it.default }
 }
-private val lazyMaterialDesign: ExoticComponent<Props> = lazy {
+
+private val materialDesignOnDemandComponent: ExoticComponent<Props> = lazy {
     import<Module<dynamic>>("./${Environment.projectName}-material-design")
         .then{ it.default }
 }

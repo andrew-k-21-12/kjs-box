@@ -21,7 +21,7 @@ class NavMenuMaterialEndpoints {
     val understandingMotion         = "$design/motion/understanding-motion"
     val interactionGestures         = "$design/interaction/gestures"
     val confirmationAcknowledgement = "$design/communication/confirmation-acknowledgement"
-    val understandingMLPatterns     = "$design/machine-learning/understanding-ml-patterns"
+    val understandingMlPatterns     = "$design/machine-learning/understanding-ml-patterns"
     val guidelinesOverview          = "$design/guidelines-overview"
     val materialThemingOverview     = "$design/material-theming/overview"
     val accessibility               = "$design/usability/accessibility"

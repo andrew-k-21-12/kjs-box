@@ -22,7 +22,7 @@ import kotlin.math.max
 /**
  * All styled reusable animations in a single place.
  *
- * Don't forget to [initialize] it at some root component!
+ * Don't forget to [setContext] to it at some root component!
  */
 object AnimationStyles : DynamicStyleSheet() {
 
@@ -105,8 +105,12 @@ object AnimationStyles : DynamicStyleSheet() {
     // Private - styles.
 
     private val rippleAnimationElement: DynamicCssProvider<Context> by dynamicCss {
+
         position = Position.absolute
         borderRadius = 50.pct // to make it absolutely round
+        backgroundColor = Theme.palette.selectionActive1(it)
+        pointerEvents = PointerEvents.none // to avoid intercepting taps
+
         transform { scale(0) }
         animation(duration = StyleValues.time.ms600, timing = StyleValues.timing.linear, builder = {
             to {
@@ -114,8 +118,7 @@ object AnimationStyles : DynamicStyleSheet() {
                 opacity = StyleValues.opacities.transparent
             }
         })
-        backgroundColor = Theme.palette.selectionActive1(it)
-        pointerEvents = PointerEvents.none // to avoid intercepting taps
+
     }
 
 }

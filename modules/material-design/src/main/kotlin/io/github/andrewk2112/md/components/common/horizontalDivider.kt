@@ -11,14 +11,15 @@ import react.FC
 import react.PropsWithClassName
 import react.dom.html.ReactHTML.div
 
+
+
 // Public.
 
 val horizontalDivider = FC<PropsWithClassName> { props ->
-
-    val context = useAppContext()
-
-    +div(HorizontalDividerStyles.horizontalDivider(context).name, props.className.toString())
-
+    +div(
+        HorizontalDividerStyles.divider(useAppContext()).name,
+        props.className.toString()
+    )
 }
 
 
@@ -27,7 +28,7 @@ val horizontalDivider = FC<PropsWithClassName> { props ->
 
 private object HorizontalDividerStyles : DynamicStyleSheet() {
 
-    val horizontalDivider: DynamicCssProvider<Context> by dynamicCss {
+    val divider: DynamicCssProvider<Context> by dynamicCss {
         height = Theme.sizes.stroke1(it)
         backgroundColor = Theme.palette.stroke1(it)
     }

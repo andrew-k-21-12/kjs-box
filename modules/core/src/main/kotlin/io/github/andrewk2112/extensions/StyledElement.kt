@@ -3,17 +3,7 @@ package io.github.andrewk2112.extensions
 import kotlinx.css.StyledElement
 import kotlin.reflect.KProperty
 
-// Public.
-
-/** A wrapper for the CSS [outline-style](https://developer.mozilla.org/docs/Web/CSS/outline-style) property. */
-var StyledElement.outlineStyle: OutlineStyle by CssProperty()
-
-/** A wrapper for the CSS [order](https://developer.mozilla.org/docs/Web/CSS/order) property. */
-var StyledElement.order: Order by CssProperty()
-
-
-
-// Private.
+// Helps to add new CSS properties currently missing in the Kotlin Wrappers library.
 
 /**
  * Just a copy-paste from the original [kotlinx.css] package to make declarations of additional properties possible.

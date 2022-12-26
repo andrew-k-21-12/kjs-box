@@ -4,6 +4,7 @@ import dom.Element
 import dom.observers.ResizeObserver
 import react.RefObject
 import react.useEffectOnce
+import react.useState
 
 /**
  * Monitors for and notifies about the height updates of the provided [ref] via the [onHeightChanged] callback.
@@ -20,4 +21,13 @@ inline fun useRefHeightMonitor(ref: RefObject<Element>, crossinline onHeightChan
         }.also { it.observe(element) }
     }
     cleanup { resizeObserver?.disconnect() }
+}
+
+/**
+ * Monitors for and notifies about the height updates of the provided [ref] via the returned state value.
+ */
+fun useRefHeightMonitor(ref: RefObject<Element>): Double {
+    var height by useState(0.0)
+    useRefHeightMonitor(ref) { height = it }
+    return height
 }

@@ -1,4 +1,4 @@
-package io.github.andrewk2112.md.components.header
+package io.github.andrewk2112.md.components.header.sections
 
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Context.ScreenSize.*
@@ -11,6 +11,8 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
+import io.github.andrewk2112.localization.LocalizationKey
+import io.github.andrewk2112.md.components.header.HeaderProps
 import io.github.andrewk2112.md.resources.iconMagnify
 import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.resources.iconMenu
@@ -28,103 +30,90 @@ import react.dom.html.ReactHTML.nav
 import react.dom.html.ReactHTML.span
 import react.dom.html.ReactHTML.ul
 
-// Public.
 
-val headerNavigation = FC<HeaderProps> { props ->
 
-    // Preparing the state.
+// Components.
+
+val header = FC<HeaderProps> { props ->
+
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val data by useState { HeaderNavigationData() }
+    val uiState    by useState { HeaderUiState() }
 
-    +header(HeaderNavigationStyles.container(context).name) {
-
-        // Logo block.
-        +div(HeaderNavigationStyles.materialLogoBlock(context).name) {
-
-            // Menu button.
-            +button(
-                HeaderNavigationStyles.menuButtonPositioning(props.hasSlidingMenu).name,
-                HeaderNavigationStyles.menuButtonAppearance(context).name
-            ) {
-                onClick = props.onMenuClick.asMouseEventHandler()
-                +iconMenu.component(HeaderNavigationStyles.menuButtonIcon.name)
+    container(context) {
+        logoBlock(context, props.hasCloseableMenu, localizator("md.materialDesign"), props.onMenuToggle)
+        navigationBlock(context) {
+            for (navigationItem in uiState.navigationItems) {
+                it(localizator(navigationItem.title), navigationItem.isSelected)
             }
-
-            // Icon.
-            +iconMaterialDesignLogo.component(HeaderNavigationStyles.materialDesignIcon(props.hasSlidingMenu).name)
-
-            // Label.
-            +span(HeaderNavigationStyles.materialDesignLabel(context).name) {
-                +localizator("md.materialDesign").uppercase()
-            }
-
         }
-
-        // Navigation block.
-        +nav(HeaderNavigationStyles.navigationBlock(context).name) {
-
-            // Navigation buttons block.
-            +ul(HeaderNavigationStyles.navigationButtonsWrapper(context).name) {
-
-                for (navigationButtonData in data.navigationButtons) {
-                    val (localizationKey, isSelected) = navigationButtonData
-                    navigationButton(context, localizator(localizationKey), isSelected)
-                }
-
-            }
-
-        }
-
-        // Search button.
-        +div(HeaderNavigationStyles.searchIconWrapper(context).name) {
-            +iconMagnify.component(HeaderNavigationStyles.searchIcon(context).name)
-        }
-
+        searchIcon(context)
     }
 
 }
 
+private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
+    +header(HeaderStyles.container(context).name, block = children)
 
+private fun ChildrenBuilder.logoBlock(
+    context: Context,
+    hasCloseableMenu: Boolean,
+    label: String,
+    onMenuButtonClick: () -> Unit
+) =
+    +div(HeaderStyles.logoBlock(context).name) {
+        +button(
+            HeaderStyles.menuButtonPositioning(hasCloseableMenu).name,
+            HeaderStyles.menuButtonAppearance(context).name
+        ) {
+            onClick = onMenuButtonClick.asMouseEventHandler()
+            +iconMenu.component(HeaderStyles.menuButtonIcon.name)
+        }
+        +iconMaterialDesignLogo.component(HeaderStyles.logoIcon(hasCloseableMenu).name)
+        +span(HeaderStyles.logoLabel(context).name) { +label.uppercase() }
+    }
 
-// Private - reusable views.
+private inline fun ChildrenBuilder.navigationBlock(
+    context: Context,
+    crossinline navigationItemsAdapter: ((title: String, isSelected: Boolean) -> Unit) -> Unit
+) =
+    +nav(HeaderStyles.navigationBlock(context).name) {
+        +ul(HeaderStyles.navigationItems(context).name) {
+            navigationItemsAdapter { title, isSelected ->
+                navigationItem(context, title, isSelected)
+            }
+        }
+    }
 
-private fun ChildrenBuilder.navigationButton(context: Context, label: String, isSelected: Boolean) {
-
-    // Positioning inside the container's space.
-    +li(HeaderNavigationStyles.navigationButtonPositioning.name) {
-
-        // The navigation button itself.
-        +div(HeaderNavigationStyles.navigationButton(context).name) {
-
-            // Label.
-            +span(HeaderNavigationStyles.navigationButtonLabel(context).name) { +label }
-
-            // Selection indicator.
+private fun ChildrenBuilder.navigationItem(context: Context, title: String, isSelected: Boolean) =
+    +li(HeaderStyles.navigationItemPositioning.name) {
+        +div(HeaderStyles.navigationItem(context).name) {
+            +span(HeaderStyles.navigationItemTitle(context).name) { +title }
             if (isSelected) {
-                +div(HeaderNavigationStyles.navigationButtonSelectionIndicator(context).name)
+                +div(HeaderStyles.navigationItemSelectionIndicator(context).name)
             }
-
         }
-
     }
 
-}
+private fun ChildrenBuilder.searchIcon(context: Context) =
+    +div(HeaderStyles.searchIconWrapper(context).name) {
+        +iconMagnify.component(HeaderStyles.searchIcon(context).name)
+    }
 
 
 
-// Private - styles.
+// Styles.
 
-private object HeaderNavigationStyles : DynamicStyleSheet() {
+private object HeaderStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         display        = Display.flex
         justifyContent = JustifyContent.spaceBetween
+        height         = StyleValues.sizes.run { if (it.isNarrowHeader) absolute112 else absolute72 }
         backgroundColor = Theme.palette.surface1(it)
-        height = if (it.isNarrowHeader) StyleValues.sizes.absolute112 else StyleValues.sizes.absolute72
     }
 
-    val materialLogoBlock: DynamicCssProvider<Context> by dynamicCss {
+    val logoBlock: DynamicCssProvider<Context> by dynamicCss {
         display    = Display.flex
         alignItems = Align.center
         if (it.isNarrowHeader) {
@@ -152,15 +141,15 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         margin(LinearDimension.auto)
     }
 
-    val materialDesignIcon: DynamicCssProvider<Boolean> by dynamicCss {
+    val logoIcon: DynamicCssProvider<Boolean> by dynamicCss {
         +ImageStyles.smallSizedIcon.rules
-        flexShrink = .0
+        flexShrink = 0
         if (!it) {
             marginLeft = StyleValues.spacing.absolute24
         }
     }
 
-    val materialDesignLabel: DynamicCssProvider<Context> by dynamicCss {
+    val logoLabel: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.boldMono.rules
         marginLeft = StyleValues.spacing.absolute16
         fontSize   = StyleValues.fontSizes.relativep95
@@ -183,11 +172,11 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         }
     }
 
-    val navigationButtonsWrapper: DynamicCssProvider<Context> by dynamicCss {
+    val navigationItems: DynamicCssProvider<Context> by dynamicCss {
         display = Display.flex
         width   = 100.pct
         hover {
-            descendants(".${navigationButton(it).name}:not(:hover)") {
+            descendants(".${navigationItem(it).name}:not(:hover)") {
                 color = Theme.palette.onSurfaceDimmed1(it)
             }
         }
@@ -196,14 +185,14 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         }
     }
 
-    val navigationButtonPositioning: NamedRuleSet by css {
+    val navigationItemPositioning: NamedRuleSet by css {
         flexBasis = FlexBasis.zero // the initial main size of the item:
         flexGrow  = 1              // in a combination with this grow value makes all items' widths equal
         display   = Display.block
         textAlign = TextAlign.center // aligning the nested inline items
     }
 
-    val navigationButton: DynamicCssProvider<Context> by dynamicCss {
+    val navigationItem: DynamicCssProvider<Context> by dynamicCss {
 
         // Basic styling.
         +TransitionStyles.flashingTransition(::color).rules
@@ -216,7 +205,7 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
         color = Theme.palette.onSurface1(it)
         hover {
             color = Theme.palette.onSurfaceFocused1(it)
-            descendants(".${navigationButtonSelectionIndicator(it).name}") {
+            descendants(".${navigationItemSelectionIndicator(it).name}") {
                 backgroundColor = Theme.palette.onSurfaceFocused1(it)
             }
         }
@@ -228,14 +217,14 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
 
     }
 
-    val navigationButtonLabel: DynamicCssProvider<Context> by dynamicCss {
+    val navigationItemTitle: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.light.rules
         gridRow   = GridRow("2")
         alignSelf = Align.center
         fontSize  = Theme.fontSizes.adaptive2(it)
     }
 
-    val navigationButtonSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
+    val navigationItemSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.flashingTransition(::backgroundColor).rules
         gridRow   = GridRow("3")
         alignSelf = Align.end
@@ -258,20 +247,22 @@ private object HeaderNavigationStyles : DynamicStyleSheet() {
 
 }
 
-private val Context.isNarrowHeader: Boolean get() = screenSize <= SMALL_TABLET
+private inline val Context.isNarrowHeader: Boolean get() = screenSize <= SMALL_TABLET
 
 
 
-// Private - menu items structure.
+// UI state.
 
-private class HeaderNavigationData {
+private class HeaderUiState private constructor(vararg val navigationItems: NavigationItemUiState) {
 
-    val navigationButtons: Array<Pair<String, Boolean>> = arrayOf(
-        Pair("md.design",     true),
-        Pair("md.components", false),
-        Pair("md.develop",    false),
-        Pair("md.resources",  false),
-        Pair("md.blog",       false),
+    constructor() : this(
+        NavigationItemUiState("md.design",     true),
+        NavigationItemUiState("md.components", false),
+        NavigationItemUiState("md.develop",    false),
+        NavigationItemUiState("md.resources",  false),
+        NavigationItemUiState("md.blog",       false),
     )
 
 }
+
+private class NavigationItemUiState(val title: LocalizationKey, val isSelected: Boolean)

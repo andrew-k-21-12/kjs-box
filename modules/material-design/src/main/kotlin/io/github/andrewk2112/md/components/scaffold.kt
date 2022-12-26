@@ -12,7 +12,8 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.usePrevious
 import io.github.andrewk2112.hooks.useRefHeightMonitor
 import io.github.andrewk2112.md.components.content.*
-import io.github.andrewk2112.md.components.header.header
+import io.github.andrewk2112.md.components.footer.footer
+import io.github.andrewk2112.md.components.header.headerScaffold
 import io.github.andrewk2112.md.components.menu.menu
 import io.github.andrewk2112.md.styles.AnimationStyles
 import io.github.andrewk2112.md.styles.FontStyles
@@ -38,7 +39,7 @@ import react.dom.html.ReactHTML.div
 //  2. Use the latest version of the kotlin-styled-next with my PR (drop my stylesheets package).
 //  3. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner,
 //     maybe it is even better to drop this idea and use a combination of the React context and media queries?
-//     Use initialized variables instead of getters for styling properties?
+//     Use initialized or inline variables instead of getters for styling properties (and maybe other stuff - components?)?
 //  4. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
@@ -46,18 +47,20 @@ import react.dom.html.ReactHTML.div
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  7. Introduce better modular structure (which should separate resources and style values as well),
 //     hide intermediate stuff via single files to emulate something like Java's package-private.
-//  8. Remove locale keys unmet in the source code when bundling.
+//  8. Remove locale keys unmet in the source code when bundling,
+//     maybe the localization API should be changed slightly?
+//  9. Drop reducers?
 
 // TODO - deployment and finalization:
-//  9. Hashes in names for all resources (fonts, locales, images) are not needed,
+//  1. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes.
-//  10. Write some custom server with all required configs (caches, routing) and place it here.
-//  11. Write about the project's features in the central README.md.
-//  12. Change the package name when the project gets its final name.
+//  2. Write some custom server with all required configs (caches, routing) and place it here.
+//  3. Write about the project's features in the central README.md.
+//  4. Change the package name when the project gets its final name.
 
 // TODO:
-//  13. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
-//  14. Add explanations on the trampoline Rx scheduler in some corresponding SO question.
+//  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
+//  2. Add explanations on the trampoline Rx scheduler in some corresponding SO question.
 
 
 
@@ -65,119 +68,155 @@ import react.dom.html.ReactHTML.div
 
 val scaffold = VFC {
 
-    // Global initializations.
+    val context = useGlobalInitializations()
 
-    val context = useAppContext()
-    AnimationStyles.setContext(context)
+    // Sometimes it's barely possible to create single source of truth UI states,
+    // because lots of ways to do optimizations will become impossible.
+    var isHeaderVisible by useState(true)
+    var isMenuOpened    by useState(false)
 
+    // A context providing the exhaustive information to render the menu.
+    val menuContext = MenuContext(context, isTransiting = isMenuOpened != usePrevious(isMenuOpened), isMenuOpened)
 
+    // UI states strictly bound to views and derived from their updates only.
+    val headerRef     = useRef<Element>(null)
+    val headerHeight  = useRefHeightMonitor(headerRef)
+    val lastScrollTop = useRef(0.0) // this value doesn't trigger re-rendering on each of its updates
 
-    // State.
+    // https://youtrack.jetbrains.com/issue/KT-15101 advises to avoid in-place lambdas for callbacks due to performance.
+    // But in fact Kotlin/JS just treats a reference to a function as not equal to itself (::fun1 == ::fun1 is false).
+    // Even if lambdas are declared as separate variables inside FCs, their new instances are created on each rendering.
+    // To avoid such pointless instantiations, it's possible to leverage React's memo(), useCallback() and useRef().
+    val onContentScroll = useContentScrollCallback(
+        headerHeight, isHeaderVisible,
+        lastScrollTopProvider = { lastScrollTop.current ?: 0.0 },
+        setLastScrollTop      = { lastScrollTop.current = it },
+        setHeaderVisible      = { isHeaderVisible = it }
+    )
+    val onScrimClick: MouseEventHandler<*> = useCallback { isMenuOpened = false }
 
-    val (isHeaderVisible, setHeaderVisible) = useState(true)
-    val (headerHeight,    setHeaderHeight)  = useState(0.0)
-
-    val (isMenuOpened, setMenuOpened) = useState(false)
-    val hasSlidingMenu = context.screenSize < DESKTOP
-    val menuContext = MenuContext(context, hasSlidingMenu, isMenuOpened != usePrevious(isMenuOpened), isMenuOpened)
-
-    // This value doesn't trigger re-rendering on each of its update.
-    val lastScrollTop = useRef(.0)
-
-
-
-    // Monitors and callbacks.
-
-    val headerRef = useRef<Element>(null)
-    useRefHeightMonitor(headerRef) { setHeaderHeight(it) }
-
-    // It's recommended to avoid in-place lambdas for callbacks by some performance reasons:
-    // https://youtrack.jetbrains.com/issue/KT-15101
-    // At the same time there are no clear explanations about what should be done instead,
-    // as even extracted as a separate variable, the lambda is going to be created again on each rendering.
-    // These variables should maybe leverage React's memo() or useCallback() somehow,
-    // but again it can be not very straightforward.
-    val onContentScrolled: UIEventHandler<*> = useCallback(headerHeight, isHeaderVisible) { event ->
-        val currentScrollTop = event.currentTarget.scrollTop
-        lastScrollTop.current?.let {
-            val scrollDelta = currentScrollTop - it
-            lastScrollTop.current = currentScrollTop
-            val shouldHeaderBeVisible = currentScrollTop <= headerHeight || scrollDelta < 0
-            if (shouldHeaderBeVisible != isHeaderVisible) {
-                setHeaderVisible(shouldHeaderBeVisible)
-            }
+    root(onContentScroll) {
+        slidingHeader(headerRef, isHeaderVisible, hasCloseableMenu = menuContext.isCloseable) { isMenuOpened = it }
+        alignedBlocks {
+            sideMenu(menuContext, onScrimClick)
+            contents(context)
         }
-    }
-
-    val onScrimClicked: MouseEventHandler<*> = useCallback(isMenuOpened) {
-        if (isMenuOpened) {
-            setMenuOpened(false)
-        }
-    }
-
-
-
-    // Rendering.
-
-    // Default styles and context.
-    +div(ScaffoldStyles.root.name) {
-
-        // This may be counter-intuitive, but only the root is actually scrolled, not the contents block:
-        // even having a separate menu block, it just states its positioning for the contents
-        // and doesn't have its personal scroll inside the same level of the elements hierarchy.
-        onScroll = onContentScrolled
-
-        // Wrapper for a header with the sliding logic.
-        +div(ScaffoldStyles.slidingHeader(isHeaderVisible).name) {
-            ref = headerRef
-            header {
-                this.hasSlidingMenu = hasSlidingMenu
-                onMenuClick         = { setMenuOpened(!isMenuOpened) }
-            }
-        }
-
-        // A wrapper for all relative blocks aligned with each other.
-        +div(ScaffoldStyles.alignedBlocks.name) {
-
-            // Menu container - just adds the required spacing to position the contents.
-            +div(ScaffoldStyles.menuContainer(!hasSlidingMenu).name) {
-
-                // The actual menu with any positioning regardless from its container.
-                +aside(ScaffoldStyles.menu(menuContext).name) { menu() }
-
-                // A darkening area covering all contents when the menu is opened.
-                +div(ScaffoldStyles.menuCoveringScrim(menuContext).name) {
-                    onClick = onScrimClicked
-                }
-
-            }
-
-            // Content block.
-            +div(ScaffoldStyles.mainContent(context).name) {
-                content {}
-                footer {}
-            }
-
-        }
-
     }
 
 }
 
 
 
-// Private.
+// Effects.
 
-private class MenuContext(
+private fun useGlobalInitializations(): Context = useAppContext().also { AnimationStyles.setContext(it) }
+
+/**
+ * Sets the header visible when the content is getting scrolled up,
+ * or when the content's scroll value is less than the header's height.
+ */
+private inline fun useContentScrollCallback(
+    headerHeight: Double,
+    isHeaderVisible: Boolean,
+    crossinline lastScrollTopProvider: () -> Double,
+    crossinline setLastScrollTop: (Double)  -> Unit,
+    crossinline setHeaderVisible: (Boolean) -> Unit,
+): UIEventHandler<*> = useCallback(headerHeight, isHeaderVisible) { event ->
+
+    // Preparing scroll values.
+    val currentScrollTop       = event.currentTarget.scrollTop
+    val scrollDelta            = currentScrollTop - lastScrollTopProvider.invoke()
+    val isScrollLessThanHeader = currentScrollTop <= headerHeight
+
+    // Resetting the last scroll top value while the scroll direction corresponds to the intended header visibility.
+    if (!isHeaderVisible && scrollDelta > 0 || isHeaderVisible && scrollDelta < 0) {
+        setLastScrollTop(currentScrollTop)
+    }
+
+    // Updating the header visibility if needed.
+    when {
+        isHeaderVisible  && (!isScrollLessThanHeader && scrollDelta >  headerHeight) -> setHeaderVisible(false)
+        !isHeaderVisible && (isScrollLessThanHeader  || scrollDelta < -headerHeight) -> setHeaderVisible(true)
+    }
+
+}
+
+
+
+// Components.
+
+/**
+ * Applies default styles and context, setups the root layout.
+ *
+ * @param onScroll This may be counter-intuitive, but only the root is actually scrolled, not the contents block.
+ * @param children All child elements to be included inside the root.
+ */
+private inline fun ChildrenBuilder.root(
+    noinline onScroll: UIEventHandler<*>,
+    crossinline children: ChildrenBuilder.() -> Unit,
+) =
+    +div(ScaffoldStyles.root.name) {
+        this.onScroll = onScroll
+        children()
+    }
+
+/**
+ * The header with the sliding logic.
+ */
+private inline fun ChildrenBuilder.slidingHeader(
+    ref: RefObject<Element>,
+    isVisible: Boolean,
+    hasCloseableMenu: Boolean,
+    crossinline setMenuOpened: (Boolean) -> Unit,
+) =
+    +div(ScaffoldStyles.slidingHeader(isVisible).name) {
+        this.ref = ref
+        headerScaffold {
+            this.hasCloseableMenu = hasCloseableMenu
+            onMenuToggle          = { setMenuOpened(true) }
+        }
+    }
+
+/**
+ * Wraps all relative blocks aligned with each other.
+ */
+private inline fun ChildrenBuilder.alignedBlocks(crossinline children: ChildrenBuilder.() -> Unit) =
+    +div(ScaffoldStyles.alignedBlocks.name, block = children)
+
+private fun ChildrenBuilder.sideMenu(context: MenuContext, onScrimClick: MouseEventHandler<*>) =
+    +div(ScaffoldStyles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
+        +aside(ScaffoldStyles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
+        +div(ScaffoldStyles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
+            onClick = onScrimClick
+        }
+    }
+
+private fun ChildrenBuilder.contents(context: Context) =
+    +div(ScaffoldStyles.contents(context).name) {
+        contentScaffold {}
+        footer {}
+    }
+
+
+
+// Styles.
+
+private class MenuContext private constructor(
     val context: Context,
-    val isSliding: Boolean,
+    val isCloseable: Boolean,
     val isTransiting: Boolean,
     val isOpened: Boolean,
 ) : HasCssSuffix {
 
+    constructor(
+        context: Context,
+        isTransiting: Boolean,
+        isOpened: Boolean
+    ) : this(context, isCloseable = context.screenSize < DESKTOP, isTransiting, isOpened)
+
     override val cssSuffix: String
         get() = context.cssSuffix +
-                (if (isSliding)    "Sliding"      else "Persistent") +
+                (if (isCloseable)  "Closeable"    else "Persistent") +
                 (if (isTransiting) "TransitingTo" else "Idle") +
                 (if (isOpened)     "Opened"       else "Closed")
 
@@ -197,9 +236,8 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         +ShadowStyles.defaultShadow.rules
         position = Position.sticky // providing relative spacing for neighbour elements but allowing to scroll over it
         top      = 0.px            // sticking to the top
-        overflow = Overflow.hidden // a temp measure to avoid empty spaces when shrinking the header
-        zIndex   = 1
         width    = 100.pct
+        zIndex   = 1
         transform {
             translateY(if (it) 0.pct else (-100).pct)
         }
@@ -207,14 +245,14 @@ private object ScaffoldStyles : DynamicStyleSheet() {
             ::transform,
             StyleValues.time.ms300,
             StyleValues.timing.cubicBezier1,
-            if (it) StyleValues.time.ms300 else StyleValues.time.immediate
+            StyleValues.time.immediate
         )
         opacity = if (it) StyleValues.opacities.full else StyleValues.opacities.transparent
         transition(
             ::opacity,
             StyleValues.time.immediate,
             StyleValues.timing.ease,
-            StyleValues.time.ms300
+            if (it) StyleValues.time.immediate else StyleValues.time.ms300
         )
     }
 
@@ -223,14 +261,14 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         flexDirection = FlexDirection.row // in a row
     }
 
-    val menuContainer: DynamicCssProvider<Boolean> by dynamicCss {
+    val sideMenuContainer: DynamicCssProvider<Boolean> by dynamicCss {
         if (it) {
             width      = StyleValues.sizes.absolute280
             flexShrink = .0
         }
     }
 
-    val menu: DynamicCssProvider<MenuContext> by dynamicCss {
+    val sideMenu: DynamicCssProvider<MenuContext> by dynamicCss {
 
         // Basic positioning.
         position = Position.fixed
@@ -239,8 +277,8 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         bottom   = 0.px
         width    = StyleValues.sizes.absolute280
 
-        // Sliding appearance for smaller screens.
-        if (it.isSliding) {
+        // Open-close-supporting appearance for smaller screens.
+        if (it.isCloseable) {
 
             zIndex = 3
             transform {
@@ -260,7 +298,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     }
 
-    val menuCoveringScrim: DynamicCssProvider<MenuContext> by dynamicCss {
+    val contentScrim: DynamicCssProvider<MenuContext> by dynamicCss {
 
         // Basic positioning and styling.
         position = Position.fixed
@@ -269,7 +307,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         backgroundColor = Theme.palette.scrim(it.context)
 
         // Styling for the hidden state.
-        if (!it.isOpened || !it.isSliding) {
+        if (!it.isOpened || !it.isCloseable) {
             opacity = StyleValues.opacities.transparent
             pointerEvents = PointerEvents.none
         }
@@ -281,7 +319,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     }
 
-    val mainContent: DynamicCssProvider<Context> by dynamicCss {
+    val contents: DynamicCssProvider<Context> by dynamicCss {
         flexGrow = 1.0
         backgroundColor = Theme.palette.surface2(it)
     }

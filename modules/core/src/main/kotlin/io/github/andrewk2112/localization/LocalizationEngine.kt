@@ -5,7 +5,6 @@ import io.github.andrewk2112.jsmodules.i18next.i18next
 import io.github.andrewk2112.jsmodules.i18next.i18nextBrowserLanguageDetector
 import io.github.andrewk2112.jsmodules.i18next.i18nextHttpBackend
 import io.github.andrewk2112.jsmodules.i18next.reactI18next
-import io.github.andrewk2112.utility.StringMapper
 import kotlinext.js.js
 
 /**
@@ -28,16 +27,14 @@ internal class LocalizationEngine {
     // Internal.
 
     /**
-     * A hook to start getting localized strings.
-     *
-     * @return A localized strings getter.
+     * Returns a [Localizator] for retrieving translated strings by keys.
      */
-    internal fun useLocalizator(): StringMapper = reactI18next.useTranslation()::t
+    internal fun useLocalizator(): Localizator = reactI18next.useTranslation()::t
 
     /**
-     * Hooks fetching both of the current active language and the localizator.
+     * Returns both the current active language and the [Localizator].
      */
-    internal fun useCurrentLanguageAndLocalizator(): Pair<String, StringMapper> =
+    internal fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =
         with(reactI18next.useTranslation()) { Pair(i18n.language, ::t) }
 
 

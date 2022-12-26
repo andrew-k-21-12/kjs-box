@@ -14,7 +14,7 @@ object ShadowStyles : DynamicStyleSheet() {
     val defaultShadow: NamedRuleSet by css {
         boxShadow(
             StyleValues.palette.blackWithAlpha5,
-            offsetY = StyleValues.spacing.absolute2,
+            offsetY    = StyleValues.spacing.absolute2,
             blurRadius = StyleValues.radii.shadowAbsolute4
         )
     }
@@ -22,24 +22,24 @@ object ShadowStyles : DynamicStyleSheet() {
     val complexShadow: NamedRuleSet by css {
         boxShadow(
             StyleValues.palette.blackWithAlpha3,
-            0.px,
-            StyleValues.spacing.absolute8,
-            StyleValues.radii.shadowAbsolute10,
-            StyleValues.radii.shadowAbsolutem5
+            offsetX      = 0.px,
+            offsetY      = StyleValues.spacing.absolute8,
+            blurRadius   = StyleValues.radii.shadowAbsolute10,
+            spreadRadius = StyleValues.radii.shadowAbsolutem5
         )
         boxShadow(
             StyleValues.palette.blackWithAlpha2,
-            0.px,
-            StyleValues.spacing.absolute16,
-            StyleValues.radii.shadowAbsolute24,
-            StyleValues.radii.shadowAbsolute2
+            offsetX      = 0.px,
+            offsetY      = StyleValues.spacing.absolute16,
+            blurRadius   = StyleValues.radii.shadowAbsolute24,
+            spreadRadius = StyleValues.radii.shadowAbsolute2
         )
         boxShadow(
             StyleValues.palette.blackWithAlpha1,
-            0.px,
-            StyleValues.spacing.absolute6,
-            StyleValues.radii.shadowAbsolute30,
-            StyleValues.radii.shadowAbsolute5
+            offsetX      = 0.px,
+            offsetY      = StyleValues.spacing.absolute6,
+            blurRadius   = StyleValues.radii.shadowAbsolute30,
+            spreadRadius = StyleValues.radii.shadowAbsolute5
         )
     }
 

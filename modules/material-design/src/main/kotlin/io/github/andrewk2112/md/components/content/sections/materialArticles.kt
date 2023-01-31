@@ -8,8 +8,11 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.components.common.images.strokedImage
 import io.github.andrewk2112.md.styles.*
-import io.github.andrewk2112.resources.images.*
 import io.github.andrewk2112.resources.images.Image
+import io.github.andrewk2112.resources.images.md.CustomColorPalettesGenerationImage
+import io.github.andrewk2112.resources.images.md.ShapePowerImage
+import io.github.andrewk2112.resources.images.md.SystemIconsImage
+import io.github.andrewk2112.resources.images.md.TypeSystemImage
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -143,25 +146,25 @@ private class MaterialArticlesUiState private constructor(vararg val articles: M
         MaterialArticleUiState(
             "md.systemIcons",
             "md.systemIconsSymbolizeCommonActions",
-            MdSystemIconsImage,
+            SystemIconsImage,
             "md.systemIcons",
         ),
         MaterialArticleUiState(
             "md.generateCustomColorPalettes",
             "md.craftUniqueColorSchemeForYourBrandWithThisOnlineTool",
-            MdCustomColorPalettesGenerationImage,
+            CustomColorPalettesGenerationImage,
             "md.generateCustomColorPalettes",
         ),
         MaterialArticleUiState(
             "md.theTypeSystem",
             "md.useTypographyToPresentYourDesignAndContent",
-            MdTypeSystemImage,
+            TypeSystemImage,
             "md.theTypeSystem",
         ),
         MaterialArticleUiState(
             "md.harnessThePowerOfShape",
             "md.shapesCanDirectAttentionIdentifyComponents",
-            MdShapePowerImage,
+            ShapePowerImage,
             "md.harnessThePowerOfShape",
         ),
     )

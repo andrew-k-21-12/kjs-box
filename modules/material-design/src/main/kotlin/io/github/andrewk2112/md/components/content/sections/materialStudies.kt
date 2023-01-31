@@ -16,9 +16,9 @@ import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
 import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.MdCraneImage
-import io.github.andrewk2112.resources.images.MdReplyImage
-import io.github.andrewk2112.resources.images.MdShrineImage
+import io.github.andrewk2112.resources.images.md.CraneImage
+import io.github.andrewk2112.resources.images.md.ReplyImage
+import io.github.andrewk2112.resources.images.md.ShrineImage
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -191,19 +191,19 @@ private class MaterialStudiesUiState private constructor(vararg val studies: Mat
         MaterialStudyUiState(
             "md.designForRetail",
             "md.learnHowMaterialCanBeUsedInRetailProducts",
-            MdShrineImage,
+            ShrineImage,
             "md.designForRetail",
         ),
         MaterialStudyUiState(
             "md.travelTreatment",
             "md.discoverTheWaysMaterialWasUsedToDesignAndBuildCrane",
-            MdCraneImage,
+            CraneImage,
             "md.travelTreatment",
         ),
         MaterialStudyUiState(
             "md.craftingCommunication",
             "md.materialCanBeUsedInCommunicationAndPlanningProducts",
-            MdReplyImage,
+            ReplyImage,
             "md.craftingCommunication",
         ),
     )

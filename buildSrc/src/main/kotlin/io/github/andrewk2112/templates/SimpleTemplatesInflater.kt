@@ -2,6 +2,7 @@ package io.github.andrewk2112.templates
 
 import java.io.IOException
 import java.io.InputStream
+import java.util.*
 
 /**
  * Does pretty primitive template inflation by just loading a raw template from the resources
@@ -14,7 +15,7 @@ internal class SimpleTemplatesInflater {
     /**
      * Inflates a template from the resources by the [templateName] and inserts the provided [args] into it.
      */
-    @Throws(IOException::class)
+    @Throws(IOException::class, IllegalFormatException::class)
     internal fun inflate(templateName: String, vararg args: Any): String =
         cache
             .getOrPut(templateName) { readTemplateFromResources(templateName) }

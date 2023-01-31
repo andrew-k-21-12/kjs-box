@@ -1,58 +1,40 @@
-package io.github.andrewk2112.templates
+package io.github.andrewk2112.templates.wrappers.independent
 
-import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
+import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.joinCapitalized
-import io.github.andrewk2112.extensions.slashesToDots
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.models.FontResource
+import io.github.andrewk2112.templates.SimpleTemplatesInflater
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.IOException
 import kotlin.text.StringBuilder
 
 /**
- * Inflates and writes to files font wrappers-related classes.
+ * Inflates and writes font wrappers to files.
  */
-internal class FontTemplatesWriter(
+internal class FontIndependentWrappersWriter(
     private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
-) {
+) : IndependentWrappersWriter<FontResource>() {
 
-    // API.
+    // Implementation.
 
-    /**
-     * Performs checks and writes a font wrapper into the [outDir]
-     * using the [basePackageName] with all data from the [fontResource].
-     * This font wrapper will be configured to fallback into [fallbackFontFamilies]
-     * when the target font can't be fetched.
-     */
-    @Throws(IOException::class, FileNotFoundException::class, SecurityException::class)
-    internal fun writeFontStylesObject(
-        outDir: File,
-        basePackageName: String,
-        fontResource: FontResource,
-        vararg fallbackFontFamilies: String
-    ) {
+    @Throws(Exception::class)
+    override fun performWrapperWriting(wrapperOutDirectory: File, wrapperPackageName: String, resource: FontResource) {
 
-        // Making sure the target output directory exists.
-        outDir.ensureDirectoryExistsOrThrow(
-            "Can not create the output directory for a font wrapper: ${outDir.absolutePath}"
-        )
-
-        // Preparing the class and package names.
-        val fullPackageName = basePackageName + "." + fontResource.relativePath.slashesToDots()
-        val className       = generateClassName(fontResource)
+        // Preparing the class name.
+        val className = resource.generateClassName()
 
         // Generating the code for all variants of the font.
         val stylePropertiesBuilder     = StringBuilder()
         val referencePropertiesBuilder = StringBuilder()
-        for (fontVariant in fontResource.variants) {
+        for (fontVariant in resource.variants) {
             val referencePropertyName = generateReferencePropertyName(
-                fullPackageName,
-                fontResource.fontFamily,
+                wrapperPackageName,
+                resource.fontFamily,
                 fontVariant
             )
             stylePropertiesBuilder.append(
-                generateStyleProperty(fontResource.fontFamily, referencePropertyName, fontVariant, fallbackFontFamilies)
+                generateStyleProperty(resource.fontFamily, referencePropertyName, fontVariant)
             )
             referencePropertiesBuilder.append(
                 generateReferenceProperty(referencePropertyName, fontVariant.relativeFontPath)
@@ -60,10 +42,10 @@ internal class FontTemplatesWriter(
         }
 
         // Writing the font wrapper with all prepared properties.
-        File(outDir, "$className.kt").writeText(
+        File(wrapperOutDirectory, "$className.kt").writeText(
             simpleTemplatesInflater.inflate(
-                "/template_font_styles.txt",
-                fullPackageName,
+                "/templates/font_styles.txt",
+                wrapperPackageName,
                 className,
                 stylePropertiesBuilder,
                 referencePropertiesBuilder
@@ -77,9 +59,9 @@ internal class FontTemplatesWriter(
     // Private.
 
     /**
-     * Generates a particular class name for the [fontResource].
+     * Generates a particular class name for the [FontResource].
      */
-    private fun generateClassName(fontResource: FontResource): String = fontResource.fontFamily + "FontStyles"
+    private fun FontResource.generateClassName(): String = fontFamily + "FontStyles"
 
     /**
      * Generates a unique property name using the [fullPackageName] and [fontFamily] for pointing to the [fontVariant].
@@ -100,14 +82,12 @@ internal class FontTemplatesWriter(
      * @param fontFamily            Font family.
      * @param referencePropertyName The name of a variable to point to the font resource.
      * @param fontVariant           All data about the [FontResource.Variant] to be inflated.
-     * @param fallbackFontFamilies  Font families to be used if the font resource is unavailable for some reason.
      */
     @Throws(IOException::class)
     private fun generateStyleProperty(
         fontFamily: String,
         referencePropertyName: String,
         fontVariant: FontResource.Variant,
-        fallbackFontFamilies: Array<out String>
     ): String {
 
         // Preparing configs to be inflated.
@@ -117,11 +97,11 @@ internal class FontTemplatesWriter(
             else    -> "FontWeight.normal"
         }
         val fontStyle               = when (fontVariant.variantName) { else -> "FontStyle.normal" }
-        val fontFamilyWithFallbacks = listOf(fontFamily, *fallbackFontFamilies).joinToString()
+        val fontFamilyWithFallbacks = listOf(fontFamily, *fontVariant.fallbackFontFamilies).joinToString()
 
         // Inflating with all configs.
         return simpleTemplatesInflater.inflate(
-            "/template_font_styles_style.txt",
+            "/templates/font_styles_style.txt",
             variableName,
             fontFamily,
             fontVariant.variantName,
@@ -140,7 +120,7 @@ internal class FontTemplatesWriter(
     @Throws(IOException::class)
     private fun generateReferenceProperty(propertyName: String, relativeFontPath: String): String =
         simpleTemplatesInflater.inflate(
-            "/template_font_styles_reference.txt",
+            "/templates/font_styles_reference.txt",
             relativeFontPath.toUniversalPathString(),
             propertyName
         )

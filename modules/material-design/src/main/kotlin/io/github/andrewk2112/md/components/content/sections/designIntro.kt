@@ -10,8 +10,8 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.MdMaterialDarkThemeImage
-import io.github.andrewk2112.resources.images.MdSoundGuidelinesImage
+import io.github.andrewk2112.resources.images.md.MaterialDarkThemeImage
+import io.github.andrewk2112.resources.images.md.SoundGuidelinesImage
 import io.github.andrewk2112.components.image
 import io.github.andrewk2112.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.designtokens.Context.ScreenSize.SMALL_TABLET
@@ -239,14 +239,14 @@ private class DesignIntroUiState private constructor(
                 "md.materialDarkTheme",
                 "md.learnHowToDesignADarkThemeVersionOfYourMaterialUI",
                 "md.foundation",
-                MdMaterialDarkThemeImage,
+                MaterialDarkThemeImage,
                 "md.materialDarkTheme"
             ),
             TopicPreviewUiState(
                 "md.materialGuidelines",
                 "md.useSoundToCommunicateInformationInWaysThatAugment",
                 "md.guidelines",
-                MdSoundGuidelinesImage,
+                SoundGuidelinesImage,
                 "md.soundGuidelines"
             )
         )

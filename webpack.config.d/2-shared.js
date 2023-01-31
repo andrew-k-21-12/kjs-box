@@ -12,7 +12,9 @@ config.output.publicPath = "/";
 
 // Processing images.
 config.module.rules.push(
-    // Inlining SVG images directly into HTML and minifying them.
+    // Inlining SVG images directly into HTML and minifying them:
+    // using the same icon in multiple places
+    // won't create any additional JS describing its contents at each particular call place.
     {
         test: /\.svg$/,
         use: ["@svgr/webpack"]

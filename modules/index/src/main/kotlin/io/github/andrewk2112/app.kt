@@ -72,6 +72,11 @@ private val routes = VFC {
 }
 
 private val exercisesOnDemandComponent: ExoticComponent<Props> = lazy {
+    // Such references (also, references to resources - fonts, icons, images)
+    // are included from the compilation root (from the root resources directory):
+    // their paths are totally unrelated to browser locations.
+    // Therefore, we should use simple relative paths instead of the absolute ones.
+    // It's a webpack requirement for requests that should resolve in the current directory to start with "./".
     import<Module<dynamic>>("./${Environment.projectName}-exercises")
         .then{ it.default }
 }

@@ -11,12 +11,12 @@ import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.components.common.horizontalDivider
 import io.github.andrewk2112.md.resources.endpoints.FooterEndpoints
 import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints
-import io.github.andrewk2112.md.resources.iconGoogleLogo
-import io.github.andrewk2112.md.resources.iconMaterialDesignLogoEmpty
 import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
+import io.github.andrewk2112.resources.icons.md.googleLogoIcon
+import io.github.andrewk2112.resources.icons.md.materialDesignLogoEmptyIcon
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -79,7 +79,7 @@ private inline fun ChildrenBuilder.upperBlock(crossinline children: ChildrenBuil
 private fun ChildrenBuilder.logoLink(context: Context) =
     +a(SelectionStyles.simpleActionHighlighting(context).name) {
         safeBlankHref = MainMaterialEndpoints.root
-        +iconMaterialDesignLogoEmpty.component(FooterStyles.logoIcon.name)
+        +materialDesignLogoEmptyIcon(FooterStyles.logoIcon.name)
     }
 
 private inline fun ChildrenBuilder.adaptiveMargins(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
@@ -95,7 +95,7 @@ private inline fun ChildrenBuilder.lowerBlock(context: Context, crossinline chil
 
 private fun ChildrenBuilder.googleLink(context: Context, destinationEndpoint: String) =
     +a(FooterStyles.googleLink(context).name) {
-        +iconGoogleLogo.component(FooterStyles.googleLogo(context).name)
+        +googleLogoIcon(FooterStyles.googleLogo(context).name)
         safeBlankHref = destinationEndpoint
     }
 

@@ -1,0 +1,11 @@
+package %1$s
+
+import js.import.Module
+import react.ElementType
+import react.PropsWithClassName
+
+val %2$s: ElementType<PropsWithClassName> by %2$sReference::default
+
+@JsModule("./%3$s")
+@JsNonModule
+private external val %2$sReference: Module<ElementType<PropsWithClassName>>

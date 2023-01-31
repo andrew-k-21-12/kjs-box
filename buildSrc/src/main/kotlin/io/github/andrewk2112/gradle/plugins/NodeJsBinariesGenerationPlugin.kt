@@ -1,4 +1,4 @@
-package io.github.andrewk2112.plugins
+package io.github.andrewk2112.gradle.plugins
 
 import io.github.andrewk2112.extensions.joinWithPath
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -12,7 +12,7 @@ import java.io.File
  * Generates all Node.js binaries required for production
  * (the ones not generated automatically for some reason).
  */
-class GenerateNodeJsBinariesPlugin : Plugin<Project> {
+class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
     // Action.
 

@@ -13,12 +13,12 @@ import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.components.header.HeaderProps
-import io.github.andrewk2112.md.resources.iconMagnify
-import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
-import io.github.andrewk2112.md.resources.iconMenu
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
+import io.github.andrewk2112.resources.icons.md.magnifyIcon
+import io.github.andrewk2112.resources.icons.md.materialDesignLogoIcon
+import io.github.andrewk2112.resources.icons.md.menuIcon
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.*
@@ -67,9 +67,9 @@ private fun ChildrenBuilder.logoBlock(
             HeaderStyles.menuButtonAppearance(context).name
         ) {
             onClick = onMenuButtonClick.asMouseEventHandler()
-            +iconMenu.component(HeaderStyles.menuButtonIcon.name)
+            +menuIcon(HeaderStyles.menuButtonIcon.name)
         }
-        +iconMaterialDesignLogo.component(HeaderStyles.logoIcon(hasCloseableMenu).name)
+        +materialDesignLogoIcon(HeaderStyles.logoIcon(hasCloseableMenu).name)
         +span(HeaderStyles.logoLabel(context).name) { +label.uppercase() }
     }
 
@@ -97,7 +97,7 @@ private fun ChildrenBuilder.navigationItem(context: Context, title: String, isSe
 
 private fun ChildrenBuilder.searchIcon(context: Context) =
     +div(HeaderStyles.searchIconWrapper(context).name) {
-        +iconMagnify.component(HeaderStyles.searchIcon(context).name)
+        +magnifyIcon(HeaderStyles.searchIcon(context).name)
     }
 
 

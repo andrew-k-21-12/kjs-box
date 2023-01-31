@@ -1,11 +1,9 @@
 import io.github.andrewk2112.extensions.rootTaskOfType
-import io.github.andrewk2112.tasks.wrappers.GenerateImageWrappersTask
+import io.github.andrewk2112.gradle.tasks.ImageInterfacesGenerationTask
 import io.github.andrewk2112.utility.kotlinWrapper
 
 val reactVersion:          String by project
 val kotlinWrappersVersion: String by project
-
-val generateImageWrappers = rootTaskOfType<GenerateImageWrappersTask>()
 
 plugins {
     kotlin("js")
@@ -13,10 +11,8 @@ plugins {
 
 kotlin {
     js(IR).browser()
-    // Using the required generated image wrappers in the module's sources.
-    sourceSets.main.get().kotlin.srcDir(
-        File(generateImageWrappers.outWrappers.asFile.get(), generateImageWrappers.outPathToBaseInterfaces.get())
-    )
+    // Using the required generated image interfaces in the module's sources.
+    sourceSets.main.get().kotlin.srcDir(rootTaskOfType<ImageInterfacesGenerationTask>())
 }
 
 dependencies {
@@ -44,6 +40,3 @@ dependencies {
     implementation(npm("i18next-http-backend", "2.1.1")) // to download translations on demand
 
 }
-
-// To enable optimizations, as the compilation depends on the wrapper task.
-tasks.named("compileKotlinJs").get().dependsOn(generateImageWrappers)

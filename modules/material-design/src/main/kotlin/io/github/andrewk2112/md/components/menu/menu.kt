@@ -12,11 +12,11 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.md.resources.endpoints.NavMenuMaterialEndpoints
-import io.github.andrewk2112.md.resources.iconMaterialDesignLogo
 import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
+import io.github.andrewk2112.resources.icons.md.materialDesignLogoIcon
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -63,7 +63,7 @@ private inline fun ChildrenBuilder.container(context: Context, crossinline child
  */
 private fun ChildrenBuilder.header(context: Context, title: String) =
     +div(MenuStyles.header(context).name) {
-        +iconMaterialDesignLogo.component(MenuStyles.headerIcon.name)
+        +materialDesignLogoIcon(MenuStyles.headerIcon.name)
         +span(MenuStyles.headerLabel(context).name) { +title.uppercase() }
     }
 

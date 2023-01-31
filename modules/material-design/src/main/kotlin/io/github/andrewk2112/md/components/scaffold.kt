@@ -43,10 +43,9 @@ import react.dom.html.ReactHTML.div
 //  4. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
-//  5. Simplify WindowWidthMonitor, icons.kt.
+//  5. Simplify WindowWidthMonitor.
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Introduce better modular structure (which should separate resources and style values as well),
-//     hide intermediate stuff via single files to emulate something like Java's package-private.
+//  7. Introduce better modular structure (which should separate resources and style values as well).
 //  8. Remove locale keys unmet in the source code when bundling,
 //     maybe the localization API should be changed slightly?
 //  9. Drop reducers?

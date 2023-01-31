@@ -1,27 +1,22 @@
-import io.github.andrewk2112.tasks.wrappers.GenerateFontWrappersTask
-import io.github.andrewk2112.tasks.wrappers.GenerateImageWrappersTask
+import io.github.andrewk2112.gradle.tasks.FontWrappersGenerationTask
+import io.github.andrewk2112.gradle.tasks.IconWrappersGenerationTask
+import io.github.andrewk2112.gradle.tasks.ImageWrappersGenerationTask
 import io.github.andrewk2112.extensions.rootTaskOfType
 
 plugins {
     kotlin("js")
 }
 
-val generateImageWrappers = rootTaskOfType<GenerateImageWrappersTask>()
-val generateFontWrappers  = rootTaskOfType<GenerateFontWrappersTask>()
-
 kotlin {
     js(IR).browser()
-    // Using the required generated image and font wrappers in the module's sources.
+    // Using the required generated font, icon and image wrappers in the module's sources.
     sourceSets.main.get().kotlin.srcDirs(
-        File(generateImageWrappers.outWrappers.asFile.get(), "md"),
-        File(generateFontWrappers.outWrappers.asFile.get(),  "md")
+        rootTaskOfType<FontWrappersGenerationTask>(),
+        rootTaskOfType<IconWrappersGenerationTask>(),
+        rootTaskOfType<ImageWrappersGenerationTask>()
     )
 }
 
 dependencies {
     implementation(project(":core"))
 }
-
-// To enable optimizations, as the compilation depends on the wrapper tasks.
-tasks.named("compileKotlinJs").get()
-     .dependsOn(generateImageWrappers, generateFontWrappers)

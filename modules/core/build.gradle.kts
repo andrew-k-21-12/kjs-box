@@ -1,6 +1,8 @@
-import io.github.andrewk2112.extensions.rootTaskOfType
+import io.github.andrewk2112.extensions.joinWithPath
+import io.github.andrewk2112.gradle.kotlinWrapper
+import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getGeneratedWrappersDirectory
+import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getResourcesWrappersBasePackageName
 import io.github.andrewk2112.gradle.tasks.ImageInterfacesGenerationTask
-import io.github.andrewk2112.utility.kotlinWrapper
 
 val reactVersion:          String by project
 val kotlinWrappersVersion: String by project
@@ -9,10 +11,16 @@ plugins {
     kotlin("js")
 }
 
+// How and where to generate image interfaces for image resource wrappers - a temporary solution to be dropped soon.
+val generateImageInterfaces by tasks.registering(ImageInterfacesGenerationTask::class) {
+    interfacesPackageName.set("${getResourcesWrappersBasePackageName()}.images")
+    interfacesOutDirectory.set(getGeneratedWrappersDirectory().joinWithPath("imageInterfaces"))
+}
+
 kotlin {
     js(IR).browser()
     // Using the required generated image interfaces in the module's sources.
-    sourceSets.main.get().kotlin.srcDir(rootTaskOfType<ImageInterfacesGenerationTask>())
+    sourceSets.main.get().kotlin.srcDir(generateImageInterfaces)
 }
 
 dependencies {

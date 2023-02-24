@@ -1,8 +1,8 @@
 package io.github.andrewk2112.components
 
 import io.github.andrewk2112.extensions.invoke
-import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.SimpleImage
+import io.github.andrewk2112.resourcewrappers.images.Image
+import io.github.andrewk2112.resourcewrappers.images.SimpleImage
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.Display

@@ -6,47 +6,43 @@ import java.nio.file.InvalidPathException
 import java.nio.file.Path
 
 /**
- * Computes and holds path values to process a resource.
+ * Prepares and holds path values to process a resource.
  *
- * @param resourceFile             The resource [File] itself.
- * @param rootResourcesDirectory   The [Path] to the root resources directory.
- * @param targetResourcesDirectory The [Path] to a subdirectory containing all target resources (resources of a type).
+ * @param resourceFile              The resource [File] itself.
+ * @param targetResourcesDirectory  A [Path] to a subdirectory containing all target resources (resources of a type).
+ * @param subPathToBundledResources A part of the relative path to all target resource files inside the prepared bundle.
  */
 internal class ResourcePaths(
     internal val resourceFile: File,
-    private val rootResourcesDirectory: Path,
     private val targetResourcesDirectory: Path,
+    private val subPathToBundledResources: String,
 ) {
 
     // API.
 
     /**
-     * Computes and stores a relative path to the [resourceFile]
-     * starting (excluding) from the [rootResourcesDirectory].
+     * Prepares and stores the final relative path to the [resourceFile]
+     * starting from the [subPathToBundledResources].
      */
-    @get:Throws(IllegalArgumentException::class, InvalidPathException::class, UnsupportedOperationException::class)
-    internal val relativeResourcePath: String by lazy {
-        rootResourcesDirectory.relativize(absoluteResourcePath).toString()
-    }
+    @get:Throws(IllegalArgumentException::class, InvalidPathException::class)
+    internal val relativeResourcePath: String by lazy { "$subPathToBundledResources/$originalRelativeResourcePath" }
 
     /**
-     * Computes and stores a relative sub-path to the [resourceFile]
+     * Prepares and holds a relative sub-path to the [resourceFile]
      * excluding the filename and the ending separator,
      * starting (excluding) from the [targetResourcesDirectory].
      */
-    @get:Throws(IllegalArgumentException::class, InvalidPathException::class, UnsupportedOperationException::class)
-    internal val subPathToResource: String by lazy {
-        FilenameUtils.getPathNoEndSeparator(
-            targetResourcesDirectory.relativize(absoluteResourcePath).toString()
-        )
-    }
+    @get:Throws(IllegalArgumentException::class, InvalidPathException::class)
+    internal val subPathToResource: String by lazy { FilenameUtils.getPathNoEndSeparator(originalRelativeResourcePath) }
 
 
 
     // Private.
 
-    /** Stores a reusable absolute [Path] to the [resourceFile]. */
-    @get:Throws(InvalidPathException::class)
-    private val absoluteResourcePath: Path by lazy { resourceFile.toPath() }
+    /** Stores a reusable relative path to the [resourceFile] without the [subPathToBundledResources]. */
+    @get:Throws(IllegalArgumentException::class, InvalidPathException::class)
+    private val originalRelativeResourcePath: String by lazy {
+        targetResourcesDirectory.relativize(resourceFile.toPath()).toString()
+    }
 
 }

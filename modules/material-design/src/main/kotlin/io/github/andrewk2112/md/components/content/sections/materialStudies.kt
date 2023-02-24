@@ -15,10 +15,10 @@ import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
-import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.md.CraneImage
-import io.github.andrewk2112.resources.images.md.ReplyImage
-import io.github.andrewk2112.resources.images.md.ShrineImage
+import io.github.andrewk2112.resourcewrappers.images.Image
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.CraneImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.ReplyImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.ShrineImage
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet

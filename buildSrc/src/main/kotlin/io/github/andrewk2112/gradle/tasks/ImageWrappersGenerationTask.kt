@@ -25,12 +25,13 @@ abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
     @Throws(Exception::class)
     private operator fun invoke() {
 
-        // Preparing reusable input and output data.
-        val inputsOutputs = getInputsOutputs()
-
         // Collecting all image resources to generate wrappers for, making sure there is something to be processed.
         val imageResources = InputResourcesWalker()
-            .walk(inputsOutputs.allResourcesDirectory, inputsOutputs.targetResourcesDirectory, ImageResourceVisitor())
+            .walk(
+                inputsOutputs.targetResourcesDirectory,
+                inputsOutputs.subPathToBundledResources,
+                ImageResourceVisitor()
+            )
             .also { if (it.isEmpty()) return }
 
         // Reusable.

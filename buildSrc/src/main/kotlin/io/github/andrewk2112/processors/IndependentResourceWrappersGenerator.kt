@@ -23,11 +23,12 @@ internal class IndependentResourceWrappersGenerator<T : HavingRelativePath>(
     /**
      * Invokes the wrappers' generation.
      *
-     * @param allResourcesDirectory    The directory with all resources - needed to construct paths to wrapped resources.
-     * @param targetResourcesDirectory The directory with all resources of the target type [T]
-     *                                 (to prepare relative packages).
-     * @param wrappersOutDirectory     Where to write generated wrappers.
-     * @param wrappersBasePackageName  A base package name for all generated wrappers.
+     * @param targetResourcesDirectory  The directory with all resources of the target type [T]
+     *                                  (to prepare relative packages).
+     * @param subPathToBundledResources A part of the relative path
+     *                                  where the target resources are going to be stored inside the prepared bundle.
+     * @param wrappersOutDirectory      Where to write generated wrappers.
+     * @param wrappersBasePackageName   A base package name for all generated wrappers.
      */
     @Throws(
         PathsPreparationException::class,
@@ -36,14 +37,14 @@ internal class IndependentResourceWrappersGenerator<T : HavingRelativePath>(
         WrapperWritingException::class
     )
     internal operator fun invoke(
-        allResourcesDirectory: File,
         targetResourcesDirectory: File,
+        subPathToBundledResources: String,
         wrappersOutDirectory: File,
         wrappersBasePackageName: String
     ) {
 
         // Collecting the metadata about all required resources and checking whether there is something to be processed.
-        val resources = inputResourcesWalker.walk(allResourcesDirectory, targetResourcesDirectory, resourcesVisitor)
+        val resources = inputResourcesWalker.walk(targetResourcesDirectory, subPathToBundledResources, resourcesVisitor)
                                             .also { if (it.isEmpty()) return }
 
         // Writing wrappers for all visited resources.

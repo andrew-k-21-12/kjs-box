@@ -1,7 +1,7 @@
 package io.github.andrewk2112.md.styles
 
-import io.github.andrewk2112.resources.fonts.md.RobotoFontStyles
-import io.github.andrewk2112.resources.fonts.md.RobotoMonoFontStyles
+import io.github.andrewk2112.resourcewrappers.fonts.materialdesign.RobotoFontStyles
+import io.github.andrewk2112.resourcewrappers.fonts.materialdesign.RobotoMonoFontStyles
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.FontWeight

@@ -8,11 +8,11 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.components.common.images.strokedImage
 import io.github.andrewk2112.md.styles.*
-import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.md.CustomColorPalettesGenerationImage
-import io.github.andrewk2112.resources.images.md.ShapePowerImage
-import io.github.andrewk2112.resources.images.md.SystemIconsImage
-import io.github.andrewk2112.resources.images.md.TypeSystemImage
+import io.github.andrewk2112.resourcewrappers.images.Image
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.CustomColorPalettesGenerationImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.ShapePowerImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.SystemIconsImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.TypeSystemImage
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet

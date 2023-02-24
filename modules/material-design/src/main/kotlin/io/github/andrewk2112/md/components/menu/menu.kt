@@ -16,7 +16,7 @@ import io.github.andrewk2112.md.styles.*
 import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
-import io.github.andrewk2112.resources.icons.md.materialDesignLogoIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration

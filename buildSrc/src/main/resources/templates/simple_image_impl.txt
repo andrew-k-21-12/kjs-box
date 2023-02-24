@@ -7,15 +7,15 @@ object %3$s : SimpleImage {
     override val width  = %4$d
     override val height = %5$d
 
-    override val webp: String = webpQueryFor%3$s.unsafeCast<String>()
-    override val png:  String = pngQueryFor%3$s.unsafeCast<String>()
+    override val webp: String = %6$sWebpReference.unsafeCast<String>()
+    override val png:  String = %6$sPngReference.unsafeCast<String>()
 
 }
 
-@JsModule("./%6$s?as=webp")
+@JsModule("./%7$s?as=webp")
 @JsNonModule
-private external val webpQueryFor%3$s: dynamic
+private external val %6$sWebpReference: dynamic
 
-@JsModule("./%6$s")
+@JsModule("./%7$s")
 @JsNonModule
-private external val pngQueryFor%3$s: dynamic
+private external val %6$sPngReference: dynamic

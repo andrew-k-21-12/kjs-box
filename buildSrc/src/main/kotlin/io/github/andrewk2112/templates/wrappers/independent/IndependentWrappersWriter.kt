@@ -3,7 +3,7 @@ package io.github.andrewk2112.templates.wrappers.independent
 import io.github.andrewk2112.extensions.dotsToSlashes
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.extensions.joinWithPath
-import io.github.andrewk2112.extensions.slashesToDots
+import io.github.andrewk2112.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.models.HavingRelativePath
 import io.github.andrewk2112.templates.wrappers.WrapperWritingException
 import java.io.File
@@ -33,7 +33,7 @@ internal abstract class IndependentWrappersWriter<T : HavingRelativePath> {
             )
 
             // Preparing the target package name for the wrapper.
-            val wrapperPackageName = basePackageName + "." + resource.relativePath.slashesToDots()
+            val wrapperPackageName = basePackageName + resource.relativePath.modifyIfNotEmpty { ".$it" }
 
             performWrapperWriting(wrapperOutDirectory, wrapperPackageName, resource)
 

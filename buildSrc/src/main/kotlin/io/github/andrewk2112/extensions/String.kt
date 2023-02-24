@@ -11,9 +11,10 @@ import java.io.IOException
 internal fun String.dotsToSlashes(): String = replace(".", "/")
 
 /**
- * Replaces all slashes in the [String] with dots.
+ * Applies a [modification] to the source [String] if it is not empty, returns the original empty [String] otherwise.
  */
-internal fun String.slashesToDots(): String = replace("/", ".")
+internal inline fun String.modifyIfNotEmpty(modification: (String) -> String): String =
+    if (isNotEmpty()) modification(this) else this
 
 /**
  * Replaces the default system [File.separatorChar]s when running on [Os.FAMILY_WINDOWS]

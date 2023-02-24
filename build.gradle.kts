@@ -1,6 +1,5 @@
 import io.github.andrewk2112.extensions.joinWithPath
 import io.github.andrewk2112.gradle.plugins.NodeJsBinariesGenerationPlugin
-import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin
 
 group   = "io.github.andrew-k-21-12"
 version = "1.0.0-SNAPSHOT"
@@ -8,8 +7,7 @@ version = "1.0.0-SNAPSHOT"
 plugins {
     kotlin("js")
 }
-apply<NodeJsBinariesGenerationPlugin>()   // generating Node.js binaries required for production
-apply<ResourceWrappersGenerationPlugin>() // generating wrappers for resources
+apply<NodeJsBinariesGenerationPlugin>() // generating Node.js binaries required for production
 
 allprojects {
     apply("${rootProject.rootDir}/versions.gradle.kts") // making versions constants available for all modules
@@ -27,7 +25,7 @@ kotlin {
 
 dependencies {
 
-    // Requesting the compilation of all end modules.
+    // Requesting the compilation of on-demand modules.
     implementation(project(":index"))
     implementation(project(":exercises"))
     implementation(project(":material-design"))

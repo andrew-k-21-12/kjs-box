@@ -15,8 +15,8 @@ import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
-import io.github.andrewk2112.resources.icons.md.googleLogoIcon
-import io.github.andrewk2112.resources.icons.md.materialDesignLogoEmptyIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.googleLogoIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoEmptyIcon
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet

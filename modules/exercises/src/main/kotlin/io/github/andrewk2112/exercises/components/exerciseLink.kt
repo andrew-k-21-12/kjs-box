@@ -6,7 +6,7 @@ import io.github.andrewk2112.designtokens.Theme
 import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.resources.fonts.exercises.ComfortaaFontStyles
+import io.github.andrewk2112.resourcewrappers.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.*

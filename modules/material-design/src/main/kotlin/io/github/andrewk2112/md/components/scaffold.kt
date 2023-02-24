@@ -45,7 +45,8 @@ import react.dom.html.ReactHTML.div
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Simplify WindowWidthMonitor.
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Introduce better modular structure (which should separate resources and style values as well).
+//  7. Introduce better modular structure (which should separate resources and style values as well);
+//     one Gradle plugin should configure all resource wrappers generators and set the dependency on the core module.
 //  8. Remove locale keys unmet in the source code when bundling,
 //     maybe the localization API should be changed slightly?
 //  9. Drop reducers?

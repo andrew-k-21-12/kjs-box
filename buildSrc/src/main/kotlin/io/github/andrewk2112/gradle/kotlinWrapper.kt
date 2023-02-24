@@ -1,4 +1,4 @@
-package io.github.andrewk2112.utility
+package io.github.andrewk2112.gradle
 
 /**
  * Provides a Kotlin wrapper dependency name for the required [targetLibrary].

@@ -7,7 +7,7 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.resources.fonts.exercises.SourceSansProFontStyles
+import io.github.andrewk2112.resourcewrappers.fonts.exercises.SourceSansProFontStyles
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import kotlinx.css.*
 import react.*

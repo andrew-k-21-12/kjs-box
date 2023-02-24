@@ -16,9 +16,9 @@ import io.github.andrewk2112.md.components.header.HeaderProps
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.ImageStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
-import io.github.andrewk2112.resources.icons.md.magnifyIcon
-import io.github.andrewk2112.resources.icons.md.materialDesignLogoIcon
-import io.github.andrewk2112.resources.icons.md.menuIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.magnifyIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.menuIcon
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.*

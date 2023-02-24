@@ -2,6 +2,7 @@ package io.github.andrewk2112.templates.wrappers
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.joinCapitalized
+import io.github.andrewk2112.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.extensions.writeTo
 import io.github.andrewk2112.models.ImageResource
@@ -76,7 +77,7 @@ internal class ImageWrappersWriter(
                 }
 
             // Preparing the target package name for the image wrapper.
-            val wrapperPackageName = basePackageName + "." + imageResource.relativePath.slashesToDots()
+            val wrapperPackageName = basePackageName + imageResource.relativePath.modifyIfNotEmpty { ".$it" }
 
             // Preparing the name of the image wrapper.
             val objectName = generateSimpleImageObjectName(imageResource.name)
@@ -90,6 +91,7 @@ internal class ImageWrappersWriter(
                     objectName,
                     imageResource.imageSize.width,
                     imageResource.imageSize.height,
+                    objectName.decapitalize(),
                     imageResource.relativeImagePath.toUniversalPathString()
                 )
                 .writeTo(File(wrapperOutDirectory, "$objectName.kt"))

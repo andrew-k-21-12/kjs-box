@@ -1,14 +1,12 @@
-import io.github.andrewk2112.extensions.rootTaskOfType
-import io.github.andrewk2112.gradle.tasks.FontWrappersGenerationTask
+import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin
 
 plugins {
     kotlin("js")
 }
+apply<ResourceWrappersGenerationPlugin>()
 
 kotlin {
     js(IR).browser()
-    // Using the required generated font wrappers in the module's sources.
-    sourceSets.main.get().kotlin.srcDir(rootTaskOfType<FontWrappersGenerationTask>())
 }
 
 dependencies {

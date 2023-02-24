@@ -8,7 +8,7 @@ import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.md.styles.FontStyles
-import io.github.andrewk2112.resources.icons.md.arrowRightThinIcon
+import io.github.andrewk2112.resourcewrappers.icons.materialdesign.arrowRightThinIcon
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration

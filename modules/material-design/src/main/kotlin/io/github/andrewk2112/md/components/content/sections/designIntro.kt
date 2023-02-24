@@ -9,9 +9,9 @@ import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
-import io.github.andrewk2112.resources.images.Image
-import io.github.andrewk2112.resources.images.md.MaterialDarkThemeImage
-import io.github.andrewk2112.resources.images.md.SoundGuidelinesImage
+import io.github.andrewk2112.resourcewrappers.images.Image
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.MaterialDarkThemeImage
+import io.github.andrewk2112.resourcewrappers.images.materialdesign.SoundGuidelinesImage
 import io.github.andrewk2112.components.image
 import io.github.andrewk2112.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.designtokens.Context.ScreenSize.SMALL_TABLET

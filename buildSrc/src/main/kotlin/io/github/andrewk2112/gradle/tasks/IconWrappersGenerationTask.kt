@@ -12,15 +12,16 @@ abstract class IconWrappersGenerationTask : WrappersGenerationTask() {
 
     @TaskAction
     @Throws(Exception::class)
-    private operator fun invoke() {
-        getInputsOutputs().apply {
-            IndependentResourceWrappersGenerator(
-                IconResourceVisitor(),
-                IconIndependentWrappersWriter()
-            ).invoke(
-                allResourcesDirectory, targetResourcesDirectory, wrappersOutDirectory, wrappersBasePackageName
-            )
-        }
+    private operator fun invoke() = inputsOutputs.run {
+        IndependentResourceWrappersGenerator(
+            IconResourceVisitor(),
+            IconIndependentWrappersWriter()
+        ).invoke(
+            targetResourcesDirectory,
+            subPathToBundledResources,
+            wrappersOutDirectory,
+            wrappersBasePackageName
+        )
     }
 
 }

@@ -1,10 +1,10 @@
 package io.github.andrewk2112.templates.wrappers.independent
 
 import io.github.andrewk2112.extensions.*
-import io.github.andrewk2112.extensions.joinCapitalized
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.models.FontResource
 import io.github.andrewk2112.templates.SimpleTemplatesInflater
+import org.gradle.configurationcache.extensions.capitalized
 import java.io.File
 import java.io.IOException
 import kotlin.text.StringBuilder
@@ -28,11 +28,7 @@ internal class FontIndependentWrappersWriter(
         val stylePropertiesBuilder     = StringBuilder()
         val referencePropertiesBuilder = StringBuilder()
         for (fontVariant in resource.variants) {
-            val referencePropertyName = generateReferencePropertyName(
-                wrapperPackageName,
-                resource.fontFamily,
-                fontVariant
-            )
+            val referencePropertyName = generateReferencePropertyName(resource.fontFamily, fontVariant)
             stylePropertiesBuilder.append(
                 generateStyleProperty(resource.fontFamily, referencePropertyName, fontVariant)
             )
@@ -64,17 +60,10 @@ internal class FontIndependentWrappersWriter(
     private fun FontResource.generateClassName(): String = fontFamily + "FontStyles"
 
     /**
-     * Generates a unique property name using the [fullPackageName] and [fontFamily] for pointing to the [fontVariant].
+     * Generates a reference property name using the [fontFamily] for pointing to the [fontVariant].
      */
-    private fun generateReferencePropertyName(
-        fullPackageName: String,
-        fontFamily: String,
-        fontVariant: FontResource.Variant
-    ): String = fontVariant.format +
-                "QueryFor" +
-                fullPackageName.split(".").joinCapitalized() +
-                fontFamily +
-                fontVariant.variantName
+    private fun generateReferencePropertyName(fontFamily: String, fontVariant: FontResource.Variant): String =
+        fontFamily.decapitalize() + fontVariant.variantName + fontVariant.format.capitalized() + "FontReference"
 
     /**
      * Inflates a font style property from its template, filling it with all required data.

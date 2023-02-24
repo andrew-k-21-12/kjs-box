@@ -12,15 +12,16 @@ abstract class FontWrappersGenerationTask : WrappersGenerationTask() {
 
     @TaskAction
     @Throws(Exception::class)
-    private operator fun invoke() {
-        getInputsOutputs().apply {
-            IndependentResourceWrappersGenerator(
-                FontResourceVisitor(),
-                FontIndependentWrappersWriter()
-            ).invoke(
-                allResourcesDirectory, targetResourcesDirectory, wrappersOutDirectory, wrappersBasePackageName
-            )
-        }
+    private operator fun invoke() = inputsOutputs.run {
+        IndependentResourceWrappersGenerator(
+            FontResourceVisitor(),
+            FontIndependentWrappersWriter()
+        ).invoke(
+            targetResourcesDirectory,
+            subPathToBundledResources,
+            wrappersOutDirectory,
+            wrappersBasePackageName
+        )
     }
 
 }

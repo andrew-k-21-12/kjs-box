@@ -1,10 +1,10 @@
 package io.github.andrewk2112
 
-import browser.document
 import kotlinx.css.*
 import react.*
 import react.dom.client.createRoot
 import styled.injectGlobal
+import web.dom.document
 
 /** The app's entry point. */
 @EagerInitialization

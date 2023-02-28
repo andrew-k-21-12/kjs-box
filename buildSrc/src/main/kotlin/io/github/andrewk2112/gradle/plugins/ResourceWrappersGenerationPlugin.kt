@@ -20,7 +20,17 @@ import io.github.andrewk2112.utility.LazyReadOnlyProperty
  */
 class ResourceWrappersGenerationPlugin : Plugin<Project> {
 
-    // Utility, going to be encapsulated soon.
+    // Utility.
+
+    /**
+     * All reusable values required to register each task.
+     */
+    private class Context(
+        val allResourcesDirectory: File,
+        val basePackageName: String,
+        val moduleNameSubPackage: String,
+        val generatedResourcesDirectory: File,
+    )
 
     companion object {
 
@@ -49,34 +59,30 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
     // Public - the plugin's action.
 
     @Throws(Exception::class)
-    override fun apply(target: Project) {
+    override fun apply(target: Project): Unit = target.run {
 
         // Preparing reusable dependencies.
-        val mainSourceSet               = target.getMainKotlinSourceSet()
-        val mainResourcesDirectory      = mainSourceSet.resources.srcDirs.first()
-        val basePackageName             = target.getResourcesWrappersBasePackageName()
-        val moduleNameSubPackage        = target.name.replace("-", "")
-        val generatedResourcesDirectory = target.getGeneratedResourcesDirectory()
+        val mainSourceSet = getMainKotlinSourceSet()
+        val context = Context(
+            allResourcesDirectory       = mainSourceSet.resources.srcDirs.first(),
+            basePackageName             = getResourcesWrappersBasePackageName(),
+            moduleNameSubPackage        = name.replace("-", ""),
+            generatedResourcesDirectory = getGeneratedResourcesDirectory()
+        )
 
         // Registering all wrappers-generation tasks.
-        val generateFontWrappers by target.registerWrappersGenerationTask<FontWrappersGenerationTask>(
-            mainResourcesDirectory, basePackageName, "fonts", moduleNameSubPackage, generatedResourcesDirectory
-        )
-        val generateIconWrappers by target.registerWrappersGenerationTask<IconWrappersGenerationTask>(
-            mainResourcesDirectory, basePackageName, "icons", moduleNameSubPackage, generatedResourcesDirectory
-        )
-        val generateImageWrappers by target.registerWrappersGenerationTask<ImageWrappersGenerationTask>(
-            mainResourcesDirectory, basePackageName, "images", moduleNameSubPackage, generatedResourcesDirectory
-        )
-        generateImageWrappers.interfacesPackageName.set("$basePackageName.images")
+        val generateFontWrappers  by registerWrappersGenerationTask<FontWrappersGenerationTask>(context,  "fonts")
+        val generateIconWrappers  by registerWrappersGenerationTask<IconWrappersGenerationTask>(context,  "icons")
+        val generateImageWrappers by registerWrappersGenerationTask<ImageWrappersGenerationTask>(context, "images")
+        generateImageWrappers.interfacesPackageName.set("${context.basePackageName}.images")
         val sourceGenerationTasks = arrayOf(generateFontWrappers, generateIconWrappers, generateImageWrappers)
 
         // Adding the generated wrappers to the source set of the project.
         mainSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
 
         // Adding the configured resources directory to the source set of the root project.
-        target.rootProject.run {
-            getMainKotlinSourceSet().resources.srcDir(generatedResourcesDirectory)
+        rootProject.run {
+            getMainKotlinSourceSet().resources.srcDir(context.generatedResourcesDirectory)
             tasks.named("processResources") {
                 dependsOn(sourceGenerationTasks)
             }
@@ -107,18 +113,15 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
      */
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
     private inline fun <reified T : WrappersGenerationTask> Project.registerWrappersGenerationTask(
-        allResourcesDirectory: File,
-        basePackageName: String,
+        context: Context,
         resourcesTypeName: String,
-        moduleNameSubPackage: String,
-        generatedResourcesDirectory: File
     ) = LazyReadOnlyProperty<Any?, T> {
         tasks.register(it.name, T::class.java) {
-            targetResourcesDirectory.set(allResourcesDirectory.joinWithPath(resourcesTypeName))
-            wrappersBasePackageName.set("$basePackageName.$resourcesTypeName.$moduleNameSubPackage")
-            subPathToBundledResources.set("$resourcesTypeName/$moduleNameSubPackage")
+            targetResourcesDirectory.set(context.allResourcesDirectory.joinWithPath(resourcesTypeName))
+            wrappersBasePackageName.set("${context.basePackageName}.$resourcesTypeName.${context.moduleNameSubPackage}")
+            subPathToBundledResources.set("$resourcesTypeName/${context.moduleNameSubPackage}")
             wrappersOutDirectory.set(getGeneratedWrappersDirectory().joinWithPath(resourcesTypeName))
-            resourcesOutDirectory.set(generatedResourcesDirectory)
+            resourcesOutDirectory.set(context.generatedResourcesDirectory)
         }.get()
     }
 

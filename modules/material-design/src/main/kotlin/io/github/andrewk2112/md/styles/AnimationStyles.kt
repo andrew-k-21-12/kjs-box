@@ -1,6 +1,5 @@
 package io.github.andrewk2112.md.styles
 
-import dom.Element
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.StyleValues
 import io.github.andrewk2112.designtokens.Theme
@@ -17,6 +16,7 @@ import react.dom.DOMAttributes
 import react.dom.events.MouseEventHandler
 import react.dom.events.TouchEventHandler
 import styled.animation
+import web.dom.Element
 import kotlin.math.max
 
 /**

@@ -8,10 +8,10 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.ChildrenBuilder
-import react.dom.html.ImgLoading
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.picture
 import react.dom.html.ReactHTML.source
+import web.html.Loading
 
 
 
@@ -38,7 +38,7 @@ fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNam
 
             // Describes the fallback variant and configs common for all variants.
             +img(ImageStyles.simpleImage.name, *classNames) {
-                loading = ImgLoading.lazy
+                loading = Loading.lazy
                 width  = image.width.toDouble()
                 height = image.height.toDouble()
                 src = image.png

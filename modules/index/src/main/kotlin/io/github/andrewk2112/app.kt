@@ -11,9 +11,7 @@ import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*
 import react.redux.Provider
-import react.router.Navigate
-import react.router.Route
-import react.router.Routes
+import react.router.*
 import react.router.dom.BrowserRouter
 
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
@@ -53,18 +51,21 @@ private val routes = VFC {
     // or we need to qualify a full absolute (starting with a slash) path for this nested route.
     // More details here: https://reactrouter.com/docs/en/v6/upgrading/v5#note-on-link-to-values.
     Routes {
-        Route {
+        PathRoute {
             path = "/"
             element = exercisesOnDemandComponent.create()
         }
-        Route {
+        PathRoute {
             path = MaterialDesignRoute.path
             element = materialDesignOnDemandComponent.create()
         }
-        Route {
+        PathRoute {
             path = "*"
             element = VFC {
-                Navigate { to = "/" }
+                val navigate = useNavigate()
+                useEffect {
+                    navigate("/")
+                }
             }.create()
         }
     }

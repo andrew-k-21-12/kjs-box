@@ -1,10 +1,10 @@
 package io.github.andrewk2112.hooks
 
-import dom.Element
-import dom.observers.ResizeObserver
 import react.RefObject
 import react.useEffectOnce
 import react.useState
+import web.dom.Element
+import web.dom.observers.ResizeObserver
 
 /**
  * Monitors for and notifies about the height updates of the provided [ref] via the [onHeightChanged] callback.

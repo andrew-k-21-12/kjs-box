@@ -2,7 +2,7 @@ package io.github.andrewk2112.utility
 
 import kotlinx.browser.window
 import react.dom.html.AnchorHTMLAttributes
-import react.dom.html.AnchorTarget
+import web.window.WindowTarget
 
 /**
  * Opens the requested [url] safely in a new blank window.
@@ -28,6 +28,6 @@ var AnchorHTMLAttributes<*>.safeBlankHref: String?
     get() = href
     set(value) {
         href   = value
-        target = AnchorTarget._blank
+        target = WindowTarget._blank
         rel    = "noopener noreferrer"
     }

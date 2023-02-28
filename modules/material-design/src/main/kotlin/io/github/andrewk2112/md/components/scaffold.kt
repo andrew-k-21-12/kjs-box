@@ -1,6 +1,5 @@
 package io.github.andrewk2112.md.components
 
-import dom.Element
 import io.github.andrewk2112.designtokens.Context
 import io.github.andrewk2112.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.designtokens.StyleValues
@@ -33,6 +32,7 @@ import react.dom.events.MouseEventHandler
 import react.dom.events.UIEventHandler
 import react.dom.html.ReactHTML.aside
 import react.dom.html.ReactHTML.div
+import web.dom.Element
 
 // TODO - optimizations and modularization:
 //  1. Suggest styles (classes) wrapping to avoid the direct usage of kotlin-styled-next (another proposal and PR).
@@ -53,7 +53,8 @@ import react.dom.html.ReactHTML.div
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
-//     as it will require to rebuild and reload everything each time a resource changes.
+//     as it will require to rebuild and reload everything each time a resource changes
+//     (think more about it as hashes for resources can be helpful when deploying to avoid their unavailability on upd.).
 //  2. Write some custom server with all required configs (caches, routing) and place it here.
 //  3. Write about the project's features in the central README.md.
 //  4. Change the package name when the project gets its final name.

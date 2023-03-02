@@ -1,8 +1,8 @@
 package io.github.andrewk2112.templates.wrappers.independent
 
+import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.dotsToSlashes
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
-import io.github.andrewk2112.extensions.joinWithPath
 import io.github.andrewk2112.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.models.HavingRelativePath
 import io.github.andrewk2112.templates.wrappers.WrapperWritingException
@@ -33,7 +33,8 @@ internal abstract class IndependentWrappersWriter<T : HavingRelativePath> {
             )
 
             // Preparing the target package name for the wrapper.
-            val wrapperPackageName = basePackageName + resource.relativePath.modifyIfNotEmpty { ".$it" }
+            val wrapperPackageName = basePackageName +
+                                     resource.relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
 
             performWrapperWriting(wrapperOutDirectory, wrapperPackageName, resource)
 

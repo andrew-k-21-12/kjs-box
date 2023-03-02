@@ -8,6 +8,7 @@ import io.github.andrewk2112.extensions.invoke
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
+import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.hooks.usePrevious
 import io.github.andrewk2112.hooks.useRefHeightMonitor
 import io.github.andrewk2112.md.components.content.*
@@ -18,6 +19,7 @@ import io.github.andrewk2112.md.styles.AnimationStyles
 import io.github.andrewk2112.md.styles.FontStyles
 import io.github.andrewk2112.md.styles.ShadowStyles
 import io.github.andrewk2112.md.styles.TransitionStyles
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.HasCssSuffix
 import kotlinx.css.*
@@ -69,6 +71,7 @@ import web.dom.Element
 
 val scaffold = VFC {
 
+    useLocalizator(namespace) // lazily loading all translations of the module
     val context = useGlobalInitializations()
 
     // Sometimes it's barely possible to create single source of truth UI states,

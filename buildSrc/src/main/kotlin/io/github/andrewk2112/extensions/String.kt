@@ -24,6 +24,11 @@ internal fun String.toUniversalPathString(): String =
     if (Os.isFamily(Os.FAMILY_WINDOWS)) replace(File.separatorChar, '/') else this
 
 /**
+ * Cleans up and updates the source [String] to make it possible to be used as a valid Java/Kotlin package.
+ */
+internal fun String.toValidPackage(): String = replace("-", "").replace("/", ".")
+
+/**
  * Writes a [String] into the [file] - just a syntax sugar for [writeText].
  */
 @Throws(FileNotFoundException::class, SecurityException::class, IOException::class)

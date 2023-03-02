@@ -8,6 +8,9 @@ import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.md.components.header.sections.header
 import io.github.andrewk2112.md.components.header.sections.notificationMessage
 import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.learnAboutMaterial3sNewFeaturesKey
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.startExploringMaterial3Key
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.theLatestVersionOfMaterialDesignIsNowAvailableForAndroidKey
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import kotlinx.css.Display
@@ -27,9 +30,9 @@ val headerScaffold = FC<HeaderProps> { props ->
     notificationVisibility(context) {
         notificationMessage(
             context,
-            localizator("md.theLatestVersionOfMaterialDesignIsNowAvailableForAndroid"),
-            localizator("md.learnAboutMaterial3sNewFeatures"),
-            localizator("md.startExploringMaterial3"),
+            localizator(theLatestVersionOfMaterialDesignIsNowAvailableForAndroidKey),
+            localizator(learnAboutMaterial3sNewFeaturesKey),
+            localizator(startExploringMaterial3Key),
             MainMaterialEndpoints.design
         )
     }

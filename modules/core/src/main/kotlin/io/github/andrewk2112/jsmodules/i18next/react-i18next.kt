@@ -8,6 +8,8 @@ internal external interface ReactI18next {
     val initReactI18next: dynamic // we just need this single field from the module's exports
                                   // and we don't care about its type a lot
     fun useTranslation(): Translation
+    fun useTranslation(namespace: String): Translation
+    fun useTranslation(vararg namespaces: String): Translation
 }
 
 internal external interface Translation {

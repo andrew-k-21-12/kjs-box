@@ -1,10 +1,8 @@
 package io.github.andrewk2112.gradle.plugins
 
 import io.github.andrewk2112.extensions.joinWithPath
-import io.github.andrewk2112.gradle.tasks.FontWrappersGenerationTask
-import io.github.andrewk2112.gradle.tasks.IconWrappersGenerationTask
-import io.github.andrewk2112.gradle.tasks.ImageWrappersGenerationTask
-import io.github.andrewk2112.gradle.tasks.WrappersGenerationTask
+import io.github.andrewk2112.extensions.toValidPackage
+import io.github.andrewk2112.gradle.tasks.*
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -28,7 +26,6 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
     private class Context(
         val allResourcesDirectory: File,
         val basePackageName: String,
-        val moduleNameSubPackage: String,
         val generatedResourcesDirectory: File,
     )
 
@@ -50,7 +47,7 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         /**
          * Retrieves the root [Project]'s package name derived from its [Project.getGroup] value.
          */
-        private fun Project.getBasePackageName(): String = rootProject.group.toString().replace("-", "")
+        private fun Project.getBasePackageName(): String = rootProject.group.toString().toValidPackage()
 
     }
 
@@ -66,7 +63,6 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         val context = Context(
             allResourcesDirectory       = mainSourceSet.resources.srcDirs.first(),
             basePackageName             = getResourcesWrappersBasePackageName(),
-            moduleNameSubPackage        = name.replace("-", ""),
             generatedResourcesDirectory = getGeneratedResourcesDirectory()
         )
 
@@ -75,7 +71,12 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         val generateIconWrappers  by registerWrappersGenerationTask<IconWrappersGenerationTask>(context,  "icons")
         val generateImageWrappers by registerWrappersGenerationTask<ImageWrappersGenerationTask>(context, "images")
         generateImageWrappers.interfacesPackageName.set("${context.basePackageName}.images")
-        val sourceGenerationTasks = arrayOf(generateFontWrappers, generateIconWrappers, generateImageWrappers)
+        val generateLocalizationKeys by registerWrappersGenerationTask<LocalizationKeysGenerationTask>(
+            context, "locales"
+        )
+        val sourceGenerationTasks = arrayOf(
+            generateFontWrappers, generateIconWrappers, generateImageWrappers, generateLocalizationKeys
+        )
 
         // Adding the generated wrappers to the source set of the project.
         mainSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
@@ -83,9 +84,8 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         // Adding the configured resources directory to the source set of the root project.
         rootProject.run {
             getMainKotlinSourceSet().resources.srcDir(context.generatedResourcesDirectory)
-            tasks.named("processResources") {
-                dependsOn(sourceGenerationTasks)
-            }
+            tasks.named("processResources").get()
+                 .dependsOn(sourceGenerationTasks)
         }
 
     }
@@ -117,10 +117,11 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         resourcesTypeName: String,
     ) = LazyReadOnlyProperty<Any?, T> {
         tasks.register(it.name, T::class.java) {
-            targetResourcesDirectory.set(context.allResourcesDirectory.joinWithPath(resourcesTypeName))
-            wrappersBasePackageName.set("${context.basePackageName}.$resourcesTypeName.${context.moduleNameSubPackage}")
-            subPathToBundledResources.set("$resourcesTypeName/${context.moduleNameSubPackage}")
-            wrappersOutDirectory.set(getGeneratedWrappersDirectory().joinWithPath(resourcesTypeName))
+            allResourcesDirectory  = context.allResourcesDirectory
+            basePackageName        = context.basePackageName
+            this.resourcesTypeName = resourcesTypeName
+            moduleName             = this@registerWrappersGenerationTask.name
+            generatedWrappersDir   = getGeneratedWrappersDirectory()
             resourcesOutDirectory.set(context.generatedResourcesDirectory)
         }.get()
     }

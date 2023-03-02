@@ -1,0 +1,1 @@
+inline val %1$s get() = "%2$s"

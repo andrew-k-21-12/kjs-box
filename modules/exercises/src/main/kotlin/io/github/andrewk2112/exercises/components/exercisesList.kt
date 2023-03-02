@@ -8,6 +8,9 @@ import io.github.andrewk2112.stylesheets.NamedRuleSet
 import io.github.andrewk2112.hooks.useAppContext
 import io.github.andrewk2112.hooks.useLocalizator
 import io.github.andrewk2112.resourcewrappers.fonts.exercises.SourceSansProFontStyles
+import io.github.andrewk2112.resourcewrappers.locales.exercises.materialDesignKey
+import io.github.andrewk2112.resourcewrappers.locales.exercises.namespace
+import io.github.andrewk2112.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import kotlinx.css.*
 import react.*
@@ -20,14 +23,14 @@ import react.dom.html.ReactHTML.ul
 val exercisesList = VFC {
 
     val context     = useAppContext()
-    val localizator = useLocalizator()
+    val localizator = useLocalizator(namespace)
 
     +div(ExercisesListStyles.container.name) {
 
         // The list of available exercises.
         ul {
-            linkItem(context, localizator("exercises.materialDesign"), MaterialDesignRoute.path)
-            contentsItem { +localizator("exercises.toBeContinued") }
+            linkItem(context, localizator(materialDesignKey), MaterialDesignRoute.path)
+            contentsItem { +localizator(toBeContinuedKey) }
         }
 
     }

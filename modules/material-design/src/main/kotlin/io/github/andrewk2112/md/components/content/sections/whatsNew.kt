@@ -11,6 +11,7 @@ import io.github.andrewk2112.md.components.common.buttons.rectButton
 import io.github.andrewk2112.md.resources.endpoints.WhatsNewMaterialEndpoints
 import io.github.andrewk2112.md.styles.LayoutStyles
 import io.github.andrewk2112.md.styles.LabelStyles
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -39,8 +40,8 @@ val whatsNew = VFC {
     val uiState   by useState { WhatsNewUiState(endpoints) }
 
     container(context) {
-        titleLink(context, localizator("md.whatsNew"), endpoints.whatsNew)
-        description(context, localizator("md.theLatestMaterialDesignUpdatesAndGuidance"))
+        titleLink(context, localizator(whatsNewKey), endpoints.whatsNew)
+        description(context, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
         blogRecords(context) {
             for (blogRecord in uiState.blogRecords) {
                 it(
@@ -51,7 +52,7 @@ val whatsNew = VFC {
                 )
             }
         }
-        viewAllButton(localizator("md.viewAll"), endpoints.whatsNew)
+        viewAllButton(localizator(viewAllKey), endpoints.whatsNew)
     }
 
 }
@@ -148,20 +149,20 @@ private class WhatsNewUiState private constructor(vararg val blogRecords: BlogRe
 
     constructor(endpoints: WhatsNewMaterialEndpoints) : this(
         BlogRecordUiState(
-            "md.designAndBuildForLargeScreens",
-            "md.newGuidanceForAdaptingLayoutsAndComponents",
+            designAndBuildForLargeScreensKey,
+            newGuidanceForAdaptingLayoutsAndComponentsKey,
             Date(2021, 4,  14),
             endpoints.largeScreens
         ),
         BlogRecordUiState(
-            "md.combinedComponentPages",
-            "md.developerDocsAndDesignGuidelinesForComponents",
+            combinedComponentPagesKey,
+            developerDocsAndDesignGuidelinesForComponentsKey,
             Date(2020, 11, 18),
             endpoints.combinedComponentPages
         ),
         BlogRecordUiState(
-            "md.materialDesignAwardWinners",
-            "md.moooiEpsyAndKayak",
+            materialDesignAwardWinnersKey,
+            moooiEpsyAndKayakKey,
             Date(2020, 11, 14),
             endpoints.mdaWinners
         ),

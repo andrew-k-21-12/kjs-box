@@ -19,6 +19,7 @@ import io.github.andrewk2112.resourcewrappers.images.Image
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.CraneImage
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.ReplyImage
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.ShrineImage
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -42,9 +43,9 @@ val materialStudies = VFC {
     container(context) {
         header(
             context,
-            localizator("md.materialStudies"),
-            localizator("md.getInspiredByTheWaysMaterialAdapts"),
-            localizator("md.viewAll"),
+            localizator(materialStudiesKey),
+            localizator(getInspiredByTheWaysMaterialAdaptsKey),
+            localizator(viewAllKey),
             MainMaterialEndpoints.studies
         )
         studiesGrid(context) {
@@ -189,22 +190,22 @@ private class MaterialStudiesUiState private constructor(vararg val studies: Mat
 
     constructor() : this(
         MaterialStudyUiState(
-            "md.designForRetail",
-            "md.learnHowMaterialCanBeUsedInRetailProducts",
+            designForRetailKey,
+            learnHowMaterialCanBeUsedInRetailProductsKey,
             ShrineImage,
-            "md.designForRetail",
+            designForRetailKey,
         ),
         MaterialStudyUiState(
-            "md.travelTreatment",
-            "md.discoverTheWaysMaterialWasUsedToDesignAndBuildCrane",
+            travelTreatmentKey,
+            discoverTheWaysMaterialWasUsedToDesignAndBuildCraneKey,
             CraneImage,
-            "md.travelTreatment",
+            travelTreatmentKey,
         ),
         MaterialStudyUiState(
-            "md.craftingCommunication",
-            "md.materialCanBeUsedInCommunicationAndPlanningProducts",
+            craftingCommunicationKey,
+            materialCanBeUsedInCommunicationAndPlanningProductsKey,
             ReplyImage,
-            "md.craftingCommunication",
+            craftingCommunicationKey,
         ),
     )
 

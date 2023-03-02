@@ -17,6 +17,7 @@ import io.github.andrewk2112.md.styles.LabelStyles
 import io.github.andrewk2112.md.styles.SelectionStyles
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.googleLogoIcon
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoEmptyIcon
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -47,7 +48,7 @@ val footer = VFC {
         upperBlock {
             logoLink(context)
             adaptiveMargins(context) {
-                description(context, localizator("md.materialIsAdaptableSystemOfGuidelinesComponentsAndTools"))
+                description(context, localizator(materialIsAdaptableSystemOfGuidelinesComponentsAndToolsKey))
                 externalLinks(context, hasContentType = true) {
                     for (contentLink in uiState.contentLinks) {
                         it(localizator(contentLink.title), contentLink.destinationEndpoint)
@@ -248,16 +249,16 @@ private class FooterUiState private constructor(
 
     constructor(footerEndpoints: FooterEndpoints) : this(
         arrayOf(
-            ExternalLinkUiState("md.github",              footerEndpoints.github),
-            ExternalLinkUiState("md.twitter",             footerEndpoints.twitter),
-            ExternalLinkUiState("md.youtube",             footerEndpoints.youtube),
-            ExternalLinkUiState("md.blogRss",             footerEndpoints.rssFeed),
-            ExternalLinkUiState("md.subscribeForUpdates", footerEndpoints.newsletterSubscription),
+            ExternalLinkUiState(githubKey,              footerEndpoints.github),
+            ExternalLinkUiState(twitterKey,             footerEndpoints.twitter),
+            ExternalLinkUiState(youtubeKey,             footerEndpoints.youtube),
+            ExternalLinkUiState(blogRssKey,             footerEndpoints.rssFeed),
+            ExternalLinkUiState(subscribeForUpdatesKey, footerEndpoints.newsletterSubscription),
         ),
         arrayOf(
-            ExternalLinkUiState("md.privacyPolicy",  footerEndpoints.privacyPolicy),
-            ExternalLinkUiState("md.termsOfService", footerEndpoints.termsOfService),
-            ExternalLinkUiState("md.feedback",       footerEndpoints.feedback),
+            ExternalLinkUiState(privacyPolicyKey,  footerEndpoints.privacyPolicy),
+            ExternalLinkUiState(termsOfServiceKey, footerEndpoints.termsOfService),
+            ExternalLinkUiState(feedbackKey,       footerEndpoints.feedback),
         )
     )
 

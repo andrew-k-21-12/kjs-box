@@ -2,16 +2,26 @@ package io.github.andrewk2112.resources.visitors
 
 import io.github.andrewk2112.models.IconResource
 import io.github.andrewk2112.resources.ResourcePaths
-import io.github.andrewk2112.resources.ResourceVisitingException
 import io.github.andrewk2112.utility.CollectingVisitor
 import io.github.andrewk2112.utility.Result
 
 /**
  * A [CollectingVisitor] to gather all [IconResource] metadata.
  */
-internal class IconResourceVisitor : CollectingVisitor<ResourcePaths, IconResource, ResourceVisitingException>() {
+internal class IconResourceVisitor : CollectingVisitor<ResourcePaths, IconResource, IconResourceVisitor.Exception>() {
 
-    override fun visit(element: ResourcePaths): Result<Unit, ResourceVisitingException> =
+    // Utility.
+
+    /**
+     * When any kind of failure has happened.
+     */
+    internal class Exception(cause: Throwable) : kotlin.Exception(cause)
+
+
+
+    // Implementation.
+
+    override fun visit(element: ResourcePaths): Result<Unit, Exception> =
         try {
             IconResource(
                 name = element.resourceFile.nameWithoutExtension,
@@ -19,8 +29,8 @@ internal class IconResourceVisitor : CollectingVisitor<ResourcePaths, IconResour
                 element.relativeResourcePath
             ).add() // gathering all filenames without any filtration
             Result.Success(Unit)
-        } catch (exception: Exception) {
-            Result.Failure(ResourceVisitingException(exception))
+        } catch (exception: kotlin.Exception) {
+            Result.Failure(Exception(exception))
         }
 
 }

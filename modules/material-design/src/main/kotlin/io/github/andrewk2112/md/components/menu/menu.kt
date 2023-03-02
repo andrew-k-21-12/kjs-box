@@ -17,6 +17,7 @@ import io.github.andrewk2112.md.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.md.styles.StrokePosition.BOTTOM
 import io.github.andrewk2112.md.styles.StrokePosition.RIGHT
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -39,7 +40,7 @@ val menu = VFC {
     val uiState    by useState { MenuUiState(NavMenuMaterialEndpoints()) }
 
     container(context) {
-        header(context, localizator("md.materialDesign"))
+        header(context, localizator(materialDesignKey))
         items {
             for ((categoryIndex, category) in uiState.categories.withIndex()) {
                 category(context, localizator(category.name))
@@ -192,32 +193,32 @@ private class MenuUiState private constructor(vararg val categories: CategoryUiS
 
     constructor(endpoints: NavMenuMaterialEndpoints) : this(
         CategoryUiState(
-            "md.materialSystem",
-            MenuItemUiState("md.introduction",    endpoints.introduction,            BIG),
-            MenuItemUiState("md.materialStudies", endpoints.aboutOurMaterialStudies, BIG),
+            materialSystemKey,
+            MenuItemUiState(introductionKey,    endpoints.introduction,            BIG),
+            MenuItemUiState(materialStudiesKey, endpoints.aboutOurMaterialStudies, BIG),
         ),
         CategoryUiState(
-            "md.materialFoundation",
-            MenuItemUiState("md.foundationOverview", endpoints.foundationOverview,      BIG),
-            MenuItemUiState("md.environment",        endpoints.environmentSurfaces),
-            MenuItemUiState("md.layout",             endpoints.understandingLayout),
-            MenuItemUiState("md.navigation",         endpoints.understandingNavigation),
-            MenuItemUiState("md.color",              endpoints.colorSystem),
-            MenuItemUiState("md.typography",         endpoints.typographySystem),
-            MenuItemUiState("md.sound",              endpoints.aboutSound),
-            MenuItemUiState("md.iconography",        endpoints.productIconography),
-            MenuItemUiState("md.shape",              endpoints.aboutShape),
-            MenuItemUiState("md.motion",             endpoints.understandingMotion),
-            MenuItemUiState("md.interaction",        endpoints.interactionGestures),
-            MenuItemUiState("md.communication",      endpoints.confirmationAcknowledgement),
-            MenuItemUiState("md.machineLearning",    endpoints.understandingMlPatterns, BIG),
+            materialFoundationKey,
+            MenuItemUiState(foundationOverviewKey, endpoints.foundationOverview,      BIG),
+            MenuItemUiState(environmentKey,        endpoints.environmentSurfaces),
+            MenuItemUiState(layoutKey,             endpoints.understandingLayout),
+            MenuItemUiState(navigationKey,         endpoints.understandingNavigation),
+            MenuItemUiState(colorKey,              endpoints.colorSystem),
+            MenuItemUiState(typographyKey,         endpoints.typographySystem),
+            MenuItemUiState(soundKey,              endpoints.aboutSound),
+            MenuItemUiState(iconographyKey,        endpoints.productIconography),
+            MenuItemUiState(shapeKey,              endpoints.aboutShape),
+            MenuItemUiState(motionKey,             endpoints.understandingMotion),
+            MenuItemUiState(interactionKey,        endpoints.interactionGestures),
+            MenuItemUiState(communicationKey,      endpoints.confirmationAcknowledgement),
+            MenuItemUiState(machineLearningKey,    endpoints.understandingMlPatterns, BIG),
         ),
         CategoryUiState(
-            "md.materialGuidelines",
-            MenuItemUiState("md.guidelinesOverview", endpoints.guidelinesOverview,          BIG),
-            MenuItemUiState("md.materialTheming",    endpoints.materialThemingOverview),
-            MenuItemUiState("md.usability",          endpoints.accessibility),
-            MenuItemUiState("md.platformGuidance",   endpoints.platformGuidanceAndroidBars, MAX),
+            materialGuidelinesKey,
+            MenuItemUiState(guidelinesOverviewKey, endpoints.guidelinesOverview,          BIG),
+            MenuItemUiState(materialThemingKey,    endpoints.materialThemingOverview),
+            MenuItemUiState(usabilityKey,          endpoints.accessibility),
+            MenuItemUiState(platformGuidanceKey,   endpoints.platformGuidanceAndroidBars, MAX),
         ),
     )
 

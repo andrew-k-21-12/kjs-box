@@ -19,6 +19,7 @@ import io.github.andrewk2112.md.styles.TransitionStyles
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.magnifyIcon
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.resourcewrappers.icons.materialdesign.menuIcon
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.*
@@ -41,7 +42,7 @@ val header = FC<HeaderProps> { props ->
     val uiState    by useState { HeaderUiState() }
 
     container(context) {
-        logoBlock(context, props.hasCloseableMenu, localizator("md.materialDesign"), props.onMenuToggle)
+        logoBlock(context, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
         navigationBlock(context) {
             for (navigationItem in uiState.navigationItems) {
                 it(localizator(navigationItem.title), navigationItem.isSelected)
@@ -256,11 +257,11 @@ private inline val Context.isNarrowHeader: Boolean get() = screenSize <= SMALL_T
 private class HeaderUiState private constructor(vararg val navigationItems: NavigationItemUiState) {
 
     constructor() : this(
-        NavigationItemUiState("md.design",     true),
-        NavigationItemUiState("md.components", false),
-        NavigationItemUiState("md.develop",    false),
-        NavigationItemUiState("md.resources",  false),
-        NavigationItemUiState("md.blog",       false),
+        NavigationItemUiState(designKey,     true),
+        NavigationItemUiState(componentsKey, false),
+        NavigationItemUiState(developKey,    false),
+        NavigationItemUiState(resourcesKey,  false),
+        NavigationItemUiState(blogKey,       false),
     )
 
 }

@@ -18,6 +18,7 @@ import io.github.andrewk2112.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.localization.LocalizationKey
 import io.github.andrewk2112.md.resources.endpoints.PopularMaterialEndpoints
 import io.github.andrewk2112.md.styles.*
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
@@ -42,10 +43,10 @@ val designIntro = VFC {
     gridContainer(context) {
         titleAndCallToActionItem(
             context,
-            localizator("md.design"),
-            localizator("md.createIntuitiveAndBeautifulProductsWithMaterialDesign")
+            localizator(designKey),
+            localizator(createIntuitiveAndBeautifulProductsWithMaterialDesignKey)
         )
-        popularTopicsItem(context, localizator("md.popular")) {
+        popularTopicsItem(context, localizator(popularKey)) {
             for (popularTopic in uiState.popularTopics) {
                 it(localizator(popularTopic.title), popularTopic.destinationEndpoint)
             }
@@ -230,24 +231,24 @@ private class DesignIntroUiState private constructor(
 
     constructor(endpoints: PopularMaterialEndpoints) : this(
         arrayOf(
-            PopularTopicUiState("md.materialTheming", endpoints.materialTheming),
-            PopularTopicUiState("md.iconography",     endpoints.iconography),
-            PopularTopicUiState("md.textFields",      endpoints.textFields),
+            PopularTopicUiState(materialThemingKey, endpoints.materialTheming),
+            PopularTopicUiState(iconographyKey,     endpoints.iconography),
+            PopularTopicUiState(textFieldsKey,      endpoints.textFields),
         ),
         arrayOf(
             TopicPreviewUiState(
-                "md.materialDarkTheme",
-                "md.learnHowToDesignADarkThemeVersionOfYourMaterialUI",
-                "md.foundation",
+                materialDarkThemeKey,
+                learnHowToDesignADarkThemeVersionOfYourMaterialUIKey,
+                foundationKey,
                 MaterialDarkThemeImage,
-                "md.materialDarkTheme"
+                materialDarkThemeKey
             ),
             TopicPreviewUiState(
-                "md.materialGuidelines",
-                "md.useSoundToCommunicateInformationInWaysThatAugment",
-                "md.guidelines",
+                materialGuidelinesKey,
+                useSoundToCommunicateInformationInWaysThatAugmentKey,
+                guidelinesKey,
                 SoundGuidelinesImage,
-                "md.soundGuidelines"
+                soundGuidelinesKey
             )
         )
     )

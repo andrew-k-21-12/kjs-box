@@ -1,6 +1,8 @@
 package io.github.andrewk2112.gradle.tasks
 
-import io.github.andrewk2112.resources.InputResourcesWalker
+import io.github.andrewk2112.gradle.tasks.actions.CreateSymLinkToResourcesAction
+import io.github.andrewk2112.gradle.tasks.actions.CollectResourcesMetadataAction
+import io.github.andrewk2112.gradle.tasks.actions.FileToResourcePathsTransformer
 import io.github.andrewk2112.resources.visitors.ImageResourceVisitor
 import io.github.andrewk2112.templates.wrappers.ImageWrappersWriter
 import org.gradle.api.provider.Property
@@ -25,24 +27,27 @@ abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
     @Throws(Exception::class)
     private operator fun invoke() {
 
-        // Collecting all image resources to generate wrappers for, making sure there is something to be processed.
-        val imageResources = InputResourcesWalker()
-            .walk(
-                inputsOutputs.targetResourcesDirectory,
-                inputsOutputs.subPathToBundledResources,
-                ImageResourceVisitor()
-            )
-            .also { if (it.isEmpty()) return }
+        // Creating a symlink to image resources, collecting all image resources to generate wrappers for.
+        val subPathToBundledResources = CreateSymLinkToResourcesAction(this).createFromResourcesTypeAndModuleName()
+        val imageResources = CollectResourcesMetadataAction(
+            this,
+            FileToResourcePathsTransformer(this, subPathToBundledResources),
+            ImageResourceVisitor()
+        )
+            .collectResourcesMetadata()
+            .also { if (it.isEmpty()) return } // making sure there is something can be processed
 
         // Reusable.
-        val interfacesPackageName = interfacesPackageName.get()
-        val wrappersWriter        = ImageWrappersWriter()
+        val wrappersOutDirectory    = wrappersOutDirectory.asFile.get()
+        val wrappersBasePackageName = wrappersBasePackageName.get()
+        val interfacesPackageName   = interfacesPackageName.get()
+        val wrappersWriter          = ImageWrappersWriter()
 
         // Writing wrappers for image resources.
         for (imageResource in imageResources) {
             wrappersWriter.writeWrapper(
-                inputsOutputs.wrappersOutDirectory,
-                inputsOutputs.wrappersBasePackageName,
+                wrappersOutDirectory,
+                wrappersBasePackageName,
                 interfacesPackageName,
                 imageResource
             )

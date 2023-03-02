@@ -18,6 +18,7 @@ internal sealed class Result<T, E : Exception> {
      */
     class Success<T, E : Exception>(private val value: T) : Result<T, E>() {
         override fun getThrowing(): T = value
+        override fun exceptionOrNull(): E? = null
     }
 
     /**
@@ -28,6 +29,7 @@ internal sealed class Result<T, E : Exception> {
     class Failure<T, E : Exception>(private val exception: E) : Result<T, E>() {
         @Throws(Exception::class)
         override fun getThrowing(): T = throw exception
+        override fun exceptionOrNull(): E = exception
     }
 
     /**
@@ -35,5 +37,10 @@ internal sealed class Result<T, E : Exception> {
      */
     @Throws(Exception::class)
     internal abstract fun getThrowing(): T
+
+    /**
+     * Retrieves the execution result's exception [E] or null if everything was successful.
+     */
+    internal abstract fun exceptionOrNull(): E?
 
 }

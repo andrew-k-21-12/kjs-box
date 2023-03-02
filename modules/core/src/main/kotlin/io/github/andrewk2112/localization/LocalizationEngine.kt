@@ -32,6 +32,16 @@ internal class LocalizationEngine {
     internal fun useLocalizator(): Localizator = reactI18next.useTranslation()::t
 
     /**
+     * The same as [useLocalizator] but also downloads a [namespace] group of translations.
+     */
+    internal fun useLocalizator(namespace: String): Localizator = reactI18next.useTranslation(namespace)::t
+
+    /**
+     * The same as [useLocalizator] but also downloads multiple [namespaces] of translations.
+     */
+    internal fun useLocalizator(vararg namespaces: String): Localizator = reactI18next.useTranslation(*namespaces)::t
+
+    /**
      * Returns both the current active language and the [Localizator].
      */
     internal fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =

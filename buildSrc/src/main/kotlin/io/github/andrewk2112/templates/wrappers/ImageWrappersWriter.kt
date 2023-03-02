@@ -58,7 +58,7 @@ internal class ImageWrappersWriter(
      * into [allWrappersOutDirectory] with [basePackageName].
      */
     @Throws(WrapperWritingException::class)
-    fun writeWrapper(
+    internal fun writeWrapper(
         allWrappersOutDirectory: File,
         basePackageName: String,
         interfacesPackageName: String,
@@ -76,8 +76,9 @@ internal class ImageWrappersWriter(
                     )
                 }
 
-            // Preparing the target package name for the image wrapper.
-            val wrapperPackageName = basePackageName + imageResource.relativePath.modifyIfNotEmpty { ".$it" }
+            // Preparing a target package name for the image wrapper.
+            val wrapperPackageName = basePackageName +
+                                     imageResource.relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
 
             // Preparing the name of the image wrapper.
             val objectName = generateSimpleImageObjectName(imageResource.name)

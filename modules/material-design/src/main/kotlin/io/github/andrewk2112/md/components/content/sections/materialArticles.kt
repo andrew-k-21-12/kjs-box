@@ -13,6 +13,7 @@ import io.github.andrewk2112.resourcewrappers.images.materialdesign.CustomColorP
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.ShapePowerImage
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.SystemIconsImage
 import io.github.andrewk2112.resourcewrappers.images.materialdesign.TypeSystemImage
+import io.github.andrewk2112.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.stylesheets.NamedRuleSet
@@ -35,8 +36,8 @@ val materialArticles = VFC {
     container {
         titleAndDescription(
             context,
-            localizator("md.materialArticles"),
-            localizator("md.makeProgressFasterWithTheseHelpfulArticles")
+            localizator(materialArticlesKey),
+            localizator(makeProgressFasterWithTheseHelpfulArticlesKey)
         )
         articlesGrid(context) {
             for ((index, article) in uiState.articles.withIndex()) {
@@ -144,28 +145,28 @@ private class MaterialArticlesUiState private constructor(vararg val articles: M
 
     constructor() : this(
         MaterialArticleUiState(
-            "md.systemIcons",
-            "md.systemIconsSymbolizeCommonActions",
+            systemIconsKey,
+            systemIconsSymbolizeCommonActionsKey,
             SystemIconsImage,
-            "md.systemIcons",
+            systemIconsKey,
         ),
         MaterialArticleUiState(
-            "md.generateCustomColorPalettes",
-            "md.craftUniqueColorSchemeForYourBrandWithThisOnlineTool",
+            generateCustomColorPalettesKey,
+            craftUniqueColorSchemeForYourBrandWithThisOnlineToolKey,
             CustomColorPalettesGenerationImage,
-            "md.generateCustomColorPalettes",
+            generateCustomColorPalettesKey,
         ),
         MaterialArticleUiState(
-            "md.theTypeSystem",
-            "md.useTypographyToPresentYourDesignAndContent",
+            theTypeSystemKey,
+            useTypographyToPresentYourDesignAndContentKey,
             TypeSystemImage,
-            "md.theTypeSystem",
+            theTypeSystemKey,
         ),
         MaterialArticleUiState(
-            "md.harnessThePowerOfShape",
-            "md.shapesCanDirectAttentionIdentifyComponents",
+            harnessThePowerOfShapeKey,
+            shapesCanDirectAttentionIdentifyComponentsKey,
             ShapePowerImage,
-            "md.harnessThePowerOfShape",
+            harnessThePowerOfShapeKey,
         ),
     )
 

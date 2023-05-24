@@ -1,1 +1,1 @@
-inline val %1$s get() = "%2$s"
+const val %1$s: LocalizationKey = "%2$s"

@@ -49,9 +49,10 @@ import web.dom.Element
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  7. Introduce better modular structure (which should separate resources and style values as well);
 //     one Gradle plugin should configure all resource wrappers generators and set the dependency on the core module.
-//  8. Remove locale keys unmet in the source code when bundling,
-//     maybe the localization API should be changed slightly?
+//  8. Maybe the localization API should be changed slightly?
 //  9. Drop reducers?
+//  10. Replace buildSrc with includeBuild, use TOML-catalogs for all versions, type-safe project dependencies.
+//  11. Use Kotlin source files with @Language("kotlin") instead of txt templates.
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

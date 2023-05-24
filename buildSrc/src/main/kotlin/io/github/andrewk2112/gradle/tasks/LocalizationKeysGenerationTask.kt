@@ -64,6 +64,8 @@ abstract class LocalizationKeysGenerationTask : WrappersGenerationTask() {
     /**
      * Adds console warnings for all [LocalizationResource]s having some translations not provided.
      *
+     * It can be better to extract this method as a separate Gradle task.
+     *
      * This and similar tasks are not optimal:
      * 1. For this particular task there are 3 passes -
      *    to collect all metadata, collect all provided locales and validate each translation:

@@ -3,10 +3,32 @@
 // To check the outputs of this config, see ../build/distributions
 if (config.mode == "production") {
 
-    const TerserWebpackPlugin         = require("terser-webpack-plugin"),
-          ImageMinimizerWebpackPlugin = require("image-minimizer-webpack-plugin"),
-          CopyWebpackPlugin           = require("copy-webpack-plugin"),
-          NodeJsonMinify              = require("node-json-minify");
+    const TerserWebpackPlugin          = require("terser-webpack-plugin"),
+          ImageMinimizerWebpackPlugin  = require("image-minimizer-webpack-plugin"),
+          { removeUnusedTranslations } = require('i18n-unused');
+
+    // Removes unused translation keys.
+    // If i18n-unused becomes deprecated or stops to work stable,
+    // it's possible to create a similar tool which parses source files and drops translation keys unmet in the code
+    // or modify translation keys to be less ambiguous.
+    class RemoveUnusedTranslationsWebpackPlugin {
+        apply(compiler) {
+            // The environment hook seems to be optimal to trigger this operation right after Kotlin has been compiled,
+            // but before any webpack processing, see https://webpack.js.org/api/compiler-hooks/#environment.
+            compiler.hooks.environment.tap("RemoveUnusedTranslationsWebpackPlugin", () => {
+                removeUnusedTranslations({
+                    localesPath: `${RAW_OUTPUT_DIR}/locales`, // raw locales
+                    srcPath:      RAW_OUTPUT_DIR,             // and JS files prepared after the Kotlin compilation step
+                    translationKeyMatcher: /(?:.+ = ')(.+)(?:';)/gi // looks for patterns like: key = 'keyValue';
+                })
+                .then(result => {
+                    if (result.totalCount > 0) {
+                        console.warn("Unused translations were removed:\n" + JSON.stringify(result));
+                    }
+                });
+            });
+        }
+    }
 
     // Disabling source maps to have the maximal build speed and avoid distribution of unnecessary map files.
     // Source maps can be enabled to help with debugging to match obfuscated functions with their original versions.
@@ -81,16 +103,7 @@ if (config.mode == "production") {
         }
     }));
 
-    // Minifying and copying JSON locales into the bundle.
-    config.plugins.push(new CopyWebpackPlugin({
-        patterns: [
-            {
-                context: RAW_OUTPUT_DIR,
-                from: "locales/**/*.json",
-                to: "[path][name][ext]",
-                transform: content => NodeJsonMinify(content.toString())
-            }
-        ]
-    }));
+    // Removing unused translation keys before any minification or other steps.
+    config.plugins.push(new RemoveUnusedTranslationsWebpackPlugin());
 
 }

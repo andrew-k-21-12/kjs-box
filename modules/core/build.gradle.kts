@@ -42,9 +42,9 @@ dependencies {
     implementation("org.kodein.di:kodein-di:7.16.0")
 
     // Localization.
-    implementation(npm("i18next", "22.4.6"))
+    implementation(npm("i18next", "22.4.6")) // the library itself doesn't provide any means to remove unused resources
     implementation(npm("react-i18next", "12.1.1"))
     implementation(npm("i18next-browser-languagedetector", "7.0.1"))
-    implementation(npm("i18next-http-backend", "2.1.1")) // to download translations on demand
+    implementation(npm("i18next-resources-to-backend", "1.1.3")) // to bundle and download translations on demand
 
 }

@@ -38,8 +38,7 @@ dependencies {
     implementation(devNpm("imagemin", "8.0.1"))         // the minification engine to be used for the plugin above
     implementation(devNpm("imagemin-webp", "7.0.0"))    // WebP generation
     implementation(devNpm("imagemin-optipng", "8.0.0")) // lossless PNG optimization
-    implementation(devNpm("copy-webpack-plugin", "11.0.0"))
-    implementation(devNpm("node-json-minify", "3.0.0"))
+    implementation(devNpm("i18n-unused", "0.13.0")) // to remove unused localizations when bundling
 
 }
 

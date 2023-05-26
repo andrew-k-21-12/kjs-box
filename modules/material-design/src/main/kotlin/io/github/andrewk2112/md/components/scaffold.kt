@@ -52,7 +52,6 @@ import web.dom.Element
 //  8. Maybe the localization API should be changed slightly?
 //  9. Drop reducers?
 //  10. Replace buildSrc with includeBuild, use TOML-catalogs for all versions, type-safe project dependencies.
-//  11. Use Kotlin source files with @Language("kotlin") instead of txt templates.
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

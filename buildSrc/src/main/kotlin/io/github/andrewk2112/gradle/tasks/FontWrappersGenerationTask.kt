@@ -5,7 +5,7 @@ import io.github.andrewk2112.gradle.tasks.actions.FileToResourcePathsTransformer
 import io.github.andrewk2112.gradle.tasks.actions.CreateSymLinkToResourcesAction
 import io.github.andrewk2112.gradle.tasks.actions.GenerateResourceWrappersAction
 import io.github.andrewk2112.resources.visitors.FontResourceVisitor
-import io.github.andrewk2112.templates.wrappers.independent.FontIndependentWrappersWriter
+import io.github.andrewk2112.wrappers.writers.independent.FontIndependentWrappersWriter
 import org.gradle.api.tasks.*
 
 /**

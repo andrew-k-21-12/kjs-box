@@ -1,11 +1,10 @@
-package io.github.andrewk2112.templates.wrappers.independent
+package io.github.andrewk2112.wrappers.writers.independent
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.models.FontResource
 import io.github.andrewk2112.wrappers.templates.FontWrapperTemplates
 import io.github.andrewk2112.wrappers.templates.FontWrapperTemplates.FontVariant
-import io.github.andrewk2112.wrappers.writers.independent.IndependentWrappersWriter
 import org.gradle.configurationcache.extensions.capitalized
 import java.io.File
 

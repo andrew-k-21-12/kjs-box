@@ -1,4 +1,0 @@
-
-@JsModule("./%1$s")
-@JsNonModule
-private external val %2$s: dynamic

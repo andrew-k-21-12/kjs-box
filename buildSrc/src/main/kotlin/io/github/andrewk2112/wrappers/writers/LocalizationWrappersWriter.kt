@@ -1,10 +1,11 @@
-package io.github.andrewk2112.templates.wrappers
+package io.github.andrewk2112.wrappers.writers
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.dotsToSlashes
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.extensions.modifyIfNotEmpty
-import io.github.andrewk2112.templates.SimpleTemplatesInflater
+import io.github.andrewk2112.wrappers.templates.LocalizationKeyWrapperTemplates
+import io.github.andrewk2112.wrappers.templates.LocalizationKeyWrapperTemplates.LocalizationKey
 import java.io.File
 import kotlin.jvm.Throws
 
@@ -12,13 +13,13 @@ import kotlin.jvm.Throws
  * Inflates and writes localization keys to files.
  */
 internal class LocalizationWrappersWriter(
-    private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
+    private val localizationKeyWrapperTemplates: LocalizationKeyWrapperTemplates = LocalizationKeyWrapperTemplates()
 ) {
 
     // API.
 
     /**
-     * Does all preliminary preparations and checks and writes localization keys into [allKeysOutDirectory].
+     * Does all preliminary preparations and checks and writes localization keys into the [allKeysOutDirectory].
      */
     @Throws(WrapperWritingException::class)
     internal fun writeLocalizationKeys(
@@ -41,7 +42,7 @@ internal class LocalizationWrappersWriter(
                     )
                 }
 
-            // Preparing a target package name for the keys holder.
+            // Preparing a target package name for the keys' holder.
             val keysHolderPackageName = basePackageName +
                                         relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
 
@@ -50,19 +51,18 @@ internal class LocalizationWrappersWriter(
                                 relativePath.modifyIfNotEmpty { "$it/" } +
                                 name
 
-            // Inflating keys properties.
-            val inflatedKeysProperties = inflateKeysProperties(keysNamespace, keys)
-
-            // Preparing a name of the file to keep localization keys.
-            val fileName = name.generateLocalizationKeysFilename()
-
             // Composing everything together and writing to a file.
-            simpleTemplatesInflater.inflate(
-                "/templates/localization_keys.txt",
-                keysHolderPackageName,
-                keysNamespace,
-                inflatedKeysProperties
-            ).writeTo(File(keysOutDirectory, "$fileName.kt"))
+            localizationKeyWrapperTemplates
+                .inflateLocalizationKeys(
+                    keysHolderPackageName,
+                    keysNamespace,
+                    keys.map {
+                        LocalizationKey(it.generateKeyPropertyName(), "$keysNamespace:$it")
+                    }
+                )
+                .writeTo(
+                    keysOutDirectory.joinWithPath("${name.generateLocalizationKeysFilename()}.kt")
+                )
 
         } catch (exception: Exception) {
             throw WrapperWritingException(exception)
@@ -72,21 +72,6 @@ internal class LocalizationWrappersWriter(
 
 
     // Private.
-
-    /**
-     * Inflates properties to load translations for [keys] with the [keysNamespace].
-     */
-    private fun inflateKeysProperties(keysNamespace: String, keys: Array<String>): String = StringBuilder().apply {
-        for (key in keys) {
-            append(
-                simpleTemplatesInflater.inflate(
-                    "/templates/localization_keys_key.txt",
-                    key.generateKeyPropertyName(),
-                    "$keysNamespace:$key"
-                )
-            )
-        }
-    }.toString()
 
     /**
      * Converts a raw key name into its corresponding property name.

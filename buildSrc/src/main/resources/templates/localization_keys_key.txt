@@ -1,1 +1,0 @@
-const val %1$s: LocalizationKey = "%2$s"

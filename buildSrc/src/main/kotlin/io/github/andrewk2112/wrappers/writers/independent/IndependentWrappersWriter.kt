@@ -1,11 +1,11 @@
-package io.github.andrewk2112.templates.wrappers.independent
+package io.github.andrewk2112.wrappers.writers.independent
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.dotsToSlashes
 import io.github.andrewk2112.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.models.HavingRelativePath
-import io.github.andrewk2112.templates.wrappers.WrapperWritingException
+import io.github.andrewk2112.wrappers.writers.WrapperWritingException
 import java.io.File
 
 /**

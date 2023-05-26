@@ -2,8 +2,8 @@ package io.github.andrewk2112.gradle.tasks.actions
 
 import io.github.andrewk2112.gradle.tasks.WrappersGenerationTask
 import io.github.andrewk2112.models.HavingRelativePath
-import io.github.andrewk2112.templates.wrappers.WrapperWritingException
-import io.github.andrewk2112.templates.wrappers.independent.IndependentWrappersWriter
+import io.github.andrewk2112.wrappers.writers.WrapperWritingException
+import io.github.andrewk2112.wrappers.writers.independent.IndependentWrappersWriter
 
 /**
  * Generates simple resource wrappers without any dependencies.

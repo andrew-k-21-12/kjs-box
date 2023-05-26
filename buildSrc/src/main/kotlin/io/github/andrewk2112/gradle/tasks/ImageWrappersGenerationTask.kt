@@ -4,7 +4,7 @@ import io.github.andrewk2112.gradle.tasks.actions.CreateSymLinkToResourcesAction
 import io.github.andrewk2112.gradle.tasks.actions.CollectResourcesMetadataAction
 import io.github.andrewk2112.gradle.tasks.actions.FileToResourcePathsTransformer
 import io.github.andrewk2112.resources.visitors.ImageResourceVisitor
-import io.github.andrewk2112.templates.wrappers.ImageWrappersWriter
+import io.github.andrewk2112.wrappers.writers.ImageWrappersWriter
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 

@@ -11,6 +11,11 @@ import java.io.IOException
 internal fun String.dotsToSlashes(): String = replace(".", "/")
 
 /**
+ * Syntax sugar for [prependIndent]: prepends an indent (the left side argument) for each line of the [source] string.
+ */
+internal infix fun String.indented(source: String): String = source.prependIndent(this)
+
+/**
  * Applies a [modification] to the source [String] if it is not empty, returns the original empty [String] otherwise.
  */
 internal inline fun String.modifyIfNotEmpty(modification: (String) -> String): String =

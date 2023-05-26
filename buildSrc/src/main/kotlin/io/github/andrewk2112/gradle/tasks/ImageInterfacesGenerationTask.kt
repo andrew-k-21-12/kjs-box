@@ -1,6 +1,6 @@
 package io.github.andrewk2112.gradle.tasks
 
-import io.github.andrewk2112.templates.wrappers.ImageWrappersWriter
+import io.github.andrewk2112.wrappers.writers.ImageWrappersWriter
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property

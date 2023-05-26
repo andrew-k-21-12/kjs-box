@@ -3,17 +3,17 @@ package io.github.andrewk2112.templates.wrappers.independent
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.models.FontResource
-import io.github.andrewk2112.templates.SimpleTemplatesInflater
+import io.github.andrewk2112.wrappers.templates.FontWrapperTemplates
+import io.github.andrewk2112.wrappers.templates.FontWrapperTemplates.FontVariant
+import io.github.andrewk2112.wrappers.writers.independent.IndependentWrappersWriter
 import org.gradle.configurationcache.extensions.capitalized
 import java.io.File
-import java.io.IOException
-import kotlin.text.StringBuilder
 
 /**
  * Inflates and writes font wrappers to files.
  */
 internal class FontIndependentWrappersWriter(
-    private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
+    private val fontWrapperTemplates: FontWrapperTemplates = FontWrapperTemplates()
 ) : IndependentWrappersWriter<FontResource>() {
 
     // Implementation.
@@ -24,29 +24,26 @@ internal class FontIndependentWrappersWriter(
         // Preparing the class name.
         val className = resource.generateClassName()
 
-        // Generating the code for all variants of the font.
-        val stylePropertiesBuilder     = StringBuilder()
-        val referencePropertiesBuilder = StringBuilder()
-        for (fontVariant in resource.variants) {
-            val referencePropertyName = generateReferencePropertyName(resource.fontFamily, fontVariant)
-            stylePropertiesBuilder.append(
-                generateStyleProperty(resource.fontFamily, referencePropertyName, fontVariant)
-            )
-            referencePropertiesBuilder.append(
-                generateReferenceProperty(referencePropertyName, fontVariant.relativeFontPath)
+        // Collecting all font variants to generate wrappers for.
+        val fontVariants = resource.variants.map {
+            FontVariant(
+                variantPropertyName     = it.variantName.decapitalize(),
+                fontFamily              = resource.fontFamily,
+                variantName             = it.variantName,
+                referencePropertyName   = generateReferencePropertyName(resource.fontFamily, it),
+                fontFormat              = it.format,
+                fontWeight              = it.fontWeight,
+                fontStyle               = it.fontStyle,
+                fontFamilyWithFallbacks = listOf(resource.fontFamily, *it.fallbackFontFamilies).joinToString(),
+                relativeFontPath        = it.relativeFontPath.toUniversalPathString(),
             )
         }
 
-        // Writing the font wrapper with all prepared properties.
-        File(wrapperOutDirectory, "$className.kt").writeText(
-            simpleTemplatesInflater.inflate(
-                "/templates/font_styles.txt",
-                wrapperPackageName,
-                className,
-                stylePropertiesBuilder,
-                referencePropertiesBuilder
-            )
-        )
+        // Writing a wrapper for fonts of all available variants.
+        wrapperOutDirectory.joinWithPath("$className.kt")
+                           .writeText(
+                               fontWrapperTemplates.inflateFontStylesObject(wrapperPackageName, className, fontVariants)
+                           )
 
     }
 
@@ -55,7 +52,7 @@ internal class FontIndependentWrappersWriter(
     // Private.
 
     /**
-     * Generates a particular class name for the [FontResource].
+     * Generates a particular class name for a [FontResource].
      */
     private fun FontResource.generateClassName(): String = fontFamily + "FontStyles"
 
@@ -65,53 +62,15 @@ internal class FontIndependentWrappersWriter(
     private fun generateReferencePropertyName(fontFamily: String, fontVariant: FontResource.Variant): String =
         fontFamily.decapitalize() + fontVariant.variantName + fontVariant.format.capitalized() + "FontReference"
 
-    /**
-     * Inflates a font style property from its template, filling it with all required data.
-     *
-     * @param fontFamily            Font family.
-     * @param referencePropertyName The name of a variable to point to the font resource.
-     * @param fontVariant           All data about the [FontResource.Variant] to be inflated.
-     */
-    @Throws(IOException::class)
-    private fun generateStyleProperty(
-        fontFamily: String,
-        referencePropertyName: String,
-        fontVariant: FontResource.Variant,
-    ): String {
-
-        // Preparing configs to be inflated.
-        val variableName = fontVariant.variantName.decapitalize()
-        val fontWeight   = when (fontVariant.variantName) {
+    /** Picks the right font weight constant for a [FontResource.Variant]. */
+    private val FontResource.Variant.fontWeight: String
+        get() = when (variantName) {
             "Light" -> "FontWeight.w300"
             else    -> "FontWeight.normal"
         }
-        val fontStyle               = when (fontVariant.variantName) { else -> "FontStyle.normal" }
-        val fontFamilyWithFallbacks = listOf(fontFamily, *fontVariant.fallbackFontFamilies).joinToString()
 
-        // Inflating with all configs.
-        return simpleTemplatesInflater.inflate(
-            "/templates/font_styles_style.txt",
-            variableName,
-            fontFamily,
-            fontVariant.variantName,
-            referencePropertyName,
-            fontVariant.format,
-            fontWeight,
-            fontStyle,
-            fontFamilyWithFallbacks
-        )
-
-    }
-
-    /**
-     * Inflates a property named by the [propertyName] and pointing to the [relativeFontPath].
-     */
-    @Throws(IOException::class)
-    private fun generateReferenceProperty(propertyName: String, relativeFontPath: String): String =
-        simpleTemplatesInflater.inflate(
-            "/templates/font_styles_reference.txt",
-            relativeFontPath.toUniversalPathString(),
-            propertyName
-        )
+    /** Picks the right font style constant for a [FontResource.Variant]. */
+    private val FontResource.Variant.fontStyle: String
+        get() = when (variantName) { else -> "FontStyle.normal" }
 
 }

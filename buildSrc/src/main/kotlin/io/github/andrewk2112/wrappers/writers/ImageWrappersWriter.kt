@@ -1,4 +1,4 @@
-package io.github.andrewk2112.templates.wrappers
+package io.github.andrewk2112.wrappers.writers
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.joinCapitalized
@@ -6,14 +6,14 @@ import io.github.andrewk2112.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.extensions.toUniversalPathString
 import io.github.andrewk2112.extensions.writeTo
 import io.github.andrewk2112.models.ImageResource
-import io.github.andrewk2112.templates.SimpleTemplatesInflater
+import io.github.andrewk2112.wrappers.templates.ImageWrapperTemplates
 import java.io.File
 
 /**
  * Inflates and writes image wrappers and related sources to files.
  */
 internal class ImageWrappersWriter(
-    private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
+    private val imageWrapperTemplates: ImageWrapperTemplates = ImageWrapperTemplates(),
 ) {
 
     // API.
@@ -35,15 +35,15 @@ internal class ImageWrappersWriter(
                     )
                 }
 
-            simpleTemplatesInflater.apply {
+            imageWrapperTemplates.apply {
 
                 // Writing the sealed interface common for all image wrappers.
-                inflate("/templates/image.txt", packageName)
-                    .writeTo(File(baseInterfacesOutDirectory, "Image.kt"))
+                inflateImageInterface(packageName)
+                    .writeTo(baseInterfacesOutDirectory.joinWithPath("Image.kt"))
 
                 // Writing the interface representing simple images without variants.
-                inflate("/templates/simple_image.txt", packageName)
-                    .writeTo(File(baseInterfacesOutDirectory, "SimpleImage.kt"))
+                inflateSimpleImageInterface(packageName)
+                    .writeTo(baseInterfacesOutDirectory.joinWithPath("SimpleImage.kt"))
 
             }
 
@@ -54,8 +54,8 @@ internal class ImageWrappersWriter(
 
     /**
      * Does all preliminary preparations and checks,
-     * writes an [imageResource] wrapper dependent on [interfacesPackageName]
-     * into [allWrappersOutDirectory] with [basePackageName].
+     * writes an [imageResource] wrapper dependent on the [interfacesPackageName]
+     * into the [allWrappersOutDirectory] with the [basePackageName].
      */
     @Throws(WrapperWritingException::class)
     internal fun writeWrapper(
@@ -84,9 +84,8 @@ internal class ImageWrappersWriter(
             val objectName = generateSimpleImageObjectName(imageResource.name)
 
             // Writing the customized image wrapper.
-            simpleTemplatesInflater
-                .inflate(
-                    "/templates/simple_image_impl.txt",
+            imageWrapperTemplates
+                .inflateSimpleImage(
                     wrapperPackageName,
                     interfacesPackageName,
                     objectName,
@@ -95,7 +94,7 @@ internal class ImageWrappersWriter(
                     objectName.decapitalize(),
                     imageResource.relativeImagePath.toUniversalPathString()
                 )
-                .writeTo(File(wrapperOutDirectory, "$objectName.kt"))
+                .writeTo(wrapperOutDirectory.joinWithPath("$objectName.kt"))
 
         } catch (exception: Exception) {
             throw WrapperWritingException(exception)

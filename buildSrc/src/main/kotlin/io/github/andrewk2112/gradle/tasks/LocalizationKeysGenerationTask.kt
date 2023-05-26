@@ -5,7 +5,7 @@ import io.github.andrewk2112.gradle.tasks.actions.CollectResourcesMetadataAction
 import io.github.andrewk2112.gradle.tasks.actions.CreateSymLinkToResourcesAction
 import io.github.andrewk2112.models.LocalizationResource
 import io.github.andrewk2112.resources.visitors.LocalizationResourceVisitor
-import io.github.andrewk2112.templates.wrappers.LocalizationWrappersWriter
+import io.github.andrewk2112.wrappers.writers.LocalizationWrappersWriter
 import org.gradle.api.Transformer
 import org.gradle.api.tasks.*
 import java.io.File

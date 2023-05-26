@@ -1,4 +1,4 @@
-package io.github.andrewk2112.templates.wrappers
+package io.github.andrewk2112.wrappers.writers
 
 /**
  * When some source needed for a wrapper has been failed to be written.

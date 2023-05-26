@@ -1,7 +1,0 @@
-package %1$s
-
-import io.github.andrewk2112.localization.LocalizationKey
-
-const val namespace: LocalizationKey = "%2$s"
-
-%3$s

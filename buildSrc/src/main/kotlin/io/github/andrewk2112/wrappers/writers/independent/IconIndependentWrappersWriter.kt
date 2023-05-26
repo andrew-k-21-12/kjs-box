@@ -1,17 +1,17 @@
-package io.github.andrewk2112.templates.wrappers.independent
+package io.github.andrewk2112.wrappers.writers.independent
 
 import io.github.andrewk2112.extensions.*
 import io.github.andrewk2112.extensions.joinCapitalized
 import io.github.andrewk2112.extensions.writeTo
 import io.github.andrewk2112.models.IconResource
-import io.github.andrewk2112.templates.SimpleTemplatesInflater
+import io.github.andrewk2112.wrappers.templates.IconWrapperTemplate
 import java.io.File
 
 /**
  * Inflates and writes icon wrappers to files.
  */
 internal class IconIndependentWrappersWriter(
-    private val simpleTemplatesInflater: SimpleTemplatesInflater = SimpleTemplatesInflater()
+    private val iconWrapperTemplate: IconWrapperTemplate = IconWrapperTemplate(),
 ) : IndependentWrappersWriter<IconResource>() {
 
     // Implementation.
@@ -23,14 +23,15 @@ internal class IconIndependentWrappersWriter(
         val elementName = resource.generateElementName()
 
         // Writing the icon wrapper.
-        simpleTemplatesInflater
+        iconWrapperTemplate
             .inflate(
-                "/templates/icon.txt",
                 wrapperPackageName,
                 elementName,
                 resource.relativeIconPath.toUniversalPathString()
             )
-            .writeTo(File(wrapperOutDirectory, "$elementName.kt"))
+            .writeTo(
+                wrapperOutDirectory.joinWithPath("$elementName.kt")
+            )
 
     }
 

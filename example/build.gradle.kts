@@ -10,7 +10,7 @@ plugins {
 apply<NodeJsBinariesGenerationPlugin>() // generating Node.js binaries required for production
 
 allprojects {
-    apply("${rootProject.rootDir}/versions.gradle.kts") // making versions constants available for all modules
+    apply("${rootProject.rootDir}/../versions.gradle.kts") // making versions constants available for all modules
     repositories {
         mavenCentral()
     }

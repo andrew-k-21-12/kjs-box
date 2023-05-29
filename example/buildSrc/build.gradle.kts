@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-apply("${rootDir.parentFile}/versions.gradle.kts")
+apply("${rootDir.parentFile}/../versions.gradle.kts")
 val kotlinVersion: String by project
 
 plugins {

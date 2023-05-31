@@ -1,4 +1,5 @@
 import io.github.andrewk2112.extensions.joinWithPath
+import io.github.andrewk2112.gradle.extensions.devNpm
 import io.github.andrewk2112.gradle.plugins.NodeJsBinariesGenerationPlugin
 
 group   = "io.github.andrew-k-21-12"
@@ -8,13 +9,6 @@ plugins {
     kotlin("js")
 }
 apply<NodeJsBinariesGenerationPlugin>() // generating Node.js binaries required for production
-
-allprojects {
-    apply("${rootProject.rootDir}/../versions.gradle.kts") // making versions constants available for all modules
-    repositories {
-        mavenCentral()
-    }
-}
 
 kotlin {
     js(IR) {
@@ -26,19 +20,19 @@ kotlin {
 dependencies {
 
     // Requesting the compilation of on-demand modules.
-    implementation(project(":index"))
-    implementation(project(":exercises"))
-    implementation(project(":material-design"))
+    implementation(projects.index)
+    implementation(projects.exercises)
+    implementation(projects.materialDesign)
 
     // Bundling.
-    implementation(devNpm("@svgr/webpack", "6.5.1"))
-    implementation(devNpm("html-webpack-plugin", "5.5.0"))
-    implementation(devNpm("terser-webpack-plugin", "5.3.6"))
-    implementation(devNpm("image-minimizer-webpack-plugin", "3.8.1"))
-    implementation(devNpm("imagemin", "8.0.1"))         // the minification engine to be used for the plugin above
-    implementation(devNpm("imagemin-webp", "7.0.0"))    // WebP generation
-    implementation(devNpm("imagemin-optipng", "8.0.0")) // lossless PNG optimization
-    implementation(devNpm("i18n-unused", "0.13.0")) // to remove unused localizations when bundling
+    implementation(devNpm(jsLibs.webpack.svgr))
+    implementation(devNpm(jsLibs.webpack.html))
+    implementation(devNpm(jsLibs.webpack.terser))
+    implementation(devNpm(jsLibs.webpack.imageminimizer))
+    implementation(devNpm(jsLibs.imagemin.core))    // the minification engine to be used for the plugin above
+    implementation(devNpm(jsLibs.imagemin.webp))    // WebP generation
+    implementation(devNpm(jsLibs.imagemin.optipng)) // lossless PNG optimization
+    implementation(devNpm(jsLibs.i18n.unused)) // to remove unused localizations when bundling
 
 }
 

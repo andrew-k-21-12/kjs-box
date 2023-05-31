@@ -10,5 +10,5 @@ kotlin {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(projects.core)
 }

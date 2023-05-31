@@ -1,0 +1,29 @@
+[versions]
+i18n-unused              = "0.13.0"
+i18next                  = "22.4.6"
+i18next-backend          = "1.1.3"
+i18next-languagedetector = "7.0.1"
+i18next-react            = "12.1.1"
+imagemin                 = "8.0.1"
+imagemin-optipng         = "8.0.0"
+imagemin-webp            = "7.0.0"
+react                    = "18.2.0"
+webpack-html             = "5.5.0"
+webpack-imageminimizer   = "3.8.1"
+webpack-svgr             = "6.5.1"
+webpack-terser           = "5.3.6"
+
+[libraries]
+i18n-unused              = { group = "mxmvshnvsk",      name = "i18n-unused",                      version.ref = "i18n-unused" }
+i18next-core             = { group = "i18next",         name = "i18next",                          version.ref = "i18next" }
+i18next-backend          = { group = "i18next",         name = "i18next-resources-to-backend",     version.ref = "i18next-backend" }
+i18next-languagedetector = { group = "i18next",         name = "i18next-browser-languagedetector", version.ref = "i18next-languagedetector" }
+i18next-react            = { group = "i18next",         name = "react-i18next",                    version.ref = "i18next-react" }
+imagemin-core            = { group = "imagemin",        name = "imagemin",                         version.ref = "imagemin" }
+imagemin-optipng         = { group = "imagemin",        name = "imagemin-optipng",                 version.ref = "imagemin-optipng" }
+imagemin-webp            = { group = "imagemin",        name = "imagemin-webp",                    version.ref = "imagemin-webp" }
+react                    = { group = "facebook",        name = "react",                            version.ref = "react" }
+webpack-html             = { group = "jantimon",        name = "html-webpack-plugin",              version.ref = "webpack-html" }
+webpack-imageminimizer   = { group = "webpack-contrib", name = "image-minimizer-webpack-plugin",   version.ref = "webpack-imageminimizer" }
+webpack-svgr             = { group = "gregberge",       name = "@svgr/webpack",                    version.ref = "webpack-svgr" }
+webpack-terser           = { group = "webpack-contrib", name = "terser-webpack-plugin",            version.ref = "webpack-terser" }

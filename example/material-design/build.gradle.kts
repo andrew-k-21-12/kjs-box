@@ -1,7 +1,7 @@
 import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin
 
 plugins {
-    kotlin("js")
+    alias(kotlinLibs.plugins.kotlin.js)
 }
 apply<ResourceWrappersGenerationPlugin>()
 

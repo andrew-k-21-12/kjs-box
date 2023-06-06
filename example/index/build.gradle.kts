@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js")
+    alias(kotlinLibs.plugins.kotlin.js)
 }
 
 kotlin {

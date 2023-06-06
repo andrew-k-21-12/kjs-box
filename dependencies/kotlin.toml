@@ -1,12 +1,20 @@
 [versions]
+commons-io      = "2.11.0"
 kodein          = "7.16.0"
+kotlin          = "1.8.21"
 kotlin-wrappers = "1.0.0-pre.504"
 
 [libraries]
+commons-io                       = { module = "commons-io:commons-io",                             version.ref = "commons-io" }
 kodein-di                        = { module = "org.kodein.di:kodein-di",                           version.ref = "kodein" }
+kotlin-gradleplugin              = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin" }
 kotlin-wrappers-bom              = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
 kotlin-wrappers-js               = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
 kotlin-wrappers-react            = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }
 kotlin-wrappers-react-redux      = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-redux" }
 kotlin-wrappers-react-router-dom = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom" }
 kotlin-wrappers-styled-next      = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
+
+[plugins]
+kotlin-js  = { id = "org.jetbrains.kotlin.js",  version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

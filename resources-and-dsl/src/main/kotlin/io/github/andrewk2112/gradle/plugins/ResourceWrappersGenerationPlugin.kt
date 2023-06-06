@@ -7,7 +7,6 @@ import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.UnknownDomainObjectException
-import org.gradle.kotlin.dsl.provideDelegate
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.io.File
@@ -116,14 +115,14 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         context: Context,
         resourcesTypeName: String,
     ) = LazyReadOnlyProperty<Any?, T> {
-        tasks.register(it.name, T::class.java) {
+        tasks.register(it.name, T::class.java).get().apply {
             allResourcesDirectory  = context.allResourcesDirectory
             basePackageName        = context.basePackageName
             this.resourcesTypeName = resourcesTypeName
             moduleName             = this@registerWrappersGenerationTask.name
             generatedWrappersDir   = getGeneratedWrappersDirectory()
             resourcesOutDirectory.set(context.generatedResourcesDirectory)
-        }.get()
+        }
     }
 
 }

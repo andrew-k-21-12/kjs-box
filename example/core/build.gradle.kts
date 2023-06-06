@@ -5,7 +5,7 @@ import io.github.andrewk2112.gradle.plugins.ResourceWrappersGenerationPlugin.Com
 import io.github.andrewk2112.gradle.tasks.ImageInterfacesGenerationTask
 
 plugins {
-    kotlin("js")
+    alias(kotlinLibs.plugins.kotlin.js)
 }
 
 // How and where to generate image interfaces for image resource wrappers - a temporary solution to be dropped soon.

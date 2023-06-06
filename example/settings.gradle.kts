@@ -1,3 +1,7 @@
+pluginManagement {
+    includeBuild("../")
+}
+
 dependencyResolutionManagement {
     // Can be restored when https://youtrack.jetbrains.com/issue/KT-55620 is resolved.
     // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)

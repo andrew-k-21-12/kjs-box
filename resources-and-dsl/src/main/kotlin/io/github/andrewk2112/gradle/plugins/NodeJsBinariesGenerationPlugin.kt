@@ -4,7 +4,6 @@ import io.github.andrewk2112.extensions.joinWithPath
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.*
 import org.gradle.configurationcache.extensions.capitalized
-import org.gradle.kotlin.dsl.named
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsSetupTask
 import java.io.File
 
@@ -16,14 +15,16 @@ class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
     // Action.
 
-    override fun apply(target: Project) = target.afterEvaluate {
-        val nodeJsBinary = findNodeJsBinary()
-        // Production builds require the image minification binaries, otherwise the image minification won't succeed.
-        tasks.named("productionExecutableCompileSync").get()
-             .dependsOn(
-                 registerNodeJsBinaryGenerationTask(nodeJsBinary, "cwebp"),
-                 registerNodeJsBinaryGenerationTask(nodeJsBinary, "optipng")
-             )
+    override fun apply(target: Project) = target.run {
+        afterEvaluate {
+            val nodeJsBinary = findNodeJsBinary()
+            // Production builds require the image minification binaries, otherwise the image minification won't succeed.
+            tasks.named("productionExecutableCompileSync").get()
+                 .dependsOn(
+                    registerNodeJsBinaryGenerationTask(nodeJsBinary, "cwebp"),
+                    registerNodeJsBinaryGenerationTask(nodeJsBinary, "optipng")
+                )
+        }
     }
 
 
@@ -36,7 +37,7 @@ class NodeJsBinariesGenerationPlugin : Plugin<Project> {
     @Throws(UnknownTaskException::class)
     private fun Project.findNodeJsBinary(): File =
         tasks
-            .named("kotlinNodeJsSetup", NodeJsSetupTask::class)
+            .named("kotlinNodeJsSetup", NodeJsSetupTask::class.java)
             .get().destination
             .joinWithPath(if (Os.isFamily(Os.FAMILY_WINDOWS)) "node" else "bin/node")
 
@@ -52,7 +53,7 @@ class NodeJsBinariesGenerationPlugin : Plugin<Project> {
     private fun Project.registerNodeJsBinaryGenerationTask(
         nodeJsBinary: File,
         libraryName: String
-    ): Task = tasks.register("generateNodeJs${libraryName.capitalized()}Binary") {
+    ): Task = tasks.register("generateNodeJs${libraryName.capitalized()}Binary").get().apply {
 
         // Making sure Node.js modules are fetched.
         dependsOn("kotlinNpmInstall")
@@ -67,11 +68,11 @@ class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
         // Executing the compilation for the target library.
         doLast {
-            project.exec {
-                commandLine(nodeJsBinary, File(libraryBaseDir, "lib/install.js"))
+            exec {
+                it.commandLine(nodeJsBinary, File(libraryBaseDir, "lib/install.js"))
             }
         }
 
-    }.get()
+    }
 
 }

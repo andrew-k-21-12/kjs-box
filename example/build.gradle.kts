@@ -6,7 +6,8 @@ group   = "io.github.andrew-k-21-12"
 version = "1.0.0-SNAPSHOT"
 
 plugins {
-    kotlin("js")
+    alias(kotlinLibs.plugins.kotlin.js)
+    id("io.github.andrew-k-21-12.web-frontend-main")
 }
 apply<NodeJsBinariesGenerationPlugin>() // generating Node.js binaries required for production
 
@@ -42,9 +43,9 @@ tasks {
     named("browserDevelopmentRun").get().dependsOn(named("developmentExecutableCompileSync"))
     named("browserProductionRun").get().dependsOn(named("productionExecutableCompileSync"))
 
-    // Cleaning up the buildSrc build files as well.
+    // Not the cleanest but working way to remove the build directory of dependent DSL project as well.
     named("clean").get().doLast {
-        projectDir.joinWithPath("buildSrc").joinWithPath("build").deleteRecursively()
+        projectDir.parentFile?.joinWithPath("resources-and-dsl")?.joinWithPath("build")?.deleteRecursively()
     }
 
 }

@@ -1,18 +1,19 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    `kotlin-dsl`
+    alias(kotlinLibs.plugins.kotlin.jvm)
+    `java-gradle-plugin`
 }
 
-repositories {
-    mavenCentral()
+gradlePlugin {
+    plugins {
+        // Allows to expose all other plugins and DSL functions, prone to be changed in the future.
+        create("web-frontend-main") {
+            id                  = "io.github.andrew-k-21-12.web-frontend-main"
+            implementationClass = "io.github.andrewk2112.gradle.plugins.MainPlugin"
+        }
+    }
 }
 
 dependencies {
-    implementation("commons-io:commons-io:2.11.0") // to simplify some file operations a bit
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21") // to create plugins with Kotlin features
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "11"
+    implementation(kotlinLibs.kotlin.gradleplugin) // to create plugins with Kotlin features
+    implementation(kotlinLibs.commons.io) // to simplify some file operations a bit
 }

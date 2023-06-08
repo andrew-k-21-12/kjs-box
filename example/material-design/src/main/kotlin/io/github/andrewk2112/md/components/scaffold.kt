@@ -51,7 +51,6 @@ import web.dom.Element
 //     one Gradle plugin should configure all resource wrappers generators and set the dependency on the core module.
 //  8. Maybe the localization API should be changed slightly?
 //  9. Drop reducers?
-//  10. Replace buildSrc with includeBuild, use TOML-catalogs for all versions, type-safe project dependencies.
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
@@ -159,7 +158,7 @@ private inline fun ChildrenBuilder.root(
     noinline onScroll: UIEventHandler<*>,
     crossinline children: ChildrenBuilder.() -> Unit,
 ) =
-    +div(ScaffoldStyles.root.name) {
+    +div(clazz = ScaffoldStyles.root.name) {
         this.onScroll = onScroll
         children()
     }
@@ -173,7 +172,7 @@ private inline fun ChildrenBuilder.slidingHeader(
     hasCloseableMenu: Boolean,
     crossinline setMenuOpened: (Boolean) -> Unit,
 ) =
-    +div(ScaffoldStyles.slidingHeader(isVisible).name) {
+    +div(clazz = ScaffoldStyles.slidingHeader(isVisible).name) {
         this.ref = ref
         headerScaffold {
             this.hasCloseableMenu = hasCloseableMenu
@@ -185,18 +184,18 @@ private inline fun ChildrenBuilder.slidingHeader(
  * Wraps all relative blocks aligned with each other.
  */
 private inline fun ChildrenBuilder.alignedBlocks(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(ScaffoldStyles.alignedBlocks.name, block = children)
+    +div(clazz = ScaffoldStyles.alignedBlocks.name, children)
 
 private fun ChildrenBuilder.sideMenu(context: MenuContext, onScrimClick: MouseEventHandler<*>) =
-    +div(ScaffoldStyles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
-        +aside(ScaffoldStyles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
-        +div(ScaffoldStyles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
+    +div(clazz = ScaffoldStyles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
+        +aside(clazz = ScaffoldStyles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
+        +div(clazz = ScaffoldStyles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
             onClick = onScrimClick
         }
     }
 
 private fun ChildrenBuilder.contents(context: Context) =
-    +div(ScaffoldStyles.contents(context).name) {
+    +div(clazz = ScaffoldStyles.contents(context).name) {
         contentScaffold {}
         footer {}
     }

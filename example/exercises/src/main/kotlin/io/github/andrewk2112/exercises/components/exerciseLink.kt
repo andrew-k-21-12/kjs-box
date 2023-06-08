@@ -15,7 +15,7 @@ import remix.run.router.To
 // Public.
 
 fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
-    +Link(ExerciseLinkStyles.link(context).name) {
+    +Link(clazz = ExerciseLinkStyles.link(context).name) {
         this.to = to
         +text
     }

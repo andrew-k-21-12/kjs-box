@@ -70,33 +70,33 @@ val footer = VFC {
 }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +footer(FooterStyles.background(context).name) {
-        +div(FooterStyles.container(context).name, block = children)
+    +footer(clazz = FooterStyles.background(context).name) {
+        +div(clazz = FooterStyles.container(context).name, children)
     }
 
 private inline fun ChildrenBuilder.upperBlock(crossinline children: ChildrenBuilder.() -> Unit) =
-    +section(FooterStyles.upperBlock.name, block = children)
+    +section(clazz = FooterStyles.upperBlock.name, children)
 
 private fun ChildrenBuilder.logoLink(context: Context) =
-    +a(SelectionStyles.simpleActionHighlighting(context).name) {
+    +a(clazz = SelectionStyles.simpleActionHighlighting(context).name) {
         safeBlankHref = MainMaterialEndpoints.root
-        +materialDesignLogoEmptyIcon(FooterStyles.logoIcon.name)
+        +materialDesignLogoEmptyIcon(clazz = FooterStyles.logoIcon.name)
     }
 
 private inline fun ChildrenBuilder.adaptiveMargins(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(FooterStyles.adaptiveMargins(context).name, block = children)
+    +div(clazz = FooterStyles.adaptiveMargins(context).name, children)
 
 private fun ChildrenBuilder.description(context: Context, descriptionText: String) =
-    +p(FooterStyles.description(context).name) { +descriptionText }
+    +p(clazz = FooterStyles.description(context).name) { +descriptionText }
 
-private fun ChildrenBuilder.divider() = +horizontalDivider(FooterStyles.divider.name)
+private fun ChildrenBuilder.divider() = +horizontalDivider(clazz = FooterStyles.divider.name)
 
 private inline fun ChildrenBuilder.lowerBlock(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +section(FooterStyles.lowerBlock(context).name, block = children)
+    +section(clazz = FooterStyles.lowerBlock(context).name, children)
 
 private fun ChildrenBuilder.googleLink(context: Context, destinationEndpoint: String) =
-    +a(FooterStyles.googleLink(context).name) {
-        +googleLogoIcon(FooterStyles.googleLogo(context).name)
+    +a(clazz = FooterStyles.googleLink(context).name) {
+        +googleLogoIcon(clazz = FooterStyles.googleLogo(context).name)
         safeBlankHref = destinationEndpoint
     }
 
@@ -110,7 +110,7 @@ private inline fun ChildrenBuilder.externalLinks(
             externalLink(context, hasContentType = hasContentType, title, destinationEndpoint)
         }
     }
-    if (hasContentType) +ul(FooterStyles.contentLinks.name, block = links) else ul(links)
+    if (hasContentType) +ul(clazz = FooterStyles.contentLinks.name, links) else ul(links)
 }
 
 private fun ChildrenBuilder.externalLink(
@@ -119,8 +119,8 @@ private fun ChildrenBuilder.externalLink(
     title: String,
     destinationEndpoint: String,
 ) =
-    +li(FooterStyles.run { if (hasContentType) contentLink else serviceLink }(context).name) {
-        +a(FooterStyles.linkAnchor(context).name) {
+    +li(clazz = FooterStyles.run { if (hasContentType) contentLink else serviceLink }(context).name) {
+        +a(clazz = FooterStyles.linkAnchor(context).name) {
             safeBlankHref = destinationEndpoint
             +title
         }

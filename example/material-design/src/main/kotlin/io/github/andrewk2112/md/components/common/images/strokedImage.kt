@@ -26,13 +26,13 @@ val strokedImage = FC<StrokedImageProps> { props ->
     val context = useAppContext()
 
     // A wrapper to position the stroke inside the image's bounds, on top of it.
-    +div(StrokedImageStyles.positioningWrapper.name) {
+    +div(clazz = StrokedImageStyles.positioningWrapper.name) {
 
         // The image itself.
         image(props.image, props.alternativeText, props.className.toString())
 
         // A semi-transparent stroke on top of the image.
-        +div(StrokedImageStyles.innerStroke(context).name)
+        +div(clazz = StrokedImageStyles.innerStroke(context).name)
 
     }
 

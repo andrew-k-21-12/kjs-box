@@ -3,7 +3,6 @@ package io.github.andrewk2112.localization
 import io.github.andrewk2112.Environment
 import io.github.andrewk2112.jsmodules.i18next.*
 import io.github.andrewk2112.jsmodules.i18next.i18next
-import io.github.andrewk2112.jsmodules.i18next.i18nextBrowserLanguageDetector
 import io.github.andrewk2112.jsmodules.i18next.reactI18next
 import js.import.import
 import kotlinext.js.js
@@ -21,12 +20,12 @@ internal class LocalizationEngine {
             // Bundling into JS files shows better minification results
             // in comparison to JSONs being fetched by i18next-http-backend.
             .use(
-                i18nextResourcesToBackend { language, namespace ->
+                i18nextResourcesToBackend.resourcesToBackend { language, namespace ->
                     import<dynamic>("./locales/$language/$namespace.json")
                 }
             )
-            .use(i18nextBrowserLanguageDetector) // detecting browser's language automatically
-            .use(reactI18next.initReactI18next)  // using React integrations
+            .use(i18nextBrowserLanguageDetector.LanguageDetector) // detecting browser's language automatically
+            .use(reactI18next.initReactI18next)                   // using React integrations
             .init(createI18NextOptions())
     }
 

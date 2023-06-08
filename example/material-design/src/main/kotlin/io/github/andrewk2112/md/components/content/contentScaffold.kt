@@ -27,7 +27,7 @@ val contentScaffold = VFC {
     materialStudies()
 }
 
-private fun ChildrenBuilder.divider() = +div(ContentScaffoldStyles.divider.name) { horizontalDivider() }
+private fun ChildrenBuilder.divider() = +div(clazz = ContentScaffoldStyles.divider.name) { horizontalDivider() }
 
 
 

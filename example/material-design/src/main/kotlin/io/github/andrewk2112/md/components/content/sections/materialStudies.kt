@@ -63,8 +63,8 @@ val materialStudies = VFC {
 }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(MaterialStudiesStyles.container(context).name) {
-        +div(LayoutStyles.contentContainer.name, block = children)
+    +div(clazz = MaterialStudiesStyles.container(context).name) {
+        +div(clazz = LayoutStyles.contentContainer.name, children)
     }
 
 private fun ChildrenBuilder.header(
@@ -74,10 +74,10 @@ private fun ChildrenBuilder.header(
     actionButtonLabel: String,
     actionButtonDestination: String,
 ) =
-    +div(MaterialStudiesStyles.header.name) {
-        +h2(MaterialStudiesStyles.title(context).name) { +title }
-        +p(MaterialStudiesStyles.description(context).name) { +description }
-        +rectButton(MaterialStudiesStyles.viewAllButton(context).name) {
+    +div(clazz = MaterialStudiesStyles.header.name) {
+        +h2(clazz = MaterialStudiesStyles.title(context).name) { +title }
+        +p(clazz = MaterialStudiesStyles.description(context).name) { +description }
+        +rectButton(clazz = MaterialStudiesStyles.viewAllButton(context).name) {
             text   = actionButtonLabel
             action = { openBlankWindowSafely(actionButtonDestination) }
             isDark = true
@@ -88,7 +88,7 @@ private inline fun ChildrenBuilder.studiesGrid(
     context: Context,
     crossinline studiesAdapter: ((title: String, description: String, Image, imageAltText: String) -> Unit) -> Unit
 ) =
-    +div(MaterialStudiesStyles.grid(context).name) {
+    +div(clazz = MaterialStudiesStyles.grid(context).name) {
         studiesAdapter { title, description, illustration, illustrationAlternativeText ->
             studyItem(context, title, description, illustration, illustrationAlternativeText)
         }
@@ -102,13 +102,13 @@ private fun ChildrenBuilder.studyItem(
     illustrationAlternativeText: String,
 ) =
     div { // ← to prevent the item from taking the entire height of the grid's row
-        +div(SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
-            +strokedImage(ImageStyles.fitWidthKeepAspectImage.name) {
+        +div(clazz = SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
+            +strokedImage(clazz = ImageStyles.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
-            +p(MaterialStudiesStyles.studyTitle(context).name) { +title }
-            +p(MaterialStudiesStyles.studyDescription(context).name) { +description }
+            +p(clazz = MaterialStudiesStyles.studyTitle(context).name) { +title }
+            +p(clazz = MaterialStudiesStyles.studyDescription(context).name) { +description }
         }
     }
 

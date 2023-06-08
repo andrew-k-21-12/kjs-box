@@ -25,7 +25,7 @@ val exercisesList = VFC {
     val context     = useAppContext()
     val localizator = useLocalizator(namespace)
 
-    +div(ExercisesListStyles.container.name) {
+    +div(clazz = ExercisesListStyles.container.name) {
 
         // The list of available exercises.
         ul {
@@ -41,7 +41,7 @@ private fun ChildrenBuilder.linkItem(context: Context, label: String, destinatio
     contentsItem { exerciseLink(context, label, destinationEndpoint) }
 
 private inline fun ChildrenBuilder.contentsItem(crossinline block: ChildrenBuilder.() -> Unit) =
-    +li(ExercisesListStyles.listItem.name, block = block)
+    +li(clazz = ExercisesListStyles.listItem.name, block)
 
 
 

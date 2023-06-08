@@ -58,16 +58,16 @@ val whatsNew = VFC {
 }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(WhatsNewStyles.container(context).name, block = children)
+    +div(clazz = WhatsNewStyles.container(context).name, children)
 
 private fun ChildrenBuilder.titleLink(context: Context, title: String, destinationEndpoint: String) =
-    +a(LabelStyles.contentBlockLinkTitle(context).name) {
+    +a(clazz = LabelStyles.contentBlockLinkTitle(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
 
 private fun ChildrenBuilder.description(context: Context, descriptionText: String) =
-    +p(WhatsNewStyles.description(context).name) { +descriptionText }
+    +p(clazz = WhatsNewStyles.description(context).name) { +descriptionText }
 
 private inline fun ChildrenBuilder.blogRecords(
     context: Context,
@@ -84,16 +84,16 @@ private fun ChildrenBuilder.blogRecordItem(
     formattedDate: String,
     destinationEndpoint: String
 ) {
-    +p(WhatsNewStyles.blogRecordDate(context).name) { +formattedDate.uppercase() }
-    +a(WhatsNewStyles.blogRecordTitle(context).name) {
+    +p(clazz = WhatsNewStyles.blogRecordDate(context).name) { +formattedDate.uppercase() }
+    +a(clazz = WhatsNewStyles.blogRecordTitle(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
-    +p(WhatsNewStyles.blogRecordDescription(context).name) { +description }
+    +p(clazz = WhatsNewStyles.blogRecordDescription(context).name) { +description }
 }
 
 private fun ChildrenBuilder.viewAllButton(label: String, destinationEndpoint: String) =
-    +rectButton(WhatsNewStyles.viewAllButton.name) {
+    +rectButton(clazz = WhatsNewStyles.viewAllButton.name) {
         text   = label
         action = { openBlankWindowSafely(destinationEndpoint) }
     }

@@ -54,7 +54,7 @@ val header = FC<HeaderProps> { props ->
 }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +header(HeaderStyles.container(context).name, block = children)
+    +header(clazz = HeaderStyles.container(context).name, children)
 
 private fun ChildrenBuilder.logoBlock(
     context: Context,
@@ -62,24 +62,24 @@ private fun ChildrenBuilder.logoBlock(
     label: String,
     onMenuButtonClick: () -> Unit
 ) =
-    +div(HeaderStyles.logoBlock(context).name) {
+    +div(clazz = HeaderStyles.logoBlock(context).name) {
         +button(
             HeaderStyles.menuButtonPositioning(hasCloseableMenu).name,
             HeaderStyles.menuButtonAppearance(context).name
         ) {
             onClick = onMenuButtonClick.asMouseEventHandler()
-            +menuIcon(HeaderStyles.menuButtonIcon.name)
+            +menuIcon(clazz = HeaderStyles.menuButtonIcon.name)
         }
-        +materialDesignLogoIcon(HeaderStyles.logoIcon(hasCloseableMenu).name)
-        +span(HeaderStyles.logoLabel(context).name) { +label.uppercase() }
+        +materialDesignLogoIcon(clazz = HeaderStyles.logoIcon(hasCloseableMenu).name)
+        +span(clazz = HeaderStyles.logoLabel(context).name) { +label.uppercase() }
     }
 
 private inline fun ChildrenBuilder.navigationBlock(
     context: Context,
     crossinline navigationItemsAdapter: ((title: String, isSelected: Boolean) -> Unit) -> Unit
 ) =
-    +nav(HeaderStyles.navigationBlock(context).name) {
-        +ul(HeaderStyles.navigationItems(context).name) {
+    +nav(clazz = HeaderStyles.navigationBlock(context).name) {
+        +ul(clazz = HeaderStyles.navigationItems(context).name) {
             navigationItemsAdapter { title, isSelected ->
                 navigationItem(context, title, isSelected)
             }
@@ -87,18 +87,18 @@ private inline fun ChildrenBuilder.navigationBlock(
     }
 
 private fun ChildrenBuilder.navigationItem(context: Context, title: String, isSelected: Boolean) =
-    +li(HeaderStyles.navigationItemPositioning.name) {
-        +div(HeaderStyles.navigationItem(context).name) {
-            +span(HeaderStyles.navigationItemTitle(context).name) { +title }
+    +li(clazz = HeaderStyles.navigationItemPositioning.name) {
+        +div(clazz = HeaderStyles.navigationItem(context).name) {
+            +span(clazz = HeaderStyles.navigationItemTitle(context).name) { +title }
             if (isSelected) {
-                +div(HeaderStyles.navigationItemSelectionIndicator(context).name)
+                +div(clazz = HeaderStyles.navigationItemSelectionIndicator(context).name)
             }
         }
     }
 
 private fun ChildrenBuilder.searchIcon(context: Context) =
-    +div(HeaderStyles.searchIconWrapper(context).name) {
-        +magnifyIcon(HeaderStyles.searchIcon(context).name)
+    +div(clazz = HeaderStyles.searchIconWrapper(context).name) {
+        +magnifyIcon(clazz = HeaderStyles.searchIcon(context).name)
     }
 
 

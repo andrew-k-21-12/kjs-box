@@ -1,8 +1,8 @@
 [versions]
-commons-io      = "2.11.0"
-kodein          = "7.16.0"
+commons-io      = "2.12.0"
+kodein          = "7.20.1"
 kotlin          = "1.8.21"
-kotlin-wrappers = "1.0.0-pre.504"
+kotlin-wrappers = "1.0.0-pre.560"
 
 [libraries]
 commons-io                       = { module = "commons-io:commons-io",                             version.ref = "commons-io" }

@@ -70,8 +70,8 @@ val designIntro = VFC {
  * A root container with a background placing all its inner [children] as a grid.
  */
 private inline fun ChildrenBuilder.gridContainer(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(DesignIntroStyles.container(context).name) {
-        +div(DesignIntroStyles.grid(context).name, block = children)
+    +div(clazz = DesignIntroStyles.container(context).name) {
+        +div(clazz = DesignIntroStyles.grid(context).name, children)
     }
 
 /**
@@ -79,8 +79,8 @@ private inline fun ChildrenBuilder.gridContainer(context: Context, crossinline c
  */
 private fun ChildrenBuilder.titleAndCallToActionItem(context: Context, title: String, callToAction: String) =
     +div(LayoutStyles.gridDoubleOccupyingItem(context).name, DesignIntroStyles.horizontalSpacingGridItem.name) {
-        +p(DesignIntroStyles.title(context).name) { +title }
-        +p(DesignIntroStyles.callToAction(context).name) { +callToAction }
+        +p(clazz = DesignIntroStyles.title(context).name) { +title }
+        +p(clazz = DesignIntroStyles.callToAction(context).name) { +callToAction }
     }
 
 /**
@@ -103,7 +103,7 @@ private inline fun ChildrenBuilder.popularTopicsItem(
         // Items.
         ul {
             topicsAdapter { title, destinationEndpoint ->
-                +li(DesignIntroStyles.popularTopicItem(context).name) {
+                +li(clazz = DesignIntroStyles.popularTopicItem(context).name) {
                     a {
                         safeBlankHref = destinationEndpoint
                         +title
@@ -126,12 +126,12 @@ private fun ChildrenBuilder.topicPreviewItem(
     illustration: Image,
     illustrationAlternativeText: String,
 ) =
-    +div(LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
-        +div(SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
+    +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
+        +div(clazz = SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
             image(illustration, illustrationAlternativeText, DesignIntroStyles.topicIllustration(context).name)
             +p(DesignIntroStyles.category(context).name, DesignIntroStyles.topicCategory.name) { +category.uppercase() }
-            +p(DesignIntroStyles.topicTitle(context).name) { +title }
-            +p(DesignIntroStyles.topicDescription(context).name) { +description }
+            +p(clazz = DesignIntroStyles.topicTitle(context).name) { +title }
+            +p(clazz = DesignIntroStyles.topicDescription(context).name) { +description }
         }
     }
 

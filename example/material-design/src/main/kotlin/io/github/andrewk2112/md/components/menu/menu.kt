@@ -57,21 +57,22 @@ val menu = VFC {
 }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(MenuStyles.container(context).name, block = children)
+    +div(clazz = MenuStyles.container(context).name, children)
 
 /**
  * A static header which stays at the top of the menu's layout all the time.
  */
 private fun ChildrenBuilder.header(context: Context, title: String) =
-    +div(MenuStyles.header(context).name) {
-        +materialDesignLogoIcon(MenuStyles.headerIcon.name)
-        +span(MenuStyles.headerLabel(context).name) { +title.uppercase() }
+    +div(clazz = MenuStyles.header(context).name) {
+        +materialDesignLogoIcon(clazz = MenuStyles.headerIcon.name)
+        +span(clazz = MenuStyles.headerLabel(context).name) { +title.uppercase() }
     }
 
 private inline fun ChildrenBuilder.items(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(MenuStyles.items.name, block = children)
+    +div(clazz = MenuStyles.items.name, children)
 
-private fun ChildrenBuilder.category(context: Context, name: String) = +p(MenuStyles.category(context).name) { +name }
+private fun ChildrenBuilder.category(context: Context, name: String) =
+    +p(clazz = MenuStyles.category(context).name) { +name }
 
 private fun ChildrenBuilder.item(
     context: Context,
@@ -80,14 +81,14 @@ private fun ChildrenBuilder.item(
     vararg classNames: String,
 ) =
     +div(MenuStyles.item.name, SelectionStyles.simpleHighlightingAndSelection(context).name, *classNames) {
-        +a(MenuStyles.itemLink(context).name) {
+        +a(clazz = MenuStyles.itemLink(context).name) {
             safeBlankHref = destinationEndpoint
             addTapHighlighting()
             +name
         }
     }
 
-private fun ChildrenBuilder.divider(context: Context) = +div(MenuStyles.divider(context).name)
+private fun ChildrenBuilder.divider(context: Context) = +div(clazz = MenuStyles.divider(context).name)
 
 
 

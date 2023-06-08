@@ -35,7 +35,7 @@ val rectButton = FC<RectButtonProps> { props ->
  * The animation activation area with a [label] and spacing.
  */
 private fun ChildrenBuilder.animationAreaWithLabel(label: String) =
-    +div(RectButtonStyles.animationArea.name) {
+    +div(clazz = RectButtonStyles.animationArea.name) {
         addTapHighlighting()
         +label.uppercase()
     }

@@ -47,7 +47,7 @@ private inline fun ChildrenBuilder.notificationVisibility(
     context: Context,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
-    +div(HeaderScaffoldStyles.notificationVisibility(context.screenSize > PHONE).name, block = children)
+    +div(clazz = HeaderScaffoldStyles.notificationVisibility(context.screenSize > PHONE).name, children)
 
 
 

@@ -55,18 +55,18 @@ val materialArticles = VFC {
 }
 
 private inline fun ChildrenBuilder.container(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(MaterialArticlesStyles.container.name, block = children)
+    +div(clazz = MaterialArticlesStyles.container.name, children)
 
 private fun ChildrenBuilder.titleAndDescription(context: Context, title: String, description: String) {
-    +h2(MaterialArticlesStyles.title(context).name) { +title }
-    +p(MaterialArticlesStyles.description(context).name) { +description }
+    +h2(clazz = MaterialArticlesStyles.title(context).name) { +title }
+    +p(clazz = MaterialArticlesStyles.description(context).name) { +description }
 }
 
 private inline fun ChildrenBuilder.articlesGrid(
     context: Context,
     crossinline adapter: ((isDouble: Boolean, title: String, desc: String, Image, imageAltText: String) -> Unit) -> Unit
 ) =
-    +div(MaterialArticlesStyles.grid(context).name) {
+    +div(clazz = MaterialArticlesStyles.grid(context).name) {
         adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
             articleItem(context, hasDoubleWidth, title, description, illustration, illustrationAlternativeText)
         }
@@ -80,14 +80,14 @@ private fun ChildrenBuilder.articleItem(
     illustration: Image,
     illustrationAlternativeText: String,
 ) =
-    +div(LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
-        +div(SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
-            +strokedImage(ImageStyles.fitWidthKeepAspectImage.name) {
+    +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
+        +div(clazz = SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
+            +strokedImage(clazz = ImageStyles.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
-            +p(MaterialArticlesStyles.articleTitle(context).name) { +title }
-            +p(MaterialArticlesStyles.articleDescription(context).name) { +description }
+            +p(clazz = MaterialArticlesStyles.articleTitle(context).name) { +title }
+            +p(clazz = MaterialArticlesStyles.articleDescription(context).name) { +description }
         }
     }
 

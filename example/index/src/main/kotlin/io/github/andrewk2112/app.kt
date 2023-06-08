@@ -7,6 +7,7 @@ import io.github.andrewk2112.redux.reducers.ContextReducer
 import io.github.andrewk2112.routes.MaterialDesignRoute
 import js.import.Module
 import js.import.import
+import js.promise.toPromise
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*
@@ -79,10 +80,12 @@ private val exercisesOnDemandComponent: ExoticComponent<Props> = lazy {
     // Therefore, we should use simple relative paths instead of the absolute ones.
     // It's a webpack requirement for requests that should resolve in the current directory to start with "./".
     import<Module<dynamic>>("./${Environment.projectName}-exercises")
-        .then{ it.default }
+        .then { it.default }
+        .toPromise()
 }
 
 private val materialDesignOnDemandComponent: ExoticComponent<Props> = lazy {
     import<Module<dynamic>>("./${Environment.projectName}-material-design")
-        .then{ it.default }
+        .then { it.default }
+        .toPromise()
 }

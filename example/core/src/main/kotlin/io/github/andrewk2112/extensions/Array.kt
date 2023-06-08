@@ -1,6 +1,6 @@
 package io.github.andrewk2112.extensions
 
-import csstype.ClassName
+import web.cssom.ClassName
 
 /**
  * Simplifies string array conversions to [ClassName] for internal needs.

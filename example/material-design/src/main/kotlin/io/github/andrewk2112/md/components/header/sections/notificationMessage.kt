@@ -34,19 +34,19 @@ fun ChildrenBuilder.notificationMessage(
     }
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(NotificationMessageStyles.container(context).name, block = children)
+    +div(clazz = NotificationMessageStyles.container(context).name, children)
 
 private fun ChildrenBuilder.titleAndDescription(context: Context, title: String, description: String) =
-    +div(NotificationMessageStyles.titleAndDescriptionWrapper.name) {
-        +p(NotificationMessageStyles.title(context).name) { +title }
-        +p(NotificationMessageStyles.description(context).name) { +description }
+    +div(clazz = NotificationMessageStyles.titleAndDescriptionWrapper.name) {
+        +p(clazz = NotificationMessageStyles.title(context).name) { +title }
+        +p(clazz = NotificationMessageStyles.description(context).name) { +description }
     }
 
 private fun ChildrenBuilder.actionButton(context: Context, label: String, destinationEndpoint: String) =
-    +a(NotificationMessageStyles.actionButton(context).name) {
+    +a(clazz = NotificationMessageStyles.actionButton(context).name) {
         safeBlankHref = destinationEndpoint
         +label
-        +arrowRightThinIcon(NotificationMessageStyles.actionButtonArrow.name)
+        +arrowRightThinIcon(clazz = NotificationMessageStyles.actionButtonArrow.name)
     }
 
 

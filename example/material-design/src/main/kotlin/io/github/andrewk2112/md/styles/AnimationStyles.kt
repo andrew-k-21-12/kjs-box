@@ -7,7 +7,6 @@ import io.github.andrewk2112.extensions.isLeftButton
 import io.github.andrewk2112.extensions.setStyle
 import io.github.andrewk2112.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import js.core.get
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale

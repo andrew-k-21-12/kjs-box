@@ -12,5 +12,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "markup-training"
-include("resources-and-dsl")
+rootProject.name = "kjs-box"
+include("frontend")

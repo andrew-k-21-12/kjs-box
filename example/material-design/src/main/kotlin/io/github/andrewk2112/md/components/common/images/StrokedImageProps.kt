@@ -1,6 +1,6 @@
-package io.github.andrewk2112.md.components.common.images
+package io.github.andrewk2112.kjsbox.examples.frontend.md.components.common.images
 
-import io.github.andrewk2112.resourcewrappers.images.Image
+import io.github.andrewk2112.kjsbox.examples.frontend.resourcewrappers.images.Image
 import react.PropsWithClassName
 
 external interface StrokedImageProps : PropsWithClassName {

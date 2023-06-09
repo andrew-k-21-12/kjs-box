@@ -1,7 +1,7 @@
-package io.github.andrewk2112.md.resources.endpoints
+package io.github.andrewk2112.kjsbox.examples.frontend.md.resources.endpoints
 
-import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.design
-import io.github.andrewk2112.md.resources.endpoints.MainMaterialEndpoints.root
+import io.github.andrewk2112.kjsbox.examples.frontend.md.resources.endpoints.MainMaterialEndpoints.design
+import io.github.andrewk2112.kjsbox.examples.frontend.md.resources.endpoints.MainMaterialEndpoints.root
 
 /**
  * All popular Material articles endpoints.

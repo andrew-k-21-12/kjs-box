@@ -1,15 +1,15 @@
-package io.github.andrewk2112.md.components.content
+package io.github.andrewk2112.kjsbox.examples.frontend.md.components.content
 
-import io.github.andrewk2112.designtokens.StyleValues
-import io.github.andrewk2112.extensions.invoke
-import io.github.andrewk2112.md.components.common.horizontalDivider
-import io.github.andrewk2112.md.components.content.sections.designIntro
-import io.github.andrewk2112.md.components.content.sections.materialArticles
-import io.github.andrewk2112.md.components.content.sections.materialStudies
-import io.github.andrewk2112.md.components.content.sections.whatsNew
-import io.github.andrewk2112.md.styles.LayoutStyles
-import io.github.andrewk2112.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
+import io.github.andrewk2112.kjsbox.examples.frontend.md.components.common.horizontalDivider
+import io.github.andrewk2112.kjsbox.examples.frontend.md.components.content.sections.designIntro
+import io.github.andrewk2112.kjsbox.examples.frontend.md.components.content.sections.materialArticles
+import io.github.andrewk2112.kjsbox.examples.frontend.md.components.content.sections.materialStudies
+import io.github.andrewk2112.kjsbox.examples.frontend.md.components.content.sections.whatsNew
+import io.github.andrewk2112.kjsbox.examples.frontend.md.styles.LayoutStyles
+import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
 import kotlinx.css.padding
 import react.ChildrenBuilder
 import react.VFC

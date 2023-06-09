@@ -1,9 +1,9 @@
-package io.github.andrewk2112.designtokens
+package io.github.andrewk2112.kjsbox.frontend.designtokens
 
-import io.github.andrewk2112.designtokens.system.ThemedFontSizes
-import io.github.andrewk2112.designtokens.system.ThemedPalette
-import io.github.andrewk2112.designtokens.system.ThemedSizes
-import io.github.andrewk2112.dinjection.di
+import io.github.andrewk2112.kjsbox.frontend.designtokens.system.ThemedFontSizes
+import io.github.andrewk2112.kjsbox.frontend.designtokens.system.ThemedPalette
+import io.github.andrewk2112.kjsbox.frontend.designtokens.system.ThemedSizes
+import io.github.andrewk2112.kjsbox.frontend.dinjection.di
 import org.kodein.di.instance
 
 /**

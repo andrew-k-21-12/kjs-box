@@ -58,8 +58,7 @@ import web.dom.Element
 //     (think more about it as hashes for resources can be helpful when deploying to avoid their unavailability on upd.).
 //  2. Write some custom server with all required configs (caches, routing) and place it here.
 //  3. Write about the project's features in the central README.md.
-//  4. Change the package name when the project gets its final name.
-//  5. Publish the Gradle plugins providing this project's features.
+//  4. Publish the Gradle plugins providing this project's features.
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

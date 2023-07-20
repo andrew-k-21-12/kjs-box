@@ -7,7 +7,7 @@ kotlin-wrappers = "1.0.0-pre.560"
 [libraries]
 commons-io                       = { module = "commons-io:commons-io",                             version.ref = "commons-io" }
 kodein-di                        = { module = "org.kodein.di:kodein-di",                           version.ref = "kodein" }
-kotlin-gradleplugin              = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin" }
+kotlin-gradleplugin              = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",         version.ref = "kotlin" }
 kotlin-wrappers-bom              = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
 kotlin-wrappers-js               = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
 kotlin-wrappers-react            = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }

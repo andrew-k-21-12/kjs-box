@@ -1,3 +1,2 @@
-// While this dummy file is not the entry point anymore,
+// While this dummy file is not an entry point anymore,
 // we still need it here, or the compiler would not generate any JS.
-package io.github.andrewk2112.kjsbox.examples.frontend

@@ -80,6 +80,9 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         // Adding the generated wrappers to the source set of the project.
         mainSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
 
+        // Just a temporary way to include all dependencies required for resource wrappers generation.
+        dependencies.add("implementation", project(":core"))
+
         // Adding the configured resources directory to the source set of the root project.
         rootProject.run {
             getMainKotlinSourceSet().resources.srcDir(context.generatedResourcesDirectory)

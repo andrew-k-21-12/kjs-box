@@ -1,14 +1,4 @@
-import io.github.andrewk2112.kjsbox.frontend.gradle.plugins.ResourceWrappersGenerationPlugin
-
 plugins {
-    alias(kotlinLibs.plugins.kotlin.js)
-}
-apply<ResourceWrappersGenerationPlugin>()
-
-kotlin {
-    js(IR).browser()
-}
-
-dependencies {
-    implementation(projects.core)
+    id("io.github.andrew-k-21-12.kjs-box.frontend-lazy-module")
+    id("io.github.andrew-k-21-12.kjs-box.frontend-resource-wrappers")
 }

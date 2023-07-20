@@ -11,7 +11,7 @@ import java.io.File
  * Generates all Node.js binaries required for production
  * (the ones not generated automatically for some reason).
  */
-class NodeJsBinariesGenerationPlugin : Plugin<Project> {
+internal class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
     // Action.
 

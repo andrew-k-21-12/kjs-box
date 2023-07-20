@@ -1,11 +1,7 @@
 plugins {
-    alias(kotlinLibs.plugins.kotlin.js)
+    id("io.github.andrew-k-21-12.kjs-box.frontend-entry-point")
 }
 
-kotlin {
-    js(IR).browser()
-}
-
-dependencies {
-    implementation(projects.core)
+entryPoint {
+    rootComponent.set("io.github.andrewk2112.kjsbox.examples.frontend.app")
 }

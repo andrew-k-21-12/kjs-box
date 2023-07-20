@@ -1,10 +1,6 @@
 // All configs inside of this file will be applied both in the development and the production modes.
-const path              = require("path"),
-      DefinePlugin      = require("webpack").DefinePlugin,
+const DefinePlugin      = require("webpack").DefinePlugin,
       HtmlWebpackPlugin = require("html-webpack-plugin");
-
-// Setting the entry point module.
-config.entry = path.resolve(__dirname, `${RAW_OUTPUT_DIR}/${config.output.library}-index.js`);
 
 // This config is super important to prepend a slash to the compiled JS sources file:
 // without it deeper navigation routes will fail to find the sources.

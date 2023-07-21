@@ -80,7 +80,7 @@ private inline val reactRootElementId get() = "root"
 
     """.trimIndent()
 
-    /** This filename will be used as destination to write entry point sources into. */
+    /** This filename will be used as a destination to write entry point sources into. */
     private inline val entryPointFileName get() = "main.kt"
 
 }

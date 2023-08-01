@@ -2,6 +2,3 @@
 /.idea/*
 !/.idea/runConfigurations/
 /build/
-
-# A temporary solution to preview production distributions - should be replaced with something else later.
-/server.py

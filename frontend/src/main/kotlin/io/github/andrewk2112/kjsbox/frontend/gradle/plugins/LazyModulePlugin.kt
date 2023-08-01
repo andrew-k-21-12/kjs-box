@@ -73,7 +73,7 @@ internal class LazyModulePlugin : Plugin<Project> {
     ): LazyExportConfigGenerationTask =
         tasks.register("generateLazyExportConfig", LazyExportConfigGenerationTask::class.java) {
             it.moduleName.set(name)
-            it.exportedComponentName.set(lazyModuleExtension.exportedComponent)
+            it.componentToExport.set(lazyModuleExtension.exportedComponent)
             it.sourcesOutDirectory.set(getGeneratedLazyExportConfigDirectory())
         }.get()
 
@@ -84,7 +84,7 @@ internal class LazyModulePlugin : Plugin<Project> {
     /**
      * Where to save export-configuring Kotlin sources.
      */
-    private fun Project.getGeneratedLazyExportConfigDirectory(): File = buildDir.joinWithPath("generated/lazy")
+    private fun Project.getGeneratedLazyExportConfigDirectory(): File = buildDir.joinWithPath("generated/export")
 
     /** How to name the plugin-configuring scope. */
     private inline val pluginConfiguratorName get() = "lazyModule"

@@ -47,10 +47,8 @@ import web.dom.Element
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Simplify WindowWidthMonitor.
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Introduce better modular structure (which should separate resources and style values as well);
-//     one Gradle plugin should configure all resource wrappers generators and set the dependency on the core module.
-//  8. Maybe the localization API should be changed slightly?
-//  9. Drop reducers?
+//  7. Maybe the localization API should be changed slightly?
+//  8. Drop reducers?
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

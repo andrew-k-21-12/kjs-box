@@ -1,14 +1,12 @@
 package io.github.andrewk2112.kjsbox.examples.frontend
 
-import io.github.andrewk2112.kjsbox.frontend.Environment
+import examplesExercisesEntryPoint
+import examplesMaterialDesignEntryPoint
 import io.github.andrewk2112.kjsbox.frontend.dinjection.di
 import io.github.andrewk2112.kjsbox.frontend.hooks.useInjected
 import io.github.andrewk2112.kjsbox.frontend.redux.StoreFactory
 import io.github.andrewk2112.kjsbox.frontend.redux.reducers.ContextReducer
 import io.github.andrewk2112.kjsbox.frontend.routes.MaterialDesignRoute
-import js.import.Module
-import js.import.import
-import js.promise.toPromise
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*
@@ -55,11 +53,11 @@ private val routes = VFC {
     Routes {
         PathRoute {
             path = "/"
-            element = exercisesOnDemandComponent.create()
+            element = examplesExercisesEntryPoint.create()
         }
         PathRoute {
             path = MaterialDesignRoute.path
-            element = materialDesignOnDemandComponent.create()
+            element = examplesMaterialDesignEntryPoint.create()
         }
         PathRoute {
             path = "*"
@@ -72,21 +70,4 @@ private val routes = VFC {
         }
     }
 
-}
-
-private val exercisesOnDemandComponent: ExoticComponent<Props> = lazy {
-    // Such references (also, references to resources - fonts, icons, images)
-    // are included from the compilation root (from the root resources directory):
-    // their paths are totally unrelated to browser locations.
-    // Therefore, we should use simple relative paths instead of the absolute ones.
-    // It's a webpack requirement for requests that should resolve in the current directory to start with "./".
-    import<Module<dynamic>>("./${Environment.projectName}-exercises")
-        .then { it.default }
-        .toPromise()
-}
-
-private val materialDesignOnDemandComponent: ExoticComponent<Props> = lazy {
-    import<Module<dynamic>>("./${Environment.projectName}-material-design")
-        .then { it.default }
-        .toPromise()
 }

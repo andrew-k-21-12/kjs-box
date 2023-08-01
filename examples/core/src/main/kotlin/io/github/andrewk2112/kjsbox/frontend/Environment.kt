@@ -16,9 +16,6 @@ object Environment {
 
     // Public.
 
-    /** Root project name configured in Gradle. */
-    val projectName: String = js("PROJECT_NAME").unsafeCast<String>()
-
     /** Current build mode of this application. */
     val buildMode: BuildMode by lazy {
         for (buildMode in BuildMode.values()) {

@@ -34,10 +34,9 @@ config.module.rules.push(
     }
 );
 
-// Pushing the project name and the build mode identifier to be available globally in JS sources.
+// Pushing the build mode identifier to be available globally in JS sources.
 config.plugins.push(new DefinePlugin({
-    PROJECT_NAME: JSON.stringify(config.output.library),
-    BUILD_MODE:   JSON.stringify(config.mode)
+    BUILD_MODE: JSON.stringify(config.mode)
 }));
 
 // All route paths should fallback to the index page to make SPA's routes processed correctly.

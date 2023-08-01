@@ -13,4 +13,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "kjs-box"
-include("frontend")
+include("frontend-dsl")

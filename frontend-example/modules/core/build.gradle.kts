@@ -1,8 +1,8 @@
-import io.github.andrewk2112.kjsbox.frontend.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.gradle.extensions.npm
-import io.github.andrewk2112.kjsbox.frontend.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getGeneratedWrappersDirectory
-import io.github.andrewk2112.kjsbox.frontend.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getResourcesWrappersBasePackageName
-import io.github.andrewk2112.kjsbox.frontend.gradle.tasks.ImageInterfacesGenerationTask
+import io.github.andrewk2112.kjsbox.frontend.dsl.extensions.joinWithPath
+import io.github.andrewk2112.kjsbox.frontend.dsl.gradle.extensions.npm
+import io.github.andrewk2112.kjsbox.frontend.dsl.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getGeneratedWrappersDirectory
+import io.github.andrewk2112.kjsbox.frontend.dsl.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getResourcesWrappersBasePackageName
+import io.github.andrewk2112.kjsbox.frontend.dsl.gradle.tasks.ImageInterfacesGenerationTask
 
 plugins {
     kotlin("js")

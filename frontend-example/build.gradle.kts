@@ -1,4 +1,4 @@
-import io.github.andrewk2112.kjsbox.frontend.extensions.joinWithPath
+import io.github.andrewk2112.kjsbox.frontend.dsl.extensions.joinWithPath
 
 plugins {
     id("io.github.andrew-k-21-12.kjs-box.frontend-main")
@@ -12,7 +12,7 @@ tasks {
 
     // Not the cleanest but working way to remove the build directory of dependent DSL project as well.
     named("clean").get().doLast {
-        projectDir.parentFile?.joinWithPath("frontend")?.joinWithPath("build")?.deleteRecursively()
+        projectDir.parentFile?.joinWithPath("frontend-dsl")?.joinWithPath("build")?.deleteRecursively()
     }
 
 }

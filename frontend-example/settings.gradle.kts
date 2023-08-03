@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("../")
+    includeBuild("../frontend-buildscript")
 }
 
 dependencyResolutionManagement {
@@ -22,13 +22,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "frontend-example"
-
-// Including all modules.
-file("modules")
-    .listFiles()
-    ?.filter(File::isDirectory)
-    ?.forEach { directory ->
-        val moduleName = directory.name
-        include(moduleName)
-        project(":$moduleName").projectDir = directory
-    }
+listOf("core", "exercises", "index", "material-design").map {
+    include(it)
+    project(":$it").projectDir = File("modules", it)
+}

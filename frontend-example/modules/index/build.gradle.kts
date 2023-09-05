@@ -1,7 +1,7 @@
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.generateLazyEntryComponent
 
 plugins {
-    id("io.github.andrew-k-21-12.kjs-box.frontend-entry-point")
+    alias(kotlinLibs.plugins.kjsbox.frontend.entrypoint)
 }
 
 kotlin {

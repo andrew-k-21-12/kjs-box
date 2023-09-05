@@ -1,3 +1,9 @@
+// These inclusions are required to perform builds with dependencies provided locally.
+includeBuild("../frontend-core")
+pluginManagement {
+    includeBuild("../version-catalogs-generator")
+}
+
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)

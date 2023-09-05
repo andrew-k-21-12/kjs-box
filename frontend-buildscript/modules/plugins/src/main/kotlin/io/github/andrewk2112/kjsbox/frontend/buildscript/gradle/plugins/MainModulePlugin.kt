@@ -1,16 +1,17 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.plugins
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.addNpmDependency
+import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.devNpm
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.kotlinJs
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.DirectoryWritingTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versions.JsVersionCatalog
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versions.Library
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import java.io.File
 
@@ -37,8 +38,8 @@ internal class MainModulePlugin : Plugin<Project> {
 
         kotlinJs {
 
-            js(KotlinJsCompilerType.IR) {
-                binaries.executable()
+            js {
+                binaries.executable() // no run or deploy tasks will be generated without this line
                 browser {
                     commonWebpackConfig {
                         configDirectory = webpackConfigsDirectory
@@ -53,9 +54,9 @@ internal class MainModulePlugin : Plugin<Project> {
 
         }
 
-        // Adding all required NPM dependencies.
-        libraryAliases.forEach {
-            addNpmDependency(tomlCatalogName, it, "implementation", isDev = true)
+        // Adding all required development-only NPM dependencies.
+        devNpmDependencies.forEach {
+            dependencies.add("implementation", dependencies.devNpm(it.name, it.version!!))
         }
 
         // Preventing optimization issues because of the custom modules structure.
@@ -134,19 +135,19 @@ internal class MainModulePlugin : Plugin<Project> {
         getSupportingFilesDestinationDirectory("webpackConfigs"),
     )
 
-    /** TOML catalog's name to include libraries from. */
-    private inline val tomlCatalogName get() = "jsLibs"
-
-    /** TOML catalog's aliases of all libraries to be included. */
-    private inline val libraryAliases get() = arrayOf(
-        "webpack-svgr",
-        "webpack-html",
-        "webpack-terser",
-        "webpack-imageminimizer",
-        "imagemin-core",    // the minification engine to be used for the plugin above
-        "imagemin-webp",    // WebP generation
-        "imagemin-optipng", // lossless PNG optimization
-        "i18n-unused", // to remove unused localizations when bundling
-    )
+    /** All NPM development-only dependencies to be added. */
+    private inline val devNpmDependencies: Array<Library>
+        get() = with(JsVersionCatalog().libraries) {
+            arrayOf(
+                webpackSvgr,
+                webpackHtml,
+                webpackTerser,
+                webpackImageminimizer,
+                imageminCore,    // the minification engine to be used for the plugin above
+                imageminWebp,    // WebP generation
+                imageminOptipng, // lossless PNG optimization
+                i18nUnused // to remove unused localizations when bundling
+            )
+        }
 
 }

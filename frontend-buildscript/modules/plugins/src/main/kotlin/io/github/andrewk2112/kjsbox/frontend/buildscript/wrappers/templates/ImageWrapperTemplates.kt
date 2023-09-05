@@ -8,33 +8,8 @@ import org.intellij.lang.annotations.Language
 internal class ImageWrapperTemplates {
 
     @Language("kotlin")
-    internal fun inflateImageInterface(packageName: String): String = """
-package $packageName
-
-sealed interface Image
-
-    """.trimIndent()
-
-    @Language("kotlin")
-    internal fun inflateSimpleImageInterface(packageName: String): String = """
-package $packageName
-
-interface SimpleImage : Image {
-
-    val width:  Int
-    val height: Int
-
-    val webp: String
-    val png:  String
-
-}
-
-    """.trimIndent()
-
-    @Language("kotlin")
     internal fun inflateSimpleImage(
         packageName: String,
-        interfacesPackageName: String,
         objectName: String,
         imageWidth: Int,
         imageHeight: Int,
@@ -43,7 +18,7 @@ interface SimpleImage : Image {
     ): String = """
 package $packageName
 
-import ${interfacesPackageName}.*
+import io.github.andrewk2112.kjsbox.frontend.resources.SimpleImage
 
 object $objectName : SimpleImage {
 

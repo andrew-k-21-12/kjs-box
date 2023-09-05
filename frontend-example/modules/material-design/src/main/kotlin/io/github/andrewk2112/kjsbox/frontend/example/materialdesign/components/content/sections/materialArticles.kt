@@ -8,12 +8,12 @@ import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.Image
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CustomColorPalettesGenerationImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShapePowerImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SystemIconsImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.TypeSystemImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.kjsbox.frontend.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
@@ -64,7 +64,7 @@ private fun ChildrenBuilder.titleAndDescription(context: Context, title: String,
 
 private inline fun ChildrenBuilder.articlesGrid(
     context: Context,
-    crossinline adapter: ((isDouble: Boolean, title: String, desc: String, Image, imageAltText: String) -> Unit) -> Unit
+    crossinline adapter: ((isDouble: Boolean, title: String, desc: String, ResourceImage, imageAltText: String) -> Unit) -> Unit
 ) =
     +div(clazz = MaterialArticlesStyles.grid(context).name) {
         adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
@@ -77,7 +77,7 @@ private fun ChildrenBuilder.articleItem(
     hasDoubleWidth: Boolean,
     title: String,
     description: String,
-    illustration: Image,
+    illustration: ResourceImage,
     illustrationAlternativeText: String,
 ) =
     +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
@@ -175,6 +175,6 @@ private class MaterialArticlesUiState private constructor(vararg val articles: M
 private class MaterialArticleUiState(
     val title: LocalizationKey,
     val description: LocalizationKey,
-    val illustration: Image,
+    val illustration: ResourceImage,
     val illustrationAlternativeText: LocalizationKey,
 )

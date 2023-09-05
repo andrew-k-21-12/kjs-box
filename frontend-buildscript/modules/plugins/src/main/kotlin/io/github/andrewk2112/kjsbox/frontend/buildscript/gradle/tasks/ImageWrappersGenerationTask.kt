@@ -5,23 +5,12 @@ import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.actions.Co
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.actions.FileToResourcePathsTransformer
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resources.visitors.ImageResourceVisitor
 import io.github.andrewk2112.kjsbox.frontend.buildscript.wrappers.writers.ImageWrappersWriter
-import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 
 /**
  * Generates wrappers for source image resources.
  */
 abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
-
-    // Public.
-
-    /** The package name of dependency image interfaces. */
-    @get:Input
-    abstract val interfacesPackageName: Property<String>
-
-
-
-    // Private.
 
     @TaskAction
     @Throws(Exception::class)
@@ -40,7 +29,6 @@ abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
         // Reusable.
         val wrappersOutDirectory    = wrappersOutDirectory.asFile.get()
         val wrappersBasePackageName = wrappersBasePackageName.get()
-        val interfacesPackageName   = interfacesPackageName.get()
         val wrappersWriter          = ImageWrappersWriter()
 
         // Writing wrappers for image resources.
@@ -48,7 +36,6 @@ abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
             wrappersWriter.writeWrapper(
                 wrappersOutDirectory,
                 wrappersBasePackageName,
-                interfacesPackageName,
                 imageResource
             )
         }

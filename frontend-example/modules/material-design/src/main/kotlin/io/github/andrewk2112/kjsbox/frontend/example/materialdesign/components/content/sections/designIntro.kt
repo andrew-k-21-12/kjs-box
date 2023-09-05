@@ -9,7 +9,6 @@ import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.Image
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.MaterialDarkThemeImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SoundGuidelinesImage
 import io.github.andrewk2112.kjsbox.frontend.components.image
@@ -19,6 +18,7 @@ import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.PopularMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.kjsbox.frontend.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
@@ -123,7 +123,7 @@ private fun ChildrenBuilder.topicPreviewItem(
     title: String,
     description: String,
     category: String,
-    illustration: Image,
+    illustration: ResourceImage,
     illustrationAlternativeText: String,
 ) =
     +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
@@ -261,6 +261,6 @@ private class TopicPreviewUiState(
     val title: LocalizationKey,
     val description: LocalizationKey,
     val category: LocalizationKey,
-    val illustration: Image,
+    val illustration: ResourceImage,
     val illustrationAlternativeText: LocalizationKey,
 )

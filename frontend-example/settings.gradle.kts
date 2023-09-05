@@ -1,5 +1,7 @@
 pluginManagement {
     includeBuild("../frontend-buildscript")
+    includeBuild("../frontend-core")              // used in buildscripts, won't compile without it
+    includeBuild("../version-catalogs-generator") // just to clean everything at once by a single command
 }
 
 dependencyResolutionManagement {
@@ -12,9 +14,6 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("kotlinLibs") {
             from(files("../dependencies/kotlin.toml"))
-        }
-        create("jsLibs") {
-            from(files("../dependencies/js.toml"))
         }
     }
 }

@@ -15,49 +15,13 @@ internal class ImageWrappersWriter(
     // API.
 
     /**
-     * Performs preliminary preparations and checks,
-     * writes required base interfaces into [outDirectory] with [packageName].
-     */
-    @Throws(SupportingSourceWritingException::class)
-    internal fun writeBaseInterfaces(outDirectory: File, packageName: String) {
-        try {
-
-            // Where to write base interfaces - making sure this destination directory exists.
-            val baseInterfacesOutDirectory = outDirectory
-                .joinWithPath(packageName.dotsToSlashes())
-                .also {
-                    it.ensureDirectoryExistsOrThrow(
-                        "Can not create the output directory for image basic interfaces: ${it.absolutePath}"
-                    )
-                }
-
-            imageWrapperTemplates.apply {
-
-                // Writing the sealed interface common for all image wrappers.
-                inflateImageInterface(packageName)
-                    .writeTo(baseInterfacesOutDirectory.joinWithPath("Image.kt"))
-
-                // Writing the interface representing simple images without variants.
-                inflateSimpleImageInterface(packageName)
-                    .writeTo(baseInterfacesOutDirectory.joinWithPath("SimpleImage.kt"))
-
-            }
-
-        } catch (exception: Exception) {
-            throw SupportingSourceWritingException(exception)
-        }
-    }
-
-    /**
      * Does all preliminary preparations and checks,
-     * writes an [imageResource] wrapper dependent on the [interfacesPackageName]
-     * into the [allWrappersOutDirectory] with the [basePackageName].
+     * writes an [imageResource] wrapper into the [allWrappersOutDirectory] with the [basePackageName].
      */
     @Throws(WrapperWritingException::class)
     internal fun writeWrapper(
         allWrappersOutDirectory: File,
         basePackageName: String,
-        interfacesPackageName: String,
         imageResource: ImageResource
     ) {
         try {
@@ -83,7 +47,6 @@ internal class ImageWrappersWriter(
             imageWrapperTemplates
                 .inflateSimpleImage(
                     wrapperPackageName,
-                    interfacesPackageName,
                     objectName,
                     imageResource.imageSize.width,
                     imageResource.imageSize.height,

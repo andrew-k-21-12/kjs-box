@@ -1,23 +1,15 @@
-import io.github.andrewk2112.kjsbox.frontend.buildscript.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.npm
-import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getGeneratedWrappersDirectory
-import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.plugins.ResourceWrappersGenerationPlugin.Companion.getResourcesWrappersBasePackageName
-import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.ImageInterfacesGenerationTask
 
 plugins {
-    kotlin("js")
+    alias(kotlinLibs.plugins.kotlin.js)
+    alias(kotlinLibs.plugins.kjsbox.frontend.extensions)
 }
 
-// How and where to generate image interfaces for image resource wrappers - a temporary solution to be dropped soon.
-val generateImageInterfaces by tasks.registering(ImageInterfacesGenerationTask::class) {
-    interfacesPackageName.set("${getResourcesWrappersBasePackageName()}.images")
-    interfacesOutDirectory.set(getGeneratedWrappersDirectory().joinWithPath("imageInterfaces"))
-}
+group   = "io.github.andrew-k-21-12.kjs-box"
+version = "1.0.0-SNAPSHOT"
 
 kotlin {
-    js(IR).browser()
-    // Using the required generated image interfaces in the module's sources.
-    sourceSets.main.get().kotlin.srcDir(generateImageInterfaces)
+    js().browser()
 }
 
 dependencies {

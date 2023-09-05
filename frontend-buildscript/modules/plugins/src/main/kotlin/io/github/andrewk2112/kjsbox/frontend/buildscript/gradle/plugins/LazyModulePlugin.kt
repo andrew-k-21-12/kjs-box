@@ -3,11 +3,11 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.plugins
 import io.github.andrewk2112.kjsbox.frontend.buildscript.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.kotlinJs
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.LazyExportConfigGenerationTask
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versions.KotlinVersionCatalog
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import java.io.File
 
@@ -41,12 +41,12 @@ internal class LazyModulePlugin : Plugin<Project> {
         val generateLazyExportConfig = registerLazyExportConfigGenerationTask(createLazyModuleExtension())
 
         kotlinJs {
-            js(KotlinJsCompilerType.IR).browser()
+            js().browser()
             sourceSets.named("main").get().kotlin.srcDir(generateLazyExportConfig)
         }
 
-        // Export config sources require some dependencies of this project, can be replaced with direct dependencies.
-        dependencies.add("implementation", project(":core"))
+        // Export config sources require some dependencies from this project, can be decomposed later.
+        dependencies.add("implementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
 
         // Enabling the compilation of this on-demand module.
         project.rootProject.dependencies.add("implementation", project)

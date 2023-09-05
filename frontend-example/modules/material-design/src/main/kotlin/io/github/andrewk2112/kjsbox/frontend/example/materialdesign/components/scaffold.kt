@@ -51,6 +51,9 @@ import web.dom.Element
 //  8. Drop reducers?
 //  9. Starting with Kotlin 1.9.0, the kotlin-js Gradle plugin is deprecated,
 //     use the kotlin-multiplatform Gradle plugin with the js() target instead.
+//  10.Extract composite builds (Gradle projects) with shared sources (e.g. for strings).
+//  11.Extract Gradle plugins to separate Gradle modules inside the frontend-buildscript project
+//     (make sure all artifacts are generated as separate JARs).
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

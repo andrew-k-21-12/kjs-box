@@ -5,12 +5,12 @@ import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.kotli
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.DirectoryWritingTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.EntryPointGenerationTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.tasks.actions.writeintodirectory.TextWriteIntoDirectoryAction
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versions.KotlinVersionCatalog
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.intellij.lang.annotations.Language
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType
 import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import java.io.File
 
@@ -45,12 +45,12 @@ internal class EntryPointModulePlugin : Plugin<Project> {
         val generateEntryPoint = registerEntryPointGenerationTask(createEntryPointExtension())
 
         kotlinJs {
-            js(KotlinJsCompilerType.IR).browser()
+            js().browser()
             sourceSets.named("main").get().kotlin.srcDir(generateEntryPoint)
         }
 
-        // Entry point sources require some dependencies of this project, can be replaced with direct dependencies.
-        dependencies.add("implementation", project(":core"))
+        // Entry point sources require some dependencies of this project, can be decomposed later.
+        dependencies.add("implementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
 
         // On-demand modules require special processing to be compiled - this is the way to request the compilation.
         rootProject.dependencies.add("implementation", project)

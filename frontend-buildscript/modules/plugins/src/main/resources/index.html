@@ -7,6 +7,10 @@
     <title>Markup Training</title>
 </head>
 <body>
-<div id="root"></div> <!-- the components' injection destination -->
+<!-- The React's injection destination.
+     Creating roots directly inside the body is discouraged,
+     since its children are often manipulated by third-party scripts and browser extensions -
+     this may lead to subtle reconciliation issues. -->
+<div id="root"></div>
 </body>
 </html>

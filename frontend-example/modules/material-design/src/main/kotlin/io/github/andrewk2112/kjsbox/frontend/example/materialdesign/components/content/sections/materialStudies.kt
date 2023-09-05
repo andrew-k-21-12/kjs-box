@@ -15,11 +15,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Layou
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.ImageStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LabelStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.SelectionStyles
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.Image
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CraneImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ReplyImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShrineImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.kjsbox.frontend.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
@@ -86,7 +86,7 @@ private fun ChildrenBuilder.header(
 
 private inline fun ChildrenBuilder.studiesGrid(
     context: Context,
-    crossinline studiesAdapter: ((title: String, description: String, Image, imageAltText: String) -> Unit) -> Unit
+    crossinline studiesAdapter: ((title: String, description: String, ResourceImage, imageAltText: String) -> Unit) -> Unit
 ) =
     +div(clazz = MaterialStudiesStyles.grid(context).name) {
         studiesAdapter { title, description, illustration, illustrationAlternativeText ->
@@ -98,7 +98,7 @@ private fun ChildrenBuilder.studyItem(
     context: Context,
     title: String,
     description: String,
-    illustration: Image,
+    illustration: ResourceImage,
     illustrationAlternativeText: String,
 ) =
     div { // ← to prevent the item from taking the entire height of the grid's row
@@ -214,6 +214,6 @@ private class MaterialStudiesUiState private constructor(vararg val studies: Mat
 private class MaterialStudyUiState(
     val title: LocalizationKey,
     val description: LocalizationKey,
-    val illustration: Image,
+    val illustration: ResourceImage,
     val illustrationAlternativeText: LocalizationKey,
 )

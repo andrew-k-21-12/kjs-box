@@ -1,11 +1,20 @@
 [versions]
-commons-io      = "2.12.0"
-kodein          = "7.20.1"
-kotlin          = "1.8.21"
-kotlin-wrappers = "1.0.0-pre.560"
+commons-io                       = "2.12.0"
+kjsbox-frontend-core             = "1.0.0-SNAPSHOT"
+kjsbox-frontend-entrypoint       = "1.0.0"
+kjsbox-frontend-extensions       = "1.0.0"
+kjsbox-frontend-lazymodule       = "1.0.0"
+kjsbox-frontend-main             = "1.0.0"
+kjsbox-frontend-resourcewrappers = "1.0.0"
+kodein                           = "7.20.1"
+kotlin                           = "1.8.21"
+kotlin-wrappers                  = "1.0.0-pre.560"
+my-versioncatalogsgenerator      = "1.0.0"
+tomlj                            = "1.1.0"
 
 [libraries]
 commons-io                       = { module = "commons-io:commons-io",                             version.ref = "commons-io" }
+kjsbox-frontend-core             = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",    version.ref = "kjsbox-frontend-core" }
 kodein-di                        = { module = "org.kodein.di:kodein-di",                           version.ref = "kodein" }
 kotlin-gradleplugin              = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",         version.ref = "kotlin" }
 kotlin-wrappers-bom              = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom", version.ref = "kotlin-wrappers" }
@@ -14,7 +23,14 @@ kotlin-wrappers-react            = { module = "org.jetbrains.kotlin-wrappers:kot
 kotlin-wrappers-react-redux      = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-redux" }
 kotlin-wrappers-react-router-dom = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom" }
 kotlin-wrappers-styled-next      = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
+tomlj                            = { module = "org.tomlj:tomlj",                                   version.ref = "tomlj" }
 
 [plugins]
-kotlin-js  = { id = "org.jetbrains.kotlin.js",  version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kjsbox-frontend-entrypoint       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-entry-point",       version.ref = "kjsbox-frontend-entrypoint" }
+kjsbox-frontend-extensions       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-extensions",        version.ref = "kjsbox-frontend-extensions" }
+kjsbox-frontend-lazymodule       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-lazy-module",       version.ref = "kjsbox-frontend-lazymodule" }
+kjsbox-frontend-main             = { id = "io.github.andrew-k-21-12.kjs-box.frontend-main",              version.ref = "kjsbox-frontend-main" }
+kjsbox-frontend-resourcewrappers = { id = "io.github.andrew-k-21-12.kjs-box.frontend-resource-wrappers", version.ref = "kjsbox-frontend-resourcewrappers" }
+kotlin-js                        = { id = "org.jetbrains.kotlin.js",                                     version.ref = "kotlin" }
+kotlin-jvm                       = { id = "org.jetbrains.kotlin.jvm",                                    version.ref = "kotlin" }
+my-versioncatalogsgenerator      = { id = "io.github.andrew-k-21-12.version-catalogs-generator",         version.ref = "my-versioncatalogsgenerator" }

@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.components
 
 import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.Image
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.SimpleImage
+import io.github.andrewk2112.kjsbox.frontend.resources.Image
+import io.github.andrewk2112.kjsbox.frontend.resources.SimpleImage
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
 import kotlinx.css.Display
@@ -25,6 +25,7 @@ import web.html.Loading
  * @param classNames      Styling classes to be applied for the image.
  */
 fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) = when (image) {
+    // Avoid using "when" - rewrite it to be more polymorphic!
     is SimpleImage -> {
 
         // This tag allows to pick the most appropriate variant from the listed ones.

@@ -1,10 +1,10 @@
 package io.github.andrewk2112.versioncatalogsgenerator.gradle
 
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.TypesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.VersionCatalogCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.LibraryValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.PluginValuesCodeGenerator
-import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.SharedValuesCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.VersionValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.extensions.dotsToSlashes
 import io.github.andrewk2112.versioncatalogsgenerator.parsers.TomlVersionCatalogParser
@@ -28,6 +28,10 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
     @get:Input
     internal abstract val packageName: Property<String>
 
+    /** A [VisibilityModifier] to generate all sources with. */
+    @get:Input
+    internal abstract val visibilityModifier: Property<VisibilityModifier>
+
     /** All catalogs to generate wrappers for. */
     @get:Input
     internal abstract val catalogs: ListProperty<VersionCatalog>
@@ -45,34 +49,46 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
     private operator fun invoke() {
 
         // Preparing values of reusable configs.
-        val packageName             = packageName.get()
-        val outDirectoryWithPackage = createOutDirectoryWithPackage(packageName)
+        val packageName              = packageName.get()
+        val visibilityModifierPrefix = generateVisibilityModifierPrefix()
+        val outDirectoryWithPackage  = createOutDirectoryWithPackage(packageName)
 
         // Preparing all code generators and parsers to be used.
-        val valuesCodeGeneration   = SharedValuesCodeGeneration()
-        val librariesCodeGenerator = LibraryValuesCodeGenerator(valuesCodeGeneration)
-        val pluginsCodeGenerator   = PluginValuesCodeGenerator(valuesCodeGeneration)
+        val commonCodeGeneration   = CommonCodeGeneration()
+        val librariesCodeGenerator = LibraryValuesCodeGenerator(commonCodeGeneration)
+        val pluginsCodeGenerator   = PluginValuesCodeGenerator(commonCodeGeneration)
         val typesCodeGenerator     = TypesCodeGenerator(librariesCodeGenerator, pluginsCodeGenerator)
         val catalogParser          = TomlVersionCatalogParser()
         val catalogCodeGenerator   = VersionCatalogCodeGenerator(
-                                         VersionValuesCodeGenerator(valuesCodeGeneration),
+                                         VersionValuesCodeGenerator(commonCodeGeneration),
                                          librariesCodeGenerator,
                                          pluginsCodeGenerator
                                      )
 
         // Generating and writing the code.
-        generateAndWriteTypesCode(typesCodeGenerator, packageName, outDirectoryWithPackage)
-        generateAndWriteCatalogsCode(catalogParser, catalogCodeGenerator, packageName, outDirectoryWithPackage)
+        generateAndWriteTypesCode(typesCodeGenerator, packageName, visibilityModifierPrefix, outDirectoryWithPackage)
+        generateAndWriteCatalogsCode(
+            catalogParser, catalogCodeGenerator, packageName, visibilityModifierPrefix, outDirectoryWithPackage
+        )
 
     }
+
+    @Throws(IllegalStateException::class)
+    private fun generateVisibilityModifierPrefix(): String =
+        when (visibilityModifier.get()) {
+            VisibilityModifier.PUBLIC   -> ""
+            VisibilityModifier.INTERNAL -> "internal "
+            null                        -> throw IllegalStateException() // should not ever happen
+        }
 
     @Throws(Exception::class)
     private fun generateAndWriteTypesCode(
         typesCodeGenerator: TypesCodeGenerator,
         packageName: String,
+        visibilityModifierPrefix: String,
         outDirectory: File
     ) {
-        typesCodeGenerator.generate(packageName)
+        typesCodeGenerator.generate(packageName, visibilityModifierPrefix)
                           .also { File(outDirectory, "Types.kt").writeText(it) }
     }
 
@@ -84,11 +100,12 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
         catalogParser: TomlVersionCatalogParser,
         catalogCodeGenerator: VersionCatalogCodeGenerator,
         packageName: String,
+        visibilityModifierPrefix: String,
         outDirectory: File
     ) =
         catalogs.get().forEach { catalog ->
             catalogParser.parseCatalog(catalog.path.get())
-                        ?.let { catalogCodeGenerator.generate(packageName, catalog.name, it) }
+                        ?.let { catalogCodeGenerator.generate(packageName, visibilityModifierPrefix, catalog.name, it) }
                         ?.let { File(outDirectory, "${catalog.name}.kt").writeText(it) }
         }
 

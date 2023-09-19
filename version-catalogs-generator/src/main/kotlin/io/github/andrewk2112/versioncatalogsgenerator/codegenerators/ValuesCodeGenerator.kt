@@ -22,6 +22,6 @@ internal interface ValuesCodeGenerator {
      *
      * @return `null` - if no values are present in the catalog's group of interest.
      */
-    fun generateValuesCode(catalog: ParsedVersionCatalog): GeneratedCode?
+    fun generateValuesCode(visibilityModifierPrefix: String, catalog: ParsedVersionCatalog): GeneratedCode?
 
 }

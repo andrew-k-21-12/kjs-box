@@ -12,6 +12,9 @@ abstract class PluginExtension {
     /** A package name to be used in all generated sources. */
     abstract val packageName: Property<String>
 
+    /** A [VisibilityModifier] to generate all sources with. */
+    abstract val visibilityModifier: Property<VisibilityModifier>
+
     /** All versions catalogs to generate wrappers for. */
     abstract val catalogs: NamedDomainObjectContainer<VersionCatalog>
 

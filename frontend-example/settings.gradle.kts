@@ -1,7 +1,8 @@
 pluginManagement {
     includeBuild("../frontend-buildscript")
-    includeBuild("../frontend-core")              // used in buildscripts, won't compile without it
-    includeBuild("../version-catalogs-generator") // just to clean everything at once by a single command
+    includeBuild("../frontend-core") // used in buildscripts, won't compile without it
+    includeBuild("../version-catalogs-generator")  // to clean everything at once by a single command
+    includeBuild("../frontend-buildscript-shared") // to clean everything at once by a single command
 }
 
 dependencyResolutionManagement {
@@ -21,7 +22,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "frontend-example"
-listOf("core", "exercises", "index", "material-design").map {
+listOf("exercises", "index", "material-design").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

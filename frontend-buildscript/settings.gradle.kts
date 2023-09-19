@@ -1,7 +1,7 @@
 // These inclusions are required to perform builds with dependencies provided locally.
 includeBuild("../frontend-core")
 pluginManagement {
-    includeBuild("../version-catalogs-generator")
+    includeBuild("../frontend-buildscript-shared")
 }
 
 dependencyResolutionManagement {
@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "frontend-buildscript"
-listOf("plugins").map {
+listOf("entry-point", "lazy-module", "main", "resource-wrappers").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

@@ -13,12 +13,12 @@ internal class TypesCodeGenerator(
 ) {
 
     @Language("kotlin")
-    internal fun generate(packageName: String): String = """
+    internal fun generate(packageName: String, visibilityModifierPrefix: String): String = """
 package $packageName
 
-${librariesCodeGenerator.generateLibraryInterfaceCode()}
+${librariesCodeGenerator.generateLibraryInterfaceCode(visibilityModifierPrefix)}
 
-${pluginsCodeGenerator.generatePluginInterfaceCode()}
+${pluginsCodeGenerator.generatePluginInterfaceCode(visibilityModifierPrefix)}
 
     """.trimIndent()
 

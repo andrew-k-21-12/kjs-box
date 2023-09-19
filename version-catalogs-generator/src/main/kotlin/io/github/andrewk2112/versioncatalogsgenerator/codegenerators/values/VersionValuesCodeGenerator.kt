@@ -1,54 +1,56 @@
 package io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values
 
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CodeEmitters
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.ValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.ValuesCodeGenerator.GeneratedCode
-import io.github.andrewk2112.versioncatalogsgenerator.extensions.indented
+import io.github.andrewk2112.versioncatalogsgenerator.extensions.lowerCamelCaseFromKebabOrSnakeCase
+import io.github.andrewk2112.versioncatalogsgenerator.extensions.toGeneratedCode
 import io.github.andrewk2112.versioncatalogsgenerator.models.ParsedVersionCatalog
-import org.intellij.lang.annotations.Language
+import io.github.andrewk2112.versioncatalogsgenerator.utility.Reference
 
 /**
  * Generates the code for catalog's versions.
  */
-internal class VersionValuesCodeGenerator(
-    private val codeGeneration: SharedValuesCodeGeneration
-) : ValuesCodeGenerator {
+internal class VersionValuesCodeGenerator(private val codeGeneration: CommonCodeGeneration) : ValuesCodeGenerator {
 
     // Interface.
 
-    override fun generateValuesCode(catalog: ParsedVersionCatalog): GeneratedCode? =
-        codeGeneration.generate(
-            catalog.versions,
-            ::interfaceProperty,
-            ::implementationProperty,
-            ::overallInterface,
-            ::overallImplementation
-        )
+    override fun generateValuesCode(visibilityModifierPrefix: String, catalog: ParsedVersionCatalog): GeneratedCode? {
+        val cachedPropertyName = Reference<String?>(null)
+        return codeGeneration
+            .generateCodeBlocks(
+                catalog.versions?.entries,
+                { generateInterfaceCode(visibilityModifierPrefix, it, cachedPropertyName) },
+                { generateImplementationCode(visibilityModifierPrefix, it, cachedPropertyName) }
+            )
+            ?.toGeneratedCode()
+    }
 
 
 
     // Code generation.
 
-    @Language("kotlin")
-    private fun interfaceProperty(propertyName: String): String = """
-val $propertyName: String
-    """.trimIndent()
-
-    @Language("kotlin")
-    private fun implementationProperty(propertyName: String, value: String): String = """
-override val $propertyName = "$value"
-    """.trimIndent()
-
-    @Language("kotlin")
-    private fun overallInterface(propertiesCode: String): String = """
-internal interface Versions {
-${"    " indented propertiesCode}
+    private fun generateInterfaceCode(
+        visibilityModifierPrefix: String,
+        codeEmitters: CodeEmitters<Map.Entry<String, String>>,
+        cachedPropertyName: Reference<String?>
+    ): String = """
+${visibilityModifierPrefix}interface Versions {${codeEmitters.emitCode { 
+    cachedPropertyName.value = it.key.lowerCamelCaseFromKebabOrSnakeCase()
+    "\n    val $cachedPropertyName: String"
+}}
 }
     """.trimIndent()
 
-    @Language("kotlin")
-    private fun overallImplementation(propertiesCode: String): String = """
-internal val versions = object : Versions {
-${"    " indented propertiesCode}
+    private fun generateImplementationCode(
+        visibilityModifierPrefix: String,
+        codeEmitters: CodeEmitters<Map.Entry<String, String>>,
+        cachedPropertyName: Reference<String?>
+    ): String = """
+${visibilityModifierPrefix}val versions = object : Versions {${codeEmitters.emitCode {
+    "\n    override val $cachedPropertyName = ${codeGeneration.escape(it.value)}"
+}}
 }
     """.trimIndent()
 

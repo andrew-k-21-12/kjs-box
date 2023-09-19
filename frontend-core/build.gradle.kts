@@ -1,8 +1,13 @@
-import io.github.andrewk2112.kjsbox.frontend.buildscript.gradle.extensions.npm
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.npm
 
 plugins {
     alias(kotlinLibs.plugins.kotlin.js)
-    alias(kotlinLibs.plugins.kjsbox.frontend.extensions)
+}
+
+buildscript {
+    dependencies {
+        classpath(kotlinLibs.kjsbox.frontend.commongradleextensions)
+    }
 }
 
 group   = "io.github.andrew-k-21-12.kjs-box"

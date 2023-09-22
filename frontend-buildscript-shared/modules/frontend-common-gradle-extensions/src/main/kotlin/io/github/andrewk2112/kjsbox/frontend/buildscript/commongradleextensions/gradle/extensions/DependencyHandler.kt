@@ -22,7 +22,14 @@ import org.jetbrains.kotlin.gradle.targets.js.npm.NpmDependencyExtension
     UnknownDomainObjectException::class,
 )
 fun DependencyHandler.npm(dependencyProvider: Provider<MinimalExternalModuleDependency>): NpmDependency =
-    with(dependencyProvider.get()) { npmDependencyExtension(name, version!!) }
+    npm(dependencyProvider.get())
+
+/**
+ * Retrieves an [NpmDependency] from a version catalog's [dependency] value.
+ */
+@Throws(ClassCastException::class, NullPointerException::class, UnknownDomainObjectException::class)
+fun DependencyHandler.npm(dependency: MinimalExternalModuleDependency): NpmDependency =
+    npmDependencyExtension(dependency.name, dependency.version!!)
 
 /**
  * Retrieves an [NpmDependency] from its [name] and [version].

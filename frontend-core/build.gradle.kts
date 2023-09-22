@@ -26,7 +26,6 @@ dependencies {
     implementation(kotlinLibs.kotlin.wrappers.react)
     implementation(kotlinLibs.kotlin.wrappers.react.redux)      // to use global state in React
     implementation(kotlinLibs.kotlin.wrappers.react.router.dom) // to process routes
-    implementation(npm(jsLibs.react))                           // to avoid warnings about unmet peer dependencies
 
     // Other wrappers.
     implementation(kotlinLibs.kotlin.wrappers.styled.next) // to declare and reuse styles directly in code
@@ -35,10 +34,9 @@ dependencies {
     // Dependency injection.
     implementation(kotlinLibs.kodein.di)
 
-    // Localization.
-    implementation(npm(jsLibs.i18next.core)) // the library itself doesn't provide any means to remove unused resources
-    implementation(npm(jsLibs.i18next.react))
-    implementation(npm(jsLibs.i18next.languagedetector))
-    implementation(npm(jsLibs.i18next.backend)) // to bundle and download translations on demand
+    // All required JS libraries.
+    jsLibs.bundles.kjsbox.frontend.core.get().forEach {
+        implementation(npm(it))
+    }
 
 }

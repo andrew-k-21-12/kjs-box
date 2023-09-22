@@ -33,12 +33,13 @@ internal class TomlVersionCatalogParser {
         // Parsing all expected values.
         val versions  = parseResult.getTable("versions")?.parseVersions()
         val libraries = parseResult.getTable("libraries")?.parseEachEntry { toLibrary(versions) }
+        val bundles   = parseResult.getTable("bundles")?.parseBundles()
         val plugins   = parseResult.getTable("plugins")?.parseEachEntry   { toPlugin(versions) }
 
         // Checking if there is some meaningful data parsed in the end.
         if (versions == null && libraries == null && plugins == null) return null
 
-        return ParsedVersionCatalog(versions, libraries, plugins)
+        return ParsedVersionCatalog(versions, libraries, bundles, plugins)
 
     }
 
@@ -50,8 +51,6 @@ internal class TomlVersionCatalogParser {
      * Can return an empty result if there are no versions present,
      * but if there are some version keys, all of them must be provided correctly.
      */
-    @Suppress("UnnecessaryOptInAnnotation") // old Kotlin versions in build scripts require the opt-in below
-    @OptIn(ExperimentalStdlibApi::class)
     @Throws(Exception::class)
     private fun TomlTable.parseVersions(): Map<String, String>? =
         if (isEmpty) null else buildMap {
@@ -67,13 +66,28 @@ internal class TomlVersionCatalogParser {
      *
      * @param parse This lambda can and actually is expected to throw [Exception]s.
      */
-    @Suppress("UnnecessaryOptInAnnotation") // old Kotlin versions in build scripts require the opt-in below
-    @OptIn(ExperimentalStdlibApi::class)
     @Throws(Exception::class)
     private fun <T> TomlTable.parseEachEntry(parse: TomlTable?.() -> T): Map<String, T>? =
         if (isEmpty) null else buildMap {
             for (key in keySet()) {
                 put(key, getTable(key).parse())
+            }
+        }
+
+    /**
+     * Can return an empty result if there are no bundles present,
+     * but if there are some bundle entries, all of them must be provided correctly.
+     */
+    @Throws(Exception::class)
+    private fun TomlTable.parseBundles(): Map<String, List<String>>? =
+        if (isEmpty) null else buildMap {
+            for (key in keySet()) {
+                val bundle = getArray(key)?.takeIf { !it.isEmpty }
+                                          ?.toList()
+                                          ?.map {
+                                              it.toString()
+                                          } ?: throw Exception("Nullable or empty bundles are not supported")
+                put(key, bundle)
             }
         }
 

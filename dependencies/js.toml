@@ -15,8 +15,8 @@ webpack-terser           = "5.3.9"
 
 [libraries]
 i18n-unused              = { group = "mxmvshnvsk",      name = "i18n-unused",                      version.ref = "i18n-unused" }
-i18next-core             = { group = "i18next",         name = "i18next",                          version.ref = "i18next" }
 i18next-backend          = { group = "i18next",         name = "i18next-resources-to-backend",     version.ref = "i18next-backend" }
+i18next-core             = { group = "i18next",         name = "i18next",                          version.ref = "i18next" }
 i18next-languagedetector = { group = "i18next",         name = "i18next-browser-languagedetector", version.ref = "i18next-languagedetector" }
 i18next-react            = { group = "i18next",         name = "react-i18next",                    version.ref = "i18next-react" }
 imagemin-core            = { group = "imagemin",        name = "imagemin",                         version.ref = "imagemin" }
@@ -27,3 +27,12 @@ webpack-html             = { group = "jantimon",        name = "html-webpack-plu
 webpack-imageminimizer   = { group = "webpack-contrib", name = "image-minimizer-webpack-plugin",   version.ref = "webpack-imageminimizer" }
 webpack-svgr             = { group = "gregberge",       name = "@svgr/webpack",                    version.ref = "webpack-svgr" }
 webpack-terser           = { group = "webpack-contrib", name = "terser-webpack-plugin",            version.ref = "webpack-terser" }
+
+[bundles]
+kjsbox-frontend-core = [ 
+    "i18next-backend",          # to bundle and download translations on demand
+    "i18next-core",             # the library itself doesn't provide any means to remove unused resources
+    "i18next-languagedetector",
+    "i18next-react",
+    "react"                     # to avoid warnings about unmet peer dependencies
+]

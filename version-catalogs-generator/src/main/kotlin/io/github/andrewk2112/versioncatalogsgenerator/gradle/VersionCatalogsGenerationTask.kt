@@ -3,6 +3,7 @@ package io.github.andrewk2112.versioncatalogsgenerator.gradle
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.TypesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.VersionCatalogCodeGenerator
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.BundleValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.LibraryValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.PluginValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.VersionValuesCodeGenerator
@@ -62,6 +63,7 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
         val catalogCodeGenerator   = VersionCatalogCodeGenerator(
                                          VersionValuesCodeGenerator(commonCodeGeneration),
                                          librariesCodeGenerator,
+                                         BundleValuesCodeGenerator(commonCodeGeneration),
                                          pluginsCodeGenerator
                                      )
 

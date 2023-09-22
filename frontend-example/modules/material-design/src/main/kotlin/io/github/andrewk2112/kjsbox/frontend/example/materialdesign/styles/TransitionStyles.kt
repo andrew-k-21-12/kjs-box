@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import kotlinx.css.properties.transition
 import kotlin.reflect.KProperty
 

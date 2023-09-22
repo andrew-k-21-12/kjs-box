@@ -2,8 +2,8 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.materialdesign.RobotoFontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.materialdesign.RobotoMonoFontStyles
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import kotlinx.css.FontWeight
 import kotlinx.css.fontWeight
 

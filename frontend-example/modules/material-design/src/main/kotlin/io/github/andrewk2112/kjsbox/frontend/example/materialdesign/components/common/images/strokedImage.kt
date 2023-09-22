@@ -1,15 +1,15 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images
 
-import io.github.andrewk2112.kjsbox.frontend.components.image
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.components.image
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeColor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeConfigs
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeStyles
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import kotlinx.css.Position
 import kotlinx.css.inset
 import kotlinx.css.position

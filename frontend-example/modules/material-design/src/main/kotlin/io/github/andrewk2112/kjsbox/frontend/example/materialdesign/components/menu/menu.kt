@@ -1,15 +1,15 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
@@ -18,7 +18,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Strok
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokePosition.RIGHT
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
-import io.github.andrewk2112.kjsbox.frontend.utility.safeBlankHref
+import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder

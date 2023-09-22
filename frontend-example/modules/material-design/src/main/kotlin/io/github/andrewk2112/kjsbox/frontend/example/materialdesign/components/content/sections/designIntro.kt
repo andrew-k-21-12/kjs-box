@@ -1,25 +1,25 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.MaterialDarkThemeImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SoundGuidelinesImage
-import io.github.andrewk2112.kjsbox.frontend.components.image
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.PHONE
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.core.components.image
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
+import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.PopularMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
-import io.github.andrewk2112.kjsbox.frontend.resources.Image as ResourceImage
-import io.github.andrewk2112.kjsbox.frontend.utility.safeBlankHref
+import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
+import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecorationLine
 import kotlinx.css.properties.textDecoration

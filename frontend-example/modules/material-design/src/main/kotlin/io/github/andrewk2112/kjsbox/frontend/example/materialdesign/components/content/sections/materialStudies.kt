@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.PHONE
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
@@ -19,11 +19,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.mat
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ReplyImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShrineImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
-import io.github.andrewk2112.kjsbox.frontend.resources.Image as ResourceImage
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.utility.openBlankWindowSafely
+import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div

@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.PHONE
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.GridColumns.*
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import kotlinx.css.*
 
 

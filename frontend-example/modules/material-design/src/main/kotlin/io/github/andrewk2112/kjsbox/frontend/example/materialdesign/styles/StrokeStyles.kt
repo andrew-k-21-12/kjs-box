@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.designtokens.system.ThemedColor
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.extensions.camelCaseWord
-import io.github.andrewk2112.kjsbox.frontend.extensions.capitalize
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedColor
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.camelCaseWord
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.capitalize
 import kotlinx.css.*
 import kotlinx.css.properties.*
 import kotlin.reflect.KProperty0

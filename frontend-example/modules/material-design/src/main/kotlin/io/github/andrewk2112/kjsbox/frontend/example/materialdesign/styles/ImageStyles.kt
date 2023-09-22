@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import kotlinx.css.LinearDimension
 import kotlinx.css.height
 import kotlinx.css.pct

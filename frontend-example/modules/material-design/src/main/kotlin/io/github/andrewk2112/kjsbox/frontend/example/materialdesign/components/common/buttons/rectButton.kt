@@ -1,16 +1,16 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.extensions.asMouseEventHandler
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles.addTapHighlighting
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC

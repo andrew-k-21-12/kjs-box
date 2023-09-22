@@ -1,17 +1,17 @@
 package io.github.andrewk2112.kjsbox.frontend.example.exercises.components
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.exercises.SourceSansProFontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.materialDesignKey
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
-import io.github.andrewk2112.kjsbox.frontend.routes.MaterialDesignRoute
+import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div

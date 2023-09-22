@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.footer
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
@@ -18,10 +18,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Selec
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.googleLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoEmptyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.utility.safeBlankHref
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.a

@@ -30,7 +30,7 @@ internal class LocalizationKeyWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 
 const val namespace: LocalizationKey = "$keysNamespace"
 

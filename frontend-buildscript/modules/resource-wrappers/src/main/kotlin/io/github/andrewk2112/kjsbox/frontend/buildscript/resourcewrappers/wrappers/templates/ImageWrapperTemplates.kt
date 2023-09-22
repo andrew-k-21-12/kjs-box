@@ -18,7 +18,7 @@ internal class ImageWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.resources.SimpleImage
+import io.github.andrewk2112.kjsbox.frontend.core.resources.SimpleImage
 
 object $objectName : SimpleImage {
 

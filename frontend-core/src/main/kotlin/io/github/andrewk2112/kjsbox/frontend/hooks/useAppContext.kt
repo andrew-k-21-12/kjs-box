@@ -1,7 +1,7 @@
-package io.github.andrewk2112.kjsbox.frontend.hooks
+package io.github.andrewk2112.kjsbox.frontend.core.hooks
 
-import io.github.andrewk2112.kjsbox.frontend.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.redux.reducers.ContextReducer
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.redux.reducers.ContextReducer
 
 /**
  * A getter hook to read the app's [Context] simpler.

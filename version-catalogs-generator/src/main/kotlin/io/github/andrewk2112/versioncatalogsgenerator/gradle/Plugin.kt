@@ -49,6 +49,7 @@ internal class Plugin : Plugin<Project> {
 
     // Paths configuration.
 
-    private inline val Project.sourcesOutDirectory get() = File(buildDir, "generated/versions")
+    private inline val Project.sourcesOutDirectory: File
+        get() = File(layout.buildDirectory.asFile.get(), "generated/versions")
 
 }

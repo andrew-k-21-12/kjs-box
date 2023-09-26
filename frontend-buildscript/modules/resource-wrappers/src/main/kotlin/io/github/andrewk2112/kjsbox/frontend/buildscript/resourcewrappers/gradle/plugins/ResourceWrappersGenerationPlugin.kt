@@ -41,9 +41,9 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
         val mainSourceSet = getMainKotlinSourceSet()
         val context = Context(
             allResourcesDirectory       = mainSourceSet.resources.srcDirs.first(),
-            basePackageName             = getResourcesWrappersBasePackageName(),
-            generatedWrappersDirectory  = getGeneratedWrappersDirectory(),
-            generatedResourcesDirectory = getGeneratedResourcesDirectory()
+            basePackageName             = resourcesWrappersBasePackageName,
+            generatedWrappersDirectory  = generatedWrappersDirectory,
+            generatedResourcesDirectory = generatedResourcesDirectory
         )
 
         // Registering all wrappers-generation tasks.
@@ -86,22 +86,6 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
             .sourceSets.named("main").get()
 
     /**
-     * Retrieves a package name common for all generated resource wrappers.
-     */
-    private fun Project.getResourcesWrappersBasePackageName(): String =
-        "${rootProject.group.toString().toValidPackage()}.${rootProject.name.replace('-', '.')}.resourcewrappers"
-
-    /**
-     * Retrieves a [File] pointing to the directory containing generated resource wrappers.
-     */
-    private fun Project.getGeneratedWrappersDirectory(): File = buildDir.joinWithPath("generated/wrappers")
-
-    /**
-     * Retrieves a [File] pointing to the directory containing the generated resources file structure.
-     */
-    private fun Project.getGeneratedResourcesDirectory(): File = buildDir.joinWithPath("generated/resources")
-
-    /**
      * Registers a [WrappersGenerationTask] for the [Project], see the [WrappersGenerationTask] for details.
      */
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
@@ -118,5 +102,17 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
             resourcesOutDirectory.set(context.generatedResourcesDirectory)
         }
     }
+
+    /** A package name common for all generated resource wrappers. */
+    private inline val Project.resourcesWrappersBasePackageName: String
+        get() = "${rootProject.group.toString().toValidPackage()}.${rootProject.name.replace('-', '.')}.resourcewrappers"
+
+    /** A [File] pointing to the directory containing generated resource wrappers. */
+    private inline val Project.generatedWrappersDirectory: File
+        get() = layout.buildDirectory.asFile.get().joinWithPath("generated/wrappers")
+
+    /** A [File] pointing to the directory containing the generated resources file structure. */
+    private inline val Project.generatedResourcesDirectory: File
+        get() = layout.buildDirectory.asFile.get().joinWithPath("generated/resources")
 
 }

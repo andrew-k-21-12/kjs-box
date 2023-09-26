@@ -59,7 +59,7 @@ internal class NodeJsBinariesGenerationPlugin : Plugin<Project> {
         dependsOn("kotlinNpmInstall")
 
         // Preparing the root directory of the library to be reused.
-        val libraryBaseDir = File(project.buildDir, "js/node_modules/$libraryName-bin")
+        val libraryBaseDir = project.layout.buildDirectory.asFile.get().joinWithPath("js/node_modules/$libraryName-bin")
 
         // No need to invoke the task with the corresponding compilation if the binary exists.
         onlyIf {

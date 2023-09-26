@@ -6,6 +6,11 @@ import java.io.FileNotFoundException
 import java.io.IOException
 
 /**
+ * Decapitalizes the first char.
+ */
+fun String.decapitalize(): String = replaceFirstChar { if (it.isUpperCase()) it.lowercase() else it.toString() }
+
+/**
  * Replaces all dots in the [String] with slashes.
  */
 fun String.dotsToSlashes(): String = replace(".", "/")

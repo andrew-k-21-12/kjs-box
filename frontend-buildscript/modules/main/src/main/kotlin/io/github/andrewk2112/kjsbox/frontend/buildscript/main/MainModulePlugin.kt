@@ -9,6 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.Library
+import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -41,9 +42,9 @@ internal class MainModulePlugin : Plugin<Project> {
             js {
                 binaries.executable() // no run or deploy tasks will be generated without this line
                 browser {
-                    commonWebpackConfig {
-                        configDirectory = webpackConfigsDirectory
-                    }
+                    commonWebpackConfig(
+                        Action { it.configDirectory = webpackConfigsDirectory }
+                    )
                 }
             }
 
@@ -110,7 +111,7 @@ internal class MainModulePlugin : Plugin<Project> {
      * Creates a [File] pointing to a supporting files destination directory with a [directoryName].
      */
     private fun Project.getSupportingFilesDestinationDirectory(directoryName: String): File =
-        buildDir.joinWithPath("supportingFiles/$directoryName")
+        layout.buildDirectory.asFile.get().joinWithPath("supportingFiles/$directoryName")
 
     /** States which sources are going to be unpacked and where. */
     private inline val Project.sourcesWithUnpackDestination get() = FromTo(

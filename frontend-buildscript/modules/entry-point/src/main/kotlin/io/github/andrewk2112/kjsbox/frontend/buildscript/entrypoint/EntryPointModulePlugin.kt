@@ -84,7 +84,7 @@ internal class EntryPointModulePlugin : Plugin<Project> {
     ): EntryPointGenerationTask =
         tasks.register("generateEntryPoint", EntryPointGenerationTask::class.java) {
             it.rootComponentName.set(entryPointExtension.rootComponent)
-            it.sourcesOutDirectory.set(getGeneratedEntryPointDirectory())
+            it.sourcesOutDirectory.set(generatedEntryPointDirectory)
         }.get()
 
 
@@ -92,16 +92,15 @@ internal class EntryPointModulePlugin : Plugin<Project> {
     // Configs.
 
     /**
-     * Where to save entry point Kotlin sources.
-     */
-    private fun Project.getGeneratedEntryPointDirectory(): File = buildDir.joinWithPath("generated/entry")
-
-    /**
      * Generates JS code to set up the app's entry point for webpack.
      */
     @Language("js")
     private fun Project.generateEntryPointJsCode(): String =
         "config.entry = require(\"path\").resolve(__dirname, `\${RAW_OUTPUT_DIR}/\${config.output.library}-$name.js`);\n"
+
+    /** Where to save entry point Kotlin sources. */
+    private inline val Project.generatedEntryPointDirectory: File
+        get() = layout.buildDirectory.asFile.get().joinWithPath("generated/entry")
 
     /** How to name the entry point-configuring JS file. */
     private inline val entryPointJsFileName get() = "3-entry.js"

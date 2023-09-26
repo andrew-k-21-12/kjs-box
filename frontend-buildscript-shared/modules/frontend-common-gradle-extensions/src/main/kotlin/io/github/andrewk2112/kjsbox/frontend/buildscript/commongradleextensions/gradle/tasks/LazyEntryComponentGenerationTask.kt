@@ -108,4 +108,4 @@ private inline val LazyEntryComponentGenerationTask.generatedComponentName: Stri
 
 /** Where to write output entry component sources. */
 private inline val Project.lazyEntryComponentDirectory: File
-    get() = buildDir.joinWithPath("generated/entry")
+    get() = layout.buildDirectory.asFile.get().joinWithPath("generated/entry")

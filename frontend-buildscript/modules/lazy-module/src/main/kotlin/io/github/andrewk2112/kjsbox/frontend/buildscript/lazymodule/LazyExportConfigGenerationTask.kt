@@ -58,7 +58,8 @@ internal abstract class LazyExportConfigGenerationTask : DefaultTask() {
     @Language("kotlin")
     @Throws(IllegalStateException::class)
     private fun generateExportConfigCode(generatedComponentName: String) = """
-import react.VFC
+import react.FC
+import react.Props
 
 /**
  * For lazy loading of components they should be exported as default.
@@ -72,7 +73,7 @@ import react.VFC
 @OptIn(ExperimentalJsExport::class)
 @JsName("default")
 @Suppress("NON_CONSUMABLE_EXPORTED_IDENTIFIER") // to avoid pointless warnings in the console which are not true
-val $generatedComponentName: VFC = ${componentToExport.get()}
+val $generatedComponentName: FC<Props> = ${componentToExport.get()}
 
     """.trimIndent()
 

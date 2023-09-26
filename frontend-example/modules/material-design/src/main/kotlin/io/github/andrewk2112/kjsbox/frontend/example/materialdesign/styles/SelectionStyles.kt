@@ -52,7 +52,7 @@ object SelectionStyles : DynamicStyleSheet() {
     // Private.
 
     private val hoverableWithPaddedStrokeBase: NamedRuleSet by css {
-        padding(StyleValues.spacing.absolute20)
+        padding = Padding(StyleValues.spacing.absolute20)
         cursor = Cursor.pointer
     }
 

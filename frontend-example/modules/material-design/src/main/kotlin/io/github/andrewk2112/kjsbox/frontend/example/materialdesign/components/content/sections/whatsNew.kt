@@ -29,7 +29,7 @@ import kotlin.js.Date
 
 // Components.
 
-val whatsNew = VFC {
+val whatsNew = FC {
 
     val context                 = useAppContext()
     val (language, localizator) = useCurrentLanguageAndLocalizator()
@@ -106,7 +106,7 @@ private object WhatsNewStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
-        padding(
+        padding = Padding(
             top        = StyleValues.spacing.run { if (it.screenSize >= SMALL_TABLET) absolute89 else absolute64 },
             bottom     = StyleValues.spacing.absolute47,
             horizontal = StyleValues.spacing.absolute40

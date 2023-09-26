@@ -20,7 +20,7 @@ import react.dom.html.ReactHTML.ul
 
 // Components.
 
-val exercisesList = VFC {
+val exercisesList = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator(namespace)

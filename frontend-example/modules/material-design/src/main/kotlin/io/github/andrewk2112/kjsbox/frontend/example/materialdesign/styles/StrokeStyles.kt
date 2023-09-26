@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.camelCaseWord
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.capitalize
 import kotlinx.css.*
-import kotlinx.css.properties.*
+import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty0
 
 
@@ -43,8 +43,8 @@ private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
  */
 enum class StrokePosition { LEFT, TOP, RIGHT, BOTTOM }
 
-/** Lookup for the matching border styling function. */
-private val StrokePosition.matchingStylingFunction: StyledElement.(LinearDimension, BorderStyle, Color) -> Unit
+/** Lookup for a matching border styling property. */
+private val StrokePosition.matchingStylingProperty: KMutableProperty1<StyledElement, Border>
     get() = when (this) {
         StrokePosition.LEFT   -> StyledElement::borderLeft
         StrokePosition.TOP    -> StyledElement::borderTop
@@ -88,7 +88,7 @@ object StrokeStyles : DynamicStyleSheet() {
         val strokeWidth = Theme.sizes.stroke1(it.context)
         val strokeColor = it.color.getThemedColor(it.context)
         it.positions.map { position ->
-            position.matchingStylingFunction.invoke(this, strokeWidth, BorderStyle.solid, strokeColor)
+            position.matchingStylingProperty.set(this, Border(strokeWidth, BorderStyle.solid, strokeColor))
         }
     }
 

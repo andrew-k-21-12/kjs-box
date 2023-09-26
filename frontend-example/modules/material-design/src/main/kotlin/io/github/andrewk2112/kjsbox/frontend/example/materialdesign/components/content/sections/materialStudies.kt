@@ -34,7 +34,7 @@ import react.dom.html.ReactHTML.p
 
 // Components.
 
-val materialStudies = VFC {
+val materialStudies = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -125,7 +125,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     val header: NamedRuleSet by css {
         display  = Display.flex
         flexWrap = FlexWrap.wrap
-        padding(
+        padding  = Padding(
             top   = StyleValues.spacing.absolute42,
             left  = StyleValues.spacing.absolute40,
             right = StyleValues.spacing.absolute40
@@ -161,7 +161,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
-        padding(
+        padding = Padding(
             horizontal = StyleValues.spacing.absolute20,
             top        = if (it.isCompactAppearance) 0.px else StyleValues.spacing.absolute26,
             bottom     = StyleValues.spacing.absolute52

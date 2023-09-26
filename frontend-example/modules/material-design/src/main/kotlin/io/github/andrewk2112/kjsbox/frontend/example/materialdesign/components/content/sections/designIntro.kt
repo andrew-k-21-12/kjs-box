@@ -21,8 +21,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import kotlinx.css.*
+import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
-import kotlinx.css.properties.textDecoration
 import react.*
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
@@ -34,7 +34,7 @@ import react.dom.html.ReactHTML.ul
 
 // Components.
 
-val designIntro = VFC {
+val designIntro = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -148,7 +148,7 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
         +LayoutStyles.grid(it).rules
-        padding(
+        padding = Padding(
             top        = StyleValues.spacing.run { if (it.screenSize > SMALL_TABLET) absolute89 else absolute177 },
             horizontal = StyleValues.spacing.absolute20,
             bottom     = StyleValues.spacing.absolute52
@@ -156,7 +156,7 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     }
 
     val horizontalSpacingGridItem: NamedRuleSet by css {
-        padding(horizontal = StyleValues.spacing.absolute20)
+        padding = Padding(horizontal = StyleValues.spacing.absolute20)
     }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
@@ -193,8 +193,8 @@ private object DesignIntroStyles : DynamicStyleSheet() {
         marginBottom   = topSpacing + StyleValues.spacing.absolute5 // as the bottom margin interleaves with the next one
         children {
             +TransitionStyles.flashingTransition(::color).rules
-            textDecoration(TextDecorationLine.underline)
-            fontSize = StyleValues.fontSizes.relative1p2
+            textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
+            fontSize       = StyleValues.fontSizes.relative1p2
             color = Theme.palette.onSurface1(it)
             hover {
                 color = Theme.palette.onSurfaceFocused1(it)

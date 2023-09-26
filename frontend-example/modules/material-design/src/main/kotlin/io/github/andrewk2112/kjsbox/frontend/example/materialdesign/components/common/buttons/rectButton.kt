@@ -87,7 +87,7 @@ private object RectButtonStyles : DynamicStyleSheet() {
         position = Position.relative // to put the label on top
         width  = 100.pct
         height = 100.pct
-        padding(
+        padding = Padding(
             horizontal = StyleValues.spacing.absolute15,
             vertical   = StyleValues.spacing.absolute10,
         )

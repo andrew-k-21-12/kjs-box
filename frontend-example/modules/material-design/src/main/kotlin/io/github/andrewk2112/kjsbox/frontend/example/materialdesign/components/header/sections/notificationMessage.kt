@@ -64,7 +64,7 @@ private object NotificationMessageStyles : DynamicStyleSheet() {
 
     val title: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.bold.rules
-        padding(
+        padding = Padding(
             top   = StyleValues.spacing.absolute25,
             left  = StyleValues.spacing.absolute40,
             right = StyleValues.spacing.absolute40,
@@ -74,7 +74,7 @@ private object NotificationMessageStyles : DynamicStyleSheet() {
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
-        padding(
+        padding = Padding(
             top        = StyleValues.spacing.absolute8,
             horizontal = StyleValues.spacing.absolute40,
             bottom     = StyleValues.spacing.absolute26,
@@ -88,7 +88,7 @@ private object NotificationMessageStyles : DynamicStyleSheet() {
         alignItems = Align.center
         alignSelf  = Align.center
         flexShrink = 0
-        padding(
+        padding = Padding(
             top    = StyleValues.spacing.absolute11p5,
             bottom = StyleValues.spacing.absolute11p5,
             left   = StyleValues.spacing.absolute15,

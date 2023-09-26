@@ -10,6 +10,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Strok
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import kotlinx.css.Inset
 import kotlinx.css.Position
 import kotlinx.css.inset
 import kotlinx.css.position
@@ -51,7 +52,7 @@ private object StrokedImageStyles : DynamicStyleSheet() {
     val innerStroke: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
         position = Position.absolute
-        inset(0.px)
+        inset    = Inset(0.px)
     }
 
 }

@@ -36,7 +36,7 @@ import react.dom.html.ReactHTML.ul
 
 // Components.
 
-val footer = VFC {
+val footer = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -138,7 +138,7 @@ private object FooterStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
-        padding(
+        padding = Padding(
             top        = StyleValues.spacing.run { if (!it.isColumnFolded) absolute48 else absolute32 },
             horizontal = StyleValues.spacing.absolute40,
             bottom     = StyleValues.spacing.absolute35
@@ -211,7 +211,7 @@ private object FooterStyles : DynamicStyleSheet() {
         display = Display.inline
         nthChild("n+2") {
             before {
-                margin(horizontal = StyleValues.spacing.absolute8)
+                margin = Margin(horizontal = StyleValues.spacing.absolute8)
                 content = QuotedString("/")
             }
         }

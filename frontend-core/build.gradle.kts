@@ -19,20 +19,22 @@ kotlin {
 
 dependencies {
 
+    // It's possible to get rid of `api` and use `implementation` when there will be more fine-grained dependencies.
+
     // Kotlin Wrappers BOM to ensure consistency between the modules and version compatibility.
-    implementation(enforcedPlatform(kotlinLibs.kotlin.wrappers.bom))
+    api(platform(kotlinLibs.kotlin.wrappers.bom))
 
     // React and fellows.
-    implementation(kotlinLibs.kotlin.wrappers.react)
-    implementation(kotlinLibs.kotlin.wrappers.react.redux)      // to use global state in React
-    implementation(kotlinLibs.kotlin.wrappers.react.router.dom) // to process routes
+    api(kotlinLibs.kotlin.wrappers.react)
+    api(kotlinLibs.kotlin.wrappers.react.redux)      // to use global state in React
+    api(kotlinLibs.kotlin.wrappers.react.router.dom) // to process routes
 
     // Other wrappers.
-    implementation(kotlinLibs.kotlin.wrappers.styled.next) // to declare and reuse styles directly in code
-    implementation(kotlinLibs.kotlin.wrappers.js)          // wrappers for JS entities
+    api(kotlinLibs.kotlin.wrappers.styled.next)   // to declare and reuse styles directly in code
+    implementation(kotlinLibs.kotlin.wrappers.js) // wrappers for JS entities
 
     // Dependency injection.
-    implementation(kotlinLibs.kodein.di)
+    api(kotlinLibs.kodein.di)
 
     // All required JS libraries.
     jsLibs.bundles.kjsbox.frontend.core.get().forEach {

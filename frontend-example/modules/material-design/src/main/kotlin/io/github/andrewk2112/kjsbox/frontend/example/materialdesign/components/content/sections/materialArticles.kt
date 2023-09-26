@@ -27,7 +27,7 @@ import react.dom.html.ReactHTML.p
 
 // Components.
 
-val materialArticles = VFC {
+val materialArticles = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -99,7 +99,7 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
 
     val container: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
-        padding(
+        padding = Padding(
             top        = StyleValues.spacing.absolute43,
             bottom     = StyleValues.spacing.absolute50,
             horizontal = StyleValues.spacing.absolute20
@@ -108,12 +108,12 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
 
     val title: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockTitle(it).rules
-        margin(horizontal = StyleValues.spacing.absolute20)
+        margin = Margin(horizontal = StyleValues.spacing.absolute20)
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDescription(it).rules
-        margin(
+        margin = Margin(
             left  = StyleValues.spacing.absolute20,
             right = StyleValues.spacing.absolute20,
             top   = StyleValues.spacing.absolute19
@@ -122,7 +122,7 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
-        padding(top = StyleValues.spacing.absolute26)
+        padding = Padding(top = StyleValues.spacing.absolute26)
     }
 
     val articleTitle: DynamicCssProvider<Context> by dynamicCss {

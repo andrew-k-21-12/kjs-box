@@ -21,7 +21,7 @@ object LayoutStyles : DynamicStyleSheet() {
 
     val contentContainer: NamedRuleSet by css {
         maxWidth = StyleValues.sizes.absolute1240
-        margin(horizontal = LinearDimension.auto)
+        margin   = Margin(horizontal = LinearDimension.auto)
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {

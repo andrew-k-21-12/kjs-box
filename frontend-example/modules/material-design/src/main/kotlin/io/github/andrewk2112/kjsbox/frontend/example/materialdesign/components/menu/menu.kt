@@ -22,7 +22,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
-import react.VFC
+import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
@@ -33,7 +33,7 @@ import react.useState
 
 // Components.
 
-val menu = VFC {
+val menu = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator()
@@ -99,7 +99,7 @@ private object MenuStyles : DynamicStyleSheet() {
     val container: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, RIGHT)).rules
         position = Position.absolute
-        inset(0.px)
+        inset    = Inset(0.px)
         display       = Display.flex
         flexDirection = FlexDirection.column
         backgroundColor = Theme.palette.surface2(it)
@@ -160,7 +160,7 @@ private object MenuStyles : DynamicStyleSheet() {
         position = Position.relative // or the animation will appear on top
         display  = Display.inlineBlock
         width    = 100.pct
-        padding(
+        padding  = Padding(
             horizontal = StyleValues.spacing.absolute24,
             vertical   = StyleValues.spacing.absolute12
         )

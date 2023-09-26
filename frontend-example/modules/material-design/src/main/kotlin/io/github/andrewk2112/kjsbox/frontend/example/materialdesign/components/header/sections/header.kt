@@ -139,7 +139,7 @@ private object HeaderStyles : DynamicStyleSheet() {
 
     val menuButtonIcon: NamedRuleSet by css {
         display = Display.block
-        margin(LinearDimension.auto)
+        margin = Margin(LinearDimension.auto)
     }
 
     val logoIcon: DynamicCssProvider<Boolean> by dynamicCss {
@@ -213,7 +213,7 @@ private object HeaderStyles : DynamicStyleSheet() {
 
         // Padding only for bigger screens.
         if (it.screenSize > PHONE) {
-            padding(horizontal = StyleValues.spacing.absolute16)
+            padding = Padding(horizontal = StyleValues.spacing.absolute16)
         }
 
     }
@@ -242,7 +242,7 @@ private object HeaderStyles : DynamicStyleSheet() {
     }
 
     val searchIcon: DynamicCssProvider<Context> by dynamicCss {
-        margin(LinearDimension.auto)
+        margin = Margin(LinearDimension.auto)
         color = Theme.palette.onSurface1(it)
     }
 

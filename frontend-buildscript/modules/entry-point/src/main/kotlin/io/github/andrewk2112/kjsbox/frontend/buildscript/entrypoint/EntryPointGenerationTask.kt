@@ -70,8 +70,8 @@ private inline val clearfixCss: CssBuilder
     get() = CssBuilder(allowClasses = false).apply {
         rule("*") {
             boxSizing = BoxSizing.borderBox // width and height of boxes include borders, margins and padding
-            margin(0.px)
-            padding(0.px)
+            margin    = Margin(0.px)
+            padding   = Padding(0.px)
         }
     }
 

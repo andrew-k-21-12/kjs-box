@@ -10,16 +10,17 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import kotlinx.css.Padding
 import kotlinx.css.padding
 import react.ChildrenBuilder
-import react.VFC
+import react.FC
 import react.dom.html.ReactHTML.div
 
 
 
 // Components.
 
-val contentScaffold = VFC {
+val contentScaffold = FC {
     designIntro()
     whatsNew()
     divider()
@@ -37,7 +38,7 @@ private object ContentScaffoldStyles : DynamicStyleSheet() {
 
     val divider: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
-        padding(horizontal = StyleValues.spacing.absolute40)
+        padding = Padding(horizontal = StyleValues.spacing.absolute40)
     }
 
 }

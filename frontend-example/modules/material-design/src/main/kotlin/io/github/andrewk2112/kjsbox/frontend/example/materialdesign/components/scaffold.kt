@@ -5,6 +5,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSiz
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
@@ -29,6 +30,7 @@ import kotlinx.css.Overflow
 import kotlinx.css.Position
 import kotlinx.css.pct
 import kotlinx.css.properties.*
+import kotlinx.css.properties.transform
 import react.*
 import react.dom.events.MouseEventHandler
 import react.dom.events.UIEventHandler
@@ -69,7 +71,7 @@ import web.dom.Element
 
 // Public.
 
-val scaffold = VFC {
+val scaffold = FC {
 
     useLocalizator(namespace) // lazily loading all translations of the module
     val context = useGlobalInitializations()
@@ -232,7 +234,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         +FontStyles.regular.rules
         fontSize = 100.pct
         position = Position.absolute
-        inset(0.px)
+        inset    = Inset(0.px)
         overflow = Overflow.scroll
     }
 
@@ -245,14 +247,14 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         transform {
             translateY(if (it) 0.pct else (-100).pct)
         }
-        transition(
+        transition += propertyTransition(
             ::transform,
             StyleValues.time.ms300,
             StyleValues.timing.cubicBezier1,
             StyleValues.time.immediate
         )
         opacity = if (it) StyleValues.opacities.full else StyleValues.opacities.transparent
-        transition(
+        transition += propertyTransition(
             ::opacity,
             StyleValues.time.immediate,
             StyleValues.timing.ease,
@@ -306,8 +308,8 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
         // Basic positioning and styling.
         position = Position.fixed
-        inset(0.px)
-        zIndex = 2
+        inset    = Inset(0.px)
+        zIndex   = 2
         backgroundColor = Theme.palette.scrim(it.context)
 
         // Styling for the hidden state.

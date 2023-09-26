@@ -15,7 +15,7 @@ import react.router.*
 import react.router.dom.BrowserRouter
 
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
-val app = VFC {
+val app = FC {
     Provider {
         store = di.direct.instance<StoreFactory>().create() // setting the global app state and its processing reducers,
         BrowserRouter {                                     // enabling routing features,
@@ -29,17 +29,17 @@ val app = VFC {
 }
 
 /** A placeholder to be shown while the application itself is loading. */
-private val appLoadingPlaceholder = VFC {
+private val appLoadingPlaceholder = FC {
     +"⌛ Loading / Загрузка"
 }
 
 /** All required initializations to be done before loading of any actual contents. */
-private val initializations = VFC {
+private val initializations = FC {
     useInjected<ContextReducer>().useScreenSizeMonitor() // monitoring the screen size to update the context
 }
 
 /** All the actual contents available in the app bound to the corresponding routes. */
-private val routes = VFC {
+private val routes = FC {
 
     // All pages of the app: the root (serves as a fallback also) one,
     // the first example page and the fallback configuration.
@@ -61,7 +61,7 @@ private val routes = VFC {
         }
         PathRoute {
             path = "*"
-            element = VFC {
+            element = FC {
                 val navigate = useNavigate()
                 useEffect {
                     navigate("/")

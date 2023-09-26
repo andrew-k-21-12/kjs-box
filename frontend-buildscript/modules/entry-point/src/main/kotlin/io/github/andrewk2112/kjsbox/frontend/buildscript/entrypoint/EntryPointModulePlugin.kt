@@ -2,10 +2,8 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.entrypoint
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.kotlinJs
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.npm
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.DirectoryWritingTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.TextWriteIntoDirectoryAction
-import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
@@ -50,18 +48,8 @@ internal class EntryPointModulePlugin : Plugin<Project> {
             sourceSets.named("main").get().kotlin.srcDir(generateEntryPoint)
         }
 
-        with(dependencies) {
-
-            // Entry point sources require some dependencies of this project, can be decomposed later.
-            add("implementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
-
-            // This is a dirty hack - including all dependencies of the core library directly,
-            // as otherwise they are not fetched on fresh compilations sometimes.
-            for (jsLibrary in JsVersionCatalog().bundles.kjsboxFrontendCore) {
-                add("implementation", npm(jsLibrary.name, jsLibrary.version!!))
-            }
-
-        }
+        // Entry point sources require some dependencies of this project, can be decomposed later.
+        dependencies.add("implementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
 
         // On-demand modules require special processing to be compiled - this is the way to request the compilation.
         rootProject.dependencies.add("implementation", project)

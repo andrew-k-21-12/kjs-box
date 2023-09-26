@@ -8,7 +8,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
-import kotlinx.css.properties.textDecoration
 
 /**
  * Styles for reusable labels.
@@ -18,7 +17,7 @@ object LabelStyles : DynamicStyleSheet() {
     // Public.
 
     val link: DynamicCssProvider<Context> by dynamicCss {
-        textDecoration(TextDecorationLine.underline)
+        textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
         fontSize = StyleValues.fontSizes.relativep875
         color = Theme.palette.action4(it)
         hover {

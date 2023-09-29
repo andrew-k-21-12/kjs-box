@@ -1,19 +1,18 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.devNpm
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.kotlinJs
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.applyMultiplatform
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.findTask
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.DirectoryWritingTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
-import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.Library
 import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import java.io.File
 
 /**
@@ -27,44 +26,41 @@ internal class MainModulePlugin : Plugin<Project> {
     @Throws(Exception::class)
     override fun apply(target: Project): Unit = target.run {
 
-        with(plugins) {
-            apply(KotlinJsPluginWrapper::class.java)
-            apply(NodeJsBinariesGenerationPlugin::class.java) // generating Node.js binaries required for production
-        }
+        // Generating Node.js binaries required for production.
+        plugins.apply(NodeJsBinariesGenerationPlugin::class.java)
 
         // Making sure all supporting files to be prepared before they are actually needed.
-        val unpackMainKt    by registerResourcesUnpackingTask(sourcesWithUnpackDestination)
-        val unpackIndexHtml by registerResourcesUnpackingTask(resourcesWithUnpackDestination)
-        val webpackConfigsDirectory = registerWebpackConfigsUnpackingTask()
+        val unpackMainKt         by registerResourcesUnpackingTask(sourcesWithUnpackDestination)
+        val unpackIndexHtml      by registerResourcesUnpackingTask(resourcesWithUnpackDestination)
+        val unpackWebpackConfigs by registerResourcesUnpackingTask(webpackConfigsWithUnpackDestination)
+        afterEvaluate { // making sure webpack configs are prepared before the compilation
+            findTask("jsProcessResources").dependsOn(unpackWebpackConfigs)
+        }
 
-        kotlinJs {
-
+        applyMultiplatform {
             js {
                 binaries.executable() // no run or deploy tasks will be generated without this line
                 browser {
                     commonWebpackConfig(
-                        Action { it.configDirectory = webpackConfigsDirectory }
+                        Action { it.configDirectory = unpackWebpackConfigs.outDirectory.asFile.get() }
                     )
                 }
             }
-
-            sourceSets.named("main").get().apply {
+            sourceSets.jsMain {
                 kotlin.srcDir(unpackMainKt)       // entry point sources
                 resources.srcDir(unpackIndexHtml) // entry point HTML index
+                dependencies {
+                    // All required compile-only NPM dependencies.
+                    JsVersionCatalog().bundles.kjsboxFrontendMain.forEach {
+                        implementation(devNpm(it.name, it.version!!))
+                    }
+                }
             }
-
-        }
-
-        // Adding all required development-only NPM dependencies.
-        devNpmDependencies.forEach {
-            dependencies.add("implementation", dependencies.devNpm(it.name, it.version!!))
         }
 
         // Preventing optimization issues because of the custom modules structure.
-        tasks.apply {
-            named("browserDevelopmentRun").get().dependsOn(named("developmentExecutableCompileSync"))
-            named("browserProductionRun").get().dependsOn(named("productionExecutableCompileSync"))
-        }
+        findTask("jsBrowserDevelopmentRun").dependsOn(findTask("jsDevelopmentExecutableCompileSync"))
+        findTask("jsBrowserProductionRun").dependsOn(findTask("jsProductionExecutableCompileSync"))
 
     }
 
@@ -88,67 +84,40 @@ internal class MainModulePlugin : Plugin<Project> {
         }
     }
 
-    /**
-     * Registers a task to unpack all required webpack configs from built-in resources
-     * according to the [webpackConfigsWithUnpackDestination]
-     * and returns the corresponding destination directory.
-     */
-    @Throws(IllegalStateException::class, InvalidUserDataException::class)
-    private fun Project.registerWebpackConfigsUnpackingTask(): File {
-        val targets = webpackConfigsWithUnpackDestination
-        val unpackWebpackConfigs by registerResourcesUnpackingTask(targets)
-        afterEvaluate { // make sure the task is going to be executed during the build
-            tasks.named("processResources").get().dependsOn(unpackWebpackConfigs)
-        }
-        return targets.destination
-    }
-
 
 
     // Configs.
 
     /**
-     * Creates a [File] pointing to a supporting files destination directory with a [directoryName].
+     * A [File] pointing to a supporting files destination directory with a [directoryName].
      */
     private fun Project.getSupportingFilesDestinationDirectory(directoryName: String): File =
         layout.buildDirectory.asFile.get().joinWithPath("supportingFiles/$directoryName")
 
     /** States which sources are going to be unpacked and where. */
-    private inline val Project.sourcesWithUnpackDestination get() = FromTo(
-        arrayOf("main.kt"),
-        getSupportingFilesDestinationDirectory("sources"),
-    )
+    private inline val Project.sourcesWithUnpackDestination: FromTo<Array<String>, File>
+        get() = FromTo(
+                    arrayOf("main.kt"),
+                    getSupportingFilesDestinationDirectory("sources"),
+                )
 
     /** States which resources are going to be unpacked and where. */
-    private inline val Project.resourcesWithUnpackDestination get() = FromTo(
-        arrayOf("index.html"),
-        getSupportingFilesDestinationDirectory("resources"),
-    )
+    private inline val Project.resourcesWithUnpackDestination: FromTo<Array<String>, File>
+        get() = FromTo(
+                    arrayOf("index.html"),
+                    getSupportingFilesDestinationDirectory("resources"),
+                )
 
     /** States which webpack config resources are going to be unpacked and where. */
-    private inline val Project.webpackConfigsWithUnpackDestination get() = FromTo(
-        arrayOf(
-            "webpack/1-constants.js",
-            "webpack/2-shared.js",
-            "webpack/development.js",
-            "webpack/production.js",
-        ),
-        getSupportingFilesDestinationDirectory("webpackConfigs"),
-    )
-
-    /** All NPM development-only dependencies to be added. */
-    private inline val devNpmDependencies: Array<Library>
-        get() = with(JsVersionCatalog().libraries) {
-            arrayOf(
-                webpackSvgr,
-                webpackHtml,
-                webpackTerser,
-                webpackImageminimizer,
-                imageminCore,    // the minification engine to be used for the plugin above
-                imageminWebp,    // WebP generation
-                imageminOptipng, // lossless PNG optimization
-                i18nUnused // to remove unused localizations when bundling
-            )
-        }
+    private inline val Project.webpackConfigsWithUnpackDestination: FromTo<Array<String>, File>
+        get() = FromTo(
+                    arrayOf(
+                        "webpack/1-constants.js",
+                        "webpack/2-shared.js",
+                        "webpack/development.js",
+                        "webpack/production.js",
+                    ),
+                    getSupportingFilesDestinationDirectory("webpackConfigs"),
+                )
 
 }

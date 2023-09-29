@@ -2,6 +2,9 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradl
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.getExtension
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.registerTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
@@ -9,26 +12,42 @@ import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.UnknownDomainObjectException
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.io.File
 
 /**
  * Configures the way how all required resource wrappers are going to be generated.
  */
-class ResourceWrappersGenerationPlugin : Plugin<Project> {
+internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
 
-    // Utility.
+    // Configs.
 
     /**
-     * All reusable values required to register each task.
+     * All reusable configs required to register each task.
      */
-    private class Context(
-        val allResourcesDirectory: File,
-        val basePackageName: String,
-        val generatedWrappersDirectory: File,
-        val generatedResourcesDirectory: File,
-    )
+    private class Configs @Throws(IllegalStateException::class, NoSuchElementException::class) constructor(
+        project: Project,
+        jsMainKotlinSourceSet: KotlinSourceSet
+    ) {
+
+        /** The root directory of all resources. */
+        val allResourcesDirectory: File = jsMainKotlinSourceSet.resources.srcDirs.first()
+
+        /** A package name common for all generated resource wrappers. */
+        val basePackageName: String = project.rootProject.group.toString().toValidPackage() + "." +
+                                      project.rootProject.name.replace('-', '.')            + "." +
+                                      "resourcewrappers"
+
+        /** A [File] pointing to the directory containing generated resource wrappers. */
+        val generatedWrappersDirectory: File = project.layout.buildDirectory.asFile.get()
+                                                             .joinWithPath("generated/wrappers")
+
+        /** A [File] pointing to the directory containing generated resources file structure. */
+        val generatedResourcesDirectory: File = project.layout.buildDirectory.asFile.get()
+                                                              .joinWithPath("generated/resources")
+
+    }
 
 
 
@@ -38,35 +57,28 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
     override fun apply(target: Project): Unit = target.run {
 
         // Preparing reusable dependencies.
-        val mainSourceSet = getMainKotlinSourceSet()
-        val context = Context(
-            allResourcesDirectory       = mainSourceSet.resources.srcDirs.first(),
-            basePackageName             = resourcesWrappersBasePackageName,
-            generatedWrappersDirectory  = generatedWrappersDirectory,
-            generatedResourcesDirectory = generatedResourcesDirectory
-        )
+        val jsMainKotlinSourceSet = getJsMainKotlinSourceSet()
+        val configs               = Configs(this, jsMainKotlinSourceSet)
 
-        // Registering all wrappers-generation tasks.
-        val generateFontWrappers     by registerWrappersGenerationTask<FontWrappersGenerationTask>(context,  "fonts")
-        val generateIconWrappers     by registerWrappersGenerationTask<IconWrappersGenerationTask>(context,  "icons")
-        val generateImageWrappers    by registerWrappersGenerationTask<ImageWrappersGenerationTask>(context, "images")
-        val generateLocalizationKeys by registerWrappersGenerationTask<LocalizationKeysGenerationTask>(
-            context, "locales"
-        )
+        // Registering all source-generating tasks.
+        val generateFontWrappers     by registerWrappersGenerationTask<FontWrappersGenerationTask>(configs,     "fonts")
+        val generateIconWrappers     by registerWrappersGenerationTask<IconWrappersGenerationTask>(configs,     "icons")
+        val generateImageWrappers    by registerWrappersGenerationTask<ImageWrappersGenerationTask>(configs,    "images")
+        val generateLocalizationKeys by registerWrappersGenerationTask<LocalizationKeysGenerationTask>(configs, "locales")
         val sourceGenerationTasks = arrayOf(
             generateFontWrappers, generateIconWrappers, generateImageWrappers, generateLocalizationKeys
         )
 
-        // Adding the generated wrappers to the source set of the project.
-        mainSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
+        // Adding the generated wrappers to the source set of project.
+        jsMainKotlinSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
 
-        // Including all dependencies required for resource wrappers generation.
-        dependencies.add("implementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
+        // Including all dependencies required for generated resource wrappers.
+        dependencies.add("jsMainImplementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
 
         // Adding the configured resources directory to the source set of the root project.
         rootProject.run {
-            getMainKotlinSourceSet().resources.srcDir(context.generatedResourcesDirectory)
-            tasks.named("processResources").get()
+            getJsMainKotlinSourceSet().resources.srcDir(configs.generatedResourcesDirectory)
+            tasks.named("jsProcessResources").get()
                  .dependsOn(sourceGenerationTasks)
         }
 
@@ -77,42 +89,26 @@ class ResourceWrappersGenerationPlugin : Plugin<Project> {
     // Private.
 
     /**
-     * Retrieves the [Project]'s main [KotlinSourceSet].
+     * Retrieves the [Project]'s JS main [KotlinSourceSet].
      */
     @Throws(IllegalStateException::class, UnknownDomainObjectException::class)
-    private fun Project.getMainKotlinSourceSet(): KotlinSourceSet =
-        extensions
-            .getByType(KotlinJsProjectExtension::class.java)
-            .sourceSets.named("main").get()
+    private fun Project.getJsMainKotlinSourceSet(): KotlinSourceSet =
+        getExtension<KotlinMultiplatformExtension>().sourceSets.jsMain()
 
     /**
      * Registers a [WrappersGenerationTask] for the [Project], see the [WrappersGenerationTask] for details.
      */
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
     private inline fun <reified T : WrappersGenerationTask> Project.registerWrappersGenerationTask(
-        context: Context,
+        configs: Configs,
         resourcesTypeName: String,
-    ) = LazyReadOnlyProperty<Any?, T> {
-        tasks.register(it.name, T::class.java).get().apply {
-            allResourcesDirectory  = context.allResourcesDirectory
-            basePackageName        = context.basePackageName
-            this.resourcesTypeName = resourcesTypeName
-            moduleName             = this@registerWrappersGenerationTask.name
-            generatedWrappersDir   = context.generatedWrappersDirectory
-            resourcesOutDirectory.set(context.generatedResourcesDirectory)
-        }
+    ): LazyReadOnlyProperty<Any?, T> = registerTask {
+        allResourcesDirectory  = configs.allResourcesDirectory
+        basePackageName        = configs.basePackageName
+        this.resourcesTypeName = resourcesTypeName
+        moduleName             = this@registerWrappersGenerationTask.name
+        generatedWrappersDir   = configs.generatedWrappersDirectory
+        resourcesOutDirectory.set(configs.generatedResourcesDirectory)
     }
-
-    /** A package name common for all generated resource wrappers. */
-    private inline val Project.resourcesWrappersBasePackageName: String
-        get() = "${rootProject.group.toString().toValidPackage()}.${rootProject.name.replace('-', '.')}.resourcewrappers"
-
-    /** A [File] pointing to the directory containing generated resource wrappers. */
-    private inline val Project.generatedWrappersDirectory: File
-        get() = layout.buildDirectory.asFile.get().joinWithPath("generated/wrappers")
-
-    /** A [File] pointing to the directory containing the generated resources file structure. */
-    private inline val Project.generatedResourcesDirectory: File
-        get() = layout.buildDirectory.asFile.get().joinWithPath("generated/resources")
 
 }

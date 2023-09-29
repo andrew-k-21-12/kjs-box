@@ -33,6 +33,6 @@ kjsbox-frontend-entrypoint       = { id = "io.github.andrew-k-21-12.kjs-box.fron
 kjsbox-frontend-lazymodule       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-lazy-module",       version.ref = "kjsbox-frontend-lazymodule" }
 kjsbox-frontend-main             = { id = "io.github.andrew-k-21-12.kjs-box.frontend-main",              version.ref = "kjsbox-frontend-main" }
 kjsbox-frontend-resourcewrappers = { id = "io.github.andrew-k-21-12.kjs-box.frontend-resource-wrappers", version.ref = "kjsbox-frontend-resourcewrappers" }
-kotlin-js                        = { id = "org.jetbrains.kotlin.js",                                     version.ref = "kotlin" }
 kotlin-jvm                       = { id = "org.jetbrains.kotlin.jvm",                                    version.ref = "kotlin" }
+kotlin-multiplatform             = { id = "org.jetbrains.kotlin.multiplatform",                          version.ref = "kotlin" }
 my-versioncatalogsgenerator      = { id = "io.github.andrew-k-21-12.version-catalogs-generator",         version.ref = "my-versioncatalogsgenerator" }

@@ -1,6 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.findTask
+import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.registerExecutionTask
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.*
 import org.gradle.configurationcache.extensions.capitalized
@@ -15,64 +17,59 @@ internal class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
     // Action.
 
+    @Throws(Exception::class)
     override fun apply(target: Project) = target.run {
         afterEvaluate {
-            val nodeJsBinary = findNodeJsBinary()
-            // Production builds require the image minification binaries, otherwise the image minification won't succeed.
-            tasks.named("productionExecutableCompileSync").get()
-                 .dependsOn(
-                    registerNodeJsBinaryGenerationTask(nodeJsBinary, "cwebp"),
-                    registerNodeJsBinaryGenerationTask(nodeJsBinary, "optipng")
-                )
-        }
-    }
 
+            // Reusable Node.js binary path and production compilation task (which depends on target libraries).
+            val nodeJsBinary = findTask<NodeJsSetupTask>("kotlinNodeJsSetup").destination.joinWithPath(nodeJsBinaryPath)
+            val productionCompilationTask = findTask("jsProductionExecutableCompileSync")
 
+            targetLibraries.forEach { libraryName ->
 
-    // Private.
+                val libraryRootDirectory = getLibraryRootDirectory(libraryName)
 
-    /**
-     * Looks for a Node.js binary [File].
-     */
-    @Throws(UnknownTaskException::class)
-    private fun Project.findNodeJsBinary(): File =
-        tasks
-            .named("kotlinNodeJsSetup", NodeJsSetupTask::class.java)
-            .get().destination
-            .joinWithPath(if (Os.isFamily(Os.FAMILY_WINDOWS)) "node" else "bin/node")
+                registerExecutionTask(
+                    "generateNodeJs${libraryName.capitalized()}Binary",
+                    nodeJsBinary,
+                    libraryRootDirectory.joinWithPath(libraryInstallerPath)
+                ).apply {
+                    onlyIf { // no need to invoke the compilation if the binary already exists
+                        !libraryRootDirectory.joinWithPath(getCompiledLibraryPath(libraryName)).isFile
+                    }
+                    dependsOn("kotlinNpmInstall") // making sure Node.js modules are fetched to perform the compilation
+                    productionCompilationTask.dependsOn(this) // production bundling requires image libraries
+                                                              // to perform minification for images
+                }
 
-    /**
-     * Registers a task making Node.js generate a required binary manually.
-     *
-     * @param nodeJsBinary A location of the Node.js binary to be used.
-     * @param libraryName  A Node.js library name to generate the binary for.
-     *
-     * @return A reference to the registered [Task].
-     */
-    @Throws(InvalidUserDataException::class, SecurityException::class)
-    private fun Project.registerNodeJsBinaryGenerationTask(
-        nodeJsBinary: File,
-        libraryName: String
-    ): Task = tasks.register("generateNodeJs${libraryName.capitalized()}Binary").get().apply {
-
-        // Making sure Node.js modules are fetched.
-        dependsOn("kotlinNpmInstall")
-
-        // Preparing the root directory of the library to be reused.
-        val libraryBaseDir = project.layout.buildDirectory.asFile.get().joinWithPath("js/node_modules/$libraryName-bin")
-
-        // No need to invoke the task with the corresponding compilation if the binary exists.
-        onlyIf {
-            !File(libraryBaseDir, "vendor/$libraryName").isFile
-        }
-
-        // Executing the compilation for the target library.
-        doLast {
-            exec {
-                it.commandLine(nodeJsBinary, File(libraryBaseDir, "lib/install.js"))
             }
-        }
 
+        }
     }
+
+
+
+    // Private and configs.
+
+    /** Node.js libraries to compile. */
+    private inline val targetLibraries get() = arrayOf("cwebp", "optipng")
+
+    /** Node.js binary subpath. */
+    private inline val nodeJsBinaryPath: String
+        get() = if (Os.isFamily(Os.FAMILY_WINDOWS)) "node" else "bin/node"
+
+    /** Default location for a Node.js library installation script. */
+    private inline val libraryInstallerPath get() = "lib/install.js"
+
+    /**
+     * Where a library is located (its root directory).
+     */
+    private fun Project.getLibraryRootDirectory(libraryName: String): File =
+        layout.buildDirectory.asFile.get().joinWithPath("js/node_modules/$libraryName-bin")
+
+    /**
+     * Where Node.js outputs compiled binaries for libraries.
+     */
+    private fun getCompiledLibraryPath(libraryName: String) = "vendor/$libraryName"
 
 }

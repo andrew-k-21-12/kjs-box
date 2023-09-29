@@ -5,7 +5,7 @@ plugins {
 }
 
 kotlin {
-    sourceSets.main.get().kotlin.srcDirs(
+    sourceSets.jsMain.get().kotlin.srcDirs(
         listOf(
             projects.exercises,
             projects.materialDesign

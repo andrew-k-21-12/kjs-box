@@ -36,3 +36,13 @@ kjsbox-frontend-core = [
     "i18next-react",
     "react"                     # to avoid warnings about unmet peer dependencies
 ]
+kjsbox-frontend-main = [
+    "i18n-unused",      # to remove unused localizations when bundling
+    "imagemin-core",    # the image minification engine to be used
+    "imagemin-optipng", # lossless PNG optimization
+    "imagemin-webp",    # WebP generation
+    "webpack-html",
+    "webpack-imageminimizer",
+    "webpack-svgr",
+    "webpack-terser"
+]

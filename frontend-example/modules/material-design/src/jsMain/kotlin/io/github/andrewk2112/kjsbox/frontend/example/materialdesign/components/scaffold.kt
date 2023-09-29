@@ -51,9 +51,7 @@ import web.dom.Element
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  7. Maybe the localization API should be changed slightly?
 //  8. Drop reducers?
-//  9. Starting with Kotlin 1.9.0, the kotlin-js Gradle plugin is deprecated,
-//     use the kotlin-multiplatform Gradle plugin with the js() target instead.
-//  10.Extract composite builds (Gradle projects) with shared sources (e.g. for strings).
+//  9. Extract composite builds (Gradle projects) with shared sources (e.g. for strings).
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

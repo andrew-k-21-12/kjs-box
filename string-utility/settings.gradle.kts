@@ -1,5 +1,3 @@
-includeBuild("../string-utility")
-
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -14,4 +12,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "version-catalogs-generator"
+rootProject.name = "string-utility"

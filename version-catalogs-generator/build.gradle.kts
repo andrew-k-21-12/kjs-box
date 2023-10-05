@@ -14,5 +14,6 @@ gradlePlugin {
 }
 
 dependencies {
+    implementation(kotlinLibs.my.stringutility)
     implementation(kotlinLibs.tomlj)
 }

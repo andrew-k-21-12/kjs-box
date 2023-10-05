@@ -1,5 +1,8 @@
 package io.github.andrewk2112.versioncatalogsgenerator.gradle
 
+import io.github.andrewk2112.stringutility.formats.PackageFormat
+import io.github.andrewk2112.stringutility.formats.PathFormat
+import io.github.andrewk2112.stringutility.formats.changeFormat
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.TypesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.VersionCatalogCodeGenerator
@@ -7,7 +10,6 @@ import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.Bund
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.LibraryValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.PluginValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.VersionValuesCodeGenerator
-import io.github.andrewk2112.versioncatalogsgenerator.extensions.dotsToSlashes
 import io.github.andrewk2112.versioncatalogsgenerator.parsers.TomlVersionCatalogParser
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
@@ -117,7 +119,7 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
 
     @Throws(Exception::class)
     private fun createOutDirectoryWithPackage(packageName: String): File =
-        File(sourcesOutDirectory.get().asFile, packageName.dotsToSlashes())
+        File(sourcesOutDirectory.get().asFile, packageName.changeFormat(PackageFormat, PathFormat))
             .also { it.mkdirs() }
 
 }

@@ -8,5 +8,5 @@ version = "1.0.0"
 dependencies {
     implementation(gradleApi())
     implementation(kotlinLibs.kotlin.gradleplugin)
-    implementation(kotlinLibs.my.commonutility)
+    implementation(kotlinLibs.my.utility.common)
 }

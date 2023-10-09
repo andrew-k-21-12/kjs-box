@@ -14,8 +14,8 @@ gradlePlugin {
 }
 
 dependencies {
-    implementation(kotlinLibs.my.commonutility)
-    implementation(kotlinLibs.my.gradleutility)
-    implementation(kotlinLibs.my.stringutility)
+    implementation(kotlinLibs.my.utility.common)
+    implementation(kotlinLibs.my.utility.gradle)
+    implementation(kotlinLibs.my.utility.string)
     implementation(kotlinLibs.tomlj)
 }

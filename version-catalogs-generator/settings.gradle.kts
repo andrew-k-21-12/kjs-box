@@ -1,5 +1,5 @@
-includeBuild("../gradle-utility")
-includeBuild("../string-utility")
+includeBuild("../utility-gradle")
+includeBuild("../utility-string")
 
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")

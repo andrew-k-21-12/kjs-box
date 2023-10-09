@@ -1,3 +1,5 @@
+includeBuild("../utility-common")
+
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -12,4 +14,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "common-utility"
+rootProject.name = "utility-gradle"

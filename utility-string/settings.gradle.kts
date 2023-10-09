@@ -12,4 +12,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "string-utility"
+rootProject.name = "utility-string"

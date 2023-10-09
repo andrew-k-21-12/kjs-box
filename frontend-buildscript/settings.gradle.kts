@@ -1,6 +1,6 @@
 // These inclusions are required to perform builds with dependencies provided locally.
 includeBuild("../frontend-core")
-includeBuild("../gradle-utility")
+includeBuild("../utility-gradle")
 pluginManagement {
     includeBuild("../frontend-buildscript-shared")
 }

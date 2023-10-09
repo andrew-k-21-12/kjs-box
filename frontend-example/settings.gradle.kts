@@ -2,9 +2,9 @@ pluginManagement {
     includeBuild("../frontend-buildscript")
     includeBuild("../frontend-core") // used in buildscripts, won't compile without it
     includeBuild("../frontend-buildscript-shared") // \
-    includeBuild("../common-utility")              //  \
-    includeBuild("../gradle-utility")              //   - to clean everything at once by a single command
-    includeBuild("../string-utility")              //  /
+    includeBuild("../utility-common")              //  \
+    includeBuild("../utility-gradle")              //   - to clean everything at once by a single command
+    includeBuild("../utility-string")              //  /
     includeBuild("../version-catalogs-generator")  // /
 }
 

@@ -18,4 +18,6 @@ dependencies {
     implementation(kotlinLibs.commons.io)          // to simplify some file operations a bit
     implementation(kotlinLibs.kjsbox.frontend.commongradleextensions)
     implementation(kotlinLibs.kjsbox.frontend.versioncatalogs) // to include and reuse version catalogs
+    implementation(kotlinLibs.my.commonutility)
+    implementation(kotlinLibs.my.gradleutility)
 }

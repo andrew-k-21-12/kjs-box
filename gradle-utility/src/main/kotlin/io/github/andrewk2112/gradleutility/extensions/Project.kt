@@ -1,6 +1,6 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions
+package io.github.andrewk2112.gradleutility.extensions
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.commonutility.utility.LazyReadOnlyProperty
 import org.gradle.api.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper

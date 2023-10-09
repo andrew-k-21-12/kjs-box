@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility
+package io.github.andrewk2112.commonutility.utility
 
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

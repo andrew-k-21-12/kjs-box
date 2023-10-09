@@ -1,6 +1,6 @@
 package io.github.andrewk2112.versioncatalogsgenerator.extensions
 
-import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.ValuesCodeGenerator
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.ValuesCodeGenerator
 
 /**
  * Creates an instance of [ValuesCodeGenerator.GeneratedCode]:

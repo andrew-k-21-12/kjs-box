@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.entrypoint
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property

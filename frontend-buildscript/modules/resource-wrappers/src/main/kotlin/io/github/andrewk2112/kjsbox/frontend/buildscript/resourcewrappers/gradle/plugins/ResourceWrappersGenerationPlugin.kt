@@ -1,12 +1,12 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.plugins
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.gradleutility.extensions.getExtension
+import io.github.andrewk2112.gradleutility.extensions.registerTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.getExtension
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.registerTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.*
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin

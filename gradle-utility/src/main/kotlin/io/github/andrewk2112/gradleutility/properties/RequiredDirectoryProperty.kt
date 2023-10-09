@@ -1,6 +1,6 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.properties
+package io.github.andrewk2112.gradleutility.properties
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.NotNullVar
+import io.github.andrewk2112.commonutility.utility.NotNullVar
 import org.gradle.api.Task
 import java.io.File
 import kotlin.reflect.KProperty

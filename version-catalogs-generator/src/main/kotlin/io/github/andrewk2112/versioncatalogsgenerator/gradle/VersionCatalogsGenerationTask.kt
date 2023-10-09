@@ -1,5 +1,8 @@
 package io.github.andrewk2112.versioncatalogsgenerator.gradle
 
+import io.github.andrewk2112.commonutility.extensions.ensureDirectoryExistsOrThrow
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.writeTo
 import io.github.andrewk2112.stringutility.formats.PackageFormat
 import io.github.andrewk2112.stringutility.formats.PathFormat
 import io.github.andrewk2112.stringutility.formats.changeFormat
@@ -91,10 +94,11 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
         packageName: String,
         visibilityModifierPrefix: String,
         outDirectory: File
-    ) {
+    ) =
         typesCodeGenerator.generate(packageName, visibilityModifierPrefix)
-                          .also { File(outDirectory, "Types.kt").writeText(it) }
-    }
+                          .writeTo(
+                              outDirectory.joinWithPath("Types.kt")
+                          )
 
     /**
      * Reads and parses each catalog from the provided [catalogs], generates and writes wrapper sources for them.
@@ -110,7 +114,9 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
         catalogs.get().forEach { catalog ->
             catalogParser.parseCatalog(catalog.path.get())
                         ?.let { catalogCodeGenerator.generate(packageName, visibilityModifierPrefix, catalog.name, it) }
-                        ?.let { File(outDirectory, "${catalog.name}.kt").writeText(it) }
+                        ?.writeTo(
+                            outDirectory.joinWithPath("${catalog.name}.kt")
+                        )
         }
 
 
@@ -119,7 +125,10 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
 
     @Throws(Exception::class)
     private fun createOutDirectoryWithPackage(packageName: String): File =
-        File(sourcesOutDirectory.get().asFile, packageName.changeFormat(PackageFormat, PathFormat))
-            .also { it.mkdirs() }
+        sourcesOutDirectory.get().asFile.joinWithPath(
+            packageName.changeFormat(PackageFormat, PathFormat)
+        ).apply {
+            ensureDirectoryExistsOrThrow("Can not create an output directory: $this")
+        }
 
 }

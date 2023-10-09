@@ -2,8 +2,6 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
 
 /**
  * Decapitalizes the first char.
@@ -37,9 +35,3 @@ fun String.toUniversalPathString(): String =
  * Cleans up and updates the source [String] to make it possible to be used as a valid Java/Kotlin package.
  */
 fun String.toValidPackage(): String = replace("-", "").replace("/", ".")
-
-/**
- * Writes a [String] into the [file] - just a syntax sugar for [writeText].
- */
-@Throws(FileNotFoundException::class, SecurityException::class, IOException::class)
-fun String.writeTo(file: File) = file.writeText(this)

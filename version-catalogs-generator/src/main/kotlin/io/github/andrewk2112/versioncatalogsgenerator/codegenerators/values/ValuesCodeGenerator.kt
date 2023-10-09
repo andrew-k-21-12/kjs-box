@@ -1,4 +1,4 @@
-package io.github.andrewk2112.versioncatalogsgenerator.codegenerators
+package io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values
 
 import io.github.andrewk2112.versioncatalogsgenerator.models.ParsedVersionCatalog
 

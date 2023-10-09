@@ -1,5 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.independent
 
+import io.github.andrewk2112.commonutility.extensions.ensureDirectoryExistsOrThrow
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.HavingRelativePath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.WrapperWritingException

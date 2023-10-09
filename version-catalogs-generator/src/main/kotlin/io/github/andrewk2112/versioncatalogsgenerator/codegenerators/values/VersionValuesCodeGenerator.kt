@@ -1,15 +1,14 @@
 package io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values
 
+import io.github.andrewk2112.commonutility.utility.Reference
 import io.github.andrewk2112.stringutility.cases.KebabCase
 import io.github.andrewk2112.stringutility.cases.LowerCamelCase
 import io.github.andrewk2112.stringutility.cases.changeCase
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CodeEmitters
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
-import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.ValuesCodeGenerator
-import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.ValuesCodeGenerator.GeneratedCode
+import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.ValuesCodeGenerator.GeneratedCode
 import io.github.andrewk2112.versioncatalogsgenerator.extensions.toGeneratedCode
 import io.github.andrewk2112.versioncatalogsgenerator.models.ParsedVersionCatalog
-import io.github.andrewk2112.versioncatalogsgenerator.utility.Reference
 
 /**
  * Generates the code for catalog's versions.

@@ -1,5 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers
 
+import io.github.andrewk2112.commonutility.extensions.ensureDirectoryExistsOrThrow
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.ImageResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.ImageWrapperTemplates

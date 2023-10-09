@@ -1,8 +1,8 @@
-package io.github.andrewk2112.versioncatalogsgenerator.utility
+package io.github.andrewk2112.commonutility.utility
 
 /**
  * Simple [value] wrapper allowing to pass it by reference.
  */
-internal class Reference<T>(internal var value: T) {
+class Reference<T>(var value: T) {
     override fun toString(): String = value.toString()
 }

@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.gradleutility.properties.RequiredDirectoryProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.properties.RequiredDirectoryProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.changeMonitor
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty

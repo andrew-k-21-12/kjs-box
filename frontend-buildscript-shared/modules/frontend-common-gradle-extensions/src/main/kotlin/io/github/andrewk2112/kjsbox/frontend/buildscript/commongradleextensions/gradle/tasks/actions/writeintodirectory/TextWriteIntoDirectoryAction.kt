@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.Result
 import org.apache.commons.io.IOUtils
 import java.io.File

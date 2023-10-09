@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.independent
 
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.decapitalize
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinCapitalized
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.writeTo
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toUniversalPathString
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.IconResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.IconWrapperTemplate

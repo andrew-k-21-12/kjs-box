@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions
+package io.github.andrewk2112.commonutility.extensions
 
 import java.io.File
 import java.io.IOException

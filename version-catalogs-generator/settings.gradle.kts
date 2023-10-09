@@ -1,3 +1,4 @@
+includeBuild("../gradle-utility")
 includeBuild("../string-utility")
 
 dependencyResolutionManagement {

@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.actions
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.createSymbolicLinkTo
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinWithPath
+import io.github.andrewk2112.commonutility.extensions.createSymbolicLinkTo
+import io.github.andrewk2112.commonutility.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.WrappersGenerationTask
 import java.io.IOException
 import java.nio.file.InvalidPathException

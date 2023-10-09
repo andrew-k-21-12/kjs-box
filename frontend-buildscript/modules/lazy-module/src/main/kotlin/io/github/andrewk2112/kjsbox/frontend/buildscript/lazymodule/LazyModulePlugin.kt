@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymodule
 
-import io.github.andrewk2112.commonutility.extensions.joinWithPath
-import io.github.andrewk2112.gradleutility.extensions.applyMultiplatform
-import io.github.andrewk2112.gradleutility.extensions.createExtension
-import io.github.andrewk2112.gradleutility.extensions.registerTask
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
+import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
+import io.github.andrewk2112.utility.gradle.extensions.createExtension
+import io.github.andrewk2112.utility.gradle.extensions.registerTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import org.gradle.api.Plugin

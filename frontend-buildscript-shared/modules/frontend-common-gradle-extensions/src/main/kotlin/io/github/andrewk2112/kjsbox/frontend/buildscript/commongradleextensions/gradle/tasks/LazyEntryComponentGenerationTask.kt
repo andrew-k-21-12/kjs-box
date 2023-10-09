@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks
 
-import io.github.andrewk2112.commonutility.extensions.joinWithPath
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinCapitalized
 import org.gradle.api.DefaultTask
 import org.gradle.api.InvalidUserDataException

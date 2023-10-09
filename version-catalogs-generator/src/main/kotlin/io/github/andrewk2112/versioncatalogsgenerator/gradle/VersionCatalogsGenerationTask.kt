@@ -1,11 +1,11 @@
 package io.github.andrewk2112.versioncatalogsgenerator.gradle
 
-import io.github.andrewk2112.commonutility.extensions.ensureDirectoryExistsOrThrow
-import io.github.andrewk2112.commonutility.extensions.joinWithPath
-import io.github.andrewk2112.commonutility.extensions.writeTo
-import io.github.andrewk2112.stringutility.formats.PackageFormat
-import io.github.andrewk2112.stringutility.formats.PathFormat
-import io.github.andrewk2112.stringutility.formats.changeFormat
+import io.github.andrewk2112.utility.common.extensions.ensureDirectoryExistsOrThrow
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
+import io.github.andrewk2112.utility.common.extensions.writeTo
+import io.github.andrewk2112.utility.string.formats.PackageFormat
+import io.github.andrewk2112.utility.string.formats.PathFormat
+import io.github.andrewk2112.utility.string.formats.changeFormat
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.TypesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.VersionCatalogCodeGenerator

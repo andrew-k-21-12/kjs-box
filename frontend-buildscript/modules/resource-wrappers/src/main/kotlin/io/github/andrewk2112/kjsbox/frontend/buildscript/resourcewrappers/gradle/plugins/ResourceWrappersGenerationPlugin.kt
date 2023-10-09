@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.plugins
 
-import io.github.andrewk2112.commonutility.extensions.joinWithPath
-import io.github.andrewk2112.commonutility.utility.LazyReadOnlyProperty
-import io.github.andrewk2112.gradleutility.extensions.getExtension
-import io.github.andrewk2112.gradleutility.extensions.registerTask
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
+import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.utility.gradle.extensions.getExtension
+import io.github.andrewk2112.utility.gradle.extensions.registerTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.*

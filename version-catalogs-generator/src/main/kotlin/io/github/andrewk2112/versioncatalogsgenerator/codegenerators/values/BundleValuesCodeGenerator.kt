@@ -1,10 +1,10 @@
 package io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values
 
-import io.github.andrewk2112.commonutility.utility.Reference
-import io.github.andrewk2112.stringutility.cases.KebabCase
-import io.github.andrewk2112.stringutility.cases.LowerCamelCase
-import io.github.andrewk2112.stringutility.cases.changeCase
-import io.github.andrewk2112.stringutility.indented
+import io.github.andrewk2112.utility.common.utility.Reference
+import io.github.andrewk2112.utility.string.cases.KebabCase
+import io.github.andrewk2112.utility.string.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.cases.changeCase
+import io.github.andrewk2112.utility.string.indented
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CodeEmitters
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.ValuesCodeGenerator.GeneratedCode

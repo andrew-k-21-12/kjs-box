@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
-import io.github.andrewk2112.commonutility.extensions.joinWithPath
-import io.github.andrewk2112.gradleutility.extensions.findTask
-import io.github.andrewk2112.gradleutility.extensions.registerExecutionTask
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
+import io.github.andrewk2112.utility.gradle.extensions.findTask
+import io.github.andrewk2112.utility.gradle.extensions.registerExecutionTask
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.*
 import org.gradle.configurationcache.extensions.capitalized

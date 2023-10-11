@@ -3,7 +3,6 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrapp
 import io.github.andrewk2112.utility.common.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.extensions.writeTo
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.ImageResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.ImageWrapperTemplates
 import io.github.andrewk2112.utility.gradle.extensions.toUniversalPathString

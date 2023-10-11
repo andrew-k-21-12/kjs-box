@@ -2,7 +2,6 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrapp
 
 import io.github.andrewk2112.utility.common.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.HavingRelativePath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.WrapperWritingException
 import io.github.andrewk2112.utility.string.formats.changeFormat

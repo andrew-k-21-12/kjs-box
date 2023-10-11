@@ -1,6 +1,6 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks
+package io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.SimpleWriteIntoDirectoryAction
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory.SimpleWriteIntoDirectoryAction
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property

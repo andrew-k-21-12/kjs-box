@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory
+package io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.utility.Result
@@ -17,7 +17,7 @@ value class ResourceWriteIntoDirectoryAction(
 
     override fun writeIntoDirectory(directory: File): Result<Unit, Exception> {
         val input = javaClass.classLoader.getResourceAsStream(resourceName)
-                 ?: return Result.Failure(IllegalArgumentException("No `$resourceName` resource found"))
+                 ?: return Result.Failure(IllegalArgumentException("No resource found: $resourceName"))
         var output: OutputStream? = null
         return try {
             output = FileOutputStream(directory.joinWithPath(File(resourceName).name))

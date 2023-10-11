@@ -6,7 +6,6 @@ kjsbox-frontend-entrypoint             = "1.0.0"
 kjsbox-frontend-lazymodule             = "1.0.0"
 kjsbox-frontend-main                   = "1.0.0"
 kjsbox-frontend-resourcewrappers       = "1.0.0"
-kjsbox-frontend-versioncatalogs        = "1.0.0"
 kodein                                 = "7.20.2"
 kotlin                                 = "1.9.10"
 kotlin-wrappers                        = "1.0.0-pre.627"
@@ -20,7 +19,6 @@ tomlj                                  = "1.1.0"
 commons-io                             = { module = "commons-io:commons-io",                                              version.ref = "commons-io" }
 kjsbox-frontend-commongradleextensions = { module = "io.github.andrew-k-21-12.kjs-box:frontend-common-gradle-extensions", version.ref = "kjsbox-frontend-commongradleextensions" }
 kjsbox-frontend-core                   = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                     version.ref = "kjsbox-frontend-core" }
-kjsbox-frontend-versioncatalogs        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-version-catalogs",         version.ref = "kjsbox-frontend-versioncatalogs" }
 kodein-di                              = { module = "org.kodein.di:kodein-di",                                            version.ref = "kodein" }
 kotlin-gradleplugin                    = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",                          version.ref = "kotlin" }
 kotlin-test                            = { module = "org.jetbrains.kotlin:kotlin-test",                                   version.ref = "kotlin" }

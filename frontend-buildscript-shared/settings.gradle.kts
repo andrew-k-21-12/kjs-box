@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "frontend-buildscript-shared"
-listOf("frontend-common-gradle-extensions", "frontend-version-catalogs").map {
+listOf("frontend-common-gradle-extensions").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

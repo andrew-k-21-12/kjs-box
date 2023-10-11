@@ -3,6 +3,7 @@ includeBuild("../frontend-core")
 includeBuild("../utility-gradle")
 pluginManagement {
     includeBuild("../frontend-buildscript-shared")
+    includeBuild("../version-catalogs-generator")
 }
 
 dependencyResolutionManagement {
@@ -19,8 +20,10 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "frontend-buildscript"
-listOf("entry-point", "lazy-module", "main", "resource-wrappers").map {
+listOf("entry-point", "lazy-module", "main", "resource-wrappers", "shared", "version-catalogs").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

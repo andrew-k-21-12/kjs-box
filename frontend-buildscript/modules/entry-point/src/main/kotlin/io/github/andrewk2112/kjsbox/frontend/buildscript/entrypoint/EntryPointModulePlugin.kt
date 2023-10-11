@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.entrypoint
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.DirectoryWritingTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.TextWriteIntoDirectoryAction
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.DirectoryWritingTask
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory.TextWriteIntoDirectoryAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.Plugin

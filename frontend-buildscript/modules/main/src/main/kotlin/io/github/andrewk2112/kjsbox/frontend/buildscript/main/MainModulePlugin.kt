@@ -4,8 +4,8 @@ import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
 import io.github.andrewk2112.utility.gradle.extensions.findTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.DirectoryWritingTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.DirectoryWritingTask
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
 import io.github.andrewk2112.utility.common.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
 import io.github.andrewk2112.utility.gradle.extensions.jsMain

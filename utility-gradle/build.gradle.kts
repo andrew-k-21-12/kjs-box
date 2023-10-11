@@ -9,4 +9,5 @@ dependencies {
     implementation(gradleApi())
     implementation(kotlinLibs.kotlin.gradleplugin)
     implementation(kotlinLibs.my.utility.common)
+    implementation(kotlinLibs.my.utility.string)
 }

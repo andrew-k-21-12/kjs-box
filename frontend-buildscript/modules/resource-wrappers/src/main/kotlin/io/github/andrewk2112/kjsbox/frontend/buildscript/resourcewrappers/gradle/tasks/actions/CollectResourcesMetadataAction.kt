@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.actions
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.WrappersGenerationTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.CollectingVisitor
+import io.github.andrewk2112.utility.common.utility.CollectingVisitor
 import org.apache.tools.ant.BuildException
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Transformer

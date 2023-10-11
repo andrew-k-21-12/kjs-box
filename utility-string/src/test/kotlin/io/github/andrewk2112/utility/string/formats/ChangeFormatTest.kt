@@ -1,5 +1,7 @@
 package io.github.andrewk2112.utility.string.formats
 
+import io.github.andrewk2112.utility.string.formats.other.PackageName
+import io.github.andrewk2112.utility.string.formats.other.UniversalPath
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -9,19 +11,15 @@ class ChangeFormatTest {
     fun testChangeFormat() {
         assertEquals(
             "com.package.projectgroup",
-            "com.package.project-group".changeFormat(ProjectGroupFormat, PackageFormat)
-        )
-        assertEquals(
-            "com.package.project",
-            "com.package.project".changeFormat(PackageFormat, PackageFormat)
+            "com.package.project-group".changeFormat(PackageName, PackageName)
         )
         assertEquals(
             "com/package/project-group",
-            "com.package.project-group".changeFormat(ProjectGroupFormat, PathFormat)
+            "com.package.project-group".changeFormat(PackageName, UniversalPath)
         )
         assertEquals(
             "com.package.projectgroup",
-            "com/package/project-group".changeFormat(PathFormat, PackageFormat)
+            "com/package/project-group".changeFormat(UniversalPath, PackageName)
         )
     }
 

@@ -20,4 +20,5 @@ dependencies {
     implementation(kotlinLibs.kotlin.gradleplugin) // to create plugins with Kotlin features
     implementation(kotlinLibs.my.utility.common)
     implementation(kotlinLibs.my.utility.gradle)
+    implementation(kotlinLibs.my.utility.string)
 }

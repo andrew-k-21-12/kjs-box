@@ -2,8 +2,8 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resou
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.IconResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.ResourcePaths
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.CollectingVisitor
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.Result
+import io.github.andrewk2112.utility.common.utility.CollectingVisitor
+import io.github.andrewk2112.utility.common.utility.Result
 
 /**
  * A [CollectingVisitor] to gather all [IconResource] metadata.

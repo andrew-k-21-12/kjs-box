@@ -5,6 +5,10 @@ import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.HavingRelativePath
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.WrapperWritingException
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
+import io.github.andrewk2112.utility.string.formats.other.UniversalPath
+import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
 import java.io.File
 
 /**
@@ -23,8 +27,11 @@ internal abstract class IndependentWrappersWriter<T : HavingRelativePath> {
         try {
 
             // Where to write a particular resource.
-            val wrapperOutDirectory = allWrappersOutDirectory.joinWithPath(basePackageName.dotsToSlashes())
-                                                             .joinWithPath(resource.relativePath)
+            val wrapperOutDirectory = allWrappersOutDirectory
+                .joinWithPath(
+                    basePackageName.changeFormat(PackageName, UniversalPath)
+                )
+                .joinWithPath(resource.relativePath)
 
             // Making sure the destination directory exists.
             wrapperOutDirectory.ensureDirectoryExistsOrThrow(
@@ -33,7 +40,9 @@ internal abstract class IndependentWrappersWriter<T : HavingRelativePath> {
 
             // Preparing the target package name for the wrapper.
             val wrapperPackageName = basePackageName +
-                                     resource.relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
+                                     resource.relativePath.modifyIfNotEmpty {
+                                         ".${it.changeFormat(UniversalPath, PackageName)}"
+                                     }
 
             performWrapperWriting(wrapperOutDirectory, wrapperPackageName, resource)
 

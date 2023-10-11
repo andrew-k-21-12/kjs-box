@@ -1,6 +1,9 @@
 package io.github.andrewk2112.utility.gradle.extensions
 
 import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
 import org.gradle.api.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
@@ -35,6 +38,16 @@ inline fun <reified T> Project.createExtension() = LazyReadOnlyProperty<Any?, T>
  */
 @Throws(UnknownDomainObjectException::class)
 inline fun <reified T> Project.getExtension(): T = extensions.getByType(T::class.java)
+
+
+
+// Identity.
+
+/**
+ * Prepares an inferred package name according to the [Project]'s [Project.getGroup] and [Project.getName] values.
+ */
+fun Project.getPossiblePackageName(): String = group.toString().changeFormat(PackageName, PackageName) + "." +
+                                               name.changeFormat(KebabCase, PackageName)
 
 
 

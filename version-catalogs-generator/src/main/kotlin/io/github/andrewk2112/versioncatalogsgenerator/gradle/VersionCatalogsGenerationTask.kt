@@ -3,9 +3,9 @@ package io.github.andrewk2112.versioncatalogsgenerator.gradle
 import io.github.andrewk2112.utility.common.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.extensions.writeTo
-import io.github.andrewk2112.utility.string.formats.PackageFormat
-import io.github.andrewk2112.utility.string.formats.PathFormat
 import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
+import io.github.andrewk2112.utility.string.formats.other.UniversalPath
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.TypesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.VersionCatalogCodeGenerator
@@ -126,7 +126,7 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
     @Throws(Exception::class)
     private fun createOutDirectoryWithPackage(packageName: String): File =
         sourcesOutDirectory.get().asFile.joinWithPath(
-            packageName.changeFormat(PackageFormat, PathFormat)
+            packageName.changeFormat(PackageName, UniversalPath)
         ).apply {
             ensureDirectoryExistsOrThrow("Can not create an output directory: $this")
         }

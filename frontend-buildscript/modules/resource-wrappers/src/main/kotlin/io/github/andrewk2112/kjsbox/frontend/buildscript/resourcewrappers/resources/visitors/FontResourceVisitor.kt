@@ -1,11 +1,11 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.visitors
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.subArray
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.FontResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.FontResource.Variant
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.ResourcePaths
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.CollectingVisitor
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.Result
+import io.github.andrewk2112.utility.common.extensions.subArray
+import io.github.andrewk2112.utility.common.utility.CollectingVisitor
+import io.github.andrewk2112.utility.common.utility.Result
 
 /**
  * A [CollectingVisitor] to gather all [FontResource] metadata.

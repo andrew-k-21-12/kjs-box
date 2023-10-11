@@ -1,7 +1,7 @@
-package io.github.andrewk2112.utility.string.cases
+package io.github.andrewk2112.utility.string.formats.cases
 
-import io.github.andrewk2112.utility.string.cases.CamelCase.extractWords
-import io.github.andrewk2112.utility.string.cases.CamelCase.joinWords
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase.extractWords
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase.joinWords
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

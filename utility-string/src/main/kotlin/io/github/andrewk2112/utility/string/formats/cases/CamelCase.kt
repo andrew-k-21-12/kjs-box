@@ -1,11 +1,12 @@
-package io.github.andrewk2112.utility.string.cases
+package io.github.andrewk2112.utility.string.formats.cases
 
-import io.github.andrewk2112.utility.string.capitalize
+import io.github.andrewk2112.utility.string.extensions.capitalize
+import io.github.andrewk2112.utility.string.formats.WordsBasedFormat
 
 /**
- * Regular **CamelCase** representations.
+ * Regular **CamelCase**.
  */
-object CamelCase : Case() {
+object CamelCase : WordsBasedFormat() {
 
     override fun extractWords(source: String): List<String> = source.split(capitalizedWordsExtractingRegex)
                                                                     .filter { it.isNotEmpty() }

@@ -1,9 +1,11 @@
-package io.github.andrewk2112.utility.string.cases
+package io.github.andrewk2112.utility.string.formats.cases
+
+import io.github.andrewk2112.utility.string.formats.WordsBasedFormat
 
 /**
- * **snake_case** representations.
+ * Regular **snake_case**.
  */
-object SnakeCase : Case() {
+object SnakeCase : WordsBasedFormat() {
 
     override fun extractWords(source: String): List<String> = source.split('_')
                                                                     .filter { it.isNotEmpty() }

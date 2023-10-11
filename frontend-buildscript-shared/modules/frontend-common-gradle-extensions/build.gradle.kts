@@ -10,4 +10,5 @@ dependencies {
     implementation(kotlinLibs.commons.io)          // to simplify some file operations a bit
     implementation(kotlinLibs.kotlin.gradleplugin) // to configure modules with Kotlin features
     implementation(kotlinLibs.my.utility.common)
+    implementation(kotlinLibs.my.utility.string)
 }

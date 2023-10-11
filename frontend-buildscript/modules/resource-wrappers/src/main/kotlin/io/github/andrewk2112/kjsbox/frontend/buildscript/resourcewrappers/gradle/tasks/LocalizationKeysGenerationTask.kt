@@ -1,15 +1,12 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.modifyIfNotEmpty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.actions.CollectResourcesMetadataAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.actions.CreateSymLinkToResourcesAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.LocalizationResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.visitors.LocalizationResourceVisitor
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.LocalizationWrappersWriter
-import org.gradle.api.Transformer
+import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
 import org.gradle.api.tasks.*
-import java.io.File
-import java.util.*
 import kotlin.jvm.Throws
 
 /**
@@ -32,7 +29,7 @@ abstract class LocalizationKeysGenerationTask : WrappersGenerationTask() {
         // Gathering all localizations to prepare wrappers for.
         val localizationResources = CollectResourcesMetadataAction(
             this,
-            Transformer<File, File> { it },
+            { it },
             LocalizationResourceVisitor(targetResourcesDirectory)
         )
             .collectResourcesMetadata()

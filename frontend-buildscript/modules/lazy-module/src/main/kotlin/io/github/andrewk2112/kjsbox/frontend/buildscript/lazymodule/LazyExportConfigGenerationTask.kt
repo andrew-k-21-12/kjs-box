@@ -1,7 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymodule
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.joinCapitalized
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -80,9 +82,6 @@ val $generatedComponentName: FC<Props> = ${componentToExport.get()}
     /** Prepares a component name used as an export point-configuring one. */
     @get:Throws(IllegalStateException::class)
     private inline val generatedComponentName: String
-        get() = moduleName.get().split("-")
-                                .joinCapitalized()
-                                .replaceFirstChar { it.lowercaseChar() } +
-                                "ExportPoint"
+        get() = moduleName.get().changeFormat(KebabCase, LowerCamelCase) + "ExportPoint"
 
 }

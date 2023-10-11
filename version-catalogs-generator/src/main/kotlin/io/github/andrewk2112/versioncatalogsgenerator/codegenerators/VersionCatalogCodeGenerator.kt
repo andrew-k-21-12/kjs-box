@@ -1,6 +1,6 @@
 package io.github.andrewk2112.versioncatalogsgenerator.codegenerators
 
-import io.github.andrewk2112.utility.string.indented
+import io.github.andrewk2112.utility.string.extensions.indented
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.ValuesCodeGenerator
 import io.github.andrewk2112.versioncatalogsgenerator.models.ParsedVersionCatalog
 

@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions
+package io.github.andrewk2112.utility.gradle.extensions
 
 import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.artifacts.MinimalExternalModuleDependency

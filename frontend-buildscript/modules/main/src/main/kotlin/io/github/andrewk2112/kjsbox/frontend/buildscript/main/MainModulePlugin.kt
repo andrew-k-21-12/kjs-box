@@ -4,11 +4,12 @@ import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
 import io.github.andrewk2112.utility.gradle.extensions.findTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.DirectoryWritingTask
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.FromTo
+import io.github.andrewk2112.utility.common.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
+import io.github.andrewk2112.utility.gradle.extensions.jsMain
+import io.github.andrewk2112.utility.gradle.extensions.registerTask
 import org.gradle.api.Action
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
@@ -74,15 +75,14 @@ internal class MainModulePlugin : Plugin<Project> {
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
     private fun Project.registerResourcesUnpackingTask(
         targets: FromTo<Array<String>, File>
-    ) = LazyReadOnlyProperty<Any?, DirectoryWritingTask> { property ->
-        tasks.register(property.name, DirectoryWritingTask::class.java).get().apply {
+    ): LazyReadOnlyProperty<Any?, DirectoryWritingTask> =
+        registerTask {
             writeActions.set(
                 targets.source.map { ResourceWriteIntoDirectoryAction(it) }
                               .toTypedArray()
             )
             outDirectory.set(targets.destination)
         }
-    }
 
 
 

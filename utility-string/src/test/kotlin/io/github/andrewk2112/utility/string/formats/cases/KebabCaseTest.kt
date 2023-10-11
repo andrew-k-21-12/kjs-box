@@ -1,7 +1,7 @@
-package io.github.andrewk2112.utility.string.cases
+package io.github.andrewk2112.utility.string.formats.cases
 
-import io.github.andrewk2112.utility.string.cases.KebabCase.extractWords
-import io.github.andrewk2112.utility.string.cases.KebabCase.joinWords
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase.extractWords
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase.joinWords
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

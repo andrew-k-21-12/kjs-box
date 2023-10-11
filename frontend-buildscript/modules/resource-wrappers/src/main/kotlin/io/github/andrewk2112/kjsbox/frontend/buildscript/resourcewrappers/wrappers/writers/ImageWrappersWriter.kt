@@ -6,6 +6,14 @@ import io.github.andrewk2112.utility.common.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.ImageResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.ImageWrapperTemplates
+import io.github.andrewk2112.utility.gradle.extensions.toUniversalPathString
+import io.github.andrewk2112.utility.string.extensions.decapitalize
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
+import io.github.andrewk2112.utility.string.formats.other.UniversalPath
+import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
 import java.io.File
 
 /**
@@ -31,7 +39,7 @@ internal class ImageWrappersWriter(
 
             // Preparing a destination directory to write a wrapper to, making sure it exists.
             val wrapperOutDirectory = allWrappersOutDirectory
-                .joinWithPath(basePackageName.dotsToSlashes())
+                .joinWithPath(basePackageName.changeFormat(PackageName, UniversalPath))
                 .joinWithPath(imageResource.relativePath)
                 .also {
                     it.ensureDirectoryExistsOrThrow(
@@ -41,7 +49,9 @@ internal class ImageWrappersWriter(
 
             // Preparing a target package name for the image wrapper.
             val wrapperPackageName = basePackageName +
-                                     imageResource.relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
+                                     imageResource.relativePath.modifyIfNotEmpty {
+                                         ".${it.changeFormat(UniversalPath, PackageName)}"
+                                     }
 
             // Preparing the name of the image wrapper.
             val objectName = generateSimpleImageObjectName(imageResource.name)
@@ -72,6 +82,6 @@ internal class ImageWrappersWriter(
      *
      * @param name A base name, should be in kebab-case.
      */
-    private fun generateSimpleImageObjectName(name: String): String = name.split("-").joinCapitalized() + "Image"
+    private fun generateSimpleImageObjectName(name: String): String = name.changeFormat(KebabCase, CamelCase) + "Image"
 
 }

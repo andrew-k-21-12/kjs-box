@@ -2,8 +2,9 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradl
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.gradle.properties.RequiredDirectoryProperty
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.changeMonitor
+import io.github.andrewk2112.utility.common.utility.changeMonitor
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
@@ -78,7 +79,7 @@ abstract class WrappersGenerationTask : DefaultTask() {
         wrappersBasePackageName.set(
             (basePackageName ?: return) + "." +
             resourcesTypeName           + "." +
-            (moduleName?.toValidPackage() ?: return)
+            (moduleName?.changeFormat(PackageName, PackageName) ?: return)
         )
         wrappersOutDirectory.set(generatedWrappersDir?.joinWithPath(resourcesTypeName) ?: return)
     }

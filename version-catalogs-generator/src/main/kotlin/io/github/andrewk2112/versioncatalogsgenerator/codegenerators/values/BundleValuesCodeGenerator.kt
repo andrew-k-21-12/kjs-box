@@ -1,10 +1,10 @@
 package io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values
 
 import io.github.andrewk2112.utility.common.utility.Reference
-import io.github.andrewk2112.utility.string.cases.KebabCase
-import io.github.andrewk2112.utility.string.cases.LowerCamelCase
-import io.github.andrewk2112.utility.string.cases.changeCase
-import io.github.andrewk2112.utility.string.indented
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.extensions.indented
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CodeEmitters
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.CommonCodeGeneration
 import io.github.andrewk2112.versioncatalogsgenerator.codegenerators.values.ValuesCodeGenerator.GeneratedCode
@@ -39,7 +39,7 @@ internal class BundleValuesCodeGenerator(private val codeGeneration: CommonCodeG
         cachedPropertyName: Reference<String?>,
     ): String = """
 ${visibilityModifierPrefix}interface Bundles {${codeEmitters.emitCode {
-        cachedPropertyName.value = it.key.changeCase(KebabCase, LowerCamelCase)
+        cachedPropertyName.value = it.key.changeFormat(KebabCase, LowerCamelCase)
         "\n    val $cachedPropertyName: List<Library>"
     }}
 }
@@ -61,6 +61,6 @@ ${"        " indented it.value.generateListElements()}
     """.trimIndent()
 
     private fun List<String>.generateListElements(): String =
-        joinToString(separator = ",\n") { "libraries.${it.changeCase(KebabCase, LowerCamelCase)}" }
+        joinToString(separator = ",\n") { "libraries.${it.changeFormat(KebabCase, LowerCamelCase)}" }
 
 }

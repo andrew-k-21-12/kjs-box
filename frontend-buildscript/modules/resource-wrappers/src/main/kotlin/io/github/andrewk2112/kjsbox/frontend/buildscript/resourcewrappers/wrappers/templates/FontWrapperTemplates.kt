@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates
 
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.indented
+import io.github.andrewk2112.utility.string.extensions.indented
 import org.intellij.lang.annotations.Language
 
 /**

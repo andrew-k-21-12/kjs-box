@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility
+package io.github.andrewk2112.utility.common.utility
 
 /**
  * A type-safe wrapper for exception-throwing execution results:
@@ -36,11 +36,11 @@ sealed class Result<T, E : Exception> {
      * Retrieves the execution result's value [T] or throws an exception [E] if something went wrong.
      */
     @Throws(Exception::class)
-    internal abstract fun getThrowing(): T
+    abstract fun getThrowing(): T
 
     /**
      * Retrieves the execution result's exception [E] or null if everything was successful.
      */
-    internal abstract fun exceptionOrNull(): E?
+    abstract fun exceptionOrNull(): E?
 
 }

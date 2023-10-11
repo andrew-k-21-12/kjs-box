@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility
+package io.github.andrewk2112.utility.common.utility
 
 /**
  * A generic collecting visitor: applied to [visit] a set of objects [T]

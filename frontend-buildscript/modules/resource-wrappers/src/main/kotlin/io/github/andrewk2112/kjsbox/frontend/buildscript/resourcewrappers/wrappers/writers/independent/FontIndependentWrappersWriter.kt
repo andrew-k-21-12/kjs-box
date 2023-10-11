@@ -1,11 +1,11 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.independent
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.decapitalize
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toUniversalPathString
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.FontResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.FontWrapperTemplates
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.FontWrapperTemplates.FontVariant
+import io.github.andrewk2112.utility.gradle.extensions.toUniversalPathString
+import io.github.andrewk2112.utility.string.extensions.decapitalize
 import org.gradle.configurationcache.extensions.capitalized
 import java.io.File
 

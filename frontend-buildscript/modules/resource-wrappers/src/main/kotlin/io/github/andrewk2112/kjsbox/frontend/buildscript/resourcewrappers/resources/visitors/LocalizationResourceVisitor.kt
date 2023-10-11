@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.visitors
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.LocalizationResource
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.CollectingVisitor
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.utility.Result
+import io.github.andrewk2112.utility.common.utility.CollectingVisitor
+import io.github.andrewk2112.utility.common.utility.Result
 import org.apache.commons.io.FilenameUtils
 import org.jetbrains.kotlin.com.google.gson.JsonElement
 import org.jetbrains.kotlin.com.google.gson.JsonParser
@@ -60,8 +60,8 @@ internal class LocalizationResourceVisitor @Throws(Exception.PathsPreparationExc
         try {
             JsonParser.parseString(element.readText())
                       .collectKeys(name, relativePath, "", locale)
-        } catch (e: kotlin.Exception) {
-            return Result.Failure(Exception.InvalidFileFormatException(e))
+        } catch (exception: kotlin.Exception) {
+            return Result.Failure(Exception.InvalidFileFormatException(exception))
         }
 
         return Result.Success(Unit)

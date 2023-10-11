@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions
+package io.github.andrewk2112.utility.common.extensions
 
 /**
  * Returns a slice of elements as a typed [Array] starting (inclusive) from the [fromIndex]

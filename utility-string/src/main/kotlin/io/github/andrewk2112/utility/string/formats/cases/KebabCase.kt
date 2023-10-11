@@ -1,9 +1,11 @@
-package io.github.andrewk2112.utility.string.cases
+package io.github.andrewk2112.utility.string.formats.cases
+
+import io.github.andrewk2112.utility.string.formats.WordsBasedFormat
 
 /**
- * **kebab-case** representations.
+ * Regular **kebab-case**.
  */
-object KebabCase : Case() {
+object KebabCase : WordsBasedFormat() {
 
     override fun extractWords(source: String): List<String> = source.split('-')
                                                                     .filter { it.isNotEmpty() }

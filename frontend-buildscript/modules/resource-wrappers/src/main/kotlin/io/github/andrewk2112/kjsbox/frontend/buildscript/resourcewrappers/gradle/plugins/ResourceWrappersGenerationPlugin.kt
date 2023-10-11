@@ -2,12 +2,9 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradl
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
-import io.github.andrewk2112.utility.gradle.extensions.getExtension
-import io.github.andrewk2112.utility.gradle.extensions.registerTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.toValidPackage
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.extensions.jsMain
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
+import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -35,9 +32,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
         val allResourcesDirectory: File = jsMainKotlinSourceSet.resources.srcDirs.first()
 
         /** A package name common for all generated resource wrappers. */
-        val basePackageName: String = project.rootProject.group.toString().toValidPackage() + "." +
-                                      project.rootProject.name.replace('-', '.')            + "." +
-                                      "resourcewrappers"
+        val basePackageName: String = "${project.rootProject.getPossiblePackageName()}.resourcewrappers"
 
         /** A [File] pointing to the directory containing generated resource wrappers. */
         val generatedWrappersDirectory: File = project.layout.buildDirectory.asFile.get()
@@ -78,8 +73,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
         // Adding the configured resources directory to the source set of the root project.
         rootProject.run {
             getJsMainKotlinSourceSet().resources.srcDir(configs.generatedResourcesDirectory)
-            tasks.named("jsProcessResources").get()
-                 .dependsOn(sourceGenerationTasks)
+            findTask("jsProcessResources").dependsOn(sourceGenerationTasks)
         }
 
     }

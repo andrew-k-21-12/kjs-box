@@ -3,9 +3,16 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrapp
 import io.github.andrewk2112.utility.common.extensions.ensureDirectoryExistsOrThrow
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.extensions.writeTo
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.extensions.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.LocalizationKeyWrapperTemplates
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.LocalizationKeyWrapperTemplates.LocalizationKey
+import io.github.andrewk2112.utility.string.extensions.decapitalize
+import io.github.andrewk2112.utility.string.extensions.joinCapitalized
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
+import io.github.andrewk2112.utility.string.formats.other.PackageName
+import io.github.andrewk2112.utility.string.formats.other.UniversalPath
+import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
 import java.io.File
 import kotlin.jvm.Throws
 
@@ -34,7 +41,7 @@ internal class LocalizationWrappersWriter(
 
             // Preparing a destination directory to write a keys holder to, making sure it exists.
             val keysOutDirectory = allKeysOutDirectory
-                .joinWithPath(basePackageName.dotsToSlashes())
+                .joinWithPath(basePackageName.changeFormat(PackageName, UniversalPath))
                 .joinWithPath(relativePath)
                 .also {
                     it.ensureDirectoryExistsOrThrow(
@@ -44,7 +51,9 @@ internal class LocalizationWrappersWriter(
 
             // Preparing a target package name for the keys' holder.
             val keysHolderPackageName = basePackageName +
-                                        relativePath.modifyIfNotEmpty { ".${it.toValidPackage()}" }
+                                        relativePath.modifyIfNotEmpty {
+                                            ".${it.changeFormat(UniversalPath, PackageName)}"
+                                        }
 
             // Namespace for all keys of this batch.
             val keysNamespace = moduleName + "/" +
@@ -81,6 +90,7 @@ internal class LocalizationWrappersWriter(
     /**
      * Converts a raw name into the corresponding file name to keep localization keys.
      */
-    private fun String.generateLocalizationKeysFilename(): String = split("-").joinCapitalized() + "LocalizationKeys"
+    private fun String.generateLocalizationKeysFilename(): String =
+        changeFormat(KebabCase, CamelCase) + "LocalizationKeys"
 
 }

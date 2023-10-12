@@ -2,9 +2,7 @@ pluginManagement {
     includeBuild("../frontend-buildscript")
     includeBuild("../frontend-core") // used in buildscripts, won't compile without it
     includeBuild("../frontend-buildscript-shared") // \
-    includeBuild("../utility-common")              //  \
-    includeBuild("../utility-gradle")              //   - to clean everything at once by a single command
-    includeBuild("../utility-string")              //  /
+    includeBuild("../utility")                     //  - to clean everything at once by a single command
     includeBuild("../version-catalogs-generator")  // /
 }
 
@@ -21,8 +19,6 @@ dependencyResolutionManagement {
         }
     }
 }
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "frontend-example"
 listOf("exercises", "index", "material-design").map {

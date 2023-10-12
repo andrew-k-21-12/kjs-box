@@ -20,10 +20,16 @@ dependencyResolutionManagement {
     }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 rootProject.name = "frontend-buildscript"
-listOf("entry-point", "lazy-module", "main", "resource-wrappers", "shared", "version-catalogs").map {
+listOf(
+    "entry-point",
+    "frontend-buildscript-shared",
+    "frontend-buildscript-version-catalogs",
+    "lazy-module",
+    "main",
+    "resource-wrappers",
+    "shared"
+).map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

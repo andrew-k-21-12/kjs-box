@@ -1,37 +1,41 @@
 [versions]
-commons-io                             = "2.13.0"
-kjsbox-frontend-commongradleextensions = "1.0.0"
-kjsbox-frontend-core                   = "1.0.0-SNAPSHOT"
-kjsbox-frontend-entrypoint             = "1.0.0"
-kjsbox-frontend-lazymodule             = "1.0.0"
-kjsbox-frontend-main                   = "1.0.0"
-kjsbox-frontend-resourcewrappers       = "1.0.0"
-kodein                                 = "7.20.2"
-kotlin                                 = "1.9.10"
-kotlin-wrappers                        = "1.0.0-pre.627"
-my-utility-common                      = "1.0.0"
-my-utility-gradle                      = "1.0.0"
-my-utility-string                      = "1.0.0"
-my-versioncatalogsgenerator            = "1.0.0"
-tomlj                                  = "1.1.0"
+commons-io                                  = "2.13.0"
+kjsbox-frontend-buildscript-shared          = "1.0.0"
+kjsbox-frontend-buildscript-versioncatalogs = "1.0.0"
+kjsbox-frontend-commongradleextensions      = "1.0.0"
+kjsbox-frontend-core                        = "1.0.0-SNAPSHOT"
+kjsbox-frontend-entrypoint                  = "1.0.0"
+kjsbox-frontend-lazymodule                  = "1.0.0"
+kjsbox-frontend-main                        = "1.0.0"
+kjsbox-frontend-resourcewrappers            = "1.0.0"
+kodein                                      = "7.20.2"
+kotlin                                      = "1.9.10"
+kotlin-wrappers                             = "1.0.0-pre.627"
+my-utility-common                           = "1.0.0"
+my-utility-gradle                           = "1.0.0"
+my-utility-string                           = "1.0.0"
+my-versioncatalogsgenerator                 = "1.0.0"
+tomlj                                       = "1.1.0"
 
 [libraries]
-commons-io                             = { module = "commons-io:commons-io",                                              version.ref = "commons-io" }
-kjsbox-frontend-commongradleextensions = { module = "io.github.andrew-k-21-12.kjs-box:frontend-common-gradle-extensions", version.ref = "kjsbox-frontend-commongradleextensions" }
-kjsbox-frontend-core                   = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                     version.ref = "kjsbox-frontend-core" }
-kodein-di                              = { module = "org.kodein.di:kodein-di",                                            version.ref = "kodein" }
-kotlin-gradleplugin                    = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",                          version.ref = "kotlin" }
-kotlin-test                            = { module = "org.jetbrains.kotlin:kotlin-test",                                   version.ref = "kotlin" }
-kotlin-wrappers-bom                    = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom",                  version.ref = "kotlin-wrappers" }
-kotlin-wrappers-js                     = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
-kotlin-wrappers-react                  = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }
-kotlin-wrappers-react-redux            = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-redux" }
-kotlin-wrappers-react-router-dom       = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom" }
-kotlin-wrappers-styled-next            = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
-my-utility-common                      = { module = "io.github.andrew-k-21-12.utility:common",                            version.ref = "my-utility-common" }
-my-utility-gradle                      = { module = "io.github.andrew-k-21-12.utility:gradle",                            version.ref = "my-utility-gradle" }
-my-utility-string                      = { module = "io.github.andrew-k-21-12.utility:string",                            version.ref = "my-utility-string" }
-tomlj                                  = { module = "org.tomlj:tomlj",                                                    version.ref = "tomlj" }
+commons-io                                  = { module = "commons-io:commons-io",                                                  version.ref = "commons-io" }
+kjsbox-frontend-buildscript-shared          = { module = "io.github.andrew-k-21-12.kjs-box:frontend-buildscript-shared",           version.ref = "kjsbox-frontend-buildscript-shared" }
+kjsbox-frontend-buildscript-versioncatalogs = { module = "io.github.andrew-k-21-12.kjs-box:frontend-buildscript-version-catalogs", version.ref = "kjsbox-frontend-buildscript-versioncatalogs" }
+kjsbox-frontend-commongradleextensions      = { module = "io.github.andrew-k-21-12.kjs-box:frontend-common-gradle-extensions",     version.ref = "kjsbox-frontend-commongradleextensions" }
+kjsbox-frontend-core                        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                         version.ref = "kjsbox-frontend-core" }
+kodein-di                                   = { module = "org.kodein.di:kodein-di",                                                version.ref = "kodein" }
+kotlin-gradleplugin                         = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",                              version.ref = "kotlin" }
+kotlin-test                                 = { module = "org.jetbrains.kotlin:kotlin-test",                                       version.ref = "kotlin" }
+kotlin-wrappers-bom                         = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom",                      version.ref = "kotlin-wrappers" }
+kotlin-wrappers-js                          = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
+kotlin-wrappers-react                       = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }
+kotlin-wrappers-react-redux                 = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-redux" }
+kotlin-wrappers-react-router-dom            = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom" }
+kotlin-wrappers-styled-next                 = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
+my-utility-common                           = { module = "io.github.andrew-k-21-12.utility:common",                                version.ref = "my-utility-common" }
+my-utility-gradle                           = { module = "io.github.andrew-k-21-12.utility:gradle",                                version.ref = "my-utility-gradle" }
+my-utility-string                           = { module = "io.github.andrew-k-21-12.utility:string",                                version.ref = "my-utility-string" }
+tomlj                                       = { module = "org.tomlj:tomlj",                                                        version.ref = "tomlj" }
 
 [plugins]
 kjsbox-frontend-entrypoint       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-entry-point",       version.ref = "kjsbox-frontend-entrypoint" }

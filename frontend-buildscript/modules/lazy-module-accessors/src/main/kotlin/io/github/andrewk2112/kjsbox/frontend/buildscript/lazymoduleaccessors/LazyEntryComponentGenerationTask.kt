@@ -1,40 +1,21 @@
-package io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks
+package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymoduleaccessors
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.utility.string.extensions.joinCapitalized
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
 import org.gradle.api.DefaultTask
-import org.gradle.api.InvalidUserDataException
-import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 import org.intellij.lang.annotations.Language
-import java.io.File
-
-
-
-// Convenience usage.
-
-/**
- * Registers a task to generate an entry point for an on-demand component (module)
- * and returns a [RegularFileProperty] pointing to the task's outputs.
- */
-@Throws(IllegalStateException::class, InvalidUserDataException::class)
-fun Project.generateLazyEntryComponent(): RegularFileProperty =
-    tasks.register("generateLazyEntryComponent", LazyEntryComponentGenerationTask::class.java) {
-        it.rootProjectName.set(rootProject.name)
-        it.moduleName.set(name)
-        it.sourcesOutDirectory.set(lazyEntryComponentDirectory)
-    }.get().sourcesOutDirectory
-
-
-
-// The task itself.
 
 /**
  * Performs generation of entry point component for a lazy (on-demand) module.
+ *
  * Doesn't make any checks whether the requested generation conforms to some real lazy component.
  */
 internal abstract class LazyEntryComponentGenerationTask : DefaultTask() {
@@ -45,7 +26,7 @@ internal abstract class LazyEntryComponentGenerationTask : DefaultTask() {
     @get:Input
     internal abstract val rootProjectName: Property<String>
 
-    /** The module name of target project in its untouched format. */
+    /** The module name of target project in its original format. */
     @get:Input
     internal abstract val moduleName: Property<String>
 
@@ -67,17 +48,15 @@ internal abstract class LazyEntryComponentGenerationTask : DefaultTask() {
         }
     }
 
-}
 
 
+    // Code generation.
 
-// Configurations.
+    private fun generateEntryComponentFileName(generatedComponentName: String) = "$generatedComponentName.kt"
 
-private fun generateEntryComponentFileName(generatedComponentName: String) = "$generatedComponentName.kt"
-
-@Language("kotlin")
-@Throws(IllegalStateException::class)
-private fun LazyEntryComponentGenerationTask.generateEntryComponentCode(generatedComponentName: String) =  """
+    @Language("kotlin")
+    @Throws(IllegalStateException::class)
+    private fun LazyEntryComponentGenerationTask.generateEntryComponentCode(generatedComponentName: String) =  """
 import js.import.Module
 import js.import.import
 import js.promise.toPromise
@@ -98,14 +77,11 @@ internal val $generatedComponentName: ExoticComponent<Props> = lazy {
 
     """.trimIndent()
 
-/** Prepares a component name used as an entry point one. */
-@get:Throws(IllegalStateException::class)
-private inline val LazyEntryComponentGenerationTask.generatedComponentName: String
-    // Extract string-formatting functions later.
-    get() = rootProjectName.get().split("-").joinCapitalized().replaceFirstChar { it.lowercaseChar() } +
-            moduleName.get().split("-").joinCapitalized() +
-            "EntryPoint"
+    /** Prepares a component name used as an entry point one. */
+    @get:Throws(IllegalStateException::class)
+    private inline val LazyEntryComponentGenerationTask.generatedComponentName: String
+        get() = rootProjectName.get().changeFormat(KebabCase, LowerCamelCase) +
+                moduleName.get().changeFormat(KebabCase, CamelCase) +
+                "EntryPoint"
 
-/** Where to write output entry component sources. */
-private inline val Project.lazyEntryComponentDirectory: File
-    get() = layout.buildDirectory.asFile.get().joinWithPath("generated/entry")
+}

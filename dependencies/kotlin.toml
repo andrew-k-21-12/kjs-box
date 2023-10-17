@@ -2,10 +2,10 @@
 commons-io                                  = "2.13.0"
 kjsbox-frontend-buildscript-shared          = "1.0.0"
 kjsbox-frontend-buildscript-versioncatalogs = "1.0.0"
-kjsbox-frontend-commongradleextensions      = "1.0.0"
 kjsbox-frontend-core                        = "1.0.0-SNAPSHOT"
 kjsbox-frontend-entrypoint                  = "1.0.0"
 kjsbox-frontend-lazymodule                  = "1.0.0"
+kjsbox-frontend-lazymoduleaccessors         = "1.0.0"
 kjsbox-frontend-main                        = "1.0.0"
 kjsbox-frontend-resourcewrappers            = "1.0.0"
 kodein                                      = "7.20.2"
@@ -21,7 +21,6 @@ tomlj                                       = "1.1.0"
 commons-io                                  = { module = "commons-io:commons-io",                                                  version.ref = "commons-io" }
 kjsbox-frontend-buildscript-shared          = { module = "io.github.andrew-k-21-12.kjs-box:frontend-buildscript-shared",           version.ref = "kjsbox-frontend-buildscript-shared" }
 kjsbox-frontend-buildscript-versioncatalogs = { module = "io.github.andrew-k-21-12.kjs-box:frontend-buildscript-version-catalogs", version.ref = "kjsbox-frontend-buildscript-versioncatalogs" }
-kjsbox-frontend-commongradleextensions      = { module = "io.github.andrew-k-21-12.kjs-box:frontend-common-gradle-extensions",     version.ref = "kjsbox-frontend-commongradleextensions" }
 kjsbox-frontend-core                        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                         version.ref = "kjsbox-frontend-core" }
 kodein-di                                   = { module = "org.kodein.di:kodein-di",                                                version.ref = "kodein" }
 kotlin-gradleplugin                         = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",                              version.ref = "kotlin" }
@@ -38,10 +37,11 @@ my-utility-string                           = { module = "io.github.andrew-k-21-
 tomlj                                       = { module = "org.tomlj:tomlj",                                                        version.ref = "tomlj" }
 
 [plugins]
-kjsbox-frontend-entrypoint       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-entry-point",       version.ref = "kjsbox-frontend-entrypoint" }
-kjsbox-frontend-lazymodule       = { id = "io.github.andrew-k-21-12.kjs-box.frontend-lazy-module",       version.ref = "kjsbox-frontend-lazymodule" }
-kjsbox-frontend-main             = { id = "io.github.andrew-k-21-12.kjs-box.frontend-main",              version.ref = "kjsbox-frontend-main" }
-kjsbox-frontend-resourcewrappers = { id = "io.github.andrew-k-21-12.kjs-box.frontend-resource-wrappers", version.ref = "kjsbox-frontend-resourcewrappers" }
-kotlin-jvm                       = { id = "org.jetbrains.kotlin.jvm",                                    version.ref = "kotlin" }
-kotlin-multiplatform             = { id = "org.jetbrains.kotlin.multiplatform",                          version.ref = "kotlin" }
-my-versioncatalogsgenerator      = { id = "io.github.andrew-k-21-12.version-catalogs-generator",         version.ref = "my-versioncatalogsgenerator" }
+kjsbox-frontend-entrypoint          = { id = "io.github.andrew-k-21-12.kjs-box.frontend-entry-point",           version.ref = "kjsbox-frontend-entrypoint" }
+kjsbox-frontend-lazymodule          = { id = "io.github.andrew-k-21-12.kjs-box.frontend-lazy-module",           version.ref = "kjsbox-frontend-lazymodule" }
+kjsbox-frontend-lazymoduleaccessors = { id = "io.github.andrew-k-21-12.kjs-box.frontend-lazy-module-accessors", version.ref = "kjsbox-frontend-lazymoduleaccessors" }
+kjsbox-frontend-main                = { id = "io.github.andrew-k-21-12.kjs-box.frontend-main",                  version.ref = "kjsbox-frontend-main" }
+kjsbox-frontend-resourcewrappers    = { id = "io.github.andrew-k-21-12.kjs-box.frontend-resource-wrappers",     version.ref = "kjsbox-frontend-resourcewrappers" }
+kotlin-jvm                          = { id = "org.jetbrains.kotlin.jvm",                                        version.ref = "kotlin" }
+kotlin-multiplatform                = { id = "org.jetbrains.kotlin.multiplatform",                              version.ref = "kotlin" }
+my-versioncatalogsgenerator         = { id = "io.github.andrew-k-21-12.version-catalogs-generator",             version.ref = "my-versioncatalogsgenerator" }

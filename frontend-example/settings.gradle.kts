@@ -1,9 +1,8 @@
 pluginManagement {
     includeBuild("../frontend-buildscript")
     includeBuild("../frontend-core") // used in buildscripts, won't compile without it
-    includeBuild("../frontend-buildscript-shared") // \
-    includeBuild("../utility")                     //  - to clean everything at once by a single command
-    includeBuild("../version-catalogs-generator")  // /
+    includeBuild("../utility")                     // \
+    includeBuild("../version-catalogs-generator")  // -- to clean everything at once by a single command
 }
 
 dependencyResolutionManagement {

@@ -2,7 +2,6 @@
 includeBuild("../frontend-core")
 includeBuild("../utility")
 pluginManagement {
-    includeBuild("../frontend-buildscript-shared")
     includeBuild("../version-catalogs-generator")
 }
 
@@ -26,6 +25,7 @@ listOf(
     "frontend-buildscript-shared",
     "frontend-buildscript-version-catalogs",
     "lazy-module",
+    "lazy-module-accessors",
     "main",
     "resource-wrappers",
     "shared"

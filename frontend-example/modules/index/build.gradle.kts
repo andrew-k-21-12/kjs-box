@@ -1,17 +1,11 @@
-import io.github.andrewk2112.kjsbox.frontend.buildscript.commongradleextensions.gradle.tasks.generateLazyEntryComponent
-
 plugins {
     alias(kotlinLibs.plugins.kjsbox.frontend.entrypoint)
+    alias(kotlinLibs.plugins.kjsbox.frontend.lazymoduleaccessors)
 }
 
 kotlin {
     sourceSets.jsMain.get().kotlin.srcDirs(
-        listOf(
-            projects.exercises,
-            projects.materialDesign
-        ).map {
-            it.dependencyProject.generateLazyEntryComponent()
-        }
+        lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign)
     )
 }
 

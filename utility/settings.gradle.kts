@@ -1,3 +1,6 @@
+// To include local projects as dependencies by their string identifiers.
+includeBuild(".")
+
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)

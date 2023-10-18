@@ -1,5 +1,3 @@
-// These inclusions are required to perform builds with dependencies provided locally.
-includeBuild("../frontend-core")
 includeBuild("../utility")
 pluginManagement {
     includeBuild("../version-catalogs-generator")
@@ -16,20 +14,25 @@ dependencyResolutionManagement {
         create("kotlinLibs") {
             from(files("../dependencies/kotlin.toml"))
         }
+        create("jsLibs") {
+            from(files("../dependencies/js.toml"))
+        }
     }
 }
 
-rootProject.name = "frontend-buildscript"
+rootProject.name = "frontend"
+
+fun buildscriptPath(folderName: String) = "modules/buildscript/$folderName"
 listOf(
-    "entry-point",
-    "frontend-buildscript-shared",
-    "frontend-buildscript-version-catalogs",
-    "lazy-module",
-    "lazy-module-accessors",
-    "main",
-    "resource-wrappers",
-    "shared"
-).map {
-    include(it)
-    project(":$it").projectDir = File("modules", it)
+    "frontend-core"                         to "modules/core",
+    "entry-point"                           to buildscriptPath("entry-point"),
+    "lazy-module"                           to buildscriptPath("lazy-module"),
+    "lazy-module-accessors"                 to buildscriptPath("lazy-module-accessors"),
+    "main"                                  to buildscriptPath("main"),
+    "resource-wrappers"                     to buildscriptPath("resource-wrappers"),
+    "frontend-buildscript-shared"           to buildscriptPath("shared"),
+    "frontend-buildscript-version-catalogs" to buildscriptPath("version-catalogs"),
+).map { (projectName, projectPath) ->
+    include(projectName)
+    project(":$projectName").projectDir = File(projectPath)
 }

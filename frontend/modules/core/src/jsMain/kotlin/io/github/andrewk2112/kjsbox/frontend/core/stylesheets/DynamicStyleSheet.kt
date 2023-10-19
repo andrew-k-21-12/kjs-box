@@ -1,6 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.core.stylesheets
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.lowerCamelCaseFromKebabOrSnakeCase
+import io.github.andrewk2112.utility.string.formats.cases.KebabCase
+import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
 import styled.*
@@ -100,7 +103,7 @@ open class DynamicStyleSheet(
         is Number       -> toString().revampCssSuffix()
         is String       -> revampCssSuffix()
         is HasCssSuffix -> cssSuffix.revampCssSuffix()
-        is Enum<*>      -> name.revampCssSuffix().lowerCamelCaseFromKebabOrSnakeCase()
+        is Enum<*>      -> name.revampCssSuffix().changeFormat(KebabCase, SnakeCase, to = LowerCamelCase)
         is KProperty<*> -> name.revampCssSuffix()
         else            -> throw IllegalArgumentException("The provided type is not supported for dynamic CSS")
     }

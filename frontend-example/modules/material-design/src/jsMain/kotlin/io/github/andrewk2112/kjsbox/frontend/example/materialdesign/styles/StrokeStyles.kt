@@ -6,8 +6,10 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedColo
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.camelCaseWord
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.capitalize
+import io.github.andrewk2112.utility.string.extensions.capitalize
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
+import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
 import kotlinx.css.*
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty0
@@ -62,7 +64,7 @@ private val StrokePosition.matchingStylingProperty: KMutableProperty1<StyledElem
 class StrokeConfigs(
     val context: Context,
     val color: StrokeColor,
-    vararg val positions: StrokePosition = StrokePosition.values(),
+    vararg val positions: StrokePosition = StrokePosition.entries.toTypedArray(),
 ) : HasCssSuffix {
 
     override val cssSuffix: String
@@ -70,7 +72,7 @@ class StrokeConfigs(
                 color::class.simpleName + ((color as? StrokeColor.Custom)?.colorReference?.name?.capitalize() ?: "") +
                 positions
                     .sorted()
-                    .joinToString(separator = "") { it.name.camelCaseWord() }
+                    .joinToString(separator = "") { it.name.changeFormat(SnakeCase, CamelCase) }
 
 }
 

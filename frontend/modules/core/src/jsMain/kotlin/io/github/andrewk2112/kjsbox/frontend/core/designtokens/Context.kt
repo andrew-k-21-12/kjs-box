@@ -1,8 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.core.designtokens
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.camelCaseWord
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.lowerCamelCaseFromKebabOrSnakeCase
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
+import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
+import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
+import io.github.andrewk2112.utility.string.formats.changeFormat
 
 /**
  * Describes the current UI state to invalidate it accordingly - something like extended media queries.
@@ -30,7 +32,7 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
              * Static retrieval of the concrete [ScreenSize] matching to a given [rawWidth].
              */
             fun fromRawWidth(rawWidth: Int): ScreenSize {
-                for (value in values()) {
+                for (value in entries) {
                     if (rawWidth <= value.maxWidth) return value
                 }
                 return DESKTOP
@@ -49,6 +51,7 @@ data class Context(val screenSize: ScreenSize, val colorMode: ColorMode) : HasCs
 
     // Implementations.
 
-    override val cssSuffix = "${screenSize.name.lowerCamelCaseFromKebabOrSnakeCase()}${colorMode.name.camelCaseWord()}"
+    override val cssSuffix = screenSize.name.changeFormat(SnakeCase, LowerCamelCase) +
+                             colorMode.name.changeFormat(SnakeCase, CamelCase)
 
 }

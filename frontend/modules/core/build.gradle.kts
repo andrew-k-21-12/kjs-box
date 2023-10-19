@@ -29,6 +29,9 @@ kotlin {
                 // Dependency injection.
                 api(kotlinLibs.kodein.di)
 
+                // Various utility.
+                implementation(kotlinLibs.my.utility.string)
+
                 // All required JS libraries.
                 jsLibs.bundles.kjsbox.frontend.core.get().forEach {
                     implementation(npm(it.name, it.version!!))

@@ -8,6 +8,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlinLibs.kjsbox.frontend.core)
+                implementation(kotlinLibs.kjsbox.frontend.designtokens)
             }
         }
     }

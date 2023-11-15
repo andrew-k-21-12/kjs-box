@@ -23,8 +23,8 @@ dependencyResolutionManagement {
 rootProject.name = "frontend"
 
 fun buildscriptPath(folderName: String) = "modules/buildscript/$folderName"
+fun corePath(folderName: String)        = "modules/core/$folderName"
 listOf(
-    "frontend-core"                         to "modules/core",
     "entry-point"                           to buildscriptPath("entry-point"),
     "lazy-module"                           to buildscriptPath("lazy-module"),
     "lazy-module-accessors"                 to buildscriptPath("lazy-module-accessors"),
@@ -32,6 +32,8 @@ listOf(
     "resource-wrappers"                     to buildscriptPath("resource-wrappers"),
     "frontend-buildscript-shared"           to buildscriptPath("shared"),
     "frontend-buildscript-version-catalogs" to buildscriptPath("version-catalogs"),
+    "frontend-core"                         to corePath("core"),
+    "frontend-design-tokens"                to corePath("design-tokens"),
 ).map { (projectName, projectPath) ->
     include(projectName)
     project(":$projectName").projectDir = File(projectPath)

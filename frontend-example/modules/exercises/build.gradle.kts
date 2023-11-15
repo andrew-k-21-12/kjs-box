@@ -6,6 +6,7 @@ plugins {
 kotlin.sourceSets {
     val jsMain by getting {
         dependencies {
+            implementation(kotlinLibs.kjsbox.frontend.designtokens)
             implementation(projects.dependencyInjection)
             implementation(projects.designTokens)
         }

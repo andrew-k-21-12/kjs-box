@@ -8,7 +8,7 @@ version = "1.0.0-SNAPSHOT"
 kotlin {
     js().browser()
     sourceSets {
-        getByName("jsMain") {
+        val jsMain by getting {
             dependencies {
 
                 // It's possible to get rid of `api` and use `implementation`

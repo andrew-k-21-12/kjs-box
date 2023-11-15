@@ -1,10 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
@@ -17,6 +14,9 @@ import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceIma
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -100,39 +100,39 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
     val container: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
         padding = Padding(
-            top        = StyleValues.spacing.absolute43,
-            bottom     = StyleValues.spacing.absolute50,
-            horizontal = StyleValues.spacing.absolute20
+            top        = DesignTokens.reference.spacing.absolute43,
+            bottom     = DesignTokens.reference.spacing.absolute50,
+            horizontal = DesignTokens.reference.spacing.absolute20
         )
     }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockTitle(it).rules
-        margin = Margin(horizontal = StyleValues.spacing.absolute20)
+        margin = Margin(horizontal = DesignTokens.reference.spacing.absolute20)
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDescription(it).rules
         margin = Margin(
-            left  = StyleValues.spacing.absolute20,
-            right = StyleValues.spacing.absolute20,
-            top   = StyleValues.spacing.absolute19
+            left  = DesignTokens.reference.spacing.absolute20,
+            right = DesignTokens.reference.spacing.absolute20,
+            top   = DesignTokens.reference.spacing.absolute19
         )
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
-        padding = Padding(top = StyleValues.spacing.absolute26)
+        padding = Padding(top = DesignTokens.reference.spacing.absolute26)
     }
 
     val articleTitle: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockSubTitle(it).rules
-        marginTop = StyleValues.spacing.absolute24
+        marginTop = DesignTokens.reference.spacing.absolute24
     }
 
     val articleDescription: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockSmallerDescription(it).rules
-        marginTop = StyleValues.spacing.absolute10
+        marginTop = DesignTokens.reference.spacing.absolute10
     }
 
 }

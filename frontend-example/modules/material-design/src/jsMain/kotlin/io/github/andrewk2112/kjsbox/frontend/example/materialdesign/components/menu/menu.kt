@@ -1,14 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints
@@ -19,6 +15,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Strok
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
@@ -102,13 +101,13 @@ private object MenuStyles : DynamicStyleSheet() {
         inset    = Inset(0.px)
         display       = Display.flex
         flexDirection = FlexDirection.column
-        backgroundColor = Theme.palette.surface2(it)
+        backgroundColor = DesignTokens.system.palette.surface2(it)
     }
 
     val header: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
         flexShrink    = 0.0
-        height        = StyleValues.sizes.absolute170
+        height        = DesignTokens.reference.sizes.absolute170
         display       = Display.flex
         alignItems    = Align.center
         flexDirection = FlexDirection.row
@@ -116,14 +115,14 @@ private object MenuStyles : DynamicStyleSheet() {
 
     val headerIcon: NamedRuleSet by css {
         +ImageStyles.smallSizedIcon.rules
-        marginLeft  = StyleValues.spacing.absolute24
-        marginRight = StyleValues.spacing.absolute16
+        marginLeft  = DesignTokens.reference.spacing.absolute24
+        marginRight = DesignTokens.reference.spacing.absolute16
     }
 
     val headerLabel: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.mono.rules
-        fontSize = StyleValues.fontSizes.relativep95
-        color    = Theme.palette.onSurface2(it)
+        fontSize = DesignTokens.reference.fontSizes.relative0p95
+        color    = DesignTokens.system.palette.onSurface2(it)
     }
 
     val items: NamedRuleSet by css {
@@ -131,11 +130,11 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val category: DynamicCssProvider<Context> by dynamicCss {
-        marginTop    = StyleValues.spacing.absolute43
-        marginLeft   = StyleValues.spacing.absolute24
-        marginBottom = StyleValues.spacing.absolute15
-        fontSize = StyleValues.fontSizes.relative1p1
-        color = Theme.palette.onSurface2(it)
+        marginTop    = DesignTokens.reference.spacing.absolute43
+        marginLeft   = DesignTokens.reference.spacing.absolute24
+        marginBottom = DesignTokens.reference.spacing.absolute15
+        fontSize = DesignTokens.reference.fontSizes.relative1p1
+        color = DesignTokens.system.palette.onSurface2(it)
     }
 
     val item: NamedRuleSet by css {
@@ -144,15 +143,15 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val itemBottomSpacingRegular: NamedRuleSet by css {
-        marginBottom = StyleValues.spacing.absolute2
+        marginBottom = DesignTokens.reference.spacing.absolute2
     }
 
     val itemBottomSpacingBig: NamedRuleSet by css {
-        marginBottom = StyleValues.spacing.absolute9
+        marginBottom = DesignTokens.reference.spacing.absolute9
     }
 
     val itemBottomSpacingMax: NamedRuleSet by css {
-        marginBottom = StyleValues.spacing.absolute40
+        marginBottom = DesignTokens.reference.spacing.absolute40
     }
 
     val itemLink: DynamicCssProvider<Context> by dynamicCss {
@@ -161,20 +160,20 @@ private object MenuStyles : DynamicStyleSheet() {
         display  = Display.inlineBlock
         width    = 100.pct
         padding  = Padding(
-            horizontal = StyleValues.spacing.absolute24,
-            vertical   = StyleValues.spacing.absolute12
+            horizontal = DesignTokens.reference.spacing.absolute24,
+            vertical   = DesignTokens.reference.spacing.absolute12
         )
-        fontSize       = StyleValues.fontSizes.relativep875
+        fontSize       = DesignTokens.reference.fontSizes.relative0p875
         textDecoration = TextDecoration.none
-        color = Theme.palette.onSurfaceLighter2(it)
+        color = DesignTokens.system.palette.onSurface2Lighter(it)
         hover {
-            color = Theme.palette.onSelection1(it)
+            color = DesignTokens.system.palette.onSelection1(it)
         }
     }
 
     val divider: DynamicCssProvider<Context> by dynamicCss {
         +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
-        marginTop = StyleValues.spacing.absolute40
+        marginTop = DesignTokens.reference.spacing.absolute40
     }
 
 }

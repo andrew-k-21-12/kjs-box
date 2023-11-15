@@ -1,11 +1,11 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import kotlinx.css.*
 import react.FC
 import react.PropsWithClassName
@@ -29,8 +29,8 @@ val horizontalDivider = FC<PropsWithClassName> { props ->
 private object HorizontalDividerStyles : DynamicStyleSheet() {
 
     val divider: DynamicCssProvider<Context> by dynamicCss {
-        height = Theme.sizes.stroke1(it)
-        backgroundColor = Theme.palette.stroke1(it)
+        height = DesignTokens.system.sizes.stroke1(it)
+        backgroundColor = DesignTokens.system.palette.stroke1(it)
     }
 
 }

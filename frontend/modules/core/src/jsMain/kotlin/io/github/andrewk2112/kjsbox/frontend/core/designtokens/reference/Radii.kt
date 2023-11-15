@@ -1,18 +1,18 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens.reference
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
 
-import kotlinx.css.LinearDimension
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Radii
 import kotlinx.css.px
 
-/**
- * All corner and shadow radius values.
- */
-class Radii {
-    val cornerAbsolute24: LinearDimension get() = 24.px
-    val shadowAbsolutem5: LinearDimension get() = (-5).px
-    val shadowAbsolute2:  LinearDimension get() = 2.px
-    val shadowAbsolute4:  LinearDimension get() = 4.px
-    val shadowAbsolute5:  LinearDimension get() = 5.px
-    val shadowAbsolute10: LinearDimension get() = 10.px
-    val shadowAbsolute24: LinearDimension get() = 24.px
-    val shadowAbsolute30: LinearDimension get() = 30.px
+class ReferenceRadii : Radii {
+
+    val cornerAbsolute24 = 24.px
+
+    val shadowAbsoluteN5 = (-5).px
+    val shadowAbsolute2  = 2.px
+    val shadowAbsolute4  = 4.px
+    val shadowAbsolute5  = 5.px
+    val shadowAbsolute10 = 10.px
+    val shadowAbsolute24 = 24.px
+    val shadowAbsolute30 = 30.px
+
 }

@@ -2,14 +2,10 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.DESKTOP
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.usePrevious
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useRefHeightMonitor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.*
@@ -23,6 +19,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Trans
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import kotlinx.css.*
 import kotlinx.css.Display
 import kotlinx.css.FlexDirection
@@ -49,9 +48,8 @@ import web.dom.Element
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Simplify WindowWidthMonitor.
 //  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Maybe the localization API should be changed slightly?
+//  7. Maybe the localization API should be changed slightly (for better generalization)?
 //  8. Drop reducers?
-//  9. Extract composite builds (Gradle projects) with shared sources (e.g. for strings).
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
@@ -247,16 +245,16 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         }
         transition += propertyTransition(
             ::transform,
-            StyleValues.time.ms300,
-            StyleValues.timing.cubicBezier1,
-            StyleValues.time.immediate
+            DesignTokens.reference.time.ms300,
+            DesignTokens.reference.timing.cubicBezier1,
+            DesignTokens.reference.time.immediate
         )
-        opacity = if (it) StyleValues.opacities.full else StyleValues.opacities.transparent
+        opacity = DesignTokens.reference.opacities.run { if (it) full else transparent }
         transition += propertyTransition(
             ::opacity,
-            StyleValues.time.immediate,
-            StyleValues.timing.ease,
-            if (it) StyleValues.time.immediate else StyleValues.time.ms300
+            DesignTokens.reference.time.immediate,
+            DesignTokens.reference.timing.ease,
+            DesignTokens.reference.time.run { if (it) immediate else ms300 }
         )
     }
 
@@ -267,7 +265,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val sideMenuContainer: DynamicCssProvider<Boolean> by dynamicCss {
         if (it) {
-            width      = StyleValues.sizes.absolute280
+            width      = DesignTokens.reference.sizes.absolute280
             flexShrink = .0
         }
     }
@@ -279,7 +277,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         top      = 0.px
         left     = 0.px
         bottom   = 0.px
-        width    = StyleValues.sizes.absolute280
+        width    = DesignTokens.reference.sizes.absolute280
 
         // Open-close-supporting appearance for smaller screens.
         if (it.isCloseable) {
@@ -308,11 +306,11 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         position = Position.fixed
         inset    = Inset(0.px)
         zIndex   = 2
-        backgroundColor = Theme.palette.scrim(it.context)
+        backgroundColor = DesignTokens.system.palette.scrim(it.context)
 
         // Styling for the hidden state.
         if (!it.isOpened || !it.isCloseable) {
-            opacity = StyleValues.opacities.transparent
+            opacity = DesignTokens.reference.opacities.transparent
             pointerEvents = PointerEvents.none
         }
 
@@ -325,7 +323,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val contents: DynamicCssProvider<Context> by dynamicCss {
         flexGrow = 1.0
-        backgroundColor = Theme.palette.surface2(it)
+        backgroundColor = DesignTokens.system.palette.surface2(it)
     }
 
 }

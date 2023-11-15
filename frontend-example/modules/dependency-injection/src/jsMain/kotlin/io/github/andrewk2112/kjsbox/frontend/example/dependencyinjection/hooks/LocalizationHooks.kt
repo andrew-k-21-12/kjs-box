@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.hooks
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks
 
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationEngine
 import io.github.andrewk2112.kjsbox.frontend.core.localization.Localizator

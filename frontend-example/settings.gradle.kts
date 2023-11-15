@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "frontend-example"
-listOf("exercises", "index", "material-design").map {
+listOf("dependency-injection", "design-tokens", "exercises", "index", "material-design").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

@@ -3,12 +3,12 @@ plugins {
     alias(kotlinLibs.plugins.kjsbox.frontend.resourcewrappers)
 }
 
-kotlin {
-    sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(kotlinLibs.my.utility.string)
-            }
+kotlin.sourceSets {
+    val jsMain by getting {
+        dependencies {
+            implementation(kotlinLibs.my.utility.string)
+            implementation(projects.dependencyInjection)
+            implementation(projects.designTokens)
         }
     }
 }

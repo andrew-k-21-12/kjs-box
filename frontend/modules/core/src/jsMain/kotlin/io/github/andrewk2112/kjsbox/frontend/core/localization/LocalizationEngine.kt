@@ -11,7 +11,7 @@ import kotlinext.js.js
 /**
  * Helps to access localizations.
  */
-internal class LocalizationEngine {
+class LocalizationEngine {
 
     // Initialization.
 
@@ -32,27 +32,27 @@ internal class LocalizationEngine {
 
 
 
-    // Internal.
+    // Public.
 
     /**
      * Returns a [Localizator] for retrieving translated strings by keys.
      */
-    internal fun useLocalizator(): Localizator = reactI18next.useTranslation()::t
+    fun useLocalizator(): Localizator = reactI18next.useTranslation()::t
 
     /**
      * The same as [useLocalizator] but also downloads a [namespace] group of translations.
      */
-    internal fun useLocalizator(namespace: String): Localizator = reactI18next.useTranslation(namespace)::t
+    fun useLocalizator(namespace: String): Localizator = reactI18next.useTranslation(namespace)::t
 
     /**
      * The same as [useLocalizator] but also downloads multiple [namespaces] of translations.
      */
-    internal fun useLocalizator(vararg namespaces: String): Localizator = reactI18next.useTranslation(*namespaces)::t
+    fun useLocalizator(vararg namespaces: String): Localizator = reactI18next.useTranslation(*namespaces)::t
 
     /**
      * Returns both the current active language and the [Localizator].
      */
-    internal fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =
+    fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =
         with(reactI18next.useTranslation()) { Pair(i18n.language, ::t) }
 
 

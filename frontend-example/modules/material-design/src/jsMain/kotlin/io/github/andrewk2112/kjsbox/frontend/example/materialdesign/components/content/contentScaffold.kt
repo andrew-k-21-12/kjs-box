@@ -1,6 +1,5 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.designIntro
@@ -10,6 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import kotlinx.css.Padding
 import kotlinx.css.padding
 import react.ChildrenBuilder
@@ -38,7 +38,7 @@ private object ContentScaffoldStyles : DynamicStyleSheet() {
 
     val divider: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
-        padding = Padding(horizontal = StyleValues.spacing.absolute40)
+        padding = Padding(horizontal = DesignTokens.reference.spacing.absolute40)
     }
 
 }

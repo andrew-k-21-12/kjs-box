@@ -1,16 +1,15 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -50,13 +49,13 @@ private object RectButtonStyles : DynamicStyleSheet() {
 
         +button(it).rules
         +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurfaceSlightlyLighter2))
+            StrokeConfigs(it, StrokeColor.Custom(DesignTokens.system.palette::onSurface2SlightlyLighter))
         ).rules
         +SelectionStyles.simpleHighlightingAndSelection(it).rules
-        color = Theme.palette.onSurfaceSlightlyLighter2(it)
+        color = DesignTokens.system.palette.onSurface2SlightlyLighter(it)
 
         hover {
-            color = Theme.palette.onSurfaceLighter2(it)
+            color = DesignTokens.system.palette.onSurface2Lighter(it)
         }
 
     }
@@ -65,20 +64,20 @@ private object RectButtonStyles : DynamicStyleSheet() {
 
         +button(it).rules
         +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurface1))
+            StrokeConfigs(it, StrokeColor.Custom(DesignTokens.system.palette::onSurface1))
         ).rules
         +TransitionStyles.fastTransition(::backgroundColor).rules
-        color = Theme.palette.onSurface1(it)
+        color = DesignTokens.system.palette.onSurface1(it)
 
         hover {
             +StrokeStyles.borderStroke(
-                StrokeConfigs(it, StrokeColor.Custom(Theme.palette::onSurfaceFocused1))
+                StrokeConfigs(it, StrokeColor.Custom(DesignTokens.system.palette::onSurface1Focused))
             ).rules
-            color           = Theme.palette.onSurfaceFocused1(it)
-            backgroundColor = Theme.palette.selectionFocused2(it)
+            color           = DesignTokens.system.palette.onSurface1Focused(it)
+            backgroundColor = DesignTokens.system.palette.selection2Focused(it)
         }
         active {
-            backgroundColor = Theme.palette.selectionActive2(it)
+            backgroundColor = DesignTokens.system.palette.selection2Active(it)
         }
 
     }
@@ -88,17 +87,17 @@ private object RectButtonStyles : DynamicStyleSheet() {
         width  = 100.pct
         height = 100.pct
         padding = Padding(
-            horizontal = StyleValues.spacing.absolute15,
-            vertical   = StyleValues.spacing.absolute10,
+            horizontal = DesignTokens.reference.spacing.absolute15,
+            vertical   = DesignTokens.reference.spacing.absolute10,
         )
     }
 
     private val button: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.regular.rules
         position = Position.relative
-        overflow = Overflow.hidden                        // to cut the spreading of the animation
-        fontSize = StyleValues.fontSizes.relativep8
-        backgroundColor = StyleValues.palette.transparent // resetting the default button color
+        overflow = Overflow.hidden                                   // to cut the spreading of the animation
+        fontSize = DesignTokens.reference.fontSizes.relative0p8
+        backgroundColor = DesignTokens.reference.palette.transparent // resetting the default button color
         cursor = Cursor.pointer
     }
 

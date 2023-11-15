@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dinjection
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection
 
 import org.kodein.di.*
 

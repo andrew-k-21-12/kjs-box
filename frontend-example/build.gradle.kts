@@ -3,6 +3,7 @@ plugins {
     alias(kotlinLibs.plugins.kjsbox.frontend.entrypoint)       apply false
     alias(kotlinLibs.plugins.kjsbox.frontend.lazymodule)       apply false
     alias(kotlinLibs.plugins.kjsbox.frontend.resourcewrappers) apply false
+    alias(kotlinLibs.plugins.kotlin.multiplatform)             apply false
 }
 
 // Defining a group is required for correct code generation.

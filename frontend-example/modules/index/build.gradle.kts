@@ -3,10 +3,15 @@ plugins {
     alias(kotlinLibs.plugins.kjsbox.frontend.lazymoduleaccessors)
 }
 
-kotlin {
-    sourceSets.jsMain.get().kotlin.srcDirs(
-        lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign)
-    )
+kotlin.sourceSets {
+    val jsMain by getting {
+        kotlin.srcDirs(
+            lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign)
+        )
+        dependencies {
+            implementation(projects.dependencyInjection)
+        }
+    }
 }
 
 entryPoint {

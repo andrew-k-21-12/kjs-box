@@ -1,12 +1,11 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.isLeftButton
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.setStyle
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
@@ -107,16 +106,20 @@ object AnimationStyles : DynamicStyleSheet() {
 
         position = Position.absolute
         borderRadius = 50.pct // to make it absolutely round
-        backgroundColor = Theme.palette.selectionActive1(it)
+        backgroundColor = DesignTokens.system.palette.selection1Active(it)
         pointerEvents = PointerEvents.none // to avoid intercepting taps
 
         transform { scale(0) }
-        animation(duration = StyleValues.time.ms600, timing = StyleValues.timing.linear, builder = {
-            to {
-                transform { scale(4) }
-                opacity = StyleValues.opacities.transparent
+        animation(
+            duration = DesignTokens.reference.time.ms600,
+            timing   = DesignTokens.reference.timing.linear,
+            builder  = {
+                to {
+                    transform { scale(4) }
+                    opacity = DesignTokens.reference.opacities.transparent
+                }
             }
-        })
+        )
 
     }
 

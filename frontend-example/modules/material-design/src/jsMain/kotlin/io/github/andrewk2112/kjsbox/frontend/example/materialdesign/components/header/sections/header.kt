@@ -2,16 +2,15 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.FontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.ImageStyles
@@ -110,15 +109,15 @@ private object HeaderStyles : DynamicStyleSheet() {
     val container: DynamicCssProvider<Context> by dynamicCss {
         display        = Display.flex
         justifyContent = JustifyContent.spaceBetween
-        height         = StyleValues.sizes.run { if (it.isNarrowHeader) absolute112 else absolute72 }
-        backgroundColor = Theme.palette.surface1(it)
+        height         = DesignTokens.reference.sizes.run { if (it.isNarrowHeader) absolute112 else absolute72 }
+        backgroundColor = DesignTokens.system.palette.surface1(it)
     }
 
     val logoBlock: DynamicCssProvider<Context> by dynamicCss {
         display    = Display.flex
         alignItems = Align.center
         if (it.isNarrowHeader) {
-            height = StyleValues.sizes.absolute72
+            height = DesignTokens.reference.sizes.absolute72
         }
     }
 
@@ -131,8 +130,8 @@ private object HeaderStyles : DynamicStyleSheet() {
     }
 
     val menuButtonAppearance: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = StyleValues.palette.transparent
-        color           = Theme.palette.onSurface1(it)
+        backgroundColor = DesignTokens.reference.palette.transparent
+        color           = DesignTokens.system.palette.onSurface1(it)
         borderStyle     = BorderStyle.none
         cursor          = Cursor.pointer
     }
@@ -146,15 +145,15 @@ private object HeaderStyles : DynamicStyleSheet() {
         +ImageStyles.smallSizedIcon.rules
         flexShrink = 0
         if (!it) {
-            marginLeft = StyleValues.spacing.absolute24
+            marginLeft = DesignTokens.reference.spacing.absolute24
         }
     }
 
     val logoLabel: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.boldMono.rules
-        marginLeft = StyleValues.spacing.absolute16
-        fontSize   = StyleValues.fontSizes.relativep95
-        color      = Theme.palette.onSurface1(it)
+        marginLeft = DesignTokens.reference.spacing.absolute16
+        fontSize   = DesignTokens.reference.fontSizes.relative0p95
+        color      = DesignTokens.system.palette.onSurface1(it)
         if (it.screenSize < Context.ScreenSize.DESKTOP) {
             display = Display.none
         }
@@ -178,11 +177,11 @@ private object HeaderStyles : DynamicStyleSheet() {
         width   = 100.pct
         hover {
             descendants(".${navigationItem(it).name}:not(:hover)") {
-                color = Theme.palette.onSurfaceDimmed1(it)
+                color = DesignTokens.system.palette.onSurface1Dimmed(it)
             }
         }
         if (it.isNarrowHeader) {
-            height = StyleValues.sizes.absolute48
+            height = DesignTokens.reference.sizes.absolute48
         }
     }
 
@@ -203,17 +202,17 @@ private object HeaderStyles : DynamicStyleSheet() {
         cursor = Cursor.pointer
 
         // Coloring with the hover logic.
-        color = Theme.palette.onSurface1(it)
+        color = DesignTokens.system.palette.onSurface1(it)
         hover {
-            color = Theme.palette.onSurfaceFocused1(it)
+            color = DesignTokens.system.palette.onSurface1Focused(it)
             descendants(".${navigationItemSelectionIndicator(it).name}") {
-                backgroundColor = Theme.palette.onSurfaceFocused1(it)
+                backgroundColor = DesignTokens.system.palette.onSurface1Focused(it)
             }
         }
 
         // Padding only for bigger screens.
         if (it.screenSize > PHONE) {
-            padding = Padding(horizontal = StyleValues.spacing.absolute16)
+            padding = Padding(horizontal = DesignTokens.reference.spacing.absolute16)
         }
 
     }
@@ -222,7 +221,7 @@ private object HeaderStyles : DynamicStyleSheet() {
         +FontStyles.light.rules
         gridRow   = GridRow("2")
         alignSelf = Align.center
-        fontSize  = Theme.fontSizes.adaptive2(it)
+        fontSize  = DesignTokens.system.fontSizes.adaptive2(it)
     }
 
     val navigationItemSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
@@ -230,20 +229,20 @@ private object HeaderStyles : DynamicStyleSheet() {
         gridRow   = GridRow("3")
         alignSelf = Align.end
         width     = 100.pct
-        height    = StyleValues.sizes.absolute4
-        backgroundColor = Theme.palette.onSurface1(it)
+        height    = DesignTokens.reference.sizes.absolute4
+        backgroundColor = DesignTokens.system.palette.onSurface1(it)
     }
 
     val searchIconWrapper: DynamicCssProvider<Context> by dynamicCss {
         display     = Display.flex
         aspectRatio = AspectRatio(1)
-        marginLeft  = StyleValues.spacing.absolute24
-        height      = if (it.isNarrowHeader) StyleValues.sizes.absolute72 else 100.pct
+        marginLeft  = DesignTokens.reference.spacing.absolute24
+        height      = if (it.isNarrowHeader) DesignTokens.reference.sizes.absolute72 else 100.pct
     }
 
     val searchIcon: DynamicCssProvider<Context> by dynamicCss {
         margin = Margin(LinearDimension.auto)
-        color = Theme.palette.onSurface1(it)
+        color = DesignTokens.system.palette.onSurface1(it)
     }
 
 }

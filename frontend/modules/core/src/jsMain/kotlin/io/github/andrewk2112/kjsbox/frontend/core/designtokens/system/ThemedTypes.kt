@@ -1,17 +1,53 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens.system
-
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import kotlinx.css.Color
-import kotlinx.css.LinearDimension
+package io.github.andrewk2112.kjsbox.frontend.core.designtokens
 
 /**
- * A protocol to describe dynamic themed sizes:
- * returns some specific size ([LinearDimension]) according to the provided [Context].
+ * Declares a group of context-based design tokens.
  */
-typealias ThemedSize = (Context) -> LinearDimension
+abstract class ContextedDesignTokenGroup<C> {
+
+    /**
+     * Helper method to make design token declarations shorter.
+     */
+    protected fun <T> get(declaration: C.() -> T): (C) -> T = declaration
+
+}
 
 /**
- * A protocol to describe dynamic themed colors:
- * returns some specific [Color] according to the provided [Context].
+ * Context-based sizes related to fonts.
  */
-typealias ThemedColor = (Context) -> Color
+abstract class ContextedFontSizes<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based opacity values.
+ */
+abstract class ContextedOpacities<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based color palette.
+ */
+abstract class ContextedPalette<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based corner and shadow radius values.
+ */
+abstract class ContextedRadii<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based various element sizes.
+ */
+abstract class ContextedSizes<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based margin, padding values.
+ */
+abstract class ContextedSpacing<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based time duration values.
+ */
+abstract class ContextedTime<C> : ContextedDesignTokenGroup<C>()
+
+/**
+ * Context-based transition timing configurations.
+ */
+abstract class ContextedTiming<C> : ContextedDesignTokenGroup<C>()

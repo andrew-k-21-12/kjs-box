@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.hooks
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.redux.reducers.ContextReducer

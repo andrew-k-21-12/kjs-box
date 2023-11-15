@@ -1,50 +1,48 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens.system
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens.system
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ContextedPalette
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferencePalette
 
-/**
- * Provides context-based colors according to the current dynamic configuration.
- */
-class ThemedPalette {
+class SystemPalette(private val palette: ReferencePalette) : ContextedPalette<Context>() {
 
-    val action1:       ThemedColor get() = { StyleValues.palette.blue4 }
-    val actionDimmed1: ThemedColor get() = { StyleValues.palette.blue5 }
+    val action1       = get { palette.blue4 }
+    val action1Dimmed = get { palette.blue5 }
 
-    val action2:        ThemedColor get() = { StyleValues.palette.blue2 }
-    val actionFocused2: ThemedColor get() = { StyleValues.palette.blue3 }
-    val onAction2:      ThemedColor get() = { StyleValues.palette.blueDark2 }
+    val action2        = get { palette.blue2 }
+    val action2Focused = get { palette.blue3 }
+    val onAction2      = get { palette.blueDark2 }
 
-    val action3: ThemedColor get() = { StyleValues.palette.black }
+    val action3 = get { palette.black }
+    val action4 = get { palette.gray10 }
 
-    val action4: ThemedColor get() = { StyleValues.palette.gray10 }
+    val backSpecial   = get { palette.blue1 }
+    val onBackSpecial = get { palette.blueDark1 }
 
-    val backSpecial1:   ThemedColor get() = { StyleValues.palette.blue1 }
-    val onBackSpecial1: ThemedColor get() = { StyleValues.palette.blueDark1 }
+    val scrim = get { palette.blackAlpha4 }
 
-    val selectionFocused1: ThemedColor get() = { StyleValues.palette.gray2 }
-    val selectionActive1:  ThemedColor get() = { StyleValues.palette.gray3 }
-    val onSelection1:      ThemedColor get() = { StyleValues.palette.gray10 }
+    val selection1Focused = get { palette.gray2 }
+    val selection1Active  = get { palette.gray3 }
+    val onSelection1      = get { palette.gray10 }
 
-    val selectionFocused2: ThemedColor get() = { StyleValues.palette.gray9 }
-    val selectionActive2:  ThemedColor get() = { StyleValues.palette.gray7 }
+    val selection2Focused = get { palette.gray9 }
+    val selection2Active  = get { palette.gray7 }
 
-    val surface1:          ThemedColor get() = { StyleValues.palette.gray10 }
-    val onSurface1:        ThemedColor get() = { StyleValues.palette.white }
-    val onSurfaceWeaker1:  ThemedColor get() = { StyleValues.palette.gray2 }
-    val onSurfaceFocused1: ThemedColor get() = { StyleValues.palette.gray4 }
-    val onSurfaceDimmed1:  ThemedColor get() = { StyleValues.palette.gray5 }
+    val stroke1 = get { palette.blackAlpha1 }
+    val stroke2 = get { palette.gray5Alpha }
 
-    val surface2:                  ThemedColor get() = { StyleValues.palette.white }
-    val onSurface2:                ThemedColor get() = { StyleValues.palette.gray10 }
-    val onSurfaceSlightlyLighter2: ThemedColor get() = { StyleValues.palette.gray8 }
-    val onSurfaceLighter2:         ThemedColor get() = { StyleValues.palette.gray6 }
+    val surface1          = get { palette.gray10 }
+    val onSurface1        = get { palette.white }
+    val onSurface1Weaker  = get { palette.gray2 }
+    val onSurface1Focused = get { palette.gray4 }
+    val onSurface1Dimmed  = get { palette.gray5 }
 
-    val surface3:   ThemedColor get() = { StyleValues.palette.gray1 }
-    val onSurface3: ThemedColor get() = { StyleValues.palette.gray8 }
+    val surface2                  = get { palette.white }
+    val onSurface2                = get { palette.gray10 }
+    val onSurface2SlightlyLighter = get { palette.gray8 }
+    val onSurface2Lighter         = get { palette.gray6 }
 
-    val stroke1: ThemedColor get() = { StyleValues.palette.blackWithAlpha1 }
-    val stroke2: ThemedColor get() = { StyleValues.palette.gray5WithAlpha }
-
-    val scrim: ThemedColor get() = { StyleValues.palette.blackWithAlpha4 }
+    val surface3   = get { palette.gray1 }
+    val onSurface3 = get { palette.gray8 }
 
 }

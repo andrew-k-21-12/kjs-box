@@ -1,6 +1,6 @@
-package io.github.andrewk2112.kjsbox.frontend.core.hooks
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks
 
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.di
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.di
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.useState

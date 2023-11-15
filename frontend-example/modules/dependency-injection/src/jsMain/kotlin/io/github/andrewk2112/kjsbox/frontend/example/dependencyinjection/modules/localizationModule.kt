@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules
 
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationEngine
 import org.kodein.di.DI

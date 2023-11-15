@@ -1,10 +1,9 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens.system
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens.system
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ContextedSizes
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferenceSizes
 
-/**
- * Provides context-based sizes according to the current dynamic configuration.
- */
-class ThemedSizes {
-    val stroke1: ThemedSize get() = { StyleValues.sizes.absolute1 }
+class SystemSizes(private val sizes: ReferenceSizes) : ContextedSizes<Context>() {
+    val stroke1 = get { sizes.absolute1 }
 }

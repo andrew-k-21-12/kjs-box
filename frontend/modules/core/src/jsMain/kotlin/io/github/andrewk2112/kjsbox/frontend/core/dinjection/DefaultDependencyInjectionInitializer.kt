@@ -1,9 +1,9 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dinjection
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection
 
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules.designTokensModule
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules.hooksModule
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules.localizationModule
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules.reduxModule
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules.designTokensModule
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules.hooksModule
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules.localizationModule
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules.reduxModule
 import org.kodein.di.DI
 
 /**

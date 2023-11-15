@@ -2,11 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
@@ -24,6 +20,9 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -119,16 +118,16 @@ private fun ChildrenBuilder.studyItem(
 private object MaterialStudiesStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = Theme.palette.surface1(it)
+        backgroundColor = DesignTokens.system.palette.surface1(it)
     }
 
     val header: NamedRuleSet by css {
         display  = Display.flex
         flexWrap = FlexWrap.wrap
         padding  = Padding(
-            top   = StyleValues.spacing.absolute42,
-            left  = StyleValues.spacing.absolute40,
-            right = StyleValues.spacing.absolute40
+            top   = DesignTokens.reference.spacing.absolute42,
+            left  = DesignTokens.reference.spacing.absolute40,
+            right = DesignTokens.reference.spacing.absolute40
         )
     }
 
@@ -137,13 +136,13 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
         flexBasis = FlexBasis.zero
         flexGrow  = 1
         if (!it.isCompactAppearance) {
-            marginRight = StyleValues.spacing.absolute40
+            marginRight = DesignTokens.reference.spacing.absolute40
         }
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkDescription(it).rules
-        marginTop = StyleValues.spacing.absolute20
+        marginTop = DesignTokens.reference.spacing.absolute20
         if (!it.isCompactAppearance) {
             order = Order(2)
         }
@@ -153,7 +152,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
         flexShrink = 0
         alignSelf  = Align.selfStart
         if (it.isCompactAppearance) {
-            marginTop = StyleValues.spacing.absolute25
+            marginTop = DesignTokens.reference.spacing.absolute25
         } else {
             order = Order(1)
         }
@@ -162,20 +161,20 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
         padding = Padding(
-            horizontal = StyleValues.spacing.absolute20,
-            top        = if (it.isCompactAppearance) 0.px else StyleValues.spacing.absolute26,
-            bottom     = StyleValues.spacing.absolute52
+            horizontal = DesignTokens.reference.spacing.absolute20,
+            top        = if (it.isCompactAppearance) 0.px else DesignTokens.reference.spacing.absolute26,
+            bottom     = DesignTokens.reference.spacing.absolute52
         )
     }
 
     val studyTitle: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSubTitle(it).rules
-        marginTop = StyleValues.spacing.absolute24
+        marginTop = DesignTokens.reference.spacing.absolute24
     }
 
     val studyDescription: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSmallerDescription(it).rules
-        marginTop = StyleValues.spacing.absolute10
+        marginTop = DesignTokens.reference.spacing.absolute10
     }
 
 }

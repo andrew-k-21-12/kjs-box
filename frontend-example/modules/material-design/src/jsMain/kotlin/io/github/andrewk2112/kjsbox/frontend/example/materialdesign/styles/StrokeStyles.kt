@@ -1,11 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedColor
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import io.github.andrewk2112.utility.string.extensions.capitalize
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
@@ -24,15 +23,15 @@ import kotlin.reflect.KProperty0
 sealed class StrokeColor {
     object Default : StrokeColor()
     object Intense : StrokeColor()
-    class Custom(val colorReference: KProperty0<ThemedColor>) : StrokeColor()
+    class Custom(val colorReference: KProperty0<(Context) -> Color>) : StrokeColor()
 }
 
 /**
  * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
  */
 private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
-    StrokeColor.Default   -> Theme.palette.stroke1(context)
-    StrokeColor.Intense   -> Theme.palette.stroke2(context)
+    StrokeColor.Default   -> DesignTokens.system.palette.stroke1(context)
+    StrokeColor.Intense   -> DesignTokens.system.palette.stroke2(context)
     is StrokeColor.Custom -> colorReference.get().invoke(context)
 }
 
@@ -87,7 +86,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies a border-based stroke. */
     val borderStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        val strokeWidth = Theme.sizes.stroke1(it.context)
+        val strokeWidth = DesignTokens.system.sizes.stroke1(it.context)
         val strokeColor = it.color.getThemedColor(it.context)
         it.positions.map { position ->
             position.matchingStylingProperty.set(this, Border(strokeWidth, BorderStyle.solid, strokeColor))
@@ -96,7 +95,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies an outline-based stroke. */
     val outlineStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        outlineWidth = Theme.sizes.stroke1(it.context)
+        outlineWidth = DesignTokens.system.sizes.stroke1(it.context)
         outlineStyle = OutlineStyle.solid
         outlineColor = it.color.getThemedColor(it.context)
     }

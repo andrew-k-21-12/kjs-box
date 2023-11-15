@@ -1,23 +1,37 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dinjection.modules
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedFontSizes
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedPalette
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.system.ThemedSizes
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.reference.*
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.ReferenceDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.SystemDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.*
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.system.SystemFontSizes
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.system.SystemPalette
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.system.SystemSizes
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
+import org.kodein.di.instance
 
 /** Provides all design tokens. */
-internal val designTokensModule = DI.Module("DesignTokens") { // not sure if this module is really needed
-    bindSingleton { FontSizes() }
-    bindSingleton { Opacities() }
-    bindSingleton { Palette() }
-    bindSingleton { Radii() }
-    bindSingleton { Sizes() }
-    bindSingleton { Spacing() }
-    bindSingleton { Time() }
-    bindSingleton { Timing() }
-    bindSingleton { ThemedFontSizes() }
-    bindSingleton { ThemedPalette() }
-    bindSingleton { ThemedSizes() }
+internal val designTokensModule = DI.Module("DesignTokens") {
+    bindSingleton { ReferenceFontSizes() }
+    bindSingleton { ReferencePalette() }
+    bindSingleton { ReferenceSizes() }
+    bindSingleton {
+        ReferenceDesignTokens(
+            instance(),
+            ReferenceOpacities(),
+            instance(),
+            ReferenceRadii(),
+            instance(),
+            ReferenceSpacing(),
+            ReferenceTime(),
+            ReferenceTiming(),
+        )
+    }
+    bindSingleton {
+        SystemDesignTokens(
+            SystemFontSizes(instance()),
+            SystemPalette(instance()),
+            SystemSizes(instance()),
+        )
+    }
 }

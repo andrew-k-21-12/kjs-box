@@ -3,11 +3,11 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.GridColumns.*
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import kotlinx.css.*
 
 
@@ -20,7 +20,7 @@ import kotlinx.css.*
 object LayoutStyles : DynamicStyleSheet() {
 
     val contentContainer: NamedRuleSet by css {
-        maxWidth = StyleValues.sizes.absolute1240
+        maxWidth = DesignTokens.reference.sizes.absolute1240
         margin   = Margin(horizontal = LinearDimension.auto)
     }
 
@@ -28,7 +28,7 @@ object LayoutStyles : DynamicStyleSheet() {
         val gridColumns = it.gridColumns
         display             = Display.grid
         gridTemplateColumns = GridTemplateColumns.repeat("${gridColumns.columnCount}, 1fr")
-        rowGap              = StyleValues.spacing.run { if (gridColumns == TWO) absolute66 else absolute50 }
+        rowGap              = DesignTokens.reference.spacing.run { if (gridColumns == TWO) absolute66 else absolute50 }
     }
 
     val gridItem: DynamicCssProvider<Context> by dynamicCss {}

@@ -2,11 +2,11 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 
 import frontendExampleExercisesEntryPoint
 import frontendExampleMaterialDesignEntryPoint
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.di
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useInjected
 import io.github.andrewk2112.kjsbox.frontend.core.redux.StoreFactory
 import io.github.andrewk2112.kjsbox.frontend.core.redux.reducers.ContextReducer
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.di
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useInjected
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.*

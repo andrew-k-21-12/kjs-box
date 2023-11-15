@@ -3,13 +3,13 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.components.image
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeColor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeConfigs
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import kotlinx.css.Inset
 import kotlinx.css.Position
 import kotlinx.css.inset

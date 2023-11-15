@@ -2,11 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Theme
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
@@ -22,6 +18,9 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.a
@@ -133,15 +132,15 @@ private fun ChildrenBuilder.externalLink(
 private object FooterStyles : DynamicStyleSheet() {
 
     val background: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = Theme.palette.surface3(it)
+        backgroundColor = DesignTokens.system.palette.surface3(it)
     }
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
         padding = Padding(
-            top        = StyleValues.spacing.run { if (!it.isColumnFolded) absolute48 else absolute32 },
-            horizontal = StyleValues.spacing.absolute40,
-            bottom     = StyleValues.spacing.absolute35
+            top        = DesignTokens.reference.spacing.run { if (!it.isColumnFolded) absolute48 else absolute32 },
+            horizontal = DesignTokens.reference.spacing.absolute40,
+            bottom     = DesignTokens.reference.spacing.absolute35
         )
     }
 
@@ -157,37 +156,37 @@ private object FooterStyles : DynamicStyleSheet() {
 
     val adaptiveMargins: DynamicCssProvider<Context> by dynamicCss {
         if (it.isColumnFolded) {
-            marginTop = StyleValues.spacing.absolute16
+            marginTop = DesignTokens.reference.spacing.absolute16
         } else {
             flexBasis = FlexBasis.zero
             flexGrow  = 1
-            marginLeft = StyleValues.spacing.absolute32
-            marginTop  = StyleValues.spacing.absolute1
+            marginLeft = DesignTokens.reference.spacing.absolute32
+            marginTop  = DesignTokens.reference.spacing.absolute1
         }
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.light.rules
-        fontSize   = StyleValues.fontSizes.relativep875
-        lineHeight = StyleValues.fontSizes.lh1p5
-        color = Theme.palette.onSurface3(it)
+        fontSize   = DesignTokens.reference.fontSizes.relative0p875
+        lineHeight = DesignTokens.reference.fontSizes.lineHeight1p5
+        color = DesignTokens.system.palette.onSurface3(it)
         if (!it.isColumnFolded) {
             maxWidth = 50.pct
         }
     }
 
     val contentLinks: NamedRuleSet by css {
-        marginTop  = StyleValues.spacing.absolute34
-        lineHeight = StyleValues.fontSizes.lh1p7
+        marginTop  = DesignTokens.reference.spacing.absolute34
+        lineHeight = DesignTokens.reference.fontSizes.lineHeight1p7
     }
 
     val divider: NamedRuleSet by css {
-        marginTop = StyleValues.spacing.absolute37
+        marginTop = DesignTokens.reference.spacing.absolute37
     }
 
     val lowerBlock: DynamicCssProvider<Context> by dynamicCss {
         display   = Display.flex
-        marginTop = StyleValues.spacing.absolute32
+        marginTop = DesignTokens.reference.spacing.absolute32
         if (it.isColumnFolded) {
             flexDirection = FlexDirection.column
         } else {
@@ -196,35 +195,35 @@ private object FooterStyles : DynamicStyleSheet() {
     }
 
     val googleLink: DynamicCssProvider<Context> by dynamicCss {
-        marginRight = StyleValues.spacing.absolute32
+        marginRight = DesignTokens.reference.spacing.absolute32
         if (it.isColumnFolded) {
-            marginBottom = StyleValues.spacing.absolute15
+            marginBottom = DesignTokens.reference.spacing.absolute15
         }
     }
 
     val googleLogo: DynamicCssProvider<Context> by dynamicCss {
         display = Display.block
-        color = Theme.palette.action4(it)
+        color = DesignTokens.system.palette.action4(it)
     }
 
     val contentLink: DynamicCssProvider<Context> by dynamicCss {
         display = Display.inline
         nthChild("n+2") {
             before {
-                margin = Margin(horizontal = StyleValues.spacing.absolute8)
+                margin = Margin(horizontal = DesignTokens.reference.spacing.absolute8)
                 content = QuotedString("/")
             }
         }
     }
 
     val serviceLink: DynamicCssProvider<Context> by dynamicCss {
-        lineHeight = StyleValues.fontSizes.lh1p5
+        lineHeight = DesignTokens.reference.fontSizes.lineHeight1p5
         if (it.isColumnFolded) {
             display = Display.block
         } else {
             display = Display.inline
             nthChild("n+2") {
-                marginLeft = StyleValues.spacing.absolute16
+                marginLeft = DesignTokens.reference.spacing.absolute16
             }
         }
     }

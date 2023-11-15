@@ -1,49 +1,33 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens.system
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens.system
 
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.StyleValues
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferenceFontSizes
 
-/**
- * Provides context-based font sizes according to the current dynamic configuration.
- */
-class ThemedFontSizes {
+class SystemFontSizes(private val fontSizes: ReferenceFontSizes) : ContextedFontSizes<Context>() {
 
-    val adaptive1: ThemedSize
-        get() = {
-            StyleValues.fontSizes.run { if (it.screenSize <= SMALL_TABLET) relativep875 else relativep95 }
+    val adaptive1 = get { if (screenSize <= SMALL_TABLET) fontSizes.relative0p875 else fontSizes.relative0p95 }
+
+    val adaptive2 = get { if (screenSize > PHONE) fontSizes.relative1 else fontSizes.relative0p875 }
+
+    val adaptive3 = get { if (screenSize == SMALL_TABLET) fontSizes.relative1p125 else fontSizes.relative1p25 }
+
+    val adaptive4 = get { if (screenSize > PHONE) fontSizes.relative1p5 else fontSizes.relative2 }
+
+    val adaptive5 = get {
+        when {
+            screenSize <= PHONE        -> fontSizes.relative1p5
+            screenSize <= SMALL_TABLET -> fontSizes.relative1p75
+            else                       -> fontSizes.relative2
         }
+    }
 
-    val adaptive2: ThemedSize
-        get() = {
-            StyleValues.fontSizes.run { if (it.screenSize > PHONE) relative1 else relativep875 }
+    val adaptive6 = get {
+        when {
+            screenSize <= PHONE        -> fontSizes.relative2p5
+            screenSize <= SMALL_TABLET -> fontSizes.relative3p125
+            else                       -> fontSizes.relative3p75
         }
-
-    val adaptive3: ThemedSize
-        get() = {
-            StyleValues.fontSizes.run { if (it.screenSize == SMALL_TABLET) relative1p125 else relative1p25 }
-        }
-
-    val adaptive4: ThemedSize
-        get() = {
-            StyleValues.fontSizes.run { if (it.screenSize > PHONE) relative1p5 else relative2 }
-        }
-
-    val adaptive5: ThemedSize
-        get() = {
-            when {
-                it.screenSize <= PHONE        -> StyleValues.fontSizes.relative1p5
-                it.screenSize <= SMALL_TABLET -> StyleValues.fontSizes.relative1p75
-                else                          -> StyleValues.fontSizes.relative2
-            }
-        }
-
-    val adaptive6: ThemedSize
-        get() = {
-            when {
-                it.screenSize <= PHONE        -> StyleValues.fontSizes.relative2p5
-                it.screenSize <= SMALL_TABLET -> StyleValues.fontSizes.relative3p125
-                else                          -> StyleValues.fontSizes.relative3p75
-            }
-        }
+    }
 
 }

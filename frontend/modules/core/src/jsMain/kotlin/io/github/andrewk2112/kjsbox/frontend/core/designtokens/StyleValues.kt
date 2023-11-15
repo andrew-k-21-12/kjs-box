@@ -1,19 +1,15 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.dinjection.di
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.reference.*
-import org.kodein.di.instance
+import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ReferenceDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.*
 
-/**
- * Provides access to source style values (reference design tokens).
- */
-object StyleValues {
-    val fontSizes: FontSizes by di.instance()
-    val opacities: Opacities by di.instance()
-    val palette:   Palette   by di.instance()
-    val radii:     Radii     by di.instance()
-    val sizes:     Sizes     by di.instance()
-    val spacing:   Spacing   by di.instance()
-    val time:      Time      by di.instance()
-    val timing:    Timing    by di.instance()
-}
+class ReferenceDesignTokens(
+    override val fontSizes: ReferenceFontSizes,
+    override val opacities: ReferenceOpacities,
+    override val palette:   ReferencePalette,
+    override val radii:     ReferenceRadii,
+    override val sizes:     ReferenceSizes,
+    override val spacing:   ReferenceSpacing,
+    override val time:      ReferenceTime,
+    override val timing:    ReferenceTiming,
+) : ReferenceDesignTokens

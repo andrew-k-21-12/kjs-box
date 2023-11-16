@@ -2,25 +2,35 @@ package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks
 
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationEngine
 import io.github.andrewk2112.kjsbox.frontend.core.localization.Localizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.rootComponent
+
+
+
+// Public.
 
 /**
  * Returns a [Localizator] for retrieving translated strings by keys.
  */
-fun useLocalizator(): Localizator = useInjected<LocalizationEngine>().useLocalizator()
+fun useLocalizator(): Localizator = useLocalizationEngine().useLocalizator()
 
 /**
  * The same as [useLocalizator] but also downloads a [namespace] group of translations.
  */
-fun useLocalizator(namespace: String): Localizator = useInjected<LocalizationEngine>().useLocalizator(namespace)
+fun useLocalizator(namespace: String): Localizator = useLocalizationEngine().useLocalizator(namespace)
 
 /**
  * The same as [useLocalizator] but also downloads multiple [namespaces] of translations.
  */
-fun useLocalizator(vararg namespaces: String): Localizator =
-    useInjected<LocalizationEngine>().useLocalizator(*namespaces)
+fun useLocalizator(vararg namespaces: String): Localizator = useLocalizationEngine().useLocalizator(*namespaces)
 
 /**
  * Returns both the current active language and the [Localizator].
  */
 fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =
-    useInjected<LocalizationEngine>().useCurrentLanguageAndLocalizator()
+    useLocalizationEngine().useCurrentLanguageAndLocalizator()
+
+
+
+// Private.
+
+private fun useLocalizationEngine(): LocalizationEngine = rootComponent.useInjected<LocalizationEngine>()

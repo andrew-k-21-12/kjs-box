@@ -5,7 +5,7 @@ import frontendExampleMaterialDesignEntryPoint
 import io.github.andrewk2112.kjsbox.frontend.core.redux.StoreFactory
 import io.github.andrewk2112.kjsbox.frontend.core.redux.reducers.ContextReducer
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.di
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.rootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useInjected
 import org.kodein.di.direct
 import org.kodein.di.instance
@@ -17,9 +17,9 @@ import react.router.dom.BrowserRouter
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
 val app = FC {
     Provider {
-        store = di.direct.instance<StoreFactory>().create() // setting the global app state and its processing reducers,
-        BrowserRouter {                                     // enabling routing features,
-            Suspense {                                      // configuring the app with its loading placeholder
+        store = rootComponent.direct.instance<StoreFactory>().create() // setting the global app state and its processing reducers,
+        BrowserRouter {                                                // enabling routing features,
+            Suspense {                                                 // configuring the app with its loading placeholder
                 fallback = appLoadingPlaceholder.create()
                 initializations()
                 routes()
@@ -35,7 +35,8 @@ private val appLoadingPlaceholder = FC {
 
 /** All required initializations to be done before loading of any actual contents. */
 private val initializations = FC {
-    useInjected<ContextReducer>().useScreenSizeMonitor() // monitoring the screen size to update the context
+    // Monitoring the screen size to update the context.
+    rootComponent.useInjected<ContextReducer>().useScreenSizeMonitor()
 }
 
 /** All the actual contents available in the app bound to the corresponding routes. */

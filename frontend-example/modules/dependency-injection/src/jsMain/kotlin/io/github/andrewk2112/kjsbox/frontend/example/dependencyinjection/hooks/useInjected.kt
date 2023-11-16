@@ -1,11 +1,12 @@
 package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks
 
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.di
+import org.kodein.di.DI
 import org.kodein.di.direct
 import org.kodein.di.instance
 import react.useState
 
 /**
- * Injects and returns an instance of the type [T] once for the entire life cycle of a component.
+ * Injects and returns an instance of type [T] from a provided [DI] source,
+ * the injection happens once for the entire life cycle of component.
  */
-inline fun <reified T : Any> useInjected(tag: Any? = null): T = useState { di.direct.instance<T>(tag) }.component1()
+inline fun <reified T : Any> DI.useInjected(tag: Any? = null): T = useState { direct.instance<T>(tag) }.component1()

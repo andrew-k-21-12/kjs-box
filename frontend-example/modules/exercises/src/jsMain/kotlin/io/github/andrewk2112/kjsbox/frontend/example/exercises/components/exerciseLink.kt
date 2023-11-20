@@ -29,12 +29,12 @@ private object ExerciseLinkStyles : DynamicStyleSheet() {
 
     val link: DynamicCssProvider<Context> by dynamicCss {
         +ComfortaaFontStyles.regular.rules
-        fontSize       = DesignTokens.system.fontSizes.adaptive4(it)
+        fontSize       = DesignTokens.system.fontSizes.adaptive(it)
         overflowWrap   = OverflowWrap.breakWord
         textDecoration = TextDecoration.none
-        color          = DesignTokens.system.palette.action1(it)
+        color          = DesignTokens.system.palette.action(it)
         visited {
-            color = DesignTokens.system.palette.action1Dimmed(it)
+            color = DesignTokens.system.palette.actionDimmed(it)
         }
     }
 

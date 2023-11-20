@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Spacing
 import kotlinx.css.px
@@ -6,7 +6,6 @@ import kotlinx.css.px
 class ReferenceSpacing : Spacing {
     val absolute1    = 1.px
     val absolute2    = 2.px
-    val absolute5    = 5.px
     val absolute6    = 6.px
     val absolute7    = 7.px
     val absolute8    = 8.px

@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Timing
 import kotlinx.css.properties.cubicBezier

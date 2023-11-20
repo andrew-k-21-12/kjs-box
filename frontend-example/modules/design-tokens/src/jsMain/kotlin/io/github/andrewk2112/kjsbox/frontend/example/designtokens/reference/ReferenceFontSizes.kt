@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.FontSizes
 import kotlinx.css.properties.LineHeight
@@ -16,9 +16,7 @@ class ReferenceFontSizes : FontSizes {
     val relative1p125 = 1.125.rem
     val relative1p2   = 1.2.rem
     val relative1p25  = 1.25.rem
-    val relative1p5   = 1.5.rem
     val relative1p75  = 1.75.rem
-    val relative2     = 2.rem
     val relative2p5   = 2.5.rem
     val relative3p125 = 3.125.rem
     val relative3p75  = 3.75.rem

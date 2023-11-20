@@ -7,7 +7,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.GridC
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 
 
@@ -20,7 +20,7 @@ import kotlinx.css.*
 object LayoutStyles : DynamicStyleSheet() {
 
     val contentContainer: NamedRuleSet by css {
-        maxWidth = DesignTokens.reference.sizes.absolute1240
+        maxWidth = MaterialDesignTokens.reference.sizes.absolute1240
         margin   = Margin(horizontal = LinearDimension.auto)
     }
 
@@ -28,7 +28,9 @@ object LayoutStyles : DynamicStyleSheet() {
         val gridColumns = it.gridColumns
         display             = Display.grid
         gridTemplateColumns = GridTemplateColumns.repeat("${gridColumns.columnCount}, 1fr")
-        rowGap              = DesignTokens.reference.spacing.run { if (gridColumns == TWO) absolute66 else absolute50 }
+        rowGap              = MaterialDesignTokens.reference.spacing.run {
+                                  if (gridColumns == TWO) absolute66 else absolute50
+                              }
     }
 
     val gridItem: DynamicCssProvider<Context> by dynamicCss {}

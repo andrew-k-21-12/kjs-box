@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Palette
 import kotlinx.css.Color
@@ -33,8 +33,6 @@ class ReferencePalette : Palette {
     val blue1 = Color("#E9F0F6")
     val blue2 = Color("#CBE6FD")
     val blue3 = Color("#BAD6ED")
-    val blue4 = Color("#38D4FF")
-    val blue5 = Color("#75B5C7")
 
     val blueDark1 = Color("#2A638A")
     val blueDark2 = Color("#081D2D")

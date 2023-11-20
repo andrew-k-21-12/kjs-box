@@ -20,9 +20,9 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -118,16 +118,16 @@ private fun ChildrenBuilder.studyItem(
 private object MaterialStudiesStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = DesignTokens.system.palette.surface1(it)
+        backgroundColor = MaterialDesignTokens.system.palette.surface1(it)
     }
 
     val header: NamedRuleSet by css {
         display  = Display.flex
         flexWrap = FlexWrap.wrap
         padding  = Padding(
-            top   = DesignTokens.reference.spacing.absolute42,
-            left  = DesignTokens.reference.spacing.absolute40,
-            right = DesignTokens.reference.spacing.absolute40
+            top   = MaterialDesignTokens.reference.spacing.absolute42,
+            left  = MaterialDesignTokens.reference.spacing.absolute40,
+            right = MaterialDesignTokens.reference.spacing.absolute40
         )
     }
 
@@ -136,13 +136,13 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
         flexBasis = FlexBasis.zero
         flexGrow  = 1
         if (!it.isCompactAppearance) {
-            marginRight = DesignTokens.reference.spacing.absolute40
+            marginRight = MaterialDesignTokens.reference.spacing.absolute40
         }
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkDescription(it).rules
-        marginTop = DesignTokens.reference.spacing.absolute20
+        marginTop = MaterialDesignTokens.reference.spacing.absolute20
         if (!it.isCompactAppearance) {
             order = Order(2)
         }
@@ -152,7 +152,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
         flexShrink = 0
         alignSelf  = Align.selfStart
         if (it.isCompactAppearance) {
-            marginTop = DesignTokens.reference.spacing.absolute25
+            marginTop = MaterialDesignTokens.reference.spacing.absolute25
         } else {
             order = Order(1)
         }
@@ -161,20 +161,20 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.grid(it).rules
         padding = Padding(
-            horizontal = DesignTokens.reference.spacing.absolute20,
-            top        = if (it.isCompactAppearance) 0.px else DesignTokens.reference.spacing.absolute26,
-            bottom     = DesignTokens.reference.spacing.absolute52
+            horizontal = MaterialDesignTokens.reference.spacing.absolute20,
+            top        = if (it.isCompactAppearance) 0.px else MaterialDesignTokens.reference.spacing.absolute26,
+            bottom     = MaterialDesignTokens.reference.spacing.absolute52
         )
     }
 
     val studyTitle: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSubTitle(it).rules
-        marginTop = DesignTokens.reference.spacing.absolute24
+        marginTop = MaterialDesignTokens.reference.spacing.absolute24
     }
 
     val studyDescription: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSmallerDescription(it).rules
-        marginTop = DesignTokens.reference.spacing.absolute10
+        marginTop = MaterialDesignTokens.reference.spacing.absolute10
     }
 
 }

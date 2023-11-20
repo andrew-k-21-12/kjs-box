@@ -19,6 +19,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
@@ -141,65 +142,65 @@ private fun ChildrenBuilder.topicPreviewItem(
 private object DesignIntroStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = DesignTokens.system.palette.surface1(it)
+        backgroundColor = MaterialDesignTokens.system.palette.surface1(it)
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
         +LayoutStyles.grid(it).rules
         padding = Padding(
-            top        = DesignTokens.reference.spacing.run {
+            top        = MaterialDesignTokens.reference.spacing.run {
                              if (it.screenSize > SMALL_TABLET) absolute89 else absolute177
                          },
-            horizontal = DesignTokens.reference.spacing.absolute20,
-            bottom     = DesignTokens.reference.spacing.absolute52
+            horizontal = MaterialDesignTokens.reference.spacing.absolute20,
+            bottom     = MaterialDesignTokens.reference.spacing.absolute52
         )
     }
 
     val horizontalSpacingGridItem: NamedRuleSet by css {
-        padding = Padding(horizontal = DesignTokens.reference.spacing.absolute20)
+        padding = Padding(horizontal = MaterialDesignTokens.reference.spacing.absolute20)
     }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
-        fontSize = DesignTokens.system.fontSizes.adaptive6(it)
-        color = DesignTokens.system.palette.onSurface1(it)
+        fontSize = MaterialDesignTokens.system.fontSizes.adaptive5(it)
+        color = MaterialDesignTokens.system.palette.onSurface1(it)
     }
 
     val callToAction: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkDescription(it).rules
-        marginTop = DesignTokens.reference.spacing.run { if (it.screenSize > PHONE) absolute20 else absolute16 }
+        marginTop = MaterialDesignTokens.reference.spacing.run { if (it.screenSize > PHONE) absolute20 else absolute16 }
         if (it.screenSize <= PHONE) {
-            marginBottom = DesignTokens.reference.spacing.absolute16
+            marginBottom = MaterialDesignTokens.reference.spacing.absolute16
         }
     }
 
     val category: DynamicCssProvider<Context> by dynamicCss {
         +FontStyles.mono.rules
-        fontSize = DesignTokens.reference.fontSizes.relative0p85
-        color = DesignTokens.system.palette.onSurface1Weaker(it)
+        fontSize = MaterialDesignTokens.reference.fontSizes.relative0p85
+        color = MaterialDesignTokens.system.palette.onSurface1Weaker(it)
     }
 
     val popularTopicsCategory: NamedRuleSet by css {
-        marginTop = DesignTokens.reference.spacing.absolute1
+        marginTop = MaterialDesignTokens.reference.spacing.absolute1
     }
 
     val topicCategory: NamedRuleSet by css {
-        marginTop = DesignTokens.reference.spacing.absolute24
+        marginTop = MaterialDesignTokens.reference.spacing.absolute24
     }
 
     val popularTopicItem: DynamicCssProvider<Context> by dynamicCss {
         display = Display.block
-        val topSpacing = DesignTokens.reference.spacing.absolute6
+        val topSpacing = MaterialDesignTokens.reference.spacing.absolute6
         marginTop      = topSpacing
         // As the bottom margin interleaves with the next one.
         marginBottom   = topSpacing + DesignTokens.reference.spacing.absolute5
         children {
             +TransitionStyles.flashingTransition(::color).rules
             textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
-            fontSize       = DesignTokens.reference.fontSizes.relative1p2
-            color = DesignTokens.system.palette.onSurface1(it)
+            fontSize       = MaterialDesignTokens.reference.fontSizes.relative1p2
+            color = MaterialDesignTokens.system.palette.onSurface1(it)
             hover {
-                color = DesignTokens.system.palette.onSurface1Focused(it)
+                color = MaterialDesignTokens.system.palette.onSurface1Focused(it)
             }
         }
     }
@@ -212,12 +213,12 @@ private object DesignIntroStyles : DynamicStyleSheet() {
 
     val topicTitle: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSubTitle(it).rules
-        marginTop = DesignTokens.reference.spacing.absolute6
+        marginTop = MaterialDesignTokens.reference.spacing.absolute6
     }
 
     val topicDescription: DynamicCssProvider<Context> by dynamicCss {
         +LabelStyles.contentBlockDarkSmallerDescription(it).rules
-        marginTop = DesignTokens.reference.spacing.absolute11
+        marginTop = MaterialDesignTokens.reference.spacing.absolute11
     }
 
 }

@@ -1,20 +1,17 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens.system
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ContextedPalette
-import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferencePalette
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferencePalette
 
 class SystemPalette(private val palette: ReferencePalette) : ContextedPalette<Context>() {
 
-    val action1       = get { palette.blue4 }
-    val action1Dimmed = get { palette.blue5 }
+    val action1        = get { palette.blue2 }
+    val action1Focused = get { palette.blue3 }
+    val onAction1      = get { palette.blueDark2 }
 
-    val action2        = get { palette.blue2 }
-    val action2Focused = get { palette.blue3 }
-    val onAction2      = get { palette.blueDark2 }
-
-    val action3 = get { palette.black }
-    val action4 = get { palette.gray10 }
+    val action2 = get { palette.black }
+    val action3 = get { palette.gray10 }
 
     val backSpecial   = get { palette.blue1 }
     val onBackSpecial = get { palette.blueDark1 }

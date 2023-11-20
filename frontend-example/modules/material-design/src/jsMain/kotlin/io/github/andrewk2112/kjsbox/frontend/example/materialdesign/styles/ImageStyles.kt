@@ -2,7 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.LinearDimension
 import kotlinx.css.height
 import kotlinx.css.pct
@@ -19,8 +19,8 @@ object ImageStyles : DynamicStyleSheet() {
     }
 
     val smallSizedIcon: NamedRuleSet by css {
-        width  = DesignTokens.reference.sizes.absolute32
-        height = DesignTokens.reference.sizes.absolute32
+        width  = MaterialDesignTokens.reference.sizes.absolute32
+        height = MaterialDesignTokens.reference.sizes.absolute32
     }
 
 }

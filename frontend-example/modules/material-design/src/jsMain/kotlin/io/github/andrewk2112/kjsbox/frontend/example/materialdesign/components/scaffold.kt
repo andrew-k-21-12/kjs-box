@@ -19,9 +19,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Trans
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.Display
 import kotlinx.css.FlexDirection
@@ -245,16 +245,16 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         }
         transition += propertyTransition(
             ::transform,
-            DesignTokens.reference.time.ms300,
-            DesignTokens.reference.timing.cubicBezier1,
-            DesignTokens.reference.time.immediate
+            MaterialDesignTokens.reference.time.ms300,
+            MaterialDesignTokens.reference.timing.cubicBezier1,
+            MaterialDesignTokens.reference.time.immediate
         )
-        opacity = DesignTokens.reference.opacities.run { if (it) full else transparent }
+        opacity = MaterialDesignTokens.reference.opacities.run { if (it) full else transparent }
         transition += propertyTransition(
             ::opacity,
-            DesignTokens.reference.time.immediate,
-            DesignTokens.reference.timing.ease,
-            DesignTokens.reference.time.run { if (it) immediate else ms300 }
+            MaterialDesignTokens.reference.time.immediate,
+            MaterialDesignTokens.reference.timing.ease,
+            MaterialDesignTokens.reference.time.run { if (it) immediate else ms300 }
         )
     }
 
@@ -265,7 +265,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val sideMenuContainer: DynamicCssProvider<Boolean> by dynamicCss {
         if (it) {
-            width      = DesignTokens.reference.sizes.absolute280
+            width      = MaterialDesignTokens.reference.sizes.absolute280
             flexShrink = .0
         }
     }
@@ -277,7 +277,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         top      = 0.px
         left     = 0.px
         bottom   = 0.px
-        width    = DesignTokens.reference.sizes.absolute280
+        width    = MaterialDesignTokens.reference.sizes.absolute280
 
         // Open-close-supporting appearance for smaller screens.
         if (it.isCloseable) {
@@ -306,11 +306,11 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         position = Position.fixed
         inset    = Inset(0.px)
         zIndex   = 2
-        backgroundColor = DesignTokens.system.palette.scrim(it.context)
+        backgroundColor = MaterialDesignTokens.system.palette.scrim(it.context)
 
         // Styling for the hidden state.
         if (!it.isOpened || !it.isCloseable) {
-            opacity = DesignTokens.reference.opacities.transparent
+            opacity = MaterialDesignTokens.reference.opacities.transparent
             pointerEvents = PointerEvents.none
         }
 
@@ -323,7 +323,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val contents: DynamicCssProvider<Context> by dynamicCss {
         flexGrow = 1.0
-        backgroundColor = DesignTokens.system.palette.surface2(it)
+        backgroundColor = MaterialDesignTokens.system.palette.surface2(it)
     }
 
 }

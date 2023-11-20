@@ -4,7 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 
 /**
@@ -15,20 +15,20 @@ object SelectionStyles : DynamicStyleSheet() {
     // Public.
 
     val simpleActionHighlighting: DynamicCssProvider<Context> by dynamicCss {
-        color   = DesignTokens.system.palette.action3(it)
-        opacity = DesignTokens.reference.opacities.half
+        color   = MaterialDesignTokens.system.palette.action2(it)
+        opacity = MaterialDesignTokens.reference.opacities.half
         hover {
-            opacity = DesignTokens.reference.opacities.p4
+            opacity = MaterialDesignTokens.reference.opacities.p4
         }
     }
 
     val simpleHighlightingAndSelection: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.fastTransition(::backgroundColor).rules
         hover {
-            backgroundColor = DesignTokens.system.palette.selection1Focused(it)
+            backgroundColor = MaterialDesignTokens.system.palette.selection1Focused(it)
         }
         active {
-            backgroundColor = DesignTokens.system.palette.selection1Active(it)
+            backgroundColor = MaterialDesignTokens.system.palette.selection1Active(it)
         }
     }
 
@@ -51,7 +51,7 @@ object SelectionStyles : DynamicStyleSheet() {
     // Private.
 
     private val hoverableWithPaddedStrokeBase: NamedRuleSet by css {
-        padding = Padding(DesignTokens.reference.spacing.absolute20)
+        padding = Padding(MaterialDesignTokens.reference.spacing.absolute20)
         cursor = Cursor.pointer
     }
 

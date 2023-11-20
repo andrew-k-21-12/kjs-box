@@ -1,7 +1,7 @@
-package io.github.andrewk2112.kjsbox.frontend.example.designtokens
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ReferenceDesignTokens
-import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.*
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.*
 
 class ReferenceDesignTokens(
     override val fontSizes: ReferenceFontSizes,

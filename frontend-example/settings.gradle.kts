@@ -23,6 +23,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "frontend-example"
 listOf(
     "dependency-injection",
+    "dependency-injection-utility",
     "design-tokens",
     "exercises",
     "index",

@@ -4,7 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration

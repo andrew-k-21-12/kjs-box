@@ -15,8 +15,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.date.LongDateOnlyFormat
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useCurrentLanguageAndLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useCurrentLanguageAndLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 import react.*

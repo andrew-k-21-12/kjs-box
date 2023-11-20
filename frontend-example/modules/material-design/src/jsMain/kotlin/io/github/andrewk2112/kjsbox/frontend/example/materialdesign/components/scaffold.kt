@@ -19,8 +19,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.Trans
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.Display

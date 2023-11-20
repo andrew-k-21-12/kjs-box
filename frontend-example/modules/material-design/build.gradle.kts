@@ -8,7 +8,7 @@ kotlin.sourceSets {
         dependencies {
             implementation(kotlinLibs.kjsbox.frontend.designtokens)
             implementation(kotlinLibs.my.utility.string)
-            implementation(projects.dependencyInjection)
+            implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
         }
     }

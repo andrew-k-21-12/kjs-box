@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors
 
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.rootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.ReferenceDesignTokens

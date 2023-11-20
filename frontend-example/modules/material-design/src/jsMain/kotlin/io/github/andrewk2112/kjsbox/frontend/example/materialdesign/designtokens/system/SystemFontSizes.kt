@@ -2,7 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtoken
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceFontSizes
 
 class SystemFontSizes(private val fontSizes: ReferenceFontSizes) : ContextedFontSizes<Context>() {

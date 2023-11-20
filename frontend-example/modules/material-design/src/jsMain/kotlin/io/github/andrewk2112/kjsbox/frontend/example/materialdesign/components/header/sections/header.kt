@@ -8,8 +8,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.FontStyles

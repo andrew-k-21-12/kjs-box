@@ -9,9 +9,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ex
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.accessors.DesignTokens
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div

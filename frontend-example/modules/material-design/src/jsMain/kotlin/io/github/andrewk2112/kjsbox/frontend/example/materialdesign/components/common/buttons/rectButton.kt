@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -49,13 +49,13 @@ private object RectButtonStyles : DynamicStyleSheet() {
 
         +button(it).rules
         +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(MaterialDesignTokens.system.palette::onSurface2SlightlyLighter))
+            StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface2SlightlyLighter))
         ).rules
         +SelectionStyles.simpleHighlightingAndSelection(it).rules
-        color = MaterialDesignTokens.system.palette.onSurface2SlightlyLighter(it)
+        color = materialDesignTokens.system.palette.onSurface2SlightlyLighter(it)
 
         hover {
-            color = MaterialDesignTokens.system.palette.onSurface2Lighter(it)
+            color = materialDesignTokens.system.palette.onSurface2Lighter(it)
         }
 
     }
@@ -64,20 +64,20 @@ private object RectButtonStyles : DynamicStyleSheet() {
 
         +button(it).rules
         +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(MaterialDesignTokens.system.palette::onSurface1))
+            StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface1))
         ).rules
         +TransitionStyles.fastTransition(::backgroundColor).rules
-        color = MaterialDesignTokens.system.palette.onSurface1(it)
+        color = materialDesignTokens.system.palette.onSurface1(it)
 
         hover {
             +StrokeStyles.borderStroke(
-                StrokeConfigs(it, StrokeColor.Custom(MaterialDesignTokens.system.palette::onSurface1Focused))
+                StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface1Focused))
             ).rules
-            color           = MaterialDesignTokens.system.palette.onSurface1Focused(it)
-            backgroundColor = MaterialDesignTokens.system.palette.selection2Focused(it)
+            color           = materialDesignTokens.system.palette.onSurface1Focused(it)
+            backgroundColor = materialDesignTokens.system.palette.selection2Focused(it)
         }
         active {
-            backgroundColor = MaterialDesignTokens.system.palette.selection2Active(it)
+            backgroundColor = materialDesignTokens.system.palette.selection2Active(it)
         }
 
     }
@@ -87,17 +87,17 @@ private object RectButtonStyles : DynamicStyleSheet() {
         width  = 100.pct
         height = 100.pct
         padding = Padding(
-            horizontal = MaterialDesignTokens.reference.spacing.absolute15,
-            vertical   = MaterialDesignTokens.reference.spacing.absolute10,
+            horizontal = materialDesignTokens.reference.spacing.absolute15,
+            vertical   = materialDesignTokens.reference.spacing.absolute10,
         )
     }
 
     private val button: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.regular.rules
+        +materialDesignTokens.system.fontStyles.regular(it).rules
         position = Position.relative
         overflow = Overflow.hidden                                           // to cut the spreading of the animation
-        fontSize = MaterialDesignTokens.reference.fontSizes.relative0p8
-        backgroundColor = MaterialDesignTokens.reference.palette.transparent // resetting the default button color
+        fontSize = materialDesignTokens.reference.fontSizes.relative0p8
+        backgroundColor = materialDesignTokens.reference.palette.transparent // resetting the default button color
         cursor = Cursor.pointer
     }
 

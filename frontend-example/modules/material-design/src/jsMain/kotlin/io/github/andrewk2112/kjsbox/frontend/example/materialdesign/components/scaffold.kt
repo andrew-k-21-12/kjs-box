@@ -13,7 +13,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.f
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.FontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.ShadowStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.TransitionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
@@ -21,7 +20,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.Display
 import kotlinx.css.FlexDirection
@@ -97,7 +96,7 @@ val scaffold = FC {
     )
     val onScrimClick: MouseEventHandler<*> = useCallback { isMenuOpened = false }
 
-    root(onContentScroll) {
+    root(context, onContentScroll) {
         slidingHeader(headerRef, isHeaderVisible, hasCloseableMenu = menuContext.isCloseable) { isMenuOpened = it }
         alignedBlocks {
             sideMenu(menuContext, onScrimClick)
@@ -154,10 +153,11 @@ private inline fun useContentScrollCallback(
  * @param children All child elements to be included inside the root.
  */
 private inline fun ChildrenBuilder.root(
+    context: Context,
     noinline onScroll: UIEventHandler<*>,
     crossinline children: ChildrenBuilder.() -> Unit,
 ) =
-    +div(clazz = ScaffoldStyles.root.name) {
+    +div(clazz = ScaffoldStyles.root(context).name) {
         this.onScroll = onScroll
         children()
     }
@@ -226,8 +226,8 @@ private class MenuContext private constructor(
 
 private object ScaffoldStyles : DynamicStyleSheet() {
 
-    val root: NamedRuleSet by css {
-        +FontStyles.regular.rules
+    val root: DynamicCssProvider<Context> by dynamicCss {
+        +materialDesignTokens.system.fontStyles.regular(it).rules
         fontSize = 100.pct
         position = Position.absolute
         inset    = Inset(0.px)
@@ -245,16 +245,16 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         }
         transition += propertyTransition(
             ::transform,
-            MaterialDesignTokens.reference.time.ms300,
-            MaterialDesignTokens.reference.timing.cubicBezier1,
-            MaterialDesignTokens.reference.time.immediate
+            materialDesignTokens.reference.time.ms300,
+            materialDesignTokens.reference.timing.cubicBezier1,
+            materialDesignTokens.reference.time.immediate
         )
-        opacity = MaterialDesignTokens.reference.opacities.run { if (it) full else transparent }
+        opacity = materialDesignTokens.reference.opacities.run { if (it) full else transparent }
         transition += propertyTransition(
             ::opacity,
-            MaterialDesignTokens.reference.time.immediate,
-            MaterialDesignTokens.reference.timing.ease,
-            MaterialDesignTokens.reference.time.run { if (it) immediate else ms300 }
+            materialDesignTokens.reference.time.immediate,
+            materialDesignTokens.reference.timing.ease,
+            materialDesignTokens.reference.time.run { if (it) immediate else ms300 }
         )
     }
 
@@ -265,7 +265,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val sideMenuContainer: DynamicCssProvider<Boolean> by dynamicCss {
         if (it) {
-            width      = MaterialDesignTokens.reference.sizes.absolute280
+            width      = materialDesignTokens.reference.sizes.absolute280
             flexShrink = .0
         }
     }
@@ -277,7 +277,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         top      = 0.px
         left     = 0.px
         bottom   = 0.px
-        width    = MaterialDesignTokens.reference.sizes.absolute280
+        width    = materialDesignTokens.reference.sizes.absolute280
 
         // Open-close-supporting appearance for smaller screens.
         if (it.isCloseable) {
@@ -306,11 +306,11 @@ private object ScaffoldStyles : DynamicStyleSheet() {
         position = Position.fixed
         inset    = Inset(0.px)
         zIndex   = 2
-        backgroundColor = MaterialDesignTokens.system.palette.scrim(it.context)
+        backgroundColor = materialDesignTokens.system.palette.scrim(it.context)
 
         // Styling for the hidden state.
         if (!it.isOpened || !it.isCloseable) {
-            opacity = MaterialDesignTokens.reference.opacities.transparent
+            opacity = materialDesignTokens.reference.opacities.transparent
             pointerEvents = PointerEvents.none
         }
 
@@ -323,7 +323,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
     val contents: DynamicCssProvider<Context> by dynamicCss {
         flexGrow = 1.0
-        backgroundColor = MaterialDesignTokens.system.palette.surface2(it)
+        backgroundColor = materialDesignTokens.system.palette.surface2(it)
     }
 
 }

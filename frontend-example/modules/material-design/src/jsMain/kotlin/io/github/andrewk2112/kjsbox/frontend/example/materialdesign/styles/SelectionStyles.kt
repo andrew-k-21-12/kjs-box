@@ -4,7 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.*
 
 /**
@@ -15,20 +15,20 @@ object SelectionStyles : DynamicStyleSheet() {
     // Public.
 
     val simpleActionHighlighting: DynamicCssProvider<Context> by dynamicCss {
-        color   = MaterialDesignTokens.system.palette.action2(it)
-        opacity = MaterialDesignTokens.reference.opacities.half
+        color   = materialDesignTokens.system.palette.action2(it)
+        opacity = materialDesignTokens.reference.opacities.half
         hover {
-            opacity = MaterialDesignTokens.reference.opacities.p4
+            opacity = materialDesignTokens.reference.opacities.p4
         }
     }
 
     val simpleHighlightingAndSelection: DynamicCssProvider<Context> by dynamicCss {
         +TransitionStyles.fastTransition(::backgroundColor).rules
         hover {
-            backgroundColor = MaterialDesignTokens.system.palette.selection1Focused(it)
+            backgroundColor = materialDesignTokens.system.palette.selection1Focused(it)
         }
         active {
-            backgroundColor = MaterialDesignTokens.system.palette.selection1Active(it)
+            backgroundColor = materialDesignTokens.system.palette.selection1Active(it)
         }
     }
 
@@ -51,7 +51,7 @@ object SelectionStyles : DynamicStyleSheet() {
     // Private.
 
     private val hoverableWithPaddedStrokeBase: NamedRuleSet by css {
-        padding = Padding(MaterialDesignTokens.reference.spacing.absolute20)
+        padding = Padding(materialDesignTokens.reference.spacing.absolute20)
         cursor = Cursor.pointer
     }
 

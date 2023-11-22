@@ -5,10 +5,9 @@ import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.FontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.arrowRightThinIcon
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
@@ -56,30 +55,30 @@ private object NotificationMessageStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         display = Display.flex
-        backgroundColor = MaterialDesignTokens.system.palette.backSpecial(it)
+        backgroundColor = materialDesignTokens.system.palette.backSpecial(it)
     }
 
     val titleAndDescriptionWrapper: NamedRuleSet by css { flexGrow = 1.0 }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.bold.rules
+        +materialDesignTokens.system.fontStyles.bold(it).rules
         padding = Padding(
-            top   = MaterialDesignTokens.reference.spacing.absolute25,
-            left  = MaterialDesignTokens.reference.spacing.absolute40,
-            right = MaterialDesignTokens.reference.spacing.absolute40,
+            top   = materialDesignTokens.reference.spacing.absolute25,
+            left  = materialDesignTokens.reference.spacing.absolute40,
+            right = materialDesignTokens.reference.spacing.absolute40,
         )
-        fontSize = MaterialDesignTokens.reference.fontSizes.relative1p2
-        color = MaterialDesignTokens.system.palette.onBackSpecial(it)
+        fontSize = materialDesignTokens.reference.fontSizes.relative1p2
+        color = materialDesignTokens.system.palette.onBackSpecial(it)
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
         padding = Padding(
-            top        = MaterialDesignTokens.reference.spacing.absolute8,
-            horizontal = MaterialDesignTokens.reference.spacing.absolute40,
-            bottom     = MaterialDesignTokens.reference.spacing.absolute26,
+            top        = materialDesignTokens.reference.spacing.absolute8,
+            horizontal = materialDesignTokens.reference.spacing.absolute40,
+            bottom     = materialDesignTokens.reference.spacing.absolute26,
         )
-        fontSize = MaterialDesignTokens.reference.fontSizes.relative0p85
-        color = MaterialDesignTokens.system.palette.onBackSpecial(it)
+        fontSize = materialDesignTokens.reference.fontSizes.relative0p85
+        color = materialDesignTokens.system.palette.onBackSpecial(it)
     }
 
     val actionButton: DynamicCssProvider<Context> by dynamicCss {
@@ -88,24 +87,24 @@ private object NotificationMessageStyles : DynamicStyleSheet() {
         alignSelf  = Align.center
         flexShrink = 0
         padding = Padding(
-            top    = MaterialDesignTokens.reference.spacing.absolute11p5,
-            bottom = MaterialDesignTokens.reference.spacing.absolute11p5,
-            left   = MaterialDesignTokens.reference.spacing.absolute15,
-            right  = MaterialDesignTokens.reference.spacing.absolute18,
+            top    = materialDesignTokens.reference.spacing.absolute11p5,
+            bottom = materialDesignTokens.reference.spacing.absolute11p5,
+            left   = materialDesignTokens.reference.spacing.absolute15,
+            right  = materialDesignTokens.reference.spacing.absolute18,
         )
-        marginRight = MaterialDesignTokens.reference.spacing.absolute40
-        borderRadius = MaterialDesignTokens.reference.radii.cornerAbsolute24
-        fontSize       = MaterialDesignTokens.reference.fontSizes.relative0p9
+        marginRight = materialDesignTokens.reference.spacing.absolute40
+        borderRadius = materialDesignTokens.reference.radii.cornerAbsolute24
+        fontSize       = materialDesignTokens.reference.fontSizes.relative0p9
         textDecoration = TextDecoration.none
-        color           = MaterialDesignTokens.system.palette.onAction1(it)
-        backgroundColor = MaterialDesignTokens.system.palette.action1(it)
+        color           = materialDesignTokens.system.palette.onAction1(it)
+        backgroundColor = materialDesignTokens.system.palette.action1(it)
         hover {
-            backgroundColor = MaterialDesignTokens.system.palette.action1Focused(it)
+            backgroundColor = materialDesignTokens.system.palette.action1Focused(it)
         }
     }
 
     val actionButtonArrow: NamedRuleSet by css {
-        marginLeft = MaterialDesignTokens.reference.spacing.absolute12
+        marginLeft = materialDesignTokens.reference.spacing.absolute12
     }
 
 }

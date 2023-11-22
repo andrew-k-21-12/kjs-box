@@ -2,7 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.boxShadow
 import kotlinx.css.properties.BoxShadow
 import kotlinx.css.px
@@ -14,33 +14,33 @@ object ShadowStyles : DynamicStyleSheet() {
 
     val defaultShadow: NamedRuleSet by css {
         boxShadow += BoxShadow(
-            MaterialDesignTokens.reference.palette.blackAlpha5,
-            offsetY    = MaterialDesignTokens.reference.spacing.absolute2,
-            blurRadius = MaterialDesignTokens.reference.radii.shadowAbsolute4
+            materialDesignTokens.reference.palette.blackAlpha5,
+            offsetY    = materialDesignTokens.reference.spacing.absolute2,
+            blurRadius = materialDesignTokens.reference.radii.shadowAbsolute4
         )
     }
 
     val complexShadow: NamedRuleSet by css {
         boxShadow += BoxShadow(
-            MaterialDesignTokens.reference.palette.blackAlpha3,
+            materialDesignTokens.reference.palette.blackAlpha3,
             offsetX      = 0.px,
-            offsetY      = MaterialDesignTokens.reference.spacing.absolute8,
-            blurRadius   = MaterialDesignTokens.reference.radii.shadowAbsolute10,
-            spreadRadius = MaterialDesignTokens.reference.radii.shadowAbsoluteN5
+            offsetY      = materialDesignTokens.reference.spacing.absolute8,
+            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute10,
+            spreadRadius = materialDesignTokens.reference.radii.shadowAbsoluteN5
         )
         boxShadow += BoxShadow(
-            MaterialDesignTokens.reference.palette.blackAlpha2,
+            materialDesignTokens.reference.palette.blackAlpha2,
             offsetX      = 0.px,
-            offsetY      = MaterialDesignTokens.reference.spacing.absolute16,
-            blurRadius   = MaterialDesignTokens.reference.radii.shadowAbsolute24,
-            spreadRadius = MaterialDesignTokens.reference.radii.shadowAbsolute2
+            offsetY      = materialDesignTokens.reference.spacing.absolute16,
+            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute24,
+            spreadRadius = materialDesignTokens.reference.radii.shadowAbsolute2
         )
         boxShadow += BoxShadow(
-            MaterialDesignTokens.reference.palette.blackAlpha1,
+            materialDesignTokens.reference.palette.blackAlpha1,
             offsetX      = 0.px,
-            offsetY      = MaterialDesignTokens.reference.spacing.absolute6,
-            blurRadius   = MaterialDesignTokens.reference.radii.shadowAbsolute30,
-            spreadRadius = MaterialDesignTokens.reference.radii.shadowAbsolute5
+            offsetY      = materialDesignTokens.reference.spacing.absolute6,
+            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute30,
+            spreadRadius = materialDesignTokens.reference.radii.shadowAbsolute5
         )
     }
 

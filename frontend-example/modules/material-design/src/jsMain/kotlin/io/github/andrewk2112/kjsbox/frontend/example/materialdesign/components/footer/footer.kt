@@ -8,7 +8,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.FontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LabelStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.SelectionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.googleLogoIcon
@@ -20,7 +19,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.a
@@ -132,17 +131,17 @@ private fun ChildrenBuilder.externalLink(
 private object FooterStyles : DynamicStyleSheet() {
 
     val background: DynamicCssProvider<Context> by dynamicCss {
-        backgroundColor = MaterialDesignTokens.system.palette.surface3(it)
+        backgroundColor = materialDesignTokens.system.palette.surface3(it)
     }
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +LayoutStyles.contentContainer.rules
         padding = Padding(
-            top        = MaterialDesignTokens.reference.spacing.run {
+            top        = materialDesignTokens.reference.spacing.run {
                              if (!it.isColumnFolded) absolute48 else absolute32
                          },
-            horizontal = MaterialDesignTokens.reference.spacing.absolute40,
-            bottom     = MaterialDesignTokens.reference.spacing.absolute35
+            horizontal = materialDesignTokens.reference.spacing.absolute40,
+            bottom     = materialDesignTokens.reference.spacing.absolute35
         )
     }
 
@@ -158,37 +157,37 @@ private object FooterStyles : DynamicStyleSheet() {
 
     val adaptiveMargins: DynamicCssProvider<Context> by dynamicCss {
         if (it.isColumnFolded) {
-            marginTop = MaterialDesignTokens.reference.spacing.absolute16
+            marginTop = materialDesignTokens.reference.spacing.absolute16
         } else {
             flexBasis = FlexBasis.zero
             flexGrow  = 1
-            marginLeft = MaterialDesignTokens.reference.spacing.absolute32
-            marginTop  = MaterialDesignTokens.reference.spacing.absolute1
+            marginLeft = materialDesignTokens.reference.spacing.absolute32
+            marginTop  = materialDesignTokens.reference.spacing.absolute1
         }
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
-        +FontStyles.light.rules
-        fontSize   = MaterialDesignTokens.reference.fontSizes.relative0p875
-        lineHeight = MaterialDesignTokens.reference.fontSizes.lineHeight1p5
-        color = MaterialDesignTokens.system.palette.onSurface3(it)
+        +materialDesignTokens.system.fontStyles.light(it).rules
+        fontSize   = materialDesignTokens.reference.fontSizes.relative0p875
+        lineHeight = materialDesignTokens.reference.fontSizes.lineHeight1p5
+        color = materialDesignTokens.system.palette.onSurface3(it)
         if (!it.isColumnFolded) {
             maxWidth = 50.pct
         }
     }
 
     val contentLinks: NamedRuleSet by css {
-        marginTop  = MaterialDesignTokens.reference.spacing.absolute34
-        lineHeight = MaterialDesignTokens.reference.fontSizes.lineHeight1p7
+        marginTop  = materialDesignTokens.reference.spacing.absolute34
+        lineHeight = materialDesignTokens.reference.fontSizes.lineHeight1p7
     }
 
     val divider: NamedRuleSet by css {
-        marginTop = MaterialDesignTokens.reference.spacing.absolute37
+        marginTop = materialDesignTokens.reference.spacing.absolute37
     }
 
     val lowerBlock: DynamicCssProvider<Context> by dynamicCss {
         display   = Display.flex
-        marginTop = MaterialDesignTokens.reference.spacing.absolute32
+        marginTop = materialDesignTokens.reference.spacing.absolute32
         if (it.isColumnFolded) {
             flexDirection = FlexDirection.column
         } else {
@@ -197,35 +196,35 @@ private object FooterStyles : DynamicStyleSheet() {
     }
 
     val googleLink: DynamicCssProvider<Context> by dynamicCss {
-        marginRight = MaterialDesignTokens.reference.spacing.absolute32
+        marginRight = materialDesignTokens.reference.spacing.absolute32
         if (it.isColumnFolded) {
-            marginBottom = MaterialDesignTokens.reference.spacing.absolute15
+            marginBottom = materialDesignTokens.reference.spacing.absolute15
         }
     }
 
     val googleLogo: DynamicCssProvider<Context> by dynamicCss {
         display = Display.block
-        color = MaterialDesignTokens.system.palette.action3(it)
+        color = materialDesignTokens.system.palette.action3(it)
     }
 
     val contentLink: DynamicCssProvider<Context> by dynamicCss {
         display = Display.inline
         nthChild("n+2") {
             before {
-                margin = Margin(horizontal = MaterialDesignTokens.reference.spacing.absolute8)
+                margin = Margin(horizontal = materialDesignTokens.reference.spacing.absolute8)
                 content = QuotedString("/")
             }
         }
     }
 
     val serviceLink: DynamicCssProvider<Context> by dynamicCss {
-        lineHeight = MaterialDesignTokens.reference.fontSizes.lineHeight1p5
+        lineHeight = materialDesignTokens.reference.fontSizes.lineHeight1p5
         if (it.isColumnFolded) {
             display = Display.block
         } else {
             display = Display.inline
             nthChild("n+2") {
-                marginLeft = MaterialDesignTokens.reference.spacing.absolute16
+                marginLeft = materialDesignTokens.reference.spacing.absolute16
             }
         }
     }

@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.css.Padding
 import kotlinx.css.padding
 import react.ChildrenBuilder
@@ -38,7 +38,7 @@ private object ContentScaffoldStyles : DynamicStyleSheet() {
 
     val divider: NamedRuleSet by css {
         +LayoutStyles.contentContainer.rules
-        padding = Padding(horizontal = MaterialDesignTokens.reference.spacing.absolute40)
+        padding = Padding(horizontal = materialDesignTokens.reference.spacing.absolute40)
     }
 
 }

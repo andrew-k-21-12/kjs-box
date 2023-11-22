@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ex
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import kotlinx.css.*
@@ -55,7 +55,7 @@ private object ExercisesListStyles : DynamicStyleSheet() {
     }
 
     val listItem: NamedRuleSet by css {
-        val margin  = DesignTokens.reference.spacing.absolute5
+        val margin  = designTokens.reference.spacing.absolute5
         marginTop   = margin
         marginLeft  = margin
         marginRight = margin

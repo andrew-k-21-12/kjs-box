@@ -4,7 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.exercises.ComfortaaFontStyles
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -29,12 +29,12 @@ private object ExerciseLinkStyles : DynamicStyleSheet() {
 
     val link: DynamicCssProvider<Context> by dynamicCss {
         +ComfortaaFontStyles.regular.rules
-        fontSize       = DesignTokens.system.fontSizes.adaptive(it)
+        fontSize       = designTokens.system.fontSizes.adaptive(it)
         overflowWrap   = OverflowWrap.breakWord
         textDecoration = TextDecoration.none
-        color          = DesignTokens.system.palette.action(it)
+        color          = designTokens.system.palette.action(it)
         visited {
-            color = DesignTokens.system.palette.actionDimmed(it)
+            color = designTokens.system.palette.actionDimmed(it)
         }
     }
 

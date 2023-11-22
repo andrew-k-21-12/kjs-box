@@ -14,11 +14,11 @@ import kotlin.reflect.KProperty
  */
 open class DynamicStyleSheet(
     name: String? = null,
-    val isStatic: Boolean = true,
+    internal val isStatic: Boolean = true,
     private var imports: List<Import> = emptyList()
 ) {
 
-    // Public.
+    // Protected.
 
     /**
      * Helps to declare properties with dynamic styles according to provided arguments.
@@ -27,12 +27,12 @@ open class DynamicStyleSheet(
      *
      * @return An instance of the [DynamicCssDelegate] allowing the target property to invoke required styles.
      */
-    fun <T : Any> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
+    protected fun <T : Any> dynamicCss(builder: CssBuilder.(T) -> Unit) = DynamicCssDelegate(this, builder)
 
     /**
      * Provides a delegate for regular static style holders.
      */
-    fun css(vararg parents: RuleSet, builder: RuleSet) =
+    protected fun css(vararg parents: RuleSet, builder: RuleSet) =
         StaticCssHolder(this, *parents, builder)
             .also { addCssHolder(it) }
 

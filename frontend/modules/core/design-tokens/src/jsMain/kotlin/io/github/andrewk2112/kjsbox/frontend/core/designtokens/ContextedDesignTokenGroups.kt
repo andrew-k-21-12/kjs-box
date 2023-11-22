@@ -18,6 +18,11 @@ abstract class ContextedDesignTokenGroup<C> {
 abstract class ContextedFontSizes<C> : ContextedDesignTokenGroup<C>()
 
 /**
+ * Context-based font styles.
+ */
+abstract class ContextedFontStyles<C> : ContextedDesignTokenGroup<C>()
+
+/**
  * Context-based opacity values.
  */
 abstract class ContextedOpacities<C> : ContextedDesignTokenGroup<C>()

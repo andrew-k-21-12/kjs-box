@@ -9,10 +9,11 @@ class SystemDesignTokens(
     override val fontSizes: SystemFontSizes,
     override val palette:   SystemPalette,
 ) : SystemDesignTokens<Context> {
-    override val opacities = object : ContextedOpacities<Context>() {}
-    override val radii     = object : ContextedRadii<Context>() {}
-    override val sizes     = object : ContextedSizes<Context>() {}
-    override val spacing   = object : ContextedSpacing<Context>() {}
-    override val time      = object : ContextedTime<Context>() {}
-    override val timing    = object : ContextedTiming<Context>() {}
+    override val fontStyles = object : ContextedFontStyles<Context>() {}
+    override val opacities  = object : ContextedOpacities<Context>() {}
+    override val radii      = object : ContextedRadii<Context>() {}
+    override val sizes      = object : ContextedSizes<Context>() {}
+    override val spacing    = object : ContextedSpacing<Context>() {}
+    override val time       = object : ContextedTime<Context>() {}
+    override val timing     = object : ContextedTiming<Context>() {}
 }

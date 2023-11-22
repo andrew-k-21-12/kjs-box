@@ -5,7 +5,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.extensions.isLeftButton
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.setStyle
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
@@ -106,17 +106,17 @@ object AnimationStyles : DynamicStyleSheet() {
 
         position = Position.absolute
         borderRadius = 50.pct // to make it absolutely round
-        backgroundColor = MaterialDesignTokens.system.palette.selection1Active(it)
+        backgroundColor = materialDesignTokens.system.palette.selection1Active(it)
         pointerEvents = PointerEvents.none // to avoid intercepting taps
 
         transform { scale(0) }
         animation(
-            duration = MaterialDesignTokens.reference.time.ms600,
-            timing   = MaterialDesignTokens.reference.timing.linear,
+            duration = materialDesignTokens.reference.time.ms600,
+            timing   = materialDesignTokens.reference.timing.linear,
             builder  = {
                 to {
                     transform { scale(4) }
-                    opacity = MaterialDesignTokens.reference.opacities.transparent
+                    opacity = materialDesignTokens.reference.opacities.transparent
                 }
             }
         )

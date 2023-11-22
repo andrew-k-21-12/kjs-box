@@ -4,7 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
 import io.github.andrewk2112.utility.string.extensions.capitalize
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
@@ -30,8 +30,8 @@ sealed class StrokeColor {
  * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
  */
 private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
-    StrokeColor.Default   -> MaterialDesignTokens.system.palette.stroke1(context)
-    StrokeColor.Intense   -> MaterialDesignTokens.system.palette.stroke2(context)
+    StrokeColor.Default   -> materialDesignTokens.system.palette.stroke1(context)
+    StrokeColor.Intense   -> materialDesignTokens.system.palette.stroke2(context)
     is StrokeColor.Custom -> colorReference.get().invoke(context)
 }
 
@@ -86,7 +86,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies a border-based stroke. */
     val borderStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        val strokeWidth = MaterialDesignTokens.system.sizes.stroke(it.context)
+        val strokeWidth = materialDesignTokens.system.sizes.stroke(it.context)
         val strokeColor = it.color.getThemedColor(it.context)
         it.positions.map { position ->
             position.matchingStylingProperty.set(this, Border(strokeWidth, BorderStyle.solid, strokeColor))
@@ -95,7 +95,7 @@ object StrokeStyles : DynamicStyleSheet() {
 
     /** Applies an outline-based stroke. */
     val outlineStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        outlineWidth = MaterialDesignTokens.system.sizes.stroke(it.context)
+        outlineWidth = materialDesignTokens.system.sizes.stroke(it.context)
         outlineStyle = OutlineStyle.solid
         outlineColor = it.color.getThemedColor(it.context)
     }

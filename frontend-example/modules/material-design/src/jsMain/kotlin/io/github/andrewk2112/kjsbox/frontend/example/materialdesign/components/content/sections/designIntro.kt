@@ -78,7 +78,10 @@ private inline fun ChildrenBuilder.gridContainer(context: Context, crossinline c
  * The title and call to action block, takes the entire width on smaller screens.
  */
 private fun ChildrenBuilder.titleAndCallToActionItem(context: Context, title: String, callToAction: String) =
-    +div(LayoutStyles.gridDoubleOccupyingItem(context).name, DesignIntroStyles.horizontalSpacingGridItem.name) {
+    +div(
+        materialDesignTokens.component.layout.gridDoubleOccupyingItem(context).name,
+        DesignIntroStyles.horizontalSpacingGridItem.name
+    ) {
         +p(clazz = DesignIntroStyles.title(context).name) { +title }
         +p(clazz = DesignIntroStyles.callToAction(context).name) { +callToAction }
     }
@@ -93,7 +96,10 @@ private inline fun ChildrenBuilder.popularTopicsItem(
     sectionSubtitle: String,
     crossinline topicsAdapter: ((title: String, destinationEndpoint: String) -> Unit) -> Unit,
 ) =
-    +div(LayoutStyles.gridHidingItem(context).name, DesignIntroStyles.horizontalSpacingGridItem.name) {
+    +div(
+        materialDesignTokens.component.layout.gridHidingItem(context).name,
+        DesignIntroStyles.horizontalSpacingGridItem.name
+    ) {
 
         // Title.
         +p(DesignIntroStyles.category(context).name, DesignIntroStyles.popularTopicsCategory.name) {
@@ -126,8 +132,12 @@ private fun ChildrenBuilder.topicPreviewItem(
     illustration: ResourceImage,
     illustrationAlternativeText: String,
 ) =
-    +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
-        +div(clazz = SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
+    +div(
+        clazz = materialDesignTokens.component.layout.run {
+            if (hasDoubleWidth) gridDoubleItem else gridItem
+        }(context).name
+    ) {
+        +div(clazz = materialDesignTokens.component.selection.hoverableWithIntensePaddedStroke(context).name) {
             image(illustration, illustrationAlternativeText, DesignIntroStyles.topicIllustration(context).name)
             +p(DesignIntroStyles.category(context).name, DesignIntroStyles.topicCategory.name) { +category.uppercase() }
             +p(clazz = DesignIntroStyles.topicTitle(context).name) { +title }
@@ -146,8 +156,8 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
-        +LayoutStyles.contentContainer.rules
-        +LayoutStyles.grid(it).rules
+        +materialDesignTokens.component.layout.contentContainer.rules
+        +materialDesignTokens.component.layout.grid(it).rules
         padding = Padding(
             top        = materialDesignTokens.reference.spacing.run {
                              if (it.screenSize > SMALL_TABLET) absolute89 else absolute177
@@ -167,7 +177,7 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     }
 
     val callToAction: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.run { if (it.screenSize > PHONE) absolute20 else absolute16 }
         if (it.screenSize <= PHONE) {
             marginBottom = materialDesignTokens.reference.spacing.absolute16
@@ -212,12 +222,12 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     }
 
     val topicTitle: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkSubTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkSubTitle(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute6
     }
 
     val topicDescription: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkSmallerDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkSmallerDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute11
     }
 

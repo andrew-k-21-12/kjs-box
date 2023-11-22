@@ -7,9 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LabelStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.SelectionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CraneImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ReplyImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShrineImage
@@ -62,7 +59,7 @@ val materialStudies = FC {
 
 private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
     +div(clazz = MaterialStudiesStyles.container(context).name) {
-        +div(clazz = LayoutStyles.contentContainer.name, children)
+        +div(clazz = materialDesignTokens.component.layout.contentContainer.name, children)
     }
 
 private fun ChildrenBuilder.header(
@@ -100,8 +97,8 @@ private fun ChildrenBuilder.studyItem(
     illustrationAlternativeText: String,
 ) =
     div { // ← to prevent the item from taking the entire height of the grid's row
-        +div(clazz = SelectionStyles.hoverableWithIntensePaddedStroke(context).name) {
-            +strokedImage(clazz = materialDesignTokens.component.imageStyles.fitWidthKeepAspectImage.name) {
+        +div(clazz = materialDesignTokens.component.selection.hoverableWithIntensePaddedStroke(context).name) {
+            +strokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
@@ -131,7 +128,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkTitle(it).rules
         flexBasis = FlexBasis.zero
         flexGrow  = 1
         if (!it.isCompactAppearance) {
@@ -140,7 +137,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute20
         if (!it.isCompactAppearance) {
             order = Order(2)
@@ -158,7 +155,7 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
-        +LayoutStyles.grid(it).rules
+        +materialDesignTokens.component.layout.grid(it).rules
         padding = Padding(
             horizontal = materialDesignTokens.reference.spacing.absolute20,
             top        = if (it.isCompactAppearance) 0.px else materialDesignTokens.reference.spacing.absolute26,
@@ -167,12 +164,12 @@ private object MaterialStudiesStyles : DynamicStyleSheet() {
     }
 
     val studyTitle: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkSubTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkSubTitle(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute24
     }
 
     val studyDescription: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDarkSmallerDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDarkSmallerDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute10
     }
 

@@ -79,7 +79,11 @@ private fun ChildrenBuilder.item(
     destinationEndpoint: String,
     vararg classNames: String,
 ) =
-    +div(MenuStyles.item.name, SelectionStyles.simpleHighlightingAndSelection(context).name, *classNames) {
+    +div(
+        MenuStyles.item.name,
+        materialDesignTokens.component.selection.simpleHighlightingAndSelection(context).name,
+        *classNames
+    ) {
         +a(clazz = MenuStyles.itemLink(context).name) {
             safeBlankHref = destinationEndpoint
             addTapHighlighting()
@@ -114,7 +118,7 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val headerIcon: NamedRuleSet by css {
-        +materialDesignTokens.component.imageStyles.smallSizedIcon.rules
+        +materialDesignTokens.component.image.smallSizedIcon.rules
         marginLeft  = materialDesignTokens.reference.spacing.absolute24
         marginRight = materialDesignTokens.reference.spacing.absolute16
     }

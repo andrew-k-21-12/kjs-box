@@ -140,7 +140,7 @@ private object HeaderStyles : DynamicStyleSheet() {
     }
 
     val logoIcon: DynamicCssProvider<Boolean> by dynamicCss {
-        +materialDesignTokens.component.imageStyles.smallSizedIcon.rules
+        +materialDesignTokens.component.image.smallSizedIcon.rules
         flexShrink = 0
         if (!it) {
             marginLeft = materialDesignTokens.reference.spacing.absolute24

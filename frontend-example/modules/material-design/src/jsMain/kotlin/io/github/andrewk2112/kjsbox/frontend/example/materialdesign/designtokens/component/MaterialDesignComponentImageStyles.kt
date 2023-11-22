@@ -2,7 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtoken
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSizes
 import kotlinx.css.LinearDimension
 import kotlinx.css.height
 import kotlinx.css.pct
@@ -14,7 +14,7 @@ import kotlinx.css.width
  * Here and for similar style sheet classes names are longer (with prefixes)
  * to avoid name conflicts for generated sheets.
  */
-class MaterialDesignComponentImageStyles : DynamicStyleSheet() {
+class MaterialDesignComponentImageStyles(private val referenceSizes: ReferenceSizes) : DynamicStyleSheet() {
 
     val fitWidthKeepAspectImage: NamedRuleSet by css {
         width  = 100.pct
@@ -22,8 +22,8 @@ class MaterialDesignComponentImageStyles : DynamicStyleSheet() {
     }
 
     val smallSizedIcon: NamedRuleSet by css {
-        width  = materialDesignTokens.reference.sizes.absolute32
-        height = materialDesignTokens.reference.sizes.absolute32
+        width  = referenceSizes.absolute32
+        height = referenceSizes.absolute32
     }
 
 }

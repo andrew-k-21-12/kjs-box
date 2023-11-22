@@ -6,7 +6,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialArticles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialStudies
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.whatsNew
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
@@ -37,7 +36,7 @@ private fun ChildrenBuilder.divider() = +div(clazz = ContentScaffoldStyles.divid
 private object ContentScaffoldStyles : DynamicStyleSheet() {
 
     val divider: NamedRuleSet by css {
-        +LayoutStyles.contentContainer.rules
+        +materialDesignTokens.component.layout.contentContainer.rules
         padding = Padding(horizontal = materialDesignTokens.reference.spacing.absolute40)
     }
 

@@ -7,9 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LabelStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.SelectionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.googleLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoEmptyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
@@ -76,7 +73,7 @@ private inline fun ChildrenBuilder.upperBlock(crossinline children: ChildrenBuil
     +section(clazz = FooterStyles.upperBlock.name, children)
 
 private fun ChildrenBuilder.logoLink(context: Context) =
-    +a(clazz = SelectionStyles.simpleActionHighlighting(context).name) {
+    +a(clazz = materialDesignTokens.component.selection.simpleActionHighlighting(context).name) {
         safeBlankHref = MainMaterialEndpoints.root
         +materialDesignLogoEmptyIcon(clazz = FooterStyles.logoIcon.name)
     }
@@ -135,7 +132,7 @@ private object FooterStyles : DynamicStyleSheet() {
     }
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        +LayoutStyles.contentContainer.rules
+        +materialDesignTokens.component.layout.contentContainer.rules
         padding = Padding(
             top        = materialDesignTokens.reference.spacing.run {
                              if (!it.isColumnFolded) absolute48 else absolute32
@@ -230,7 +227,7 @@ private object FooterStyles : DynamicStyleSheet() {
     }
 
     val linkAnchor: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.link(it).rules
+        +materialDesignTokens.component.label.link(it).rules
         display = Display.inlineBlock // to avoid wrapping by word
     }
 

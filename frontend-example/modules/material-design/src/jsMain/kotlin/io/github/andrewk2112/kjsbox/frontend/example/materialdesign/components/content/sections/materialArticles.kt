@@ -4,7 +4,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CustomColorPalettesGenerationImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShapePowerImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SystemIconsImage
@@ -80,9 +79,13 @@ private fun ChildrenBuilder.articleItem(
     illustration: ResourceImage,
     illustrationAlternativeText: String,
 ) =
-    +div(clazz = LayoutStyles.run { if (hasDoubleWidth) gridDoubleItem else gridItem }(context).name) {
-        +div(clazz = SelectionStyles.hoverableWithDefaultPaddedStroke(context).name) {
-            +strokedImage(clazz = materialDesignTokens.component.imageStyles.fitWidthKeepAspectImage.name) {
+    +div(
+        clazz = materialDesignTokens.component.layout.run {
+            if (hasDoubleWidth) gridDoubleItem else gridItem
+        }(context).name
+    ) {
+        +div(clazz = materialDesignTokens.component.selection.hoverableWithDefaultPaddedStroke(context).name) {
+            +strokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
@@ -98,7 +101,7 @@ private fun ChildrenBuilder.articleItem(
 private object MaterialArticlesStyles : DynamicStyleSheet() {
 
     val container: NamedRuleSet by css {
-        +LayoutStyles.contentContainer.rules
+        +materialDesignTokens.component.layout.contentContainer.rules
         padding = Padding(
             top        = materialDesignTokens.reference.spacing.absolute43,
             bottom     = materialDesignTokens.reference.spacing.absolute50,
@@ -107,12 +110,12 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
     }
 
     val title: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockTitle(it).rules
         margin = Margin(horizontal = materialDesignTokens.reference.spacing.absolute20)
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDescription(it).rules
         margin = Margin(
             left  = materialDesignTokens.reference.spacing.absolute20,
             right = materialDesignTokens.reference.spacing.absolute20,
@@ -121,17 +124,17 @@ private object MaterialArticlesStyles : DynamicStyleSheet() {
     }
 
     val grid: DynamicCssProvider<Context> by dynamicCss {
-        +LayoutStyles.grid(it).rules
+        +materialDesignTokens.component.layout.grid(it).rules
         padding = Padding(top = materialDesignTokens.reference.spacing.absolute26)
     }
 
     val articleTitle: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockSubTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockSubTitle(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute24
     }
 
     val articleDescription: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockSmallerDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockSmallerDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute10
     }
 

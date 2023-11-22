@@ -1,13 +1,14 @@
-package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.GridColumns.*
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.GridColumns.*
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSizes
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSpacing
 import kotlinx.css.*
 
 
@@ -15,12 +16,15 @@ import kotlinx.css.*
 // Public.
 
 /**
- * Reusable styles for various types of layouts.
+ * Reusable layout styles.
  */
-object LayoutStyles : DynamicStyleSheet() {
+class MaterialDesignComponentLayoutStyles(
+    private val referenceSizes: ReferenceSizes,
+    private val referenceSpacing: ReferenceSpacing,
+) : DynamicStyleSheet() {
 
     val contentContainer: NamedRuleSet by css {
-        maxWidth = materialDesignTokens.reference.sizes.absolute1240
+        maxWidth = referenceSizes.absolute1240
         margin   = Margin(horizontal = LinearDimension.auto)
     }
 
@@ -28,7 +32,7 @@ object LayoutStyles : DynamicStyleSheet() {
         val gridColumns = it.gridColumns
         display             = Display.grid
         gridTemplateColumns = GridTemplateColumns.repeat("${gridColumns.columnCount}, 1fr")
-        rowGap              = materialDesignTokens.reference.spacing.run {
+        rowGap              = referenceSpacing.run {
                                   if (gridColumns == TWO) absolute66 else absolute50
                               }
     }

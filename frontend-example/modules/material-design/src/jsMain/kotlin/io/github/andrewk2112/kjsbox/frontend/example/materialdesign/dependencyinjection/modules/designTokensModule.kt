@@ -5,6 +5,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.ReferenceDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.SystemDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.MaterialDesignComponentImageStyles
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.MaterialDesignComponentLabelStyles
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.MaterialDesignComponentLayoutStyles
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.MaterialDesignComponentSelectionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemFontSizes
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemFontStyles
@@ -40,8 +43,11 @@ val designTokensModule = DI.Module("DesignTokens") {
     bindSingleton { SystemDesignTokens(instance(), instance(), instance(), instance()) }
 
     // Component.
-    bindSingleton { MaterialDesignComponentImageStyles() }
-    bindSingleton { ComponentDesignTokens(instance()) }
+    bindSingleton { MaterialDesignComponentImageStyles(instance()) }
+    bindSingleton { MaterialDesignComponentLabelStyles(instance(), instance(), instance(), instance(), instance()) }
+    bindSingleton { MaterialDesignComponentLayoutStyles(instance(), instance()) }
+    bindSingleton { MaterialDesignComponentSelectionStyles(instance(), instance(), instance()) }
+    bindSingleton { ComponentDesignTokens(instance(), instance(), instance(), instance()) }
 
     // All together.
     bindSingleton { MaterialDesignTokens(instance(), instance(), instance()) }

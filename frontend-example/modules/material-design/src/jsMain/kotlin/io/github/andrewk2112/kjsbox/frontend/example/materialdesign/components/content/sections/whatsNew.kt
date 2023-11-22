@@ -6,8 +6,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.WhatsNewMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LayoutStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.LabelStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
@@ -61,7 +59,7 @@ private inline fun ChildrenBuilder.container(context: Context, crossinline child
     +div(clazz = WhatsNewStyles.container(context).name, children)
 
 private fun ChildrenBuilder.titleLink(context: Context, title: String, destinationEndpoint: String) =
-    +a(clazz = LabelStyles.contentBlockLinkTitle(context).name) {
+    +a(clazz = materialDesignTokens.component.label.contentBlockLinkTitle(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
@@ -105,7 +103,7 @@ private fun ChildrenBuilder.viewAllButton(label: String, destinationEndpoint: St
 private object WhatsNewStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        +LayoutStyles.contentContainer.rules
+        +materialDesignTokens.component.layout.contentContainer.rules
         padding = Padding(
             top        = materialDesignTokens.reference.spacing.run {
                              if (it.screenSize >= SMALL_TABLET) absolute89 else absolute64
@@ -116,24 +114,24 @@ private object WhatsNewStyles : DynamicStyleSheet() {
     }
 
     val description: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDescription(it).rules
         marginTop    = materialDesignTokens.reference.spacing.absolute12
         marginBottom = materialDesignTokens.reference.spacing.absolute38
     }
 
     val blogRecordDate: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDate(it).rules
+        +materialDesignTokens.component.label.contentBlockDate(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute27
     }
 
     val blogRecordTitle: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockLinkSmallTitle(it).rules
+        +materialDesignTokens.component.label.contentBlockLinkSmallTitle(it).rules
         display = Display.inlineBlock
         marginTop = materialDesignTokens.reference.spacing.absolute7
     }
 
     val blogRecordDescription: DynamicCssProvider<Context> by dynamicCss {
-        +LabelStyles.contentBlockDescription(it).rules
+        +materialDesignTokens.component.label.contentBlockDescription(it).rules
         marginTop = materialDesignTokens.reference.spacing.absolute6
     }
 

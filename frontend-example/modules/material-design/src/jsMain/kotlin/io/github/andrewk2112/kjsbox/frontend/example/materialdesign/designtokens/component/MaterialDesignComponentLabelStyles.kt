@@ -1,32 +1,42 @@
-package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceFontSizes
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceOpacities
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemFontSizes
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemFontStyles
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemPalette
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
 
 /**
- * Styles for reusable labels.
+ * Reusable label styles.
  */
-object LabelStyles : DynamicStyleSheet() {
+class MaterialDesignComponentLabelStyles(
+    private val referenceFontSizes: ReferenceFontSizes,
+    private val referenceOpacities: ReferenceOpacities,
+    private val systemFontSizes: SystemFontSizes,
+    private val systemFontStyles: SystemFontStyles,
+    private val systemPalette: SystemPalette,
+) : DynamicStyleSheet() {
 
     // Public.
 
     val link: DynamicCssProvider<Context> by dynamicCss {
         textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
-        fontSize = materialDesignTokens.reference.fontSizes.relative0p875
-        color = materialDesignTokens.system.palette.action3(it)
+        fontSize = referenceFontSizes.relative0p875
+        color = systemPalette.action3(it)
         hover {
-            opacity = materialDesignTokens.reference.opacities.p8
+            opacity = referenceOpacities.p8
         }
     }
 
     val contentBlockTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockTitleSize(it).rules
-        color = materialDesignTokens.system.palette.onSurface2(it)
+        color = systemPalette.onSurface2(it)
     }
 
     val contentBlockLinkTitle: DynamicCssProvider<Context> by dynamicCss {
@@ -37,49 +47,49 @@ object LabelStyles : DynamicStyleSheet() {
 
     val contentBlockDarkTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockTitleSize(it).rules
-        color = materialDesignTokens.system.palette.onSurface1(it)
+        color = systemPalette.onSurface1(it)
     }
 
     val contentBlockSubTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockSubTitleSize(it).rules
-        color = materialDesignTokens.system.palette.onSurface2(it)
+        color = systemPalette.onSurface2(it)
     }
 
     val contentBlockDarkSubTitle: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockSubTitleSize(it).rules
-        color = materialDesignTokens.system.palette.onSurface1(it)
+        color = systemPalette.onSurface1(it)
     }
 
     val contentBlockLinkSmallTitle: DynamicCssProvider<Context> by dynamicCss {
-        +materialDesignTokens.system.fontStyles.bold(it).rules
+        +systemFontStyles.bold(it).rules
         +contentBlockLinkColor(it).rules
-        fontSize = materialDesignTokens.system.fontSizes.adaptive2(it)
+        fontSize = systemFontSizes.adaptive2(it)
     }
 
     val contentBlockDescription: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockBaseDescription(it).rules
-        color = materialDesignTokens.system.palette.onSurface2Lighter(it)
+        color = systemPalette.onSurface2Lighter(it)
     }
 
     val contentBlockDarkDescription: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockBaseDescription(it).rules
-        color = materialDesignTokens.system.palette.onSurface1(it)
+        color = systemPalette.onSurface1(it)
     }
 
     val contentBlockSmallerDescription: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockBaseSmallerDescription(it).rules
-        color = materialDesignTokens.system.palette.onSurface2Lighter(it)
+        color = systemPalette.onSurface2Lighter(it)
     }
 
     val contentBlockDarkSmallerDescription: DynamicCssProvider<Context> by dynamicCss {
         +contentBlockBaseSmallerDescription(it).rules
-        color = materialDesignTokens.system.palette.onSurface1(it)
+        color = systemPalette.onSurface1(it)
     }
 
     val contentBlockDate: DynamicCssProvider<Context> by dynamicCss {
-        +materialDesignTokens.system.fontStyles.mono(it).rules
-        fontSize = materialDesignTokens.reference.fontSizes.relative0p875
-        color = materialDesignTokens.system.palette.onSurface2Lighter(it)
+        +systemFontStyles.mono(it).rules
+        fontSize = referenceFontSizes.relative0p875
+        color = systemPalette.onSurface2Lighter(it)
     }
 
 
@@ -87,31 +97,31 @@ object LabelStyles : DynamicStyleSheet() {
     // Private.
 
     private val contentBlockTitleSize: DynamicCssProvider<Context> by dynamicCss {
-        +materialDesignTokens.system.fontStyles.regular(it).rules
-        fontSize = materialDesignTokens.system.fontSizes.adaptive4(it)
+        +systemFontStyles.regular(it).rules
+        fontSize = systemFontSizes.adaptive4(it)
     }
 
     private val contentBlockSubTitleSize: DynamicCssProvider<Context> by dynamicCss {
-        fontSize = materialDesignTokens.system.fontSizes.adaptive3(it)
+        fontSize = systemFontSizes.adaptive3(it)
     }
 
     private val contentBlockBaseDescription: DynamicCssProvider<Context> by dynamicCss {
-        +materialDesignTokens.system.fontStyles.light(it).rules
-        fontSize = materialDesignTokens.system.fontSizes.adaptive2(it)
+        +systemFontStyles.light(it).rules
+        fontSize = systemFontSizes.adaptive2(it)
     }
 
     private val contentBlockBaseSmallerDescription: DynamicCssProvider<Context> by dynamicCss {
-        +materialDesignTokens.system.fontStyles.light(it).rules
-        fontSize = materialDesignTokens.system.fontSizes.adaptive1(it)
+        +systemFontStyles.light(it).rules
+        fontSize = systemFontSizes.adaptive1(it)
     }
 
     private val contentBlockLinkColor: DynamicCssProvider<Context> by dynamicCss {
-        color = materialDesignTokens.system.palette.onSurface2(it)
+        color = systemPalette.onSurface2(it)
         visited {
-            color = materialDesignTokens.system.palette.onSurface2Lighter(it)
+            color = systemPalette.onSurface2Lighter(it)
         }
         hover {
-            opacity = materialDesignTokens.reference.opacities.p8
+            opacity = referenceOpacities.p8
         }
     }
 

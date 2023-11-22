@@ -51,7 +51,7 @@ private object RectButtonStyles : DynamicStyleSheet() {
         +StrokeStyles.borderStroke(
             StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface2SlightlyLighter))
         ).rules
-        +SelectionStyles.simpleHighlightingAndSelection(it).rules
+        +materialDesignTokens.component.selection.simpleHighlightingAndSelection(it).rules
         color = materialDesignTokens.system.palette.onSurface2SlightlyLighter(it)
 
         hover {

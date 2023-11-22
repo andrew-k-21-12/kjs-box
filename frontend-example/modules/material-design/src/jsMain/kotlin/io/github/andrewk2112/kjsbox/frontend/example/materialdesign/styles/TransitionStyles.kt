@@ -1,30 +1,34 @@
-package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTime
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTiming
 import kotlinx.css.transition
 import kotlin.reflect.KProperty
 
 /**
- * Contains some common transition configs.
+ * Reusable transition styles.
  */
-object TransitionStyles : DynamicStyleSheet() {
+class MaterialDesignComponentTransitionStyles(
+    private val referenceTime: ReferenceTime,
+    private val referenceTiming: ReferenceTiming,
+) : DynamicStyleSheet() {
 
-    val flashingTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {
+    val flashing: DynamicCssProvider<KProperty<*>> by dynamicCss {
         transition += propertyTransition(
             it,
-            materialDesignTokens.reference.time.ms100,
-            materialDesignTokens.reference.timing.cubicBezier1
+            referenceTime.ms100,
+            referenceTiming.cubicBezier1
         )
     }
 
-    val fastTransition: DynamicCssProvider<KProperty<*>> by dynamicCss {
+    val fast: DynamicCssProvider<KProperty<*>> by dynamicCss {
         transition += propertyTransition(
             it,
-            materialDesignTokens.reference.time.ms200,
-            materialDesignTokens.reference.timing.cubicBezier1
+            referenceTime.ms200,
+            referenceTiming.cubicBezier1
         )
     }
 

@@ -1,46 +1,52 @@
-package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferencePalette
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceRadii
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSpacing
 import kotlinx.css.boxShadow
 import kotlinx.css.properties.BoxShadow
 import kotlinx.css.px
 
 /**
- * Contains typical shadow styles.
+ * Reusable shadow styles.
  */
-object ShadowStyles : DynamicStyleSheet() {
+class MaterialDesignComponentShadowStyles(
+    private val referencePalette: ReferencePalette,
+    private val referenceRadii: ReferenceRadii,
+    private val referenceSpacing: ReferenceSpacing,
+) : DynamicStyleSheet() {
 
-    val defaultShadow: NamedRuleSet by css {
+    val default: NamedRuleSet by css {
         boxShadow += BoxShadow(
-            materialDesignTokens.reference.palette.blackAlpha5,
-            offsetY    = materialDesignTokens.reference.spacing.absolute2,
-            blurRadius = materialDesignTokens.reference.radii.shadowAbsolute4
+            referencePalette.blackAlpha5,
+            offsetY    = referenceSpacing.absolute2,
+            blurRadius = referenceRadii.shadowAbsolute4
         )
     }
 
-    val complexShadow: NamedRuleSet by css {
+    val complex: NamedRuleSet by css {
         boxShadow += BoxShadow(
-            materialDesignTokens.reference.palette.blackAlpha3,
+            referencePalette.blackAlpha3,
             offsetX      = 0.px,
-            offsetY      = materialDesignTokens.reference.spacing.absolute8,
-            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute10,
-            spreadRadius = materialDesignTokens.reference.radii.shadowAbsoluteN5
+            offsetY      = referenceSpacing.absolute8,
+            blurRadius   = referenceRadii.shadowAbsolute10,
+            spreadRadius = referenceRadii.shadowAbsoluteN5
         )
         boxShadow += BoxShadow(
-            materialDesignTokens.reference.palette.blackAlpha2,
+            referencePalette.blackAlpha2,
             offsetX      = 0.px,
-            offsetY      = materialDesignTokens.reference.spacing.absolute16,
-            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute24,
-            spreadRadius = materialDesignTokens.reference.radii.shadowAbsolute2
+            offsetY      = referenceSpacing.absolute16,
+            blurRadius   = referenceRadii.shadowAbsolute24,
+            spreadRadius = referenceRadii.shadowAbsolute2
         )
         boxShadow += BoxShadow(
-            materialDesignTokens.reference.palette.blackAlpha1,
+            referencePalette.blackAlpha1,
             offsetX      = 0.px,
-            offsetY      = materialDesignTokens.reference.spacing.absolute6,
-            blurRadius   = materialDesignTokens.reference.radii.shadowAbsolute30,
-            spreadRadius = materialDesignTokens.reference.radii.shadowAbsolute5
+            offsetY      = referenceSpacing.absolute6,
+            blurRadius   = referenceRadii.shadowAbsolute30,
+            spreadRadius = referenceRadii.shadowAbsolute5
         )
     }
 

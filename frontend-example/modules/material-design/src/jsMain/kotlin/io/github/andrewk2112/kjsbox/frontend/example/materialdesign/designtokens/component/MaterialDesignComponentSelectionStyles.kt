@@ -10,7 +10,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeColor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeConfigs
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.TransitionStyles
 import kotlinx.css.*
 
 /**
@@ -20,6 +19,7 @@ class MaterialDesignComponentSelectionStyles(
     private val referenceOpacities: ReferenceOpacities,
     private val referenceSpacing: ReferenceSpacing,
     private val systemPalette: SystemPalette,
+    private val componentTransitionStyles: MaterialDesignComponentTransitionStyles
 ) : DynamicStyleSheet() {
 
     // Public.
@@ -33,7 +33,7 @@ class MaterialDesignComponentSelectionStyles(
     }
 
     val simpleHighlightingAndSelection: DynamicCssProvider<Context> by dynamicCss {
-        +TransitionStyles.fastTransition(::backgroundColor).rules
+        +componentTransitionStyles.fast(::backgroundColor).rules
         hover {
             backgroundColor = systemPalette.selection1Focused(it)
         }

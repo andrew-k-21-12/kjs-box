@@ -13,8 +13,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.f
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.ShadowStyles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.TransitionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
@@ -235,7 +233,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
     }
 
     val slidingHeader: DynamicCssProvider<Boolean> by dynamicCss {
-        +ShadowStyles.defaultShadow.rules
+        +materialDesignTokens.component.shadow.default.rules
         position = Position.sticky // providing relative spacing for neighbour elements but allowing to scroll over it
         top      = 0.px            // sticking to the top
         width    = 100.pct
@@ -287,13 +285,13 @@ private object ScaffoldStyles : DynamicStyleSheet() {
                 translateX(if (it.isOpened) 0.pct else (-100).pct)
             }
             if (it.isOpened) {
-                +ShadowStyles.complexShadow.rules
+                +materialDesignTokens.component.shadow.complex.rules
             }
 
             // Transition animations are enabled only when the menu opens or closes.
             if (it.isTransiting) {
-                +TransitionStyles.fastTransition(::transform).rules
-                +TransitionStyles.fastTransition(::boxShadow).rules
+                +materialDesignTokens.component.transition.fast(::transform).rules
+                +materialDesignTokens.component.transition.fast(::boxShadow).rules
             }
 
         }
@@ -316,7 +314,7 @@ private object ScaffoldStyles : DynamicStyleSheet() {
 
         // Transition animation when the menu opens or closes.
         if (it.isTransiting) {
-            +TransitionStyles.fastTransition(::opacity).rules
+            +materialDesignTokens.component.transition.fast(::opacity).rules
         }
 
     }

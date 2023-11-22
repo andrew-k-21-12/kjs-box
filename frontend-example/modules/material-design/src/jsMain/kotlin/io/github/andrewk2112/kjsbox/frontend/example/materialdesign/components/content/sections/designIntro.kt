@@ -205,7 +205,7 @@ private object DesignIntroStyles : DynamicStyleSheet() {
         // As the bottom margin interleaves with the next one.
         marginBottom   = topSpacing + designTokens.reference.spacing.absolute5
         children {
-            +TransitionStyles.flashingTransition(::color).rules
+            +materialDesignTokens.component.transition.flashing(::color).rules
             textDecoration = TextDecoration(setOf(TextDecorationLine.underline))
             fontSize       = materialDesignTokens.reference.fontSizes.relative1p2
             color = materialDesignTokens.system.palette.onSurface1(it)

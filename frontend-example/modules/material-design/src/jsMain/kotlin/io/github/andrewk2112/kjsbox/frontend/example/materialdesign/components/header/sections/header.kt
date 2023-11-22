@@ -12,7 +12,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.TransitionStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.magnifyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.menuIcon
@@ -193,7 +192,7 @@ private object HeaderStyles : DynamicStyleSheet() {
     val navigationItem: DynamicCssProvider<Context> by dynamicCss {
 
         // Basic styling.
-        +TransitionStyles.flashingTransition(::color).rules
+        +materialDesignTokens.component.transition.flashing(::color).rules
         display = Display.inlineGrid // using the inline variant to fit to the contents' width
         height  = 100.pct
         gridTemplateRows = GridTemplateRows.repeat("3, 1fr")
@@ -223,7 +222,7 @@ private object HeaderStyles : DynamicStyleSheet() {
     }
 
     val navigationItemSelectionIndicator: DynamicCssProvider<Context> by dynamicCss {
-        +TransitionStyles.flashingTransition(::backgroundColor).rules
+        +materialDesignTokens.component.transition.flashing(::backgroundColor).rules
         gridRow   = GridRow("3")
         alignSelf = Align.end
         width     = 100.pct

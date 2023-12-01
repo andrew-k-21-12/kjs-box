@@ -2,6 +2,8 @@ package io.github.andrewk2112.utility.string.formats
 
 import kotlin.jvm.JvmName
 
+
+
 // Public.
 
 /**

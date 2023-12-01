@@ -7,9 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceOpacities
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSpacing
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemPalette
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeColor
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeConfigs
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeStyles
 import kotlinx.css.*
 
 /**
@@ -19,6 +16,7 @@ class MaterialDesignComponentSelectionStyles(
     private val referenceOpacities: ReferenceOpacities,
     private val referenceSpacing: ReferenceSpacing,
     private val systemPalette: SystemPalette,
+    private val componentStrokeStyles: MaterialDesignComponentStrokeStyles,
     private val componentTransitionStyles: MaterialDesignComponentTransitionStyles
 ) : DynamicStyleSheet() {
 
@@ -45,14 +43,14 @@ class MaterialDesignComponentSelectionStyles(
     val hoverableWithDefaultPaddedStroke: DynamicCssProvider<Context> by dynamicCss {
         +hoverableWithPaddedStrokeBase.rules
         hover {
-            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Default)).rules
+            +componentStrokeStyles.darkOutlineStroke(it).rules
         }
     }
 
     val hoverableWithIntensePaddedStroke: DynamicCssProvider<Context> by dynamicCss {
         +hoverableWithPaddedStrokeBase.rules
         hover {
-            +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
+            +componentStrokeStyles.lightOutlineStroke(it).rules
         }
     }
 

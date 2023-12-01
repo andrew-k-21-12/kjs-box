@@ -36,11 +36,11 @@ abstract class WordsBasedFormat internal constructor() : Format() {
     /**
      * How to extract words from a provided [source] string.
      */
-    internal abstract fun extractWords(source: String): List<String>
+    abstract fun extractWords(source: String): List<String>
 
     /**
      * How to process and concatenate [words] into a result [String].
      */
-    internal abstract fun joinWords(words: List<String>): String
+    abstract fun joinWords(words: List<String>): String
 
 }

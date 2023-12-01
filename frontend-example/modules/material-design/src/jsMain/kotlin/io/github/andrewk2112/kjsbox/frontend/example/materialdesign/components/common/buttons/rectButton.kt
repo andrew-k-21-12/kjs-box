@@ -3,18 +3,18 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles.addTapHighlighting
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
 import react.dom.html.ReactHTML.button
-import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.span
 
 
 
@@ -31,12 +31,15 @@ val rectButton = FC<RectButtonProps> { props ->
 }
 
 /**
- * The animation activation area with a [label] and spacing.
+ * Animation activation area with a [label] and spacing.
+ *
+ * Otherwise, the button intercepts touch and mouse listeners.
  */
 private fun ChildrenBuilder.animationAreaWithLabel(label: String) =
-    +div(clazz = RectButtonStyles.animationArea.name) {
-        addTapHighlighting()
-        +label.uppercase()
+    +rippleSurface(clazz = RectButtonStyles.animationArea.name) {
+        +span(clazz = RectButtonStyles.label.name) {
+            +label.uppercase()
+        }
     }
 
 
@@ -48,9 +51,8 @@ private object RectButtonStyles : DynamicStyleSheet() {
     val defaultButton: DynamicCssProvider<Context> by dynamicCss {
 
         +button(it).rules
-        +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface2SlightlyLighter))
-        ).rules
+        +materialDesignTokens.component.stroke.borderStroke(BorderContext(it)).rules
+        borderColor = materialDesignTokens.system.palette.onSurface2SlightlyLighter(it)
         +materialDesignTokens.component.selection.simpleHighlightingAndSelection(it).rules
         color = materialDesignTokens.system.palette.onSurface2SlightlyLighter(it)
 
@@ -63,16 +65,14 @@ private object RectButtonStyles : DynamicStyleSheet() {
     val darkButton: DynamicCssProvider<Context> by dynamicCss {
 
         +button(it).rules
-        +StrokeStyles.borderStroke(
-            StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface1))
-        ).rules
+        +materialDesignTokens.component.stroke.borderStroke(BorderContext(it)).rules
+        borderColor = materialDesignTokens.system.palette.onSurface1(it)
         +materialDesignTokens.component.transition.fast(::backgroundColor).rules
         color = materialDesignTokens.system.palette.onSurface1(it)
 
         hover {
-            +StrokeStyles.borderStroke(
-                StrokeConfigs(it, StrokeColor.Custom(materialDesignTokens.system.palette::onSurface1Focused))
-            ).rules
+            +materialDesignTokens.component.stroke.borderStroke(BorderContext(it)).rules
+            borderColor = materialDesignTokens.system.palette.onSurface1Focused(it)
             color           = materialDesignTokens.system.palette.onSurface1Focused(it)
             backgroundColor = materialDesignTokens.system.palette.selection2Focused(it)
         }
@@ -83,13 +83,16 @@ private object RectButtonStyles : DynamicStyleSheet() {
     }
 
     val animationArea: NamedRuleSet by css {
-        position = Position.relative // to put the label on top
         width  = 100.pct
         height = 100.pct
         padding = Padding(
             horizontal = materialDesignTokens.reference.spacing.absolute15,
             vertical   = materialDesignTokens.reference.spacing.absolute10,
         )
+    }
+
+    val label: NamedRuleSet by css {
+        position = Position.relative // to put the label on top
     }
 
     private val button: DynamicCssProvider<Context> by dynamicCss {

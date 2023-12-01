@@ -3,13 +3,12 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.components.image
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeColor
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeConfigs
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokeStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.Inset
 import kotlinx.css.Position
 import kotlinx.css.inset
@@ -50,7 +49,7 @@ private object StrokedImageStyles : DynamicStyleSheet() {
     }
 
     val innerStroke: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
+        +materialDesignTokens.component.stroke.lightBorderStroke(BorderContext(it)).rules
         position = Position.absolute
         inset    = Inset(0.px)
     }

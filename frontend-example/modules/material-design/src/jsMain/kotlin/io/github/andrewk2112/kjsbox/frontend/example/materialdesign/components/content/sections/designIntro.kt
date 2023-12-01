@@ -12,7 +12,6 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSiz
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.PopularMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
@@ -216,7 +215,7 @@ private object DesignIntroStyles : DynamicStyleSheet() {
     }
 
     val topicIllustration: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.outlineStroke(StrokeConfigs(it, StrokeColor.Intense)).rules
+        +materialDesignTokens.component.stroke.lightOutlineStroke(it).rules
         width  = 100.pct
         height = LinearDimension.auto
     }

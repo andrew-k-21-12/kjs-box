@@ -12,7 +12,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.footer.footer
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
@@ -67,7 +66,7 @@ import web.dom.Element
 val scaffold = FC {
 
     useLocalizator(namespace) // lazily loading all translations of the module
-    val context = useGlobalInitializations()
+    val context = useAppContext()
 
     // Sometimes it's barely possible to create single source of truth UI states,
     // because lots of ways to do optimizations will become impossible.
@@ -107,8 +106,6 @@ val scaffold = FC {
 
 
 // Effects.
-
-private fun useGlobalInitializations(): Context = useAppContext().also { AnimationStyles.setContext(it) }
 
 /**
  * Sets the header visible when the content is getting scrolled up,

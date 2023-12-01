@@ -8,16 +8,16 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.*
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.AnimationStyles.addTapHighlighting
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokePosition.BOTTOM
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles.StrokePosition.RIGHT
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.BOTTOM
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.RIGHT
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
@@ -79,14 +79,12 @@ private fun ChildrenBuilder.item(
     destinationEndpoint: String,
     vararg classNames: String,
 ) =
-    +div(
-        MenuStyles.item.name,
+    +rippleSurface(
         materialDesignTokens.component.selection.simpleHighlightingAndSelection(context).name,
         *classNames
     ) {
         +a(clazz = MenuStyles.itemLink(context).name) {
             safeBlankHref = destinationEndpoint
-            addTapHighlighting()
             +name
         }
     }
@@ -100,7 +98,7 @@ private fun ChildrenBuilder.divider(context: Context) = +div(clazz = MenuStyles.
 private object MenuStyles : DynamicStyleSheet() {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, RIGHT)).rules
+        +materialDesignTokens.component.stroke.darkBorderStroke(BorderContext(it, RIGHT)).rules
         position = Position.absolute
         inset    = Inset(0.px)
         display       = Display.flex
@@ -109,7 +107,7 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val header: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
+        +materialDesignTokens.component.stroke.darkBorderStroke(BorderContext(it, BOTTOM)).rules
         flexShrink    = 0.0
         height        = materialDesignTokens.reference.sizes.absolute170
         display       = Display.flex
@@ -139,11 +137,6 @@ private object MenuStyles : DynamicStyleSheet() {
         marginBottom = materialDesignTokens.reference.spacing.absolute15
         fontSize = materialDesignTokens.reference.fontSizes.relative1p1
         color = materialDesignTokens.system.palette.onSurface2(it)
-    }
-
-    val item: NamedRuleSet by css {
-        position = Position.relative
-        overflow = Overflow.hidden // to prevent the animation from getting outside
     }
 
     val itemBottomSpacingRegular: NamedRuleSet by css {
@@ -176,7 +169,7 @@ private object MenuStyles : DynamicStyleSheet() {
     }
 
     val divider: DynamicCssProvider<Context> by dynamicCss {
-        +StrokeStyles.borderStroke(StrokeConfigs(it, StrokeColor.Default, BOTTOM)).rules
+        +materialDesignTokens.component.stroke.darkBorderStroke(BorderContext(it, BOTTOM)).rules
         marginTop = materialDesignTokens.reference.spacing.absolute40
     }
 

@@ -1,103 +1,107 @@
-package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.styles
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
-import io.github.andrewk2112.utility.string.extensions.capitalize
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemPalette
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemSizes
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.*
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
-import io.github.andrewk2112.utility.string.formats.cases.SnakeCase
-import io.github.andrewk2112.utility.string.formats.changeFormat
 import kotlinx.css.*
 import kotlin.reflect.KMutableProperty1
-import kotlin.reflect.KProperty0
 
 
 
-// Utility - stroke color.
-
-/**
- * A preferred coloring mode for the stroke.
- */
-sealed class StrokeColor {
-    object Default : StrokeColor()
-    object Intense : StrokeColor()
-    class Custom(val colorReference: KProperty0<(Context) -> Color>) : StrokeColor()
-}
+// Public.
 
 /**
- * Loads a themed color for the corresponding [StrokeColor] type according to the provided [context].
+ * Border-related context to state [positions] to apply border styling to.
  */
-private fun StrokeColor.getThemedColor(context: Context): Color = when (this) {
-    StrokeColor.Default   -> materialDesignTokens.system.palette.stroke1(context)
-    StrokeColor.Intense   -> materialDesignTokens.system.palette.stroke2(context)
-    is StrokeColor.Custom -> colorReference.get().invoke(context)
-}
-
-
-
-// Utility - stroke position.
-
-/**
- * Denotes the position of a stroke.
- */
-enum class StrokePosition { LEFT, TOP, RIGHT, BOTTOM }
-
-/** Lookup for a matching border styling property. */
-private val StrokePosition.matchingStylingProperty: KMutableProperty1<StyledElement, Border>
-    get() = when (this) {
-        StrokePosition.LEFT   -> StyledElement::borderLeft
-        StrokePosition.TOP    -> StyledElement::borderTop
-        StrokePosition.RIGHT  -> StyledElement::borderRight
-        StrokePosition.BOTTOM -> StyledElement::borderBottom
-    }
-
-
-
-// Utility - all stroke configs wrapped together.
-
-/**
- * All configs required to evaluate a stroke's style.
- */
-class StrokeConfigs(
+class BorderContext(
     val context: Context,
-    val color: StrokeColor,
-    vararg val positions: StrokePosition = StrokePosition.entries.toTypedArray(),
+    vararg val positions: Position = Position.entries.toTypedArray(),
 ) : HasCssSuffix {
+
+    enum class Position { LEFT, TOP, RIGHT, BOTTOM }
 
     override val cssSuffix: String
         get() = context.cssSuffix +
-                color::class.simpleName + ((color as? StrokeColor.Custom)?.colorReference?.name?.capitalize() ?: "") +
                 positions
+                    .map { it.name }
                     .sorted()
-                    .joinToString(separator = "") { it.name.changeFormat(SnakeCase, CamelCase) }
+                    .let { CamelCase.joinWords(it) }
 
 }
 
-
-
-// Style builders.
-
 /**
- * A compilation of stroke styles to be reused.
+ * Reusable stroke styles.
  */
-object StrokeStyles : DynamicStyleSheet() {
+class MaterialDesignComponentStrokeStyles(
+    private val systemPalette: SystemPalette,
+    private val systemSizes: SystemSizes
+) : DynamicStyleSheet() {
 
-    /** Applies a border-based stroke. */
-    val borderStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        val strokeWidth = materialDesignTokens.system.sizes.stroke(it.context)
-        val strokeColor = it.color.getThemedColor(it.context)
-        it.positions.map { position ->
-            position.matchingStylingProperty.set(this, Border(strokeWidth, BorderStyle.solid, strokeColor))
+    /** Border style without coloring. */
+    val borderStroke: DynamicCssProvider<BorderContext> by dynamicCss {
+        val border = Border(systemSizes.stroke(it.context), BorderStyle.solid)
+        it.positions.forEach { position ->
+            position.borderProperty.set(this, border)
         }
     }
 
-    /** Applies an outline-based stroke. */
-    val outlineStroke: DynamicCssProvider<StrokeConfigs> by dynamicCss {
-        outlineWidth = materialDesignTokens.system.sizes.stroke(it.context)
+    val lightBorderStroke: DynamicCssProvider<BorderContext> by dynamicCss {
+        +borderStroke(it).rules
+        val color = systemPalette.stroke2(it.context)
+        it.positions.forEach { position ->
+            position.borderColorProperty.set(this, color)
+        }
+    }
+
+    val darkBorderStroke: DynamicCssProvider<BorderContext> by dynamicCss {
+        +borderStroke(it).rules
+        val color = systemPalette.stroke1(it.context)
+        it.positions.forEach { position ->
+            position.borderColorProperty.set(this, color)
+        }
+    }
+
+    /** Outline style without coloring. */
+    val outlineStroke: DynamicCssProvider<Context> by dynamicCss {
+        outlineWidth = systemSizes.stroke(it)
         outlineStyle = OutlineStyle.solid
-        outlineColor = it.color.getThemedColor(it.context)
+    }
+
+    val lightOutlineStroke: DynamicCssProvider<Context> by dynamicCss {
+        +outlineStroke(it).rules
+        outlineColor = systemPalette.stroke2(it)
+    }
+
+    val darkOutlineStroke: DynamicCssProvider<Context> by dynamicCss {
+        +outlineStroke(it).rules
+        outlineColor = systemPalette.stroke1(it)
     }
 
 }
+
+
+
+// Private.
+
+/** Retrieves a matching border styling property. */
+private val BorderContext.Position.borderProperty: KMutableProperty1<StyledElement, Border>
+    get() = when (this) {
+        LEFT   -> StyledElement::borderLeft
+        TOP    -> StyledElement::borderTop
+        RIGHT  -> StyledElement::borderRight
+        BOTTOM -> StyledElement::borderBottom
+    }
+
+/** Retrieves a matching border color styling property. */
+private val BorderContext.Position.borderColorProperty: KMutableProperty1<StyledElement, Color>
+    get() = when (this) {
+        LEFT   -> StyledElement::borderLeftColor
+        TOP    -> StyledElement::borderTopColor
+        RIGHT  -> StyledElement::borderRightColor
+        BOTTOM -> StyledElement::borderBottomColor
+    }

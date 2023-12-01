@@ -43,10 +43,13 @@ val designTokensModule = DI.Module("DesignTokens") {
     bindSingleton { MaterialDesignComponentImageStyles(instance()) }
     bindSingleton { MaterialDesignComponentLabelStyles(instance(), instance(), instance(), instance(), instance()) }
     bindSingleton { MaterialDesignComponentLayoutStyles(instance(), instance()) }
-    bindSingleton { MaterialDesignComponentSelectionStyles(instance(), instance(), instance(), instance()) }
+    bindSingleton { MaterialDesignComponentSelectionStyles(instance(), instance(), instance(), instance(), instance()) }
     bindSingleton { MaterialDesignComponentShadowStyles(instance(), instance(), instance()) }
+    bindSingleton { MaterialDesignComponentStrokeStyles(instance(), instance()) }
     bindSingleton { MaterialDesignComponentTransitionStyles(instance(), instance()) }
-    bindSingleton { ComponentDesignTokens(instance(), instance(), instance(), instance(), instance(), instance()) }
+    bindSingleton {
+        ComponentDesignTokens(instance(), instance(), instance(), instance(), instance(), instance(), instance())
+    }
 
     // All together.
     bindSingleton { MaterialDesignTokens(instance(), instance(), instance()) }

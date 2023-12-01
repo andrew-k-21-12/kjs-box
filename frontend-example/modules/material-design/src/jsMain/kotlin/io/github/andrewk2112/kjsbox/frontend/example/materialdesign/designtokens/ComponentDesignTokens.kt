@@ -11,5 +11,6 @@ class ComponentDesignTokens(
     val layout:     MaterialDesignComponentLayoutStyles,
     val selection:  MaterialDesignComponentSelectionStyles,
     val shadow:     MaterialDesignComponentShadowStyles,
+    val stroke:     MaterialDesignComponentStrokeStyles,
     val transition: MaterialDesignComponentTransitionStyles,
 )

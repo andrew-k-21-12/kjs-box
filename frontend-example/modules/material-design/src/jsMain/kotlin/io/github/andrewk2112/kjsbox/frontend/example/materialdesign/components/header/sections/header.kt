@@ -4,6 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
@@ -11,7 +12,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.magnifyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.menuIcon
@@ -35,73 +37,83 @@ val header = FC<HeaderProps> { props ->
 
     val context     = useAppContext()
     val localizator = useLocalizator()
+    val component   = useContext(materialDesignComponentContext)
+    val styles      = useMemoWithReferenceCount(component) { HeaderStyles(component.getMaterialDesignTokens()) }
     val uiState    by useState { HeaderUiState() }
 
-    container(context) {
-        logoBlock(context, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
-        navigationBlock(context) {
+    container(context, styles) {
+        logoBlock(context, styles, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
+        navigationBlock(context, styles) {
             for (navigationItem in uiState.navigationItems) {
                 it(localizator(navigationItem.title), navigationItem.isSelected)
             }
         }
-        searchIcon(context)
+        searchIcon(context, styles)
     }
 
 }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +header(clazz = HeaderStyles.container(context).name, children)
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: HeaderStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +header(clazz = styles.container(context).name, children)
 
 private fun ChildrenBuilder.logoBlock(
     context: Context,
+    styles: HeaderStyles,
     hasCloseableMenu: Boolean,
     label: String,
     onMenuButtonClick: () -> Unit
 ) =
-    +div(clazz = HeaderStyles.logoBlock(context).name) {
+    +div(clazz = styles.logoBlock(context).name) {
         +button(
-            HeaderStyles.menuButtonPositioning(hasCloseableMenu).name,
-            HeaderStyles.menuButtonAppearance(context).name
+            styles.menuButtonPositioning(hasCloseableMenu).name,
+            styles.menuButtonAppearance(context).name
         ) {
             onClick = onMenuButtonClick.asMouseEventHandler()
-            +menuIcon(clazz = HeaderStyles.menuButtonIcon.name)
+            +menuIcon(clazz = styles.menuButtonIcon.name)
         }
-        +materialDesignLogoIcon(clazz = HeaderStyles.logoIcon(hasCloseableMenu).name)
-        +span(clazz = HeaderStyles.logoLabel(context).name) { +label.uppercase() }
+        +materialDesignLogoIcon(clazz = styles.logoIcon(hasCloseableMenu).name)
+        +span(clazz = styles.logoLabel(context).name) { +label.uppercase() }
     }
 
 private inline fun ChildrenBuilder.navigationBlock(
     context: Context,
+    styles: HeaderStyles,
     crossinline navigationItemsAdapter: ((title: String, isSelected: Boolean) -> Unit) -> Unit
 ) =
-    +nav(clazz = HeaderStyles.navigationBlock(context).name) {
-        +ul(clazz = HeaderStyles.navigationItems(context).name) {
+    +nav(clazz = styles.navigationBlock(context).name) {
+        +ul(clazz = styles.navigationItems(context).name) {
             navigationItemsAdapter { title, isSelected ->
-                navigationItem(context, title, isSelected)
+                navigationItem(context, styles, title, isSelected)
             }
         }
     }
 
-private fun ChildrenBuilder.navigationItem(context: Context, title: String, isSelected: Boolean) =
-    +li(clazz = HeaderStyles.navigationItemPositioning.name) {
-        +div(clazz = HeaderStyles.navigationItem(context).name) {
-            +span(clazz = HeaderStyles.navigationItemTitle(context).name) { +title }
+private fun ChildrenBuilder.navigationItem(context: Context, styles: HeaderStyles, title: String, isSelected: Boolean) =
+    +li(clazz = styles.navigationItemPositioning.name) {
+        +div(clazz = styles.navigationItem(context).name) {
+            +span(clazz = styles.navigationItemTitle(context).name) { +title }
             if (isSelected) {
-                +div(clazz = HeaderStyles.navigationItemSelectionIndicator(context).name)
+                +div(clazz = styles.navigationItemSelectionIndicator(context).name)
             }
         }
     }
 
-private fun ChildrenBuilder.searchIcon(context: Context) =
-    +div(clazz = HeaderStyles.searchIconWrapper(context).name) {
-        +magnifyIcon(clazz = HeaderStyles.searchIcon(context).name)
+private fun ChildrenBuilder.searchIcon(context: Context, styles: HeaderStyles) =
+    +div(clazz = styles.searchIconWrapper(context).name) {
+        +magnifyIcon(clazz = styles.searchIcon(context).name)
     }
 
 
 
 // Styles.
 
-private object HeaderStyles : DynamicStyleSheet() {
+private class HeaderStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         display        = Display.flex

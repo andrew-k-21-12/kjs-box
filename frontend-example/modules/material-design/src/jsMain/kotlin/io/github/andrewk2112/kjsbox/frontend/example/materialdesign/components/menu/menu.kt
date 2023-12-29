@@ -2,6 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
@@ -14,7 +15,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.BOTTOM
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.RIGHT
@@ -26,6 +28,7 @@ import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
+import react.useContext
 import react.useState
 
 
@@ -34,20 +37,26 @@ import react.useState
 
 val menu = FC {
 
-    val context     = useAppContext()
-    val localizator = useLocalizator()
-    val uiState    by useState { MenuUiState(NavMenuMaterialEndpoints()) }
+    val context              = useAppContext()
+    val localizator          = useLocalizator()
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { MenuStyles(materialDesignTokens) }
+    val uiState             by useState { MenuUiState(NavMenuMaterialEndpoints()) }
 
-    container(context) {
-        header(context, localizator(materialDesignKey))
-        items {
+    container(context, styles) {
+        header(context, styles, localizator(materialDesignKey))
+        items(styles) {
             for ((categoryIndex, category) in uiState.categories.withIndex()) {
-                category(context, localizator(category.name))
+                category(context, styles, localizator(category.name))
                 for (item in category.items) {
-                    item(context, localizator(item.title), item.destinationEndpoint, item.bottomSpacing.style.name)
+                    item(
+                        context, styles, materialDesignTokens,
+                        localizator(item.title), item.destinationEndpoint, item.bottomSpacing.getStyle(styles).name
+                    )
                 }
                 if (categoryIndex != uiState.categories.lastIndex) {
-                    divider(context)
+                    divider(context, styles)
                 }
             }
         }
@@ -55,26 +64,32 @@ val menu = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = MenuStyles.container(context).name, children)
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: MenuStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.container(context).name, children)
 
 /**
  * A static header which stays at the top of the menu's layout all the time.
  */
-private fun ChildrenBuilder.header(context: Context, title: String) =
-    +div(clazz = MenuStyles.header(context).name) {
-        +materialDesignLogoIcon(clazz = MenuStyles.headerIcon.name)
-        +span(clazz = MenuStyles.headerLabel(context).name) { +title.uppercase() }
+private fun ChildrenBuilder.header(context: Context, styles: MenuStyles, title: String) =
+    +div(clazz = styles.header(context).name) {
+        +materialDesignLogoIcon(clazz = styles.headerIcon.name)
+        +span(clazz = styles.headerLabel(context).name) { +title.uppercase() }
     }
 
-private inline fun ChildrenBuilder.items(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = MenuStyles.items.name, children)
+private inline fun ChildrenBuilder.items(styles: MenuStyles, crossinline children: ChildrenBuilder.() -> Unit) =
+    +div(clazz = styles.items.name, children)
 
-private fun ChildrenBuilder.category(context: Context, name: String) =
-    +p(clazz = MenuStyles.category(context).name) { +name }
+private fun ChildrenBuilder.category(context: Context, styles: MenuStyles, name: String) =
+    +p(clazz = styles.category(context).name) { +name }
 
 private fun ChildrenBuilder.item(
     context: Context,
+    styles: MenuStyles,
+    materialDesignTokens: MaterialDesignTokens,
     name: String,
     destinationEndpoint: String,
     vararg classNames: String,
@@ -83,19 +98,22 @@ private fun ChildrenBuilder.item(
         materialDesignTokens.component.selection.simpleHighlightingAndSelection(context).name,
         *classNames
     ) {
-        +a(clazz = MenuStyles.itemLink(context).name) {
+        +a(clazz = styles.itemLink(context).name) {
             safeBlankHref = destinationEndpoint
             +name
         }
     }
 
-private fun ChildrenBuilder.divider(context: Context) = +div(clazz = MenuStyles.divider(context).name)
+private fun ChildrenBuilder.divider(context: Context, styles: MenuStyles) =
+    +div(clazz = styles.divider(context).name)
 
 
 
 // Styles.
 
-private object MenuStyles : DynamicStyleSheet() {
+private class MenuStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +materialDesignTokens.component.stroke.darkBorderStroke(BorderContext(it, RIGHT)).rules
@@ -175,11 +193,11 @@ private object MenuStyles : DynamicStyleSheet() {
 
 }
 
-private val MenuItemSpacingUiState.style: NamedRuleSet
-    get() = when (this) {
-        REGULAR -> MenuStyles.itemBottomSpacingRegular
-        BIG     -> MenuStyles.itemBottomSpacingBig
-        MAX     -> MenuStyles.itemBottomSpacingMax
+private fun MenuItemSpacingUiState.getStyle(styles: MenuStyles): NamedRuleSet =
+    when (this) {
+        REGULAR -> styles.itemBottomSpacingRegular
+        BIG     -> styles.itemBottomSpacingBig
+        MAX     -> styles.itemBottomSpacingMax
     }
 
 

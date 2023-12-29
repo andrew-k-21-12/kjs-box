@@ -3,6 +3,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
@@ -18,7 +19,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -31,19 +33,23 @@ import react.dom.html.ReactHTML.p
 
 val materialStudies = FC {
 
-    val context     = useAppContext()
-    val localizator = useLocalizator()
-    val uiState    by useState { MaterialStudiesUiState() }
+    val context              = useAppContext()
+    val localizator          = useLocalizator()
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { MaterialStudiesStyles(materialDesignTokens) }
+    val uiState             by useState { MaterialStudiesUiState() }
 
-    container(context) {
+    container(context, styles, materialDesignTokens) {
         header(
             context,
+            styles,
             localizator(materialStudiesKey),
             localizator(getInspiredByTheWaysMaterialAdaptsKey),
             localizator(viewAllKey),
             MainMaterialEndpoints.studies
         )
-        studiesGrid(context) {
+        studiesGrid(context, styles, materialDesignTokens) {
             for (study in uiState.studies) {
                 it(
                     localizator(study.title),
@@ -57,22 +63,28 @@ val materialStudies = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = MaterialStudiesStyles.container(context).name) {
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: MaterialStudiesStyles,
+    materialDesignTokens: MaterialDesignTokens,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.container(context).name) {
         +div(clazz = materialDesignTokens.component.layout.contentContainer.name, children)
     }
 
 private fun ChildrenBuilder.header(
     context: Context,
+    styles: MaterialStudiesStyles,
     title: String,
     description: String,
     actionButtonLabel: String,
     actionButtonDestination: String,
 ) =
-    +div(clazz = MaterialStudiesStyles.header.name) {
-        +h2(clazz = MaterialStudiesStyles.title(context).name) { +title }
-        +p(clazz = MaterialStudiesStyles.description(context).name) { +description }
-        +rectButton(clazz = MaterialStudiesStyles.viewAllButton(context).name) {
+    +div(clazz = styles.header.name) {
+        +h2(clazz = styles.title(context).name) { +title }
+        +p(clazz = styles.description(context).name) { +description }
+        +rectButton(clazz = styles.viewAllButton(context).name) {
             text   = actionButtonLabel
             action = { openBlankWindowSafely(actionButtonDestination) }
             isDark = true
@@ -81,16 +93,23 @@ private fun ChildrenBuilder.header(
 
 private inline fun ChildrenBuilder.studiesGrid(
     context: Context,
+    styles: MaterialStudiesStyles,
+    materialDesignTokens: MaterialDesignTokens,
     crossinline studiesAdapter: ((title: String, description: String, ResourceImage, imageAltText: String) -> Unit) -> Unit
 ) =
-    +div(clazz = MaterialStudiesStyles.grid(context).name) {
+    +div(clazz = styles.grid(context).name) {
         studiesAdapter { title, description, illustration, illustrationAlternativeText ->
-            studyItem(context, title, description, illustration, illustrationAlternativeText)
+            studyItem(
+                context, styles, materialDesignTokens,
+                title, description, illustration, illustrationAlternativeText
+            )
         }
     }
 
 private fun ChildrenBuilder.studyItem(
     context: Context,
+    styles: MaterialStudiesStyles,
+    materialDesignTokens: MaterialDesignTokens,
     title: String,
     description: String,
     illustration: ResourceImage,
@@ -102,8 +121,8 @@ private fun ChildrenBuilder.studyItem(
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
-            +p(clazz = MaterialStudiesStyles.studyTitle(context).name) { +title }
-            +p(clazz = MaterialStudiesStyles.studyDescription(context).name) { +description }
+            +p(clazz = styles.studyTitle(context).name) { +title }
+            +p(clazz = styles.studyDescription(context).name) { +description }
         }
     }
 
@@ -111,7 +130,9 @@ private fun ChildrenBuilder.studyItem(
 
 // Styles.
 
-private object MaterialStudiesStyles : DynamicStyleSheet() {
+private class MaterialStudiesStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         backgroundColor = materialDesignTokens.system.palette.surface1(it)

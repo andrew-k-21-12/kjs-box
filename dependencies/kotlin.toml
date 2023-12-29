@@ -14,6 +14,7 @@ kotlin                                      = "1.9.10"
 kotlin-wrappers                             = "1.0.0-pre.627"
 my-utility-common                           = "1.0.0"
 my-utility-gradle                           = "1.0.0"
+my-utility-kodein                           = "1.0.0"
 my-utility-string                           = "1.0.0"
 my-versioncatalogsgenerator                 = "1.0.0"
 tomlj                                       = "1.1.0"
@@ -35,6 +36,7 @@ kotlin-wrappers-react-router-dom            = { module = "org.jetbrains.kotlin-w
 kotlin-wrappers-styled-next                 = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
 my-utility-common                           = { module = "io.github.andrew-k-21-12.utility:common",                                version.ref = "my-utility-common" }
 my-utility-gradle                           = { module = "io.github.andrew-k-21-12.utility:gradle",                                version.ref = "my-utility-gradle" }
+my-utility-kodein                           = { module = "io.github.andrew-k-21-12.utility:kodein",                                version.ref = "my-utility-kodein" }
 my-utility-string                           = { module = "io.github.andrew-k-21-12.utility:string",                                version.ref = "my-utility-string" }
 tomlj                                       = { module = "org.tomlj:tomlj",                                                        version.ref = "tomlj" }
 

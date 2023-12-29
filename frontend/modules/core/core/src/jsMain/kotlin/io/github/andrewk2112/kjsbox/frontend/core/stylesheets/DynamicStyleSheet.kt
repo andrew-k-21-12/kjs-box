@@ -7,16 +7,46 @@ import io.github.andrewk2112.utility.string.formats.changeFormat
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
 import styled.*
+import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 /**
  * Mostly an equivalent of [StyleSheet] but allows providing dynamic styles in addition to static ones.
  */
-open class DynamicStyleSheet(
-    name: String? = null,
-    internal val isStatic: Boolean = true,
-    private var imports: List<Import> = emptyList()
-) {
+open class DynamicStyleSheet {
+
+    // Public.
+
+    /**
+     * This constructor allows to provide an end [name] for a style sheet:
+     * if it's `null` then the class name is used.
+     */
+    constructor(name: String? = null, isStatic: Boolean = defaultIsStatic, imports: List<Import> = defaultImports) {
+        this.name     = name ?: this::class.createStyleName()
+        this.isStatic = isStatic
+        this.imports  = imports
+    }
+
+    /**
+     * This constructor allows to provide all [additionalSubNames] to contribute the final style sheet name.
+     * If no [additionalSubNames] are provided, only this class's name is used.
+     */
+    constructor(
+        vararg additionalSubNames: KClass<*>,
+        isStatic: Boolean      = defaultIsStatic,
+        imports:  List<Import> = defaultImports,
+    ) {
+        name = if (additionalSubNames.isEmpty()) {
+            this::class.createStyleName()
+        } else {
+            arrayOf(this::class, *additionalSubNames)
+                .joinToString("-") { it.createStyleName() }
+        }
+        this.isStatic = isStatic
+        this.imports  = imports
+    }
+
+
 
     // Protected.
 
@@ -78,16 +108,34 @@ open class DynamicStyleSheet(
         }
     }
 
-    /** A root name to be applied to all styles declared by the instance of this class. */
-    internal val name: String = name // maybe one day some extended logic will be needed to avoid intersections in names
-        ?: this::class.simpleName
-        ?: this::class.js.name.replace("$", "").replace(".", "").also {
-            console.warn("Style sheet with no name specified: $it")
-        }
+    /** Root name to be applied to all styles declared by the instance of this class. */
+    internal val name: String
+
+    /** See the explanations for [StyleSheet.isStatic]. */
+    internal val isStatic: Boolean
 
 
 
     // Private.
+
+    /**
+     * Provides ground truth values for default arguments.
+     */
+    private companion object {
+        private val defaultIsStatic inline get() = true
+        private val defaultImports  inline get() = emptyList<Import>()
+    }
+
+    /**
+     * Generates a style sheet name or some of its parts.
+     *
+     * Maybe one day there will be needed some extended logic to avoid intersections in generated names.
+     */
+    private fun KClass<*>.createStyleName(): String =
+        simpleName
+            ?: js.name.replace("$", "").replace(".", "").also {
+                console.warn("No class name is available to generate a style sheet name: $it")
+            }
 
     private fun addCssHolder(holder: StaticCssHolder) {
         staticHolders.add(holder)
@@ -113,6 +161,9 @@ open class DynamicStyleSheet(
      */
     private fun String.revampCssSuffix() = replace(" ", "-").replace(".", "-") // removing CSS.escape(...) for now
                                                                                // as it converts numbers to Unicode
+
+    /** See the explanations for [StyleSheet.imports]. */
+    private var imports: List<Import>
 
     /** Keeps all holders providing dynamic styles - the holders are cached by their CSS suffixes. */
     private val dynamicHolders = mutableMapOf<String, DynamicCssHolder>()

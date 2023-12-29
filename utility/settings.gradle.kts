@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "utility"
-listOf("common", "gradle", "string").map {
+listOf("common", "gradle", "kodein", "string").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

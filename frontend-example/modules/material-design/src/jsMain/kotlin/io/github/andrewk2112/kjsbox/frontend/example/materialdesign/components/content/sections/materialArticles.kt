@@ -2,6 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CustomColorPalettesGenerationImage
@@ -15,7 +16,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
@@ -28,17 +30,21 @@ import react.dom.html.ReactHTML.p
 
 val materialArticles = FC {
 
-    val context     = useAppContext()
-    val localizator = useLocalizator()
-    val uiState    by useState { MaterialArticlesUiState() }
+    val context              = useAppContext()
+    val localizator          = useLocalizator()
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { MaterialArticlesStyles(materialDesignTokens) }
+    val uiState             by useState { MaterialArticlesUiState() }
 
-    container {
+    container(styles) {
         titleAndDescription(
             context,
+            styles,
             localizator(materialArticlesKey),
             localizator(makeProgressFasterWithTheseHelpfulArticlesKey)
         )
-        articlesGrid(context) {
+        articlesGrid(context, styles, materialDesignTokens) {
             for ((index, article) in uiState.articles.withIndex()) {
                 it(
                     index % 2 == 0,
@@ -53,26 +59,42 @@ val materialArticles = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = MaterialArticlesStyles.container.name, children)
+private inline fun ChildrenBuilder.container(
+    styles: MaterialArticlesStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.container.name, children)
 
-private fun ChildrenBuilder.titleAndDescription(context: Context, title: String, description: String) {
-    +h2(clazz = MaterialArticlesStyles.title(context).name) { +title }
-    +p(clazz = MaterialArticlesStyles.description(context).name) { +description }
+private fun ChildrenBuilder.titleAndDescription(
+    context: Context,
+    styles: MaterialArticlesStyles,
+    title: String,
+    description: String
+) {
+    +h2(clazz = styles.title(context).name) { +title }
+    +p(clazz = styles.description(context).name) { +description }
 }
 
 private inline fun ChildrenBuilder.articlesGrid(
     context: Context,
+    styles: MaterialArticlesStyles,
+    materialDesignTokens: MaterialDesignTokens,
     crossinline adapter: ((isDouble: Boolean, title: String, desc: String, ResourceImage, imageAltText: String) -> Unit) -> Unit
 ) =
-    +div(clazz = MaterialArticlesStyles.grid(context).name) {
+    +div(clazz = styles.grid(context).name) {
         adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
-            articleItem(context, hasDoubleWidth, title, description, illustration, illustrationAlternativeText)
+            articleItem(
+                context, styles, materialDesignTokens,
+                hasDoubleWidth,
+                title, description, illustration, illustrationAlternativeText
+            )
         }
     }
 
 private fun ChildrenBuilder.articleItem(
     context: Context,
+    styles: MaterialArticlesStyles,
+    materialDesignTokens: MaterialDesignTokens,
     hasDoubleWidth: Boolean,
     title: String,
     description: String,
@@ -89,8 +111,8 @@ private fun ChildrenBuilder.articleItem(
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }
-            +p(clazz = MaterialArticlesStyles.articleTitle(context).name) { +title }
-            +p(clazz = MaterialArticlesStyles.articleDescription(context).name) { +description }
+            +p(clazz = styles.articleTitle(context).name) { +title }
+            +p(clazz = styles.articleDescription(context).name) { +description }
         }
     }
 
@@ -98,7 +120,9 @@ private fun ChildrenBuilder.articleItem(
 
 // Styles.
 
-private object MaterialArticlesStyles : DynamicStyleSheet() {
+private class MaterialArticlesStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: NamedRuleSet by css {
         +materialDesignTokens.component.layout.contentContainer.rules

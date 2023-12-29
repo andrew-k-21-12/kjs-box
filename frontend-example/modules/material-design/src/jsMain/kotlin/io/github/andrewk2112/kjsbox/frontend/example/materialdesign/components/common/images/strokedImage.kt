@@ -3,11 +3,13 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.components.image
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.Inset
 import kotlinx.css.Position
@@ -16,6 +18,7 @@ import kotlinx.css.position
 import kotlinx.css.px
 import react.FC
 import react.dom.html.ReactHTML.div
+import react.useContext
 
 
 
@@ -23,16 +26,18 @@ import react.dom.html.ReactHTML.div
 
 val strokedImage = FC<StrokedImageProps> { props ->
 
-    val context = useAppContext()
+    val context   = useAppContext()
+    val component = useContext(materialDesignComponentContext)
+    val styles    = useMemoWithReferenceCount(component) { StrokedImageStyles(component.getMaterialDesignTokens()) }
 
     // A wrapper to position the stroke inside the image's bounds, on top of it.
-    +div(clazz = StrokedImageStyles.positioningWrapper.name) {
+    +div(clazz = styles.positioningWrapper.name) {
 
         // The image itself.
         image(props.image, props.alternativeText, props.className.toString())
 
         // A semi-transparent stroke on top of the image.
-        +div(clazz = StrokedImageStyles.innerStroke(context).name)
+        +div(clazz = styles.innerStroke(context).name)
 
     }
 
@@ -42,7 +47,9 @@ val strokedImage = FC<StrokedImageProps> { props ->
 
 // Private.
 
-private object StrokedImageStyles : DynamicStyleSheet() {
+private class StrokedImageStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val positioningWrapper: NamedRuleSet by css {
         position = Position.relative

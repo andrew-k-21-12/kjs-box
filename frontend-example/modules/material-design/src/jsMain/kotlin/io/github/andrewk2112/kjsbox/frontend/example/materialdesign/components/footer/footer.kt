@@ -3,6 +3,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
@@ -16,7 +17,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.a
@@ -36,25 +38,29 @@ val footer = FC {
     val context     = useAppContext()
     val localizator = useLocalizator()
 
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { FooterStyles(materialDesignTokens) }
+
     val endpoints by useState { FooterEndpoints() }
     val uiState   by useState { FooterUiState(endpoints) }
 
-    container(context) {
-        upperBlock {
-            logoLink(context)
-            adaptiveMargins(context) {
-                description(context, localizator(materialIsAdaptableSystemOfGuidelinesComponentsAndToolsKey))
-                externalLinks(context, hasContentType = true) {
+    container(context, styles) {
+        upperBlock(styles) {
+            logoLink(context, styles, materialDesignTokens)
+            adaptiveMargins(context, styles) {
+                description(context, styles, localizator(materialIsAdaptableSystemOfGuidelinesComponentsAndToolsKey))
+                externalLinks(context, styles, hasContentType = true) {
                     for (contentLink in uiState.contentLinks) {
                         it(localizator(contentLink.title), contentLink.destinationEndpoint)
                     }
                 }
             }
         }
-        divider()
-        lowerBlock(context) {
-            googleLink(context, endpoints.google)
-            externalLinks(context, hasContentType = false) {
+        divider(styles)
+        lowerBlock(context, styles) {
+            googleLink(context, styles, endpoints.google)
+            externalLinks(context, styles, hasContentType = false) {
                 for (serviceLink in uiState.serviceLinks) {
                     it(localizator(serviceLink.title), serviceLink.destinationEndpoint)
                 }
@@ -64,58 +70,84 @@ val footer = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +footer(clazz = FooterStyles.background(context).name) {
-        +div(clazz = FooterStyles.container(context).name, children)
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: FooterStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +footer(clazz = styles.background(context).name) {
+        +div(clazz = styles.container(context).name, children)
     }
 
-private inline fun ChildrenBuilder.upperBlock(crossinline children: ChildrenBuilder.() -> Unit) =
-    +section(clazz = FooterStyles.upperBlock.name, children)
+private inline fun ChildrenBuilder.upperBlock(styles: FooterStyles, crossinline children: ChildrenBuilder.() -> Unit) =
+    +section(clazz = styles.upperBlock.name, children)
 
-private fun ChildrenBuilder.logoLink(context: Context) =
+private fun ChildrenBuilder.logoLink(
+    context: Context,
+    styles: FooterStyles,
+    materialDesignTokens: MaterialDesignTokens
+) =
     +a(clazz = materialDesignTokens.component.selection.simpleActionHighlighting(context).name) {
         safeBlankHref = MainMaterialEndpoints.root
-        +materialDesignLogoEmptyIcon(clazz = FooterStyles.logoIcon.name)
+        +materialDesignLogoEmptyIcon(clazz = styles.logoIcon.name)
     }
 
-private inline fun ChildrenBuilder.adaptiveMargins(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = FooterStyles.adaptiveMargins(context).name, children)
+private inline fun ChildrenBuilder.adaptiveMargins(
+    context: Context,
+    styles: FooterStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.adaptiveMargins(context).name, children)
 
-private fun ChildrenBuilder.description(context: Context, descriptionText: String) =
-    +p(clazz = FooterStyles.description(context).name) { +descriptionText }
+private fun ChildrenBuilder.description(
+    context: Context,
+    styles: FooterStyles,
+    descriptionText: String
+) =
+    +p(clazz = styles.description(context).name) { +descriptionText }
 
-private fun ChildrenBuilder.divider() = +horizontalDivider(clazz = FooterStyles.divider.name)
+private fun ChildrenBuilder.divider(styles: FooterStyles) = +horizontalDivider(clazz = styles.divider.name)
 
-private inline fun ChildrenBuilder.lowerBlock(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +section(clazz = FooterStyles.lowerBlock(context).name, children)
+private inline fun ChildrenBuilder.lowerBlock(
+    context: Context,
+    styles: FooterStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +section(clazz = styles.lowerBlock(context).name, children)
 
-private fun ChildrenBuilder.googleLink(context: Context, destinationEndpoint: String) =
-    +a(clazz = FooterStyles.googleLink(context).name) {
-        +googleLogoIcon(clazz = FooterStyles.googleLogo(context).name)
+private fun ChildrenBuilder.googleLink(
+    context: Context,
+    styles: FooterStyles,
+    destinationEndpoint: String
+) =
+    +a(clazz = styles.googleLink(context).name) {
+        +googleLogoIcon(clazz = styles.googleLogo(context).name)
         safeBlankHref = destinationEndpoint
     }
 
 private inline fun ChildrenBuilder.externalLinks(
     context: Context,
+    styles: FooterStyles,
     hasContentType: Boolean,
     crossinline linksAdapter: ((title: String, destinationEndpoint: String) -> Unit) -> Unit,
 ) {
     val links: ChildrenBuilder.() -> Unit = {
         linksAdapter { title, destinationEndpoint ->
-            externalLink(context, hasContentType = hasContentType, title, destinationEndpoint)
+            externalLink(context, styles, hasContentType = hasContentType, title, destinationEndpoint)
         }
     }
-    if (hasContentType) +ul(clazz = FooterStyles.contentLinks.name, links) else ul(links)
+    if (hasContentType) +ul(clazz = styles.contentLinks.name, links) else ul(links)
 }
 
 private fun ChildrenBuilder.externalLink(
     context: Context,
+    styles: FooterStyles,
     hasContentType: Boolean,
     title: String,
     destinationEndpoint: String,
 ) =
-    +li(clazz = FooterStyles.run { if (hasContentType) contentLink else serviceLink }(context).name) {
-        +a(clazz = FooterStyles.linkAnchor(context).name) {
+    +li(clazz = styles.run { if (hasContentType) contentLink else serviceLink }(context).name) {
+        +a(clazz = styles.linkAnchor(context).name) {
             safeBlankHref = destinationEndpoint
             +title
         }
@@ -125,7 +157,9 @@ private fun ChildrenBuilder.externalLink(
 
 // Styles.
 
-private object FooterStyles : DynamicStyleSheet() {
+private class FooterStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val background: DynamicCssProvider<Context> by dynamicCss {
         backgroundColor = materialDesignTokens.system.palette.surface3(it)

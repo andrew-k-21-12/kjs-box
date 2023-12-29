@@ -18,7 +18,7 @@ abstract class Reducer<P, S, A : RAction> {
     // Public.
 
     /**
-     * This is a key method of any reducer:
+     * This is the key method of any reducer:
      * it accepts the current [parentState] to extract a reducer-related state from it,
      * processes it according to the input [action]
      * and returns the corresponding new state.

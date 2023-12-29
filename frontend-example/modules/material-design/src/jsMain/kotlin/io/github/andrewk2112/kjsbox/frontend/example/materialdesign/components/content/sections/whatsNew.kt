@@ -3,6 +3,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.WhatsNewMaterialEndpoints
@@ -15,7 +16,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useCurrentLanguageAndLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.a
@@ -32,15 +34,19 @@ val whatsNew = FC {
     val context                 = useAppContext()
     val (language, localizator) = useCurrentLanguageAndLocalizator()
 
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { WhatsNewStyles(materialDesignTokens) }
+
     val dateFormat by useState { LongDateOnlyFormat() }
 
     val endpoints by useState { WhatsNewMaterialEndpoints() }
     val uiState   by useState { WhatsNewUiState(endpoints) }
 
-    container(context) {
-        titleLink(context, localizator(whatsNewKey), endpoints.whatsNew)
-        description(context, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
-        blogRecords(context) {
+    container(context, styles) {
+        titleLink(context, materialDesignTokens, localizator(whatsNewKey), endpoints.whatsNew)
+        description(context, styles, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
+        blogRecords(context, styles) {
             for (blogRecord in uiState.blogRecords) {
                 it(
                     localizator(blogRecord.title),
@@ -50,48 +56,59 @@ val whatsNew = FC {
                 )
             }
         }
-        viewAllButton(localizator(viewAllKey), endpoints.whatsNew)
+        viewAllButton(styles, localizator(viewAllKey), endpoints.whatsNew)
     }
 
 }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = WhatsNewStyles.container(context).name, children)
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: WhatsNewStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.container(context).name, children)
 
-private fun ChildrenBuilder.titleLink(context: Context, title: String, destinationEndpoint: String) =
+private fun ChildrenBuilder.titleLink(
+    context: Context,
+    materialDesignTokens: MaterialDesignTokens,
+    title: String,
+    destinationEndpoint: String
+) =
     +a(clazz = materialDesignTokens.component.label.contentBlockLinkTitle(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
 
-private fun ChildrenBuilder.description(context: Context, descriptionText: String) =
-    +p(clazz = WhatsNewStyles.description(context).name) { +descriptionText }
+private fun ChildrenBuilder.description(context: Context, styles: WhatsNewStyles, descriptionText: String) =
+    +p(clazz = styles.description(context).name) { +descriptionText }
 
 private inline fun ChildrenBuilder.blogRecords(
     context: Context,
+    styles: WhatsNewStyles,
     recordsAdapter: ((title: String, description: String, date: String, endpoint: String) -> Unit) -> Unit
 ) =
     recordsAdapter { title, description, formattedDate, destinationEndpoint ->
-        blogRecordItem(context, title, description, formattedDate, destinationEndpoint)
+        blogRecordItem(context, styles, title, description, formattedDate, destinationEndpoint)
     }
 
 private fun ChildrenBuilder.blogRecordItem(
     context: Context,
+    styles: WhatsNewStyles,
     title: String,
     description: String,
     formattedDate: String,
     destinationEndpoint: String
 ) {
-    +p(clazz = WhatsNewStyles.blogRecordDate(context).name) { +formattedDate.uppercase() }
-    +a(clazz = WhatsNewStyles.blogRecordTitle(context).name) {
+    +p(clazz = styles.blogRecordDate(context).name) { +formattedDate.uppercase() }
+    +a(clazz = styles.blogRecordTitle(context).name) {
         safeBlankHref = destinationEndpoint
         +title
     }
-    +p(clazz = WhatsNewStyles.blogRecordDescription(context).name) { +description }
+    +p(clazz = styles.blogRecordDescription(context).name) { +description }
 }
 
-private fun ChildrenBuilder.viewAllButton(label: String, destinationEndpoint: String) =
-    +rectButton(clazz = WhatsNewStyles.viewAllButton.name) {
+private fun ChildrenBuilder.viewAllButton(styles: WhatsNewStyles, label: String, destinationEndpoint: String) =
+    +rectButton(clazz = styles.viewAllButton.name) {
         text   = label
         action = { openBlankWindowSafely(destinationEndpoint) }
     }
@@ -100,7 +117,9 @@ private fun ChildrenBuilder.viewAllButton(label: String, destinationEndpoint: St
 
 // Styles.
 
-private object WhatsNewStyles : DynamicStyleSheet() {
+private class WhatsNewStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         +materialDesignTokens.component.layout.contentContainer.rules

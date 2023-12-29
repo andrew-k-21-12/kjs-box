@@ -4,6 +4,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.usePrevious
@@ -17,7 +18,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.Display
 import kotlinx.css.FlexDirection
@@ -65,8 +67,13 @@ import web.dom.Element
 
 val scaffold = FC {
 
-    useLocalizator(namespace) // lazily loading all translations of the module
     val context = useAppContext()
+    useLocalizator(namespace) // lazily loading all translations of the module
+
+    // Retrieving an instance of root DI component, creating a style sheet according to the injected design tokens:
+    // these instances are not going to be created again at each new rendering.
+    val component = useContext(materialDesignComponentContext)
+    val styles    = useMemoWithReferenceCount(component) { ScaffoldStyles(component.getMaterialDesignTokens()) }
 
     // Sometimes it's barely possible to create single source of truth UI states,
     // because lots of ways to do optimizations will become impossible.
@@ -93,11 +100,18 @@ val scaffold = FC {
     )
     val onScrimClick: MouseEventHandler<*> = useCallback { isMenuOpened = false }
 
-    root(context, onContentScroll) {
-        slidingHeader(headerRef, isHeaderVisible, hasCloseableMenu = menuContext.isCloseable) { isMenuOpened = it }
-        alignedBlocks {
-            sideMenu(menuContext, onScrimClick)
-            contents(context)
+    root(context, styles, onContentScroll) {
+        slidingHeader(
+            styles,
+            headerRef,
+            isHeaderVisible,
+            hasCloseableMenu = menuContext.isCloseable
+        ) {
+            isMenuOpened = it
+        }
+        alignedBlocks(styles) {
+            sideMenu(menuContext, styles, onScrimClick)
+            contents(context, styles)
         }
     }
 
@@ -149,10 +163,11 @@ private inline fun useContentScrollCallback(
  */
 private inline fun ChildrenBuilder.root(
     context: Context,
+    styles: ScaffoldStyles,
     noinline onScroll: UIEventHandler<*>,
     crossinline children: ChildrenBuilder.() -> Unit,
 ) =
-    +div(clazz = ScaffoldStyles.root(context).name) {
+    +div(clazz = styles.root(context).name) {
         this.onScroll = onScroll
         children()
     }
@@ -161,12 +176,13 @@ private inline fun ChildrenBuilder.root(
  * The header with the sliding logic.
  */
 private inline fun ChildrenBuilder.slidingHeader(
+    styles: ScaffoldStyles,
     ref: RefObject<Element>,
     isVisible: Boolean,
     hasCloseableMenu: Boolean,
     crossinline setMenuOpened: (Boolean) -> Unit,
 ) =
-    +div(clazz = ScaffoldStyles.slidingHeader(isVisible).name) {
+    +div(clazz = styles.slidingHeader(isVisible).name) {
         this.ref = ref
         headerScaffold {
             this.hasCloseableMenu = hasCloseableMenu
@@ -177,19 +193,22 @@ private inline fun ChildrenBuilder.slidingHeader(
 /**
  * Wraps all relative blocks aligned with each other.
  */
-private inline fun ChildrenBuilder.alignedBlocks(crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = ScaffoldStyles.alignedBlocks.name, children)
+private inline fun ChildrenBuilder.alignedBlocks(
+    styles: ScaffoldStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.alignedBlocks.name, children)
 
-private fun ChildrenBuilder.sideMenu(context: MenuContext, onScrimClick: MouseEventHandler<*>) =
-    +div(clazz = ScaffoldStyles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
-        +aside(clazz = ScaffoldStyles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
-        +div(clazz = ScaffoldStyles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
+private fun ChildrenBuilder.sideMenu(context: MenuContext, styles: ScaffoldStyles, onScrimClick: MouseEventHandler<*>) =
+    +div(clazz = styles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
+        +aside(clazz = styles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
+        +div(clazz = styles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
             onClick = onScrimClick
         }
     }
 
-private fun ChildrenBuilder.contents(context: Context) =
-    +div(clazz = ScaffoldStyles.contents(context).name) {
+private fun ChildrenBuilder.contents(context: Context, styles: ScaffoldStyles) =
+    +div(clazz = styles.contents(context).name) {
         contentScaffold {}
         footer {}
     }
@@ -219,7 +238,9 @@ private class MenuContext private constructor(
 
 }
 
-private object ScaffoldStyles : DynamicStyleSheet() {
+private class ScaffoldStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val root: DynamicCssProvider<Context> by dynamicCss {
         +materialDesignTokens.system.fontStyles.regular(it).rules

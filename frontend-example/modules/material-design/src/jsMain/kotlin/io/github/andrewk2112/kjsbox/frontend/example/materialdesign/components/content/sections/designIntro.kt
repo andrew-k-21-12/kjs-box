@@ -10,6 +10,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.mat
 import io.github.andrewk2112.kjsbox.frontend.core.components.image
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.SMALL_TABLET
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.PopularMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
@@ -18,7 +19,8 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
@@ -35,17 +37,22 @@ import react.dom.html.ReactHTML.ul
 
 val designIntro = FC {
 
-    val context     = useAppContext()
-    val localizator = useLocalizator()
-    val uiState    by useState { DesignIntroUiState(PopularMaterialEndpoints()) }
+    val context              = useAppContext()
+    val localizator          = useLocalizator()
+    val component            = useContext(materialDesignComponentContext)
+    val materialDesignTokens = component.getMaterialDesignTokens()
+    val styles               = useMemoWithReferenceCount(component) { DesignIntroStyles(materialDesignTokens) }
+    val uiState             by useState { DesignIntroUiState(PopularMaterialEndpoints()) }
 
-    gridContainer(context) {
+    gridContainer(context, styles) {
         titleAndCallToActionItem(
             context,
+            styles,
+            materialDesignTokens,
             localizator(designKey),
             localizator(createIntuitiveAndBeautifulProductsWithMaterialDesignKey)
         )
-        popularTopicsItem(context, localizator(popularKey)) {
+        popularTopicsItem(context, styles, materialDesignTokens, localizator(popularKey)) {
             for (popularTopic in uiState.popularTopics) {
                 it(localizator(popularTopic.title), popularTopic.destinationEndpoint)
             }
@@ -53,6 +60,8 @@ val designIntro = FC {
         for ((index, topicPreview) in uiState.topicPreviews.withIndex()) {
             topicPreviewItem(
                 context,
+                styles,
+                materialDesignTokens,
                 hasDoubleWidth = index == 0,
                 localizator(topicPreview.title),
                 localizator(topicPreview.description),
@@ -68,21 +77,31 @@ val designIntro = FC {
 /**
  * A root container with a background placing all its inner [children] as a grid.
  */
-private inline fun ChildrenBuilder.gridContainer(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = DesignIntroStyles.container(context).name) {
-        +div(clazz = DesignIntroStyles.grid(context).name, children)
+private inline fun ChildrenBuilder.gridContainer(
+    context: Context,
+    styles: DesignIntroStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
+) =
+    +div(clazz = styles.container(context).name) {
+        +div(clazz = styles.grid(context).name, children)
     }
 
 /**
  * The title and call to action block, takes the entire width on smaller screens.
  */
-private fun ChildrenBuilder.titleAndCallToActionItem(context: Context, title: String, callToAction: String) =
+private fun ChildrenBuilder.titleAndCallToActionItem(
+    context: Context,
+    styles: DesignIntroStyles,
+    materialDesignTokens: MaterialDesignTokens,
+    title: String,
+    callToAction: String
+) =
     +div(
         materialDesignTokens.component.layout.gridDoubleOccupyingItem(context).name,
-        DesignIntroStyles.horizontalSpacingGridItem.name
+        styles.horizontalSpacingGridItem.name
     ) {
-        +p(clazz = DesignIntroStyles.title(context).name) { +title }
-        +p(clazz = DesignIntroStyles.callToAction(context).name) { +callToAction }
+        +p(clazz = styles.title(context).name) { +title }
+        +p(clazz = styles.callToAction(context).name) { +callToAction }
     }
 
 /**
@@ -92,23 +111,25 @@ private fun ChildrenBuilder.titleAndCallToActionItem(context: Context, title: St
  */
 private inline fun ChildrenBuilder.popularTopicsItem(
     context: Context,
+    styles: DesignIntroStyles,
+    materialDesignTokens: MaterialDesignTokens,
     sectionSubtitle: String,
     crossinline topicsAdapter: ((title: String, destinationEndpoint: String) -> Unit) -> Unit,
 ) =
     +div(
         materialDesignTokens.component.layout.gridHidingItem(context).name,
-        DesignIntroStyles.horizontalSpacingGridItem.name
+        styles.horizontalSpacingGridItem.name
     ) {
 
         // Title.
-        +p(DesignIntroStyles.category(context).name, DesignIntroStyles.popularTopicsCategory.name) {
+        +p(styles.category(context).name, styles.popularTopicsCategory.name) {
             +sectionSubtitle.uppercase()
         }
 
         // Items.
         ul {
             topicsAdapter { title, destinationEndpoint ->
-                +li(clazz = DesignIntroStyles.popularTopicItem(context).name) {
+                +li(clazz = styles.popularTopicItem(context).name) {
                     a {
                         safeBlankHref = destinationEndpoint
                         +title
@@ -124,6 +145,8 @@ private inline fun ChildrenBuilder.popularTopicsItem(
  */
 private fun ChildrenBuilder.topicPreviewItem(
     context: Context,
+    styles: DesignIntroStyles,
+    materialDesignTokens: MaterialDesignTokens,
     hasDoubleWidth: Boolean,
     title: String,
     description: String,
@@ -137,10 +160,10 @@ private fun ChildrenBuilder.topicPreviewItem(
         }(context).name
     ) {
         +div(clazz = materialDesignTokens.component.selection.hoverableWithIntensePaddedStroke(context).name) {
-            image(illustration, illustrationAlternativeText, DesignIntroStyles.topicIllustration(context).name)
-            +p(DesignIntroStyles.category(context).name, DesignIntroStyles.topicCategory.name) { +category.uppercase() }
-            +p(clazz = DesignIntroStyles.topicTitle(context).name) { +title }
-            +p(clazz = DesignIntroStyles.topicDescription(context).name) { +description }
+            image(illustration, illustrationAlternativeText, styles.topicIllustration(context).name)
+            +p(styles.category(context).name, styles.topicCategory.name) { +category.uppercase() }
+            +p(clazz = styles.topicTitle(context).name) { +title }
+            +p(clazz = styles.topicDescription(context).name) { +description }
         }
     }
 
@@ -148,7 +171,9 @@ private fun ChildrenBuilder.topicPreviewItem(
 
 // Styles.
 
-private object DesignIntroStyles : DynamicStyleSheet() {
+private class DesignIntroStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         backgroundColor = materialDesignTokens.system.palette.surface1(it)

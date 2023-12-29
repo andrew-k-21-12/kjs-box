@@ -4,10 +4,12 @@ import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.isLeftButton
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.setStyle
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
@@ -30,9 +32,16 @@ import kotlin.math.max
 
 val rippleSurface = FC<DOMProps> { props ->
 
-    val eventHandlers = RippleSurfaceEventHandlers(useAppContext())
+    val context   = useAppContext()
+    val component = useContext(materialDesignComponentContext)
+    val styles    = useMemoWithReferenceCount(component) {
+                        RippleSurfaceStyles(component.getMaterialDesignTokens())
+                    }
+    val eventHandlers by useState { RippleSurfaceEventHandlers() }
+    eventHandlers.context = context
+    eventHandlers.styles  = styles
 
-    +div(RippleSurfaceStyles.rippleAnimationContainer.name, props.className.toString()) {
+    +div(styles.rippleAnimationContainer.name, props.className.toString()) {
         onTouchStart = eventHandlers::touchEventHandler
         onMouseDown  = eventHandlers::mouseEventHandler
         +props.children
@@ -45,10 +54,10 @@ val rippleSurface = FC<DOMProps> { props ->
 // Private.
 
 /**
- * This value class is a naive attempt to avoid allocations of handlers required to launch the ripple animation
- * each time the [context] updates, but in fact there are no guarantees that value classes won't be allocated.
+ * This class helps to avoid allocations of handlers
+ * required to launch the ripple animation each time the [context] or [styles] are updated.
  */
-private value class RippleSurfaceEventHandlers(private val context: Context) {
+private class RippleSurfaceEventHandlers {
 
     /**
      * [TouchEventHandler] to launch the ripple animation.
@@ -68,6 +77,12 @@ private value class RippleSurfaceEventHandlers(private val context: Context) {
         }
     }
 
+    /** The [Context] must be provided on each rendering pass. */
+    lateinit var context: Context
+
+    /** [RippleSurfaceStyles] must be provided on each rendering pass. */
+    lateinit var styles: RippleSurfaceStyles
+
     /**
      * Launches the ripple animation for a [target] starting from a tap point with [tapX] and [tapY].
      */
@@ -80,7 +95,7 @@ private value class RippleSurfaceEventHandlers(private val context: Context) {
 
         // Cleaning up previous animation elements.
         target
-            .querySelectorAll("[class*=${RippleSurfaceStyles.rippleAnimationElement.staticCssSuffix}]")
+            .querySelectorAll("[class*=${styles.rippleAnimationElement.staticCssSuffix}]")
             .forEach { target.removeChild(it) }
 
         // Creating and appending the animation element.
@@ -91,7 +106,7 @@ private value class RippleSurfaceEventHandlers(private val context: Context) {
                 left   = (tapX - targetRect.left - radius).px
                 top    = (tapY - targetRect.top  - radius).px
             }
-            classList.add(RippleSurfaceStyles.rippleAnimationElement(context).name)
+            classList.add(styles.rippleAnimationElement(context).name)
             target.prepend(this)
         }
 
@@ -99,7 +114,9 @@ private value class RippleSurfaceEventHandlers(private val context: Context) {
 
 }
 
-private object RippleSurfaceStyles : DynamicStyleSheet() {
+private class RippleSurfaceStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val rippleAnimationContainer by css {
         overflow = Overflow.hidden   // these two configs are needed

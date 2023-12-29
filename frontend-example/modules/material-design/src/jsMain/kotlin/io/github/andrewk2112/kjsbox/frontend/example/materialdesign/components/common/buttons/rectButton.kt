@@ -3,31 +3,39 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.span
+import react.useContext
 
 
 
 // Components.
 
 val rectButton = FC<RectButtonProps> { props ->
+
+    val component = useContext(materialDesignComponentContext)
+    val styles    = useMemoWithReferenceCount(component) { RectButtonStyles(component.getMaterialDesignTokens()) }
+
     +button(
-        with(RectButtonStyles) { if (props.isDark) darkButton else defaultButton }(useAppContext()).name,
+        with(styles) { if (props.isDark) darkButton else defaultButton }(useAppContext()).name,
         props.className.toString(),
     ) {
         onClick = props.action.asMouseEventHandler()
-        animationAreaWithLabel(props.text)
+        animationAreaWithLabel(styles, props.text)
     }
+
 }
 
 /**
@@ -35,9 +43,9 @@ val rectButton = FC<RectButtonProps> { props ->
  *
  * Otherwise, the button intercepts touch and mouse listeners.
  */
-private fun ChildrenBuilder.animationAreaWithLabel(label: String) =
-    +rippleSurface(clazz = RectButtonStyles.animationArea.name) {
-        +span(clazz = RectButtonStyles.label.name) {
+private fun ChildrenBuilder.animationAreaWithLabel(styles: RectButtonStyles, label: String) =
+    +rippleSurface(clazz = styles.animationArea.name) {
+        +span(clazz = styles.label.name) {
             +label.uppercase()
         }
     }
@@ -46,7 +54,9 @@ private fun ChildrenBuilder.animationAreaWithLabel(label: String) =
 
 // Styles.
 
-private object RectButtonStyles : DynamicStyleSheet() {
+private class RectButtonStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val defaultButton: DynamicCssProvider<Context> by dynamicCss {
 

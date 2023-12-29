@@ -2,18 +2,21 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.arrowRightThinIcon
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.accessors.materialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
+import react.useContext
 
 
 
@@ -25,33 +28,49 @@ fun ChildrenBuilder.notificationMessage(
     description: String,
     actionLabel: String,
     actionDestinationEndpoint: String
+) {
+
+    val component = useContext(materialDesignComponentContext)
+    val styles = useMemoWithReferenceCount(component) { NotificationMessageStyles(component.getMaterialDesignTokens()) }
+
+    container(context, styles) {
+        titleAndDescription(context, styles, title, description)
+        actionButton(context, styles, actionLabel, actionDestinationEndpoint)
+    }
+
+}
+
+private inline fun ChildrenBuilder.container(
+    context: Context,
+    styles: NotificationMessageStyles,
+    crossinline children: ChildrenBuilder.() -> Unit
 ) =
-    container(context) {
-        titleAndDescription(context, title, description)
-        actionButton(context, actionLabel, actionDestinationEndpoint)
+    +div(clazz = styles.container(context).name, children)
+
+private fun ChildrenBuilder.titleAndDescription(
+    context: Context, styles: NotificationMessageStyles, title: String, description: String
+) =
+    +div(clazz = styles.titleAndDescriptionWrapper.name) {
+        +p(clazz = styles.title(context).name) { +title }
+        +p(clazz = styles.description(context).name) { +description }
     }
 
-private inline fun ChildrenBuilder.container(context: Context, crossinline children: ChildrenBuilder.() -> Unit) =
-    +div(clazz = NotificationMessageStyles.container(context).name, children)
-
-private fun ChildrenBuilder.titleAndDescription(context: Context, title: String, description: String) =
-    +div(clazz = NotificationMessageStyles.titleAndDescriptionWrapper.name) {
-        +p(clazz = NotificationMessageStyles.title(context).name) { +title }
-        +p(clazz = NotificationMessageStyles.description(context).name) { +description }
-    }
-
-private fun ChildrenBuilder.actionButton(context: Context, label: String, destinationEndpoint: String) =
-    +a(clazz = NotificationMessageStyles.actionButton(context).name) {
+private fun ChildrenBuilder.actionButton(
+    context: Context, styles: NotificationMessageStyles, label: String, destinationEndpoint: String
+) =
+    +a(clazz = styles.actionButton(context).name) {
         safeBlankHref = destinationEndpoint
         +label
-        +arrowRightThinIcon(clazz = NotificationMessageStyles.actionButtonArrow.name)
+        +arrowRightThinIcon(clazz = styles.actionButtonArrow.name)
     }
 
 
 
 // Styles.
 
-private object NotificationMessageStyles : DynamicStyleSheet() {
+private class NotificationMessageStyles(
+    private val materialDesignTokens: MaterialDesignTokens
+) : DynamicStyleSheet(materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         display = Display.flex

@@ -1,10 +1,12 @@
-package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors
+package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.modules
 
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.rootComponent
-import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
-import org.kodein.di.instance
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.RootComponent
+import org.kodein.di.DI
+import org.kodein.di.bindProvider
 
 /**
- * Provides access to all types of design tokens without pulling any additional dependencies.
+ * Creates a [DI.Module] allowing to use required dependencies from the [RootComponent].
  */
-val designTokens: DesignTokens by rootComponent.instance()
+fun rootComponentMappingModuleFactory(rootComponent: RootComponent) = DI.Module("RootComponentMapping") {
+    bindProvider { rootComponent.getDesignTokens() } // called each when the dependency is requested
+}

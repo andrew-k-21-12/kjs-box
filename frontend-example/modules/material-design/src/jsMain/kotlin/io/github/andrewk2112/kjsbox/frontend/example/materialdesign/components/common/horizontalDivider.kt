@@ -6,13 +6,12 @@ import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCoun
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.FC
 import react.PropsWithClassName
 import react.dom.html.ReactHTML.div
-import react.useContext
 
 
 
@@ -20,7 +19,7 @@ import react.useContext
 
 val horizontalDivider = FC<PropsWithClassName> { props ->
 
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {
                         HorizontalDividerStyles(component.getMaterialDesignTokens())
                     }

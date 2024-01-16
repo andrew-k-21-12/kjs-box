@@ -15,7 +15,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.BOTTOM
@@ -28,7 +28,6 @@ import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
-import react.useContext
 import react.useState
 
 
@@ -39,7 +38,7 @@ val menu = FC {
 
     val context              = useAppContext()
     val localizator          = useLocalizator()
-    val component            = useContext(materialDesignComponentContext)
+    val component            = useMaterialDesignComponent()
     val materialDesignTokens = component.getMaterialDesignTokens()
     val styles               = useMemoWithReferenceCount(component) { MenuStyles(materialDesignTokens) }
     val uiState             by useState { MenuUiState(NavMenuMaterialEndpoints()) }

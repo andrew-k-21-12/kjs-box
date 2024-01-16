@@ -15,7 +15,7 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 /** Provides material design tokens. */
-val designTokensModule = DI.Module("DesignTokens") {
+val designTokensModule inline get() = DI.Module("DesignTokens") {
 
     // Reference.
     bindSingleton { ReferenceFontSizes() }
@@ -33,7 +33,7 @@ val designTokensModule = DI.Module("DesignTokens") {
     }
 
     // System.
-    bindSingleton { SystemFontSizes(instance()) }
+    bindSingleton { SystemFontSizes(instance(), instance()) }
     bindSingleton { SystemFontStyles() }
     bindSingleton { SystemPalette(instance()) }
     bindSingleton { SystemSizes(instance()) }

@@ -17,8 +17,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.MaterialDesignComponent
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.provideMaterialDesignComponent
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.Display
@@ -65,14 +67,29 @@ import web.dom.Element
 
 // Public.
 
-val scaffold = FC {
+val dependencyInjectionAndScaffold = FC {
+    val rootComponent = useRootComponent()
+    rootComponent.getLocalizationEngine().useLocalizator(namespace) // lazily loading all translations of the module,
+                                                                    // the order matters to avoid unneeded re-rendering
+    val component = useMemo(rootComponent) { MaterialDesignComponent(rootComponent) }
+    provideMaterialDesignComponent(component) { // providing the dependency injection component
+                                                // for all nested React components
+        scaffold()
+    }
+}
+
+
+
+// Components.
+
+/** This component is quite important to decouple its rendering from [dependencyInjectionAndScaffold]. */
+private val scaffold = FC {
 
     val context = useAppContext()
-    useLocalizator(namespace) // lazily loading all translations of the module
 
     // Retrieving an instance of root DI component, creating a style sheet according to the injected design tokens:
     // these instances are not going to be created again at each new rendering.
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) { ScaffoldStyles(component.getMaterialDesignTokens()) }
 
     // Sometimes it's barely possible to create single source of truth UI states,
@@ -116,44 +133,6 @@ val scaffold = FC {
     }
 
 }
-
-
-
-// Effects.
-
-/**
- * Sets the header visible when the content is getting scrolled up,
- * or when the content's scroll value is less than the header's height.
- */
-private inline fun useContentScrollCallback(
-    headerHeight: Double,
-    isHeaderVisible: Boolean,
-    crossinline lastScrollTopProvider: () -> Double,
-    crossinline setLastScrollTop: (Double)  -> Unit,
-    crossinline setHeaderVisible: (Boolean) -> Unit,
-): UIEventHandler<*> = useCallback(headerHeight, isHeaderVisible) { event ->
-
-    // Preparing scroll values.
-    val currentScrollTop       = event.currentTarget.scrollTop
-    val scrollDelta            = currentScrollTop - lastScrollTopProvider.invoke()
-    val isScrollLessThanHeader = currentScrollTop <= headerHeight
-
-    // Resetting the last scroll top value while the scroll direction corresponds to the intended header visibility.
-    if (!isHeaderVisible && scrollDelta > 0 || isHeaderVisible && scrollDelta < 0) {
-        setLastScrollTop(currentScrollTop)
-    }
-
-    // Updating the header visibility if needed.
-    when {
-        isHeaderVisible  && (!isScrollLessThanHeader && scrollDelta >  headerHeight) -> setHeaderVisible(false)
-        !isHeaderVisible && (isScrollLessThanHeader  || scrollDelta < -headerHeight) -> setHeaderVisible(true)
-    }
-
-}
-
-
-
-// Components.
 
 /**
  * Applies default styles and context, setups the root layout.
@@ -212,6 +191,40 @@ private fun ChildrenBuilder.contents(context: Context, styles: ScaffoldStyles) =
         contentScaffold {}
         footer {}
     }
+
+
+
+// Effects.
+
+/**
+ * Sets the header visible when the content is getting scrolled up,
+ * or when the content's scroll value is less than the header's height.
+ */
+private inline fun useContentScrollCallback(
+    headerHeight: Double,
+    isHeaderVisible: Boolean,
+    crossinline lastScrollTopProvider: () -> Double,
+    crossinline setLastScrollTop: (Double)  -> Unit,
+    crossinline setHeaderVisible: (Boolean) -> Unit,
+): UIEventHandler<*> = useCallback(headerHeight, isHeaderVisible) { event ->
+
+    // Preparing scroll values.
+    val currentScrollTop       = event.currentTarget.scrollTop
+    val scrollDelta            = currentScrollTop - lastScrollTopProvider.invoke()
+    val isScrollLessThanHeader = currentScrollTop <= headerHeight
+
+    // Resetting the last scroll top value while the scroll direction corresponds to the intended header visibility.
+    if (!isHeaderVisible && scrollDelta > 0 || isHeaderVisible && scrollDelta < 0) {
+        setLastScrollTop(currentScrollTop)
+    }
+
+    // Updating the header visibility if needed.
+    when {
+        isHeaderVisible  && (!isScrollLessThanHeader && scrollDelta >  headerHeight) -> setHeaderVisible(false)
+        !isHeaderVisible && (isScrollLessThanHeader  || scrollDelta < -headerHeight) -> setHeaderVisible(true)
+    }
+
+}
 
 
 

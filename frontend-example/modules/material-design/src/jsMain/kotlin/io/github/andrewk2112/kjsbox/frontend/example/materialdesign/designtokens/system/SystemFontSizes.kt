@@ -2,10 +2,13 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtoken
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceFontSizes
 
-class SystemFontSizes(private val fontSizes: ReferenceFontSizes) : ContextedFontSizes<Context>() {
+class SystemFontSizes(
+    private val designTokens: DesignTokens,
+    private val fontSizes: ReferenceFontSizes
+) : ContextedFontSizes<Context>() {
 
     val adaptive1 = get { if (screenSize <= SMALL_TABLET) fontSizes.relative0p875 else fontSizes.relative0p95 }
 

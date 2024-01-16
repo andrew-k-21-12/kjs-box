@@ -5,6 +5,6 @@ import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 
 /** Provides all hooks. */
-internal val hooksModule = DI.Module("Hooks") {
+internal val hooksModule inline get() = DI.Module("Hooks") {
     bindSingleton { WindowWidthMonitor() }
 }

@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.*
@@ -17,7 +17,6 @@ import react.ChildrenBuilder
 import react.FC
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.span
-import react.useContext
 
 
 
@@ -25,7 +24,7 @@ import react.useContext
 
 val rectButton = FC<RectButtonProps> { props ->
 
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) { RectButtonStyles(component.getMaterialDesignTokens()) }
 
     +button(

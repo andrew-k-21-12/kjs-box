@@ -10,6 +10,7 @@ kotlin.sourceSets {
         )
         dependencies {
             implementation(projects.dependencyInjection)
+            implementation(projects.dependencyInjectionUtility)
         }
     }
 }

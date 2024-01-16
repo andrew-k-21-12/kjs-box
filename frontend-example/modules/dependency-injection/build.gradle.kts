@@ -9,6 +9,7 @@ kotlin {
             dependencies {
                 implementation(kotlinLibs.kjsbox.frontend.core)
                 implementation(kotlinLibs.kodein.di)
+                implementation(kotlinLibs.my.utility.kodein)
                 implementation(projects.designTokens)
             }
         }

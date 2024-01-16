@@ -9,6 +9,7 @@ kotlin.sourceSets {
             implementation(kotlinLibs.kjsbox.frontend.designtokens)
             implementation(kotlinLibs.my.utility.kodein)
             implementation(kotlinLibs.my.utility.string)
+            implementation(projects.dependencyInjection)
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
         }
@@ -16,5 +17,7 @@ kotlin.sourceSets {
 }
 
 lazyModule {
-    exportedComponent.set("io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.scaffold")
+    exportedComponent.set(
+        "io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.dependencyInjectionAndScaffold"
+    )
 }

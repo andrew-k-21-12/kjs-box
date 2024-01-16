@@ -16,10 +16,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.en
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -37,12 +38,15 @@ import react.dom.html.ReactHTML.ul
 
 val designIntro = FC {
 
-    val context              = useAppContext()
-    val localizator          = useLocalizator()
-    val component            = useContext(materialDesignComponentContext)
-    val materialDesignTokens = component.getMaterialDesignTokens()
-    val styles               = useMemoWithReferenceCount(component) { DesignIntroStyles(materialDesignTokens) }
-    val uiState             by useState { DesignIntroUiState(PopularMaterialEndpoints()) }
+    val context                 = useAppContext()
+    val localizator             = useLocalizator()
+    val rootComponent           = useRootComponent()
+    val materialDesignComponent = useMaterialDesignComponent()
+    val materialDesignTokens    = materialDesignComponent.getMaterialDesignTokens()
+    val styles                  = useMemoWithReferenceCount(rootComponent, materialDesignComponent) {
+                                      DesignIntroStyles(rootComponent.getDesignTokens(), materialDesignTokens)
+                                  }
+    val uiState                by useState { DesignIntroUiState(PopularMaterialEndpoints()) }
 
     gridContainer(context, styles) {
         titleAndCallToActionItem(
@@ -172,8 +176,9 @@ private fun ChildrenBuilder.topicPreviewItem(
 // Styles.
 
 private class DesignIntroStyles(
+    private val designTokens: DesignTokens,
     private val materialDesignTokens: MaterialDesignTokens
-) : DynamicStyleSheet(materialDesignTokens::class) {
+) : DynamicStyleSheet(designTokens::class, materialDesignTokens::class) {
 
     val container: DynamicCssProvider<Context> by dynamicCss {
         backgroundColor = materialDesignTokens.system.palette.surface1(it)

@@ -12,7 +12,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.magnifyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
@@ -37,7 +37,7 @@ val header = FC<HeaderProps> { props ->
 
     val context     = useAppContext()
     val localizator = useLocalizator()
-    val component   = useContext(materialDesignComponentContext)
+    val component   = useMaterialDesignComponent()
     val styles      = useMemoWithReferenceCount(component) { HeaderStyles(component.getMaterialDesignTokens()) }
     val uiState    by useState { HeaderUiState() }
 

@@ -9,14 +9,13 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.whatsNew
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.Padding
 import kotlinx.css.padding
 import react.ChildrenBuilder
 import react.FC
 import react.dom.html.ReactHTML.div
-import react.useContext
 
 
 
@@ -24,7 +23,7 @@ import react.useContext
 
 val contentScaffold = FC {
 
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {
                         ContentScaffoldStyles(component.getMaterialDesignTokens())
                     }

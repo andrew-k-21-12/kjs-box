@@ -2,6 +2,7 @@ package io.github.andrewk2112.kjsbox.frontend.example.exercises.components
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.exercises.SourceSansProFontStyles
@@ -9,14 +10,17 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ex
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.accessors.designTokens
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import kotlinx.css.*
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
+
+
 
 // Components.
 
@@ -24,30 +28,40 @@ val exercisesList = FC {
 
     val context     = useAppContext()
     val localizator = useLocalizator(namespace)
+    val component   = useRootComponent()
+    val styles      = useMemoWithReferenceCount(component) { ExercisesListStyles(component.getDesignTokens()) }
 
-    +div(clazz = ExercisesListStyles.container.name) {
+    +div(clazz = styles.container.name) {
 
         // The list of available exercises.
         ul {
-            linkItem(context, localizator(materialDesignKey), MaterialDesignRoute.path)
-            contentsItem { +localizator(toBeContinuedKey) }
+            linkItem(context, styles, localizator(materialDesignKey), MaterialDesignRoute.path)
+            contentsItem(styles) { +localizator(toBeContinuedKey) }
         }
 
     }
 
 }
 
-private fun ChildrenBuilder.linkItem(context: Context, label: String, destinationEndpoint: String) =
-    contentsItem { exerciseLink(context, label, destinationEndpoint) }
+private fun ChildrenBuilder.linkItem(
+    context: Context,
+    styles: ExercisesListStyles,
+    label: String,
+    destinationEndpoint: String
+) =
+    contentsItem(styles) { exerciseLink(context, label, destinationEndpoint) }
 
-private inline fun ChildrenBuilder.contentsItem(crossinline block: ChildrenBuilder.() -> Unit) =
-    +li(clazz = ExercisesListStyles.listItem.name, block)
+private inline fun ChildrenBuilder.contentsItem(
+    styles: ExercisesListStyles,
+    crossinline block: ChildrenBuilder.() -> Unit
+) =
+    +li(clazz = styles.listItem.name, block)
 
 
 
 // Styles.
 
-private object ExercisesListStyles : DynamicStyleSheet() {
+private class ExercisesListStyles(private val designTokens: DesignTokens) : DynamicStyleSheet(designTokens::class) {
 
     val container: NamedRuleSet by css {
         +SourceSansProFontStyles.regular.rules

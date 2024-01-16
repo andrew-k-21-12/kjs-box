@@ -8,7 +8,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import kotlinx.css.Inset
@@ -18,7 +18,6 @@ import kotlinx.css.position
 import kotlinx.css.px
 import react.FC
 import react.dom.html.ReactHTML.div
-import react.useContext
 
 
 
@@ -27,7 +26,7 @@ import react.useContext
 val strokedImage = FC<StrokedImageProps> { props ->
 
     val context   = useAppContext()
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) { StrokedImageStyles(component.getMaterialDesignTokens()) }
 
     // A wrapper to position the stroke inside the image's bounds, on top of it.

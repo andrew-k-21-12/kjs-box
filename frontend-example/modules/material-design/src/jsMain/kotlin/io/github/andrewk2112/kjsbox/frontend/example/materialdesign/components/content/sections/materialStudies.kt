@@ -19,7 +19,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import react.*
@@ -35,7 +35,7 @@ val materialStudies = FC {
 
     val context              = useAppContext()
     val localizator          = useLocalizator()
-    val component            = useContext(materialDesignComponentContext)
+    val component            = useMaterialDesignComponent()
     val materialDesignTokens = component.getMaterialDesignTokens()
     val styles               = useMemoWithReferenceCount(component) { MaterialStudiesStyles(materialDesignTokens) }
     val uiState             by useState { MaterialStudiesUiState() }

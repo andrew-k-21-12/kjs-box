@@ -8,7 +8,7 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.arrowRightThinIcon
 import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.materialDesignComponentContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
@@ -16,7 +16,6 @@ import react.ChildrenBuilder
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
-import react.useContext
 
 
 
@@ -30,7 +29,7 @@ fun ChildrenBuilder.notificationMessage(
     actionDestinationEndpoint: String
 ) {
 
-    val component = useContext(materialDesignComponentContext)
+    val component = useMaterialDesignComponent()
     val styles = useMemoWithReferenceCount(component) { NotificationMessageStyles(component.getMaterialDesignTokens()) }
 
     container(context, styles) {

@@ -1,7 +1,5 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections.header
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections.notificationMessage
@@ -11,11 +9,14 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.theLatestVersionOfMaterialDesignIsNowAvailableForAndroidKey
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.PHONE
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import kotlinx.css.Display
 import kotlinx.css.display
-import react.*
+import react.ChildrenBuilder
+import react.FC
 import react.dom.html.ReactHTML.div
 
 
@@ -24,7 +25,7 @@ import react.dom.html.ReactHTML.div
 
 val headerScaffold = FC<HeaderProps> { props ->
 
-    val context     = useAppContext()
+    val context     = useDesignTokensContext()
     val localizator = useLocalizator()
 
     notificationVisibility(context) {

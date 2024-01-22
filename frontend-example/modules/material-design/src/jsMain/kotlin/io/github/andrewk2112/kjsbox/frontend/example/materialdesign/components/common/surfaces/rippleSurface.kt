@@ -1,26 +1,27 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.isLeftButton
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.setStyle
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
 import kotlinx.css.properties.transform
-import react.*
+import react.FC
 import react.dom.DOMProps
 import react.dom.events.MouseEvent
 import react.dom.events.MouseEventHandler
 import react.dom.events.TouchEvent
 import react.dom.events.TouchEventHandler
 import react.dom.html.ReactHTML.div
+import react.useState
 import styled.animation
 import web.dom.Element
 import web.html.HTMLDivElement
@@ -32,7 +33,7 @@ import kotlin.math.max
 
 val rippleSurface = FC<DOMProps> { props ->
 
-    val context   = useAppContext()
+    val context   = useDesignTokensContext()
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {
                         RippleSurfaceStyles(component.getMaterialDesignTokens())

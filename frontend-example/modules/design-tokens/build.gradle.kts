@@ -9,6 +9,7 @@ kotlin {
             dependencies {
                 implementation(kotlinLibs.kjsbox.frontend.core)
                 implementation(kotlinLibs.kjsbox.frontend.designtokens)
+                implementation(kotlinLibs.my.utility.string)
             }
         }
     }

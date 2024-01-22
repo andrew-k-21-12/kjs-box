@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens
+package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase

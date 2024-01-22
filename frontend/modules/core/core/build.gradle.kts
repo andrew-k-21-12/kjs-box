@@ -19,7 +19,6 @@ kotlin {
 
                 // React and fellows.
                 api(kotlinLibs.kotlin.wrappers.react)
-                api(kotlinLibs.kotlin.wrappers.react.redux)      // to use global state in React
                 api(kotlinLibs.kotlin.wrappers.react.router.dom) // to process routes
 
                 // Other wrappers.

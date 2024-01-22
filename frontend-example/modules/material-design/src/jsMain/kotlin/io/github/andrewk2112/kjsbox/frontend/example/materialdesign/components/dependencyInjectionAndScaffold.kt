@@ -1,9 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.transition
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
@@ -16,8 +14,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.m
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.DESKTOP
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.MaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.provideMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
@@ -46,10 +46,8 @@ import web.dom.Element
 //  4. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
-//  5. Simplify WindowWidthMonitor.
-//  6. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  7. Maybe the localization API should be changed slightly (for better generalization)?
-//  8. Drop reducers?
+//  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
+//  6. Maybe the localization API should be changed slightly (for better generalization)?
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
@@ -85,7 +83,7 @@ val dependencyInjectionAndScaffold = FC {
 /** This component is quite important to decouple its rendering from [dependencyInjectionAndScaffold]. */
 private val scaffold = FC {
 
-    val context = useAppContext()
+    val context = useDesignTokensContext()
 
     // Retrieving an instance of root DI component, creating a style sheet according to the injected design tokens:
     // these instances are not going to be created again at each new rendering.
@@ -272,14 +270,14 @@ private class ScaffoldStyles(
         transform {
             translateY(if (it) 0.pct else (-100).pct)
         }
-        transition += propertyTransition(
+        transition(
             ::transform,
             materialDesignTokens.reference.time.ms300,
             materialDesignTokens.reference.timing.cubicBezier1,
             materialDesignTokens.reference.time.immediate
         )
         opacity = materialDesignTokens.reference.opacities.run { if (it) full else transparent }
-        transition += propertyTransition(
+        transition(
             ::opacity,
             materialDesignTokens.reference.time.immediate,
             materialDesignTokens.reference.timing.ease,

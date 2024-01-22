@@ -3,20 +3,17 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 import frontendExampleExercisesEntryPoint
 import frontendExampleMaterialDesignEntryPoint
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.designTokensContextProvider
 import react.*
-import react.redux.Provider
 import react.router.*
 import react.router.dom.BrowserRouter
 
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
 val app = FC {
-    Provider {
-        store = useRootComponent().getStoreFactory().create() // setting the global app state and its processing reducers,
-        BrowserRouter {                                       // enabling routing features,
-            Suspense {                                        // configuring the app with its loading placeholder
-                fallback = appLoadingPlaceholder.create()
-                initializations()
+    BrowserRouter { // enabling routing features,
+        Suspense {  // configuring the app with its loading placeholder
+            fallback = appLoadingPlaceholder.create()
+            designTokensContextProvider {
                 routes()
             }
         }
@@ -26,12 +23,6 @@ val app = FC {
 /** A placeholder to be shown while the application itself is loading. */
 private val appLoadingPlaceholder = FC {
     +"⌛ Loading / Загрузка"
-}
-
-/** All required initializations to be done before loading of any actual contents. */
-private val initializations = FC {
-    // Monitoring the screen size to update the context.
-    useRootComponent().getContextReducer().useScreenSizeMonitor()
 }
 
 /** All the actual contents available in the app bound to the corresponding routes. */
@@ -48,15 +39,15 @@ private val routes = FC {
     // More details here: https://reactrouter.com/docs/en/v6/upgrading/v5#note-on-link-to-values.
     Routes {
         PathRoute {
-            path = "/"
+            path    = "/"
             element = frontendExampleExercisesEntryPoint.create()
         }
         PathRoute {
-            path = MaterialDesignRoute.path
+            path    = MaterialDesignRoute.path
             element = frontendExampleMaterialDesignEntryPoint.create()
         }
         PathRoute {
-            path = "*"
+            path    = "*"
             element = FC {
                 val navigate = useNavigate()
                 useEffect {

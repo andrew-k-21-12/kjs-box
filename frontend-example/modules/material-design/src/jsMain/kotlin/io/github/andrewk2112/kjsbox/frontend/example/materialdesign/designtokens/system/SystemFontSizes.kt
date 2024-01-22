@@ -1,7 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system
 
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context.ScreenSize.*
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.PHONE
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceFontSizes
 

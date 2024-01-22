@@ -1,11 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.propertyTransition
+import io.github.andrewk2112.kjsbox.frontend.core.extensions.transition
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTime
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTiming
-import kotlinx.css.transition
 import kotlin.reflect.KProperty
 
 /**
@@ -17,7 +16,7 @@ class MaterialDesignComponentTransitionStyles(
 ) : DynamicStyleSheet() {
 
     val flashing: DynamicCssProvider<KProperty<*>> by dynamicCss {
-        transition += propertyTransition(
+        transition(
             it,
             referenceTime.ms100,
             referenceTiming.cubicBezier1
@@ -25,7 +24,7 @@ class MaterialDesignComponentTransitionStyles(
     }
 
     val fast: DynamicCssProvider<KProperty<*>> by dynamicCss {
-        transition += propertyTransition(
+        transition(
             it,
             referenceTime.ms200,
             referenceTiming.cubicBezier1

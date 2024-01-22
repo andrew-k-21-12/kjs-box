@@ -1,6 +1,5 @@
 package io.github.andrewk2112.kjsbox.frontend.example.exercises.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
@@ -10,12 +9,14 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ex
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useAppContext
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import kotlinx.css.*
-import react.*
+import react.ChildrenBuilder
+import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
@@ -26,7 +27,7 @@ import react.dom.html.ReactHTML.ul
 
 val exercisesList = FC {
 
-    val context     = useAppContext()
+    val context     = useDesignTokensContext()
     val localizator = useLocalizator(namespace)
     val component   = useRootComponent()
     val styles      = useMemoWithReferenceCount(component) { ExercisesListStyles(component.getDesignTokens()) }

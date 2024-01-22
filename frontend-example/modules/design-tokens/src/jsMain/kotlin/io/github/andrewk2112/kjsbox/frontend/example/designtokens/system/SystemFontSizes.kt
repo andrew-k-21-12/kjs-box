@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens.system
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ContextedFontSizes
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferenceFontSizes
 
 class SystemFontSizes(private val fontSizes: ReferenceFontSizes) : ContextedFontSizes<Context>() {

@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemPalette
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system.SystemSizes
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.*

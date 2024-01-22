@@ -1,11 +1,11 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.system
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ContextedFontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.materialdesign.RobotoFontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.materialdesign.RobotoMonoFontStyles
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import kotlinx.css.FontWeight
 import kotlinx.css.fontWeight
 

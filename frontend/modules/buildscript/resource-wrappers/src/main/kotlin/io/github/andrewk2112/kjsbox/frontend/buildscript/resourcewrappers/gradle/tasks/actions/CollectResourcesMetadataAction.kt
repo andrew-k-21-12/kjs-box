@@ -42,13 +42,14 @@ internal class CollectResourcesMetadataAction<T, R, E : Exception>(
     internal fun collectResourcesMetadata(): List<R> {
         var error: Exception? = null
         try {
-            for (file in task.targetResourcesDirectory.walk().filter(createFilteringPredicate()))
+            for (file in task.targetResourcesDirectory.walk().filter(createFilteringPredicate())) {
                 try {
-                    resourceVisitor.visit(transformer.transform(file))
+                    resourceVisitor.visit(transformer.transform(file)).throwOnFailure()
                 } catch (exception: Exception) {
                     error = ResourceVisitingException(exception)
                     break
                 }
+            }
         } catch (exception: Exception) {
             error = FilesWalkingException(exception)
         }

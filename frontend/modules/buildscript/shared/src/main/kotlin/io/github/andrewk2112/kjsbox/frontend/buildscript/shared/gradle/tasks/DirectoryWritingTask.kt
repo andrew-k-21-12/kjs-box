@@ -41,7 +41,7 @@ abstract class DirectoryWritingTask : DefaultTask() {
     @TaskAction
     @Throws(Exception::class)
     private fun runAllWriteActions() = writeActions.get().forEach {
-        it.writeIntoDirectory(outDirectoryFile).getThrowing()
+        it.writeIntoDirectory(outDirectoryFile).throwOnFailure()
     }
 
     /** Minor optimization to avoid preparing the same file multiple times. */

@@ -6,7 +6,7 @@ plugins {
 kotlin.sourceSets {
     val jsMain by getting {
         kotlin.srcDirs(
-            lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign)
+            lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign, projects.spacexCrew)
         )
         dependencies {
             implementation(projects.dependencyInjection)

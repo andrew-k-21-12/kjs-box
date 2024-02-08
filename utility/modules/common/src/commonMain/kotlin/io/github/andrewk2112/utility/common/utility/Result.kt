@@ -1,5 +1,7 @@
 package io.github.andrewk2112.utility.common.utility
 
+import kotlin.jvm.JvmInline
+
 /**
  * A type-safe wrapper for results of exception-throwing operations.
  *
@@ -22,12 +24,18 @@ sealed interface Result<T, E : Throwable> {
 
     /**
      * Returns an execution's result value [T] or throws an exception [E] if something went wrong.
+     *
+     * **Using this method is discouraged** to a favor of type-safe alternatives,
+     * use it only when there is no concern on how to process (catch) exceptions at all.
      */
     @Throws(Throwable::class)
     fun getOrThrow(): T
 
     /**
      * Just throws an exception [E] in the case when the execution has failed.
+     *
+     * **Using this method is discouraged** to a favor of type-safe alternatives,
+     * use it only when there is no concern on how to process (catch) exceptions at all.
      */
     @Throws(Throwable::class)
     fun throwOnFailure()
@@ -88,6 +96,15 @@ sealed interface Result<T, E : Throwable> {
          * Runs a [block] catching exceptions only of the type [E] and wrapping them into a [Result].
          *
          * Helpful to convert exception-throwing functions into [Result]-returning ones.
+         *
+         * Even for Java it's better to follow the rule that exceptions are only for exceptional cases,
+         * but for Kotlin it becomes much more important:
+         * errors from exceptions start mixing with coroutines' `CancellationException`s,
+         * exceptions can't be generic and are not forced to be caught
+         * (so updating lists of exceptions will cause crashes or incorrect behavior),
+         * there is no way to declare exceptions in a clean way for lambdas.
+         * Taking into account some of the points above, it's better to avoid exceptions in Kotlin as much as possible:
+         * this function is mostly for this purpose - to bridge legacy (mostly Java) code with exceptions to Kotlin.
          *
          * @throws Throwable While in general it shouldn't throw any exceptions,
          *                   it still can happen if a wrong type of target exception [E] was specified

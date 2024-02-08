@@ -7,13 +7,14 @@ import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.fonts.exercises.SourceSansProFontStyles
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.materialDesignKey
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.namespace
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.toBeContinuedKey
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
+import io.github.andrewk2112.kjsbox.frontend.core.routes.SpaceXCrewRoute
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.spaceXCrewKey
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -37,7 +38,7 @@ val exercisesList = FC {
         // The list of available exercises.
         ul {
             linkItem(context, styles, localizator(materialDesignKey), MaterialDesignRoute.path)
-            contentsItem(styles) { +localizator(toBeContinuedKey) }
+            linkItem(context, styles, localizator(spaceXCrewKey),     SpaceXCrewRoute.path)
         }
 
     }
@@ -50,13 +51,7 @@ private fun ChildrenBuilder.linkItem(
     label: String,
     destinationEndpoint: String
 ) =
-    contentsItem(styles) { exerciseLink(context, label, destinationEndpoint) }
-
-private inline fun ChildrenBuilder.contentsItem(
-    styles: ExercisesListStyles,
-    crossinline block: ChildrenBuilder.() -> Unit
-) =
-    +li(clazz = styles.listItem.name, block)
+    +li(clazz = styles.listItem.name) { exerciseLink(context, label, destinationEndpoint) }
 
 
 

@@ -48,6 +48,7 @@ import web.dom.Element
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  6. Maybe the localization API should be changed slightly (for better generalization)?
+//  7. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

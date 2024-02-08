@@ -2,7 +2,9 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 
 import frontendExampleExercisesEntryPoint
 import frontendExampleMaterialDesignEntryPoint
+import frontendExampleSpacexCrewEntryPoint
 import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
+import io.github.andrewk2112.kjsbox.frontend.core.routes.SpaceXCrewRoute
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.designTokensContextProvider
 import react.*
 import react.router.*
@@ -29,7 +31,7 @@ private val appLoadingPlaceholder = FC {
 private val routes = FC {
 
     // All pages of the app: the root (serves as a fallback also) one,
-    // the first example page and the fallback configuration.
+    // a couple of example pages and the fallback configuration.
     // React processes its routes in some special way which differs from the web's canonical one:
     // in the context of the routes below it is only important
     // that trailing slashes path variants are included automatically
@@ -45,6 +47,10 @@ private val routes = FC {
         PathRoute {
             path    = MaterialDesignRoute.path
             element = frontendExampleMaterialDesignEntryPoint.create()
+        }
+        PathRoute {
+            path    = SpaceXCrewRoute.path
+            element = frontendExampleSpacexCrewEntryPoint.create()
         }
         PathRoute {
             path    = "*"

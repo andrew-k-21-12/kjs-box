@@ -28,6 +28,7 @@ listOf(
     "exercises",
     "index",
     "material-design",
+    "spacex-crew",
 ).map {
     include(it)
     project(":$it").projectDir = File("modules", it)

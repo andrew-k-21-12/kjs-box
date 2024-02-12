@@ -4,6 +4,7 @@ kjsbox-frontend-buildscript-shared          = "1.0.0"
 kjsbox-frontend-buildscript-versioncatalogs = "1.0.0"
 kjsbox-frontend-core                        = "1.0.0-SNAPSHOT"
 kjsbox-frontend-designtokens                = "1.0.0"
+kjsbox-frontend-dynamicstylesheet           = "1.0.0"
 kjsbox-frontend-entrypoint                  = "1.0.0"
 kjsbox-frontend-lazymodule                  = "1.0.0"
 kjsbox-frontend-lazymoduleaccessors         = "1.0.0"
@@ -20,6 +21,7 @@ my-utility-gradle                           = "1.0.0"
 my-utility-js                               = "1.0.0"
 my-utility-kodein                           = "1.0.0"
 my-utility-react                            = "1.0.0"
+my-utility-react-dom                        = "1.0.0"
 my-utility-string                           = "1.0.0"
 my-versioncatalogsgenerator                 = "1.0.0"
 tomlj                                       = "1.1.0"
@@ -30,12 +32,14 @@ kjsbox-frontend-buildscript-shared          = { module = "io.github.andrew-k-21-
 kjsbox-frontend-buildscript-versioncatalogs = { module = "io.github.andrew-k-21-12.kjs-box:frontend-buildscript-version-catalogs", version.ref = "kjsbox-frontend-buildscript-versioncatalogs" }
 kjsbox-frontend-core                        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                         version.ref = "kjsbox-frontend-core" }
 kjsbox-frontend-designtokens                = { module = "io.github.andrew-k-21-12.kjs-box:frontend-design-tokens",                version.ref = "kjsbox-frontend-designtokens" }
+kjsbox-frontend-dynamicstylesheet           = { module = "io.github.andrew-k-21-12.kjs-box:frontend-dynamic-style-sheet",          version.ref = "kjsbox-frontend-dynamicstylesheet" }
 kodein-di                                   = { module = "org.kodein.di:kodein-di",                                                version.ref = "kodein" }
 kotlin-gradleplugin                         = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin",                              version.ref = "kotlin" }
 kotlin-test                                 = { module = "org.jetbrains.kotlin:kotlin-test",                                       version.ref = "kotlin" }
 kotlin-wrappers-bom                         = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom",                      version.ref = "kotlin-wrappers" }
 kotlin-wrappers-js                          = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
 kotlin-wrappers-react                       = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }
+kotlin-wrappers-react-dom                   = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-dom" }
 kotlin-wrappers-react-router-dom            = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom" }
 kotlin-wrappers-styled-next                 = { module = "org.jetbrains.kotlin-wrappers:kotlin-styled-next" }
 kotlinx-coroutines-js                       = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js",                       version.ref = "kotlinx-coroutines" }
@@ -46,6 +50,7 @@ my-utility-gradle                           = { module = "io.github.andrew-k-21-
 my-utility-js                               = { module = "io.github.andrew-k-21-12.utility:js",                                    version.ref = "my-utility-js" }
 my-utility-kodein                           = { module = "io.github.andrew-k-21-12.utility:kodein",                                version.ref = "my-utility-kodein" }
 my-utility-react                            = { module = "io.github.andrew-k-21-12.utility:react",                                 version.ref = "my-utility-react" }
+my-utility-react-dom                        = { module = "io.github.andrew-k-21-12.utility:react-dom",                             version.ref = "my-utility-react-dom" }
 my-utility-string                           = { module = "io.github.andrew-k-21-12.utility:string",                                version.ref = "my-utility-string" }
 tomlj                                       = { module = "org.tomlj:tomlj",                                                        version.ref = "tomlj" }
 

@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceFontSizes
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceOpacities

@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.example.exercises.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens

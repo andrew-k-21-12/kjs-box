@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.extensions
+package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions
 
 import kotlinx.css.CssBuilder
 import org.w3c.dom.Element

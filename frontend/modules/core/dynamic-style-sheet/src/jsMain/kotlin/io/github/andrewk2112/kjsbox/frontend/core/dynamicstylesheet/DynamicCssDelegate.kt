@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.stylesheets
+package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet
 
 import kotlinx.css.CssBuilder
 import kotlin.properties.ReadOnlyProperty

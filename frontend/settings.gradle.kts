@@ -34,6 +34,7 @@ listOf(
     "frontend-buildscript-version-catalogs" to buildscriptPath("version-catalogs"),
     "frontend-core"                         to corePath("core"),
     "frontend-design-tokens"                to corePath("design-tokens"),
+    "frontend-dynamic-style-sheet"          to corePath("dynamic-style-sheet"),
 ).map { (projectName, projectPath) ->
     include(projectName)
     project(":$projectName").projectDir = File(projectPath)

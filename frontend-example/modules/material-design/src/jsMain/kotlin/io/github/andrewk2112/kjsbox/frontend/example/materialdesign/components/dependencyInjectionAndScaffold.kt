@@ -1,10 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.transition
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.transition
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.usePrevious
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useRefHeightMonitor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.*
@@ -12,8 +12,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.f
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.DESKTOP
@@ -49,6 +49,8 @@ import web.dom.Element
 //  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
 //  6. Maybe the localization API should be changed slightly (for better generalization)?
 //  7. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
+//  8. No need to add project dependencies from buildscript Gradle plugins -
+//     better to include dependencies manually for modularity?
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

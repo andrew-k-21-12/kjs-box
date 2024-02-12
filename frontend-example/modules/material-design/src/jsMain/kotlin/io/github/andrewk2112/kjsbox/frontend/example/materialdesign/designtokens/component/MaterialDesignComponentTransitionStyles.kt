@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.transition
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.transition
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTime
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceTiming
 import kotlin.reflect.KProperty

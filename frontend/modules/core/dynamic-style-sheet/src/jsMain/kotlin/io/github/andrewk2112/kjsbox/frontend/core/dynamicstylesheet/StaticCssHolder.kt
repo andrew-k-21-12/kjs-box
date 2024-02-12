@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.stylesheets
+package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet
 
 import kotlinx.css.CssBuilder
 import kotlinx.css.RuleSet
@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty
 /**
  * Copy-paste of the [CssHolder] configured to work with the [DynamicStyleSheet] instead.
  */
-class StaticCssHolder(private val sheet: DynamicStyleSheet, private vararg val ruleSets: RuleSet) {
+class StaticCssHolder internal constructor(private val sheet: DynamicStyleSheet, private vararg val ruleSets: RuleSet) {
 
     operator fun provideDelegate(thisRef: Any?, providingProperty: KProperty<*>): Lazy<NamedRuleSet> {
         val className = sheet.getClassName(providingProperty)

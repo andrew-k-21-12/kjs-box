@@ -1,14 +1,14 @@
 package io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.typedTarget
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.searchInTheSpaceXCrewByNameKey
 import io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.viewmodels.RootViewModel
 import io.github.andrewk2112.utility.coroutines.react.extensions.asReactState
+import io.github.andrewk2112.utility.react.dom.extensions.typedTarget
 import io.github.andrewk2112.utility.react.hooks.useState
 import kotlinx.css.*
 import react.FC

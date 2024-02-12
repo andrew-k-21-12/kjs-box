@@ -1,11 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.asMouseEventHandler
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
@@ -19,6 +18,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.mate
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.menuIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.utility.react.dom.extensions.asEventHandler
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.ChildrenBuilder
@@ -75,7 +75,7 @@ private fun ChildrenBuilder.logoBlock(
             styles.menuButtonPositioning(hasCloseableMenu).name,
             styles.menuButtonAppearance(context).name
         ) {
-            onClick = onMenuButtonClick.asMouseEventHandler()
+            onClick = onMenuButtonClick.asEventHandler()
             +menuIcon(clazz = styles.menuButtonIcon.name)
         }
         +materialDesignLogoIcon(clazz = styles.logoIcon(hasCloseableMenu).name)

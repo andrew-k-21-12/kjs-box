@@ -68,7 +68,11 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
         jsMainKotlinSourceSet.kotlin.srcDirs(sourceGenerationTasks.map { it.wrappersOutDirectory })
 
         // Including all dependencies required for generated resource wrappers.
-        dependencies.add("jsMainImplementation", KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
+        jsMainKotlinSourceSet.dependencies {
+            val kotlinVersionCatalog = KotlinVersionCatalog()
+            implementation(kotlinVersionCatalog.libraries.kjsboxFrontendCore.fullNotation)
+            implementation(kotlinVersionCatalog.libraries.kjsboxFrontendDynamicstylesheet.fullNotation)
+        }
 
         // Adding the configured resources directory to the source set of the root project.
         rootProject.run {

@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.extensions
+package io.github.andrewk2112.utility.react.dom.extensions
 
 import react.dom.events.SyntheticEvent
 import web.dom.Element

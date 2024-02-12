@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component
 
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferencePalette
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceRadii
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.ReferenceSpacing

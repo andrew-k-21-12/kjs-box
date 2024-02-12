@@ -1,8 +1,8 @@
-package io.github.andrewk2112.kjsbox.frontend.core.extensions
+package io.github.andrewk2112.utility.react.dom.extensions
 
-import react.dom.events.MouseEventHandler
+import react.dom.events.EventHandler
 
 /**
- * Converts a simple callback lambda into the [MouseEventHandler].
+ * Converts a simple callback lambda into any type of required [EventHandler].
  */
-fun (() -> Unit).asMouseEventHandler(): MouseEventHandler<*> = unsafeCast<MouseEventHandler<*>>()
+fun <E> (() -> Unit).asEventHandler(): EventHandler<E> = unsafeCast<EventHandler<E>>()

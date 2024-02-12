@@ -41,8 +41,8 @@ internal class FontWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import kotlinx.css.*
 import styled.injectGlobal
 

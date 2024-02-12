@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.stylesheets
+package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet
 
 /**
  * Provides some [cssSuffix] to be used in construction of CSS class names.

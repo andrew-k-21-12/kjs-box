@@ -7,13 +7,13 @@ plugins {
 kotlin.sourceSets {
     val jsMain by getting {
         dependencies {
-            implementation(kotlinLibs.kjsbox.frontend.core)
             implementation(kotlinLibs.kotlinx.coroutines.js)
             implementation(kotlinLibs.kotlinx.serialization)
             implementation(kotlinLibs.my.utility.common)
             implementation(kotlinLibs.my.utility.coroutines.react)
             implementation(kotlinLibs.my.utility.js)
             implementation(kotlinLibs.my.utility.react)
+            implementation(kotlinLibs.my.utility.react.dom)
             implementation(projects.dependencyInjectionUtility)
         }
     }

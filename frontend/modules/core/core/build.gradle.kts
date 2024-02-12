@@ -29,6 +29,7 @@ kotlin {
                 api(kotlinLibs.kodein.di)
 
                 // Various utility.
+                implementation(kotlinLibs.kjsbox.frontend.dynamicstylesheet)
                 implementation(kotlinLibs.my.utility.string)
 
                 // All required JS libraries.

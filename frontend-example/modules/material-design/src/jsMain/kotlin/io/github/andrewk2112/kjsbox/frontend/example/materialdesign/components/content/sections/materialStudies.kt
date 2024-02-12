@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
-import io.github.andrewk2112.kjsbox.frontend.core.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
@@ -11,9 +11,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.mat
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShrineImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.stylesheets.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context

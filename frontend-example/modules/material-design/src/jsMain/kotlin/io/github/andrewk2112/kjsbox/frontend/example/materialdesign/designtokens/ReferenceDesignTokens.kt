@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ReferenceDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.ReferenceDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference.*
 
 class ReferenceDesignTokens(

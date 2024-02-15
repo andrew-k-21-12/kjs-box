@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Sizes
+import io.github.andrewk2112.kjsbox.frontend.designtokens.Sizes
 import kotlinx.css.px
 
 class ReferenceSizes : Sizes {

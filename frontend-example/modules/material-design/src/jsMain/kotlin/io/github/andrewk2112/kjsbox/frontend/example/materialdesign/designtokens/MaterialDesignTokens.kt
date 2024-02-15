@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.DesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.DesignTokens
 
 class MaterialDesignTokens(
     override val reference: ReferenceDesignTokens,

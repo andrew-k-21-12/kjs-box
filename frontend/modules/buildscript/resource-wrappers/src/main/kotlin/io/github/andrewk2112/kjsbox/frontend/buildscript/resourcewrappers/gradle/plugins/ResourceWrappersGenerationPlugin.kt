@@ -72,6 +72,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
             val kotlinVersionCatalog = KotlinVersionCatalog()
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendCore.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendDynamicstylesheet.fullNotation)
+            implementation(kotlinVersionCatalog.libraries.kjsboxFrontendImages.fullNotation)
         }
 
         // Adding the configured resources directory to the source set of the root project.

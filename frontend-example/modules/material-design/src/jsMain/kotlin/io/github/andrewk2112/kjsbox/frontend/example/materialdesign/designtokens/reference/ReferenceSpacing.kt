@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Spacing
+import io.github.andrewk2112.kjsbox.frontend.designtokens.Spacing
 import kotlinx.css.px
 
 class ReferenceSpacing : Spacing {

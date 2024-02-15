@@ -1,40 +1,54 @@
 [versions]
+
 i18n-unused              = "0.14.0"
 i18next                  = "23.5.1"
 i18next-backend          = "1.1.4"
 i18next-languagedetector = "7.1.0"
 i18next-react            = "13.2.2"
+
 imagemin                 = "8.0.1"
 imagemin-optipng         = "8.0.0"
 imagemin-webp            = "8.0.0"
+
 react                    = "18.2.0"
+
 webpack-html             = "5.5.3"
 webpack-imageminimizer   = "3.8.3"
 webpack-svgr             = "8.1.0"
 webpack-terser           = "5.3.9"
 
+
+
 [libraries]
+
 i18n-unused              = { group = "mxmvshnvsk",      name = "i18n-unused",                      version.ref = "i18n-unused" }
 i18next-backend          = { group = "i18next",         name = "i18next-resources-to-backend",     version.ref = "i18next-backend" }
 i18next-core             = { group = "i18next",         name = "i18next",                          version.ref = "i18next" }
 i18next-languagedetector = { group = "i18next",         name = "i18next-browser-languagedetector", version.ref = "i18next-languagedetector" }
 i18next-react            = { group = "i18next",         name = "react-i18next",                    version.ref = "i18next-react" }
+
 imagemin-core            = { group = "imagemin",        name = "imagemin",                         version.ref = "imagemin" }
 imagemin-optipng         = { group = "imagemin",        name = "imagemin-optipng",                 version.ref = "imagemin-optipng" }
 imagemin-webp            = { group = "imagemin",        name = "imagemin-webp",                    version.ref = "imagemin-webp" }
+
 react                    = { group = "facebook",        name = "react",                            version.ref = "react" }
+
 webpack-html             = { group = "jantimon",        name = "html-webpack-plugin",              version.ref = "webpack-html" }
 webpack-imageminimizer   = { group = "webpack-contrib", name = "image-minimizer-webpack-plugin",   version.ref = "webpack-imageminimizer" }
 webpack-svgr             = { group = "gregberge",       name = "@svgr/webpack",                    version.ref = "webpack-svgr" }
 webpack-terser           = { group = "webpack-contrib", name = "terser-webpack-plugin",            version.ref = "webpack-terser" }
 
+
+
 [bundles]
+
 kjsbox-frontend-core = [ 
     "i18next-backend",          # to bundle and download translations on demand
     "i18next-core",             # the library itself doesn't provide any means to remove unused resources
     "i18next-languagedetector",
     "i18next-react"
 ]
+
 kjsbox-frontend-main = [
     "i18n-unused",      # to remove unused localizations when bundling
     "imagemin-core",    # the image minification engine to be used

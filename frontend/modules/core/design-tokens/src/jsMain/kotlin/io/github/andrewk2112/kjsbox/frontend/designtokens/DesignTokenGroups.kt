@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens
+package io.github.andrewk2112.kjsbox.frontend.designtokens
 
 /**
  * Marker interface to denote a group of context-independent design tokens.

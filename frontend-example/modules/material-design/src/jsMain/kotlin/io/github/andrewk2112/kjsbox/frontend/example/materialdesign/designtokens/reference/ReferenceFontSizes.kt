@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.FontSizes
+import io.github.andrewk2112.kjsbox.frontend.designtokens.FontSizes
 import kotlinx.css.properties.LineHeight
 import kotlinx.css.rem
 

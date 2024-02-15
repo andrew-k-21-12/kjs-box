@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.ReferenceDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.ReferenceDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.*
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferenceFontSizes
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferencePalette
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference.ReferenceSpacing

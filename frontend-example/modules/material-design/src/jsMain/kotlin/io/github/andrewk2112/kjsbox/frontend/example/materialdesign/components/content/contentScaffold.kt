@@ -1,14 +1,14 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.designIntro
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialArticles
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialStudies
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.whatsNew
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import kotlinx.css.Padding

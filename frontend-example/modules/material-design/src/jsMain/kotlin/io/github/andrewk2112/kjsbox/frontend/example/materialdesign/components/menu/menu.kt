@@ -1,10 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints

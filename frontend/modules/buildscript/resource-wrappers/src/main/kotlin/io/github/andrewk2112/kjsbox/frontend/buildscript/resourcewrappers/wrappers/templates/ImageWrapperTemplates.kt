@@ -18,25 +18,42 @@ internal class ImageWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.core.resources.SimpleImage
+import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
+import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType
+import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType.PNG
+import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType.WEBP
 
-object $objectName : SimpleImage {
+object $objectName : Image {
+
+    override val source: String        by ::${referenceName}PngReference    
+    override val type:   ImageMimeType = PNG
 
     override val width  = $imageWidth
     override val height = $imageHeight
 
-    override val webp: String = ${referenceName}WebpReference.unsafeCast<String>()
-    override val png:  String = ${referenceName}PngReference.unsafeCast<String>()
+    override val alternativeSource: Image = Webp$objectName
 
 }
 
-@JsModule("./${relativeImagePath}?as=webp")
-@JsNonModule
-private external val ${referenceName}WebpReference: dynamic
+private object Webp$objectName : Image {
+
+    override val source: String        by ::${referenceName}WebpReference
+    override val type:   ImageMimeType = WEBP    
+    
+    override val width:  Int? = null
+    override val height: Int? = null
+
+    override val alternativeSource: Image? = null    
+    
+}
 
 @JsModule("./${relativeImagePath}")
 @JsNonModule
-private external val ${referenceName}PngReference: dynamic
+private external val ${referenceName}PngReference: String
+
+@JsModule("./${relativeImagePath}?as=webp")
+@JsNonModule
+private external val ${referenceName}WebpReference: String
 
     """.trimIndent()
 

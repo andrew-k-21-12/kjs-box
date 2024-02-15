@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Timing
+import io.github.andrewk2112.kjsbox.frontend.designtokens.Timing
 import kotlinx.css.properties.cubicBezier
 import kotlinx.css.properties.Timing as CssTiming
 

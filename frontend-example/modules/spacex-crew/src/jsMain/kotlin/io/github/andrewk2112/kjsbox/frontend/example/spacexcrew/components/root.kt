@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.namespace
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.searchInTheSpaceXCrewByNameKey

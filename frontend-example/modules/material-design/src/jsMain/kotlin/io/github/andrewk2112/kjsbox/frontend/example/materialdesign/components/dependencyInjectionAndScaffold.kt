@@ -1,10 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.transition
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.transition
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.usePrevious
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useRefHeightMonitor
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.*
@@ -12,8 +12,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.f
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.DESKTOP
@@ -51,6 +51,7 @@ import web.dom.Element
 //  7. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
 //  8. No need to add project dependencies from buildscript Gradle plugins -
 //     better to include dependencies manually for modularity?
+//  9. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,

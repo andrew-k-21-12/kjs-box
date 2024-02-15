@@ -1,19 +1,23 @@
-package io.github.andrewk2112.kjsbox.frontend.core.resources
+package io.github.andrewk2112.kjsbox.frontend.images.resources
 
 /**
- * An abstract image resource marker.
+ * Path to an image with its optional metadata and alternative images chain.
  */
-sealed interface Image
+interface Image {
 
-/**
- * A simple image resource protocol providing just sizes and basic formats.
- */
-interface SimpleImage : Image {
+    /** Full path to the image. */
+    val source: String
 
-    val width:  Int
-    val height: Int
+    /** Image's format - can be important for alternative sources. */
+    val type: ImageMimeType?
 
-    val webp: String
-    val png:  String
+    /** Width can be `null` for alternative sources of the same size, for example. */
+    val width: Int?
+
+    /** Height can be `null` for alternative sources of the same size, for example. */
+    val height: Int?
+
+    /** Refers another image source which can be used as an alternative one (having another [type], for example). */
+    val alternativeSource: Image?
 
 }

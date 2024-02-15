@@ -1,10 +1,9 @@
-package io.github.andrewk2112.kjsbox.frontend.core.components
+package io.github.andrewk2112.kjsbox.frontend.images.components
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.core.resources.Image
-import io.github.andrewk2112.kjsbox.frontend.core.resources.SimpleImage
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.ChildrenBuilder
@@ -24,31 +23,35 @@ import web.html.Loading
  * @param alternativeText A description to be displayed when the image fails to load.
  * @param classNames      Styling classes to be applied for the image.
  */
-fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) = when (image) {
-    // Avoid using "when" - rewrite it to be more polymorphic!
-    is SimpleImage -> {
+fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) {
 
-        // This tag allows to pick the most appropriate variant from the listed ones.
-        picture {
+    // This tag allows to pick the most appropriate variant from the listed ones.
+    picture {
 
-            // Let's use WebP when possible.
+        // Adding all available alternative sources.
+        var nextAlternativeSource: Image? = image.alternativeSource
+        while (true) {
+            val alternativeSource = nextAlternativeSource ?: break
             source {
-                srcSet = image.webp
-                type   = "image/webp"
+                alternativeSource.width?.let  { width  = it.toDouble() }
+                alternativeSource.height?.let { height = it.toDouble() }
+                alternativeSource.type?.let   { type   = it.value }
+                srcSet = alternativeSource.source
             }
+            nextAlternativeSource = alternativeSource.alternativeSource
+        }
 
-            // Describes the fallback variant and configs common for all variants.
-            +img(ImageStyles.simpleImage.name, *classNames) {
-                loading = Loading.lazy
-                width  = image.width.toDouble()
-                height = image.height.toDouble()
-                src = image.png
-                alt = alternativeText
-            }
-
+        // Describes the fallback variant and configs common for all variants.
+        +img(ImageStyles.simpleImage.name, *classNames) {
+            image.width?.let  { width  = it.toDouble() }
+            image.height?.let { height = it.toDouble() }
+            loading = Loading.lazy
+            src = image.source
+            alt = alternativeText
         }
 
     }
+
 }
 
 

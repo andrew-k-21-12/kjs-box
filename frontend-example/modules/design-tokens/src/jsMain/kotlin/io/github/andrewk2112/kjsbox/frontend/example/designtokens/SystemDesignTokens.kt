@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.*
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.SystemDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.SystemDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.designtokens.*
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.system.SystemFontSizes
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.system.SystemPalette
 

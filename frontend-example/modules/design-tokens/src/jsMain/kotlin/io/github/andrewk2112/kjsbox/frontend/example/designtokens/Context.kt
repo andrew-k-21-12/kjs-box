@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.HasCssSuffix
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.HasCssSuffix
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
 import io.github.andrewk2112.utility.string.formats.cases.SnakeCase

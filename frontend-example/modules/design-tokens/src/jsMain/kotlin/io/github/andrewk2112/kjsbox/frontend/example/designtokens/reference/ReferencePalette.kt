@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Palette
+import io.github.andrewk2112.kjsbox.frontend.designtokens.Palette
 import kotlinx.css.Color
 
 class ReferencePalette : Palette {

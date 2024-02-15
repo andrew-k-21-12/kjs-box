@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.reference
 
-import io.github.andrewk2112.kjsbox.frontend.core.designtokens.Opacities
+import io.github.andrewk2112.kjsbox.frontend.designtokens.Opacities
 
 class ReferenceOpacities : Opacities {
     val transparent = 0

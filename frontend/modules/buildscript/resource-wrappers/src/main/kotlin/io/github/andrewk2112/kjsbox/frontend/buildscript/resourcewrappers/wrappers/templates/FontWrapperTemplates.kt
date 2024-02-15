@@ -41,8 +41,8 @@ internal class FontWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import kotlinx.css.*
 import styled.injectGlobal
 
@@ -93,7 +93,7 @@ val $variantPropertyName: NamedRuleSet by css {
     private fun FontVariant.inflateReference(): String = """
 @JsModule("./$relativeFontPath")
 @JsNonModule
-private external val $referencePropertyName: dynamic
+private external val $referencePropertyName: String
     """.trimIndent()
 
 }

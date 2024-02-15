@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions
+package io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions
 
 import react.*
 import web.cssom.ClassName

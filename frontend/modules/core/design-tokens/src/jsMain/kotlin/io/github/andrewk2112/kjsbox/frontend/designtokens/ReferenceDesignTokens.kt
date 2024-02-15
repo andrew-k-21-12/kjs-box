@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.designtokens
+package io.github.andrewk2112.kjsbox.frontend.designtokens
 
 /**
  * All style end values divided into groups.

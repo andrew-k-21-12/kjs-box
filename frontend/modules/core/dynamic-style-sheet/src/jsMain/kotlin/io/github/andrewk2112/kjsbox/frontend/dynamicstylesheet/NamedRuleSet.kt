@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet
+package io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet
 
 import kotlinx.css.RuleSet
 

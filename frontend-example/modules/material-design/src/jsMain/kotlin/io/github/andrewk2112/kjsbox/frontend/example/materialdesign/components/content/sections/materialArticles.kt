@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.extensions.invoke
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.core.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
@@ -9,15 +9,15 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.mat
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SystemIconsImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.TypeSystemImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
-import io.github.andrewk2112.kjsbox.frontend.core.resources.Image as ResourceImage
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicCssProvider
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.DynamicStyleSheet
-import io.github.andrewk2112.kjsbox.frontend.core.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
+import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -81,7 +81,7 @@ private inline fun ChildrenBuilder.articlesGrid(
     context: Context,
     styles: MaterialArticlesStyles,
     materialDesignTokens: MaterialDesignTokens,
-    crossinline adapter: ((isDouble: Boolean, title: String, desc: String, ResourceImage, imageAltText: String) -> Unit) -> Unit
+    crossinline adapter: ((isDouble: Boolean, title: String, desc: String, Image, imageAltText: String) -> Unit) -> Unit
 ) =
     +div(clazz = styles.grid(context).name) {
         adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
@@ -100,7 +100,7 @@ private fun ChildrenBuilder.articleItem(
     hasDoubleWidth: Boolean,
     title: String,
     description: String,
-    illustration: ResourceImage,
+    illustration: Image,
     illustrationAlternativeText: String,
 ) =
     +div(
@@ -204,6 +204,6 @@ private class MaterialArticlesUiState private constructor(vararg val articles: M
 private class MaterialArticleUiState(
     val title: LocalizationKey,
     val description: LocalizationKey,
-    val illustration: ResourceImage,
+    val illustration: Image,
     val illustrationAlternativeText: LocalizationKey,
 )

@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.designtokens
 
-import io.github.andrewk2112.kjsbox.frontend.core.hooks.useWindowInnerWidthMonitor
+import io.github.andrewk2112.utility.react.hooks.useWindowInnerWidthMonitor
 import react.*
 
 

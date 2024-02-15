@@ -1,15 +1,16 @@
-package io.github.andrewk2112.kjsbox.frontend.core.hooks
+package io.github.andrewk2112.utility.react.hooks
 
 import react.RefObject
+import react.useCallback
 import react.useEffectOnce
 import react.useState
 import web.dom.Element
 import web.dom.observers.ResizeObserver
 
 /**
- * Monitors for and notifies about the height updates of the provided [ref] via the [onHeightChanged] callback.
+ * Monitors for and notifies about height updates of the provided [ref] via the [onHeightChanged] callback.
  */
-inline fun useRefHeightMonitor(ref: RefObject<Element>, crossinline onHeightChanged: (Double) -> Unit) =
+fun useRefHeightMonitor(ref: RefObject<Element>, onHeightChanged: (Double) -> Unit) {
     useEffectOnce {
         val resizeObserver = ref.current?.let { element ->
             var previousHeight = 0.0
@@ -23,12 +24,14 @@ inline fun useRefHeightMonitor(ref: RefObject<Element>, crossinline onHeightChan
         }
         cleanup { resizeObserver?.disconnect() }
     }
+}
 
 /**
- * Monitors for and notifies about the height updates of the provided [ref] via the returned state value.
+ * Monitors for and notifies about height updates of the provided [ref] via the returned state value.
  */
 fun useRefHeightMonitor(ref: RefObject<Element>): Double {
     var height by useState(0.0)
-    useRefHeightMonitor(ref) { height = it }
+    val callback: (Double) -> Unit = useCallback { height = it }
+    useRefHeightMonitor(ref, callback)
     return height
 }

@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.hooks
+package io.github.andrewk2112.utility.react.hooks
 
 import react.useEffect
 import react.useMemo

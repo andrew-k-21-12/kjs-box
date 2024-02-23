@@ -1,8 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.core.jsmodules.i18next
-
-@JsModule("i18next-browser-languagedetector")
-@JsNonModule
-internal external val i18nextBrowserLanguageDetector: I18nextBrowserLanguageDetector
+package io.github.andrewk2112.kjsbox.frontend.localization.i18next.jsmodules
 
 internal external interface I18nextBrowserLanguageDetector {
 
@@ -12,3 +8,7 @@ internal external interface I18nextBrowserLanguageDetector {
     val LanguageDetector: dynamic
 
 }
+
+@JsModule("i18next-browser-languagedetector")
+@JsNonModule
+internal external val i18nextBrowserLanguageDetector: I18nextBrowserLanguageDetector

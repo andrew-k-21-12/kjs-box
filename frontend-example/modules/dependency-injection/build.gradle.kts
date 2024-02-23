@@ -7,10 +7,11 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(kotlinLibs.kjsbox.frontend.core)
                 implementation(kotlinLibs.kodein.di)
+                implementation(kotlinLibs.kotlinx.coroutines.js)
                 implementation(kotlinLibs.my.utility.kodein)
                 implementation(projects.designTokens)
+                implementation(projects.localization)
             }
         }
     }

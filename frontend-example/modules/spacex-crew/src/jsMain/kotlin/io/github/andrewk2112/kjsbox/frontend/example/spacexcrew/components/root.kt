@@ -53,8 +53,7 @@ val root = FC {
 
     ul {
 
-        val foundCrewMembers = uiState?.foundCrewMembers?.takeIf { it.isNotEmpty() } ?: return@ul
-        for (crewMember in foundCrewMembers) {
+        for (crewMember in uiState.foundCrewMembers) {
 
             +li(RootStyles.listItem.name) {
                 key = crewMember.id

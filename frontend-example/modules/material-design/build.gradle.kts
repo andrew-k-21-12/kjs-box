@@ -7,6 +7,7 @@ kotlin.sourceSets {
     val jsMain by getting {
         dependencies {
             implementation(kotlinLibs.kjsbox.frontend.designtokens)
+            implementation(kotlinLibs.kjsbox.frontend.localization)
             implementation(kotlinLibs.my.utility.kodein)
             implementation(kotlinLibs.my.utility.react)
             implementation(kotlinLibs.my.utility.react.dom)
@@ -14,6 +15,7 @@ kotlin.sourceSets {
             implementation(projects.dependencyInjection)
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
+            implementation(projects.localization)
         }
     }
 }

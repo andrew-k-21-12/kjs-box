@@ -47,11 +47,11 @@ import web.dom.Element
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. Maybe the localization API should be changed slightly (for better generalization)?
-//  7. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
-//  8. No need to add project dependencies from buildscript Gradle plugins -
+//  6. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
+//  7. No need to add project dependencies from buildscript Gradle plugins -
 //     better to include dependencies manually for modularity?
-//  9. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
+//  8. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
+//  9. Reorganize Gradle modules for DI correctly (extract interfaces for DI components).
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
@@ -71,8 +71,8 @@ import web.dom.Element
 
 val dependencyInjectionAndScaffold = FC {
     val rootComponent = useRootComponent()
-    rootComponent.getLocalizationEngine().useLocalizator(namespace) // lazily loading all translations of the module,
-                                                                    // the order matters to avoid unneeded re-rendering
+    rootComponent.getLocalizationEngine().loadLocalizations(namespace) // lazily loading all translations of the module,
+                                                                       // the order matters to avoid unneeded re-rendering
     val component = useMemo(rootComponent) { MaterialDesignComponent(rootComponent) }
     provideMaterialDesignComponent(component) { // providing the dependency injection component
                                                 // for all nested React components

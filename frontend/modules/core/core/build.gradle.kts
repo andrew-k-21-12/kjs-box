@@ -32,11 +32,6 @@ kotlin {
                 implementation(kotlinLibs.kjsbox.frontend.dynamicstylesheet)
                 implementation(kotlinLibs.my.utility.string)
 
-                // All required JS libraries.
-                jsLibs.bundles.kjsbox.frontend.core.get().forEach {
-                    implementation(npm(it.name, it.version!!))
-                }
-
             }
         }
     }

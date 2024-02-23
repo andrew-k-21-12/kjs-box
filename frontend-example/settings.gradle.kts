@@ -27,6 +27,7 @@ listOf(
     "design-tokens",
     "exercises",
     "index",
+    "localization",
     "material-design",
     "spacex-crew",
 ).map {

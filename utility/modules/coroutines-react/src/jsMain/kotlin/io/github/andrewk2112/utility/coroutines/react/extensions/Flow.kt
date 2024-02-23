@@ -2,11 +2,16 @@ package io.github.andrewk2112.utility.coroutines.react.extensions
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import react.StateInstance
 import react.useEffectOnce
 import react.useState
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+
+
+
+// Public.
 
 /**
  * Converts a receiver [Flow] into React's state.
@@ -27,9 +32,51 @@ import kotlin.coroutines.EmptyCoroutineContext
  * because this function creates its own [SupervisorJob] for execution
  * (which is a child for an optional [Job] of the [context]).
  */
-fun <T : Any> Flow<T>.asReactState(context: CoroutineContext = EmptyCoroutineContext): StateInstance<T?> {
+fun <T : Any> Flow<T>.asReactState(context: CoroutineContext = EmptyCoroutineContext): StateInstance<T?> =
+    useState<T>().also { collectWithContext(context, it.component2()::invoke) }
 
-    val state = useState<T>()
+/**
+ * Almost the same as similar [asReactState] but works with non-`null` values because of the provided [initialValue].
+ */
+fun <T : Any> Flow<T>.asReactState(
+    initialValue: T,
+    context: CoroutineContext = EmptyCoroutineContext
+): StateInstance<T> =
+    useState(initialValue).also { collectWithContext(context, it.component2()::invoke) }
+
+/**
+ * See the docs for the similar [asReactState] which accepts an initial value.
+ * This initial value is taken from a [StateFlow.value].
+ */
+fun <T : Any> StateFlow<T>.asReactState(context: CoroutineContext = EmptyCoroutineContext): StateInstance<T> =
+    asReactState(value, context)
+
+/**
+ * Almost identical to [asReactState] accepting a [CoroutineContext] with the following differences:
+ * - doesn't create any [CoroutineScope], uses only the provided one without cancelling it on normal circumstances;
+ * - if there is some failure during the [Flow]'s collection, the provided [scope] will be cancelled as well
+ *   (if it's not a [SupervisorJob], of course).
+ */
+fun <T : Any> Flow<T>.asReactState(scope: CoroutineScope): StateInstance<T?> =
+    useState<T>().also { collectInScope(scope, it.component2()::invoke) }
+
+/**
+ * Almost the same as similar [asReactState] but works with non-`null` values because of the provided [initialValue].
+ */
+fun <T : Any> Flow<T>.asReactState(initialValue: T, scope: CoroutineScope): StateInstance<T> =
+    useState(initialValue).also { collectInScope(scope, it.component2()::invoke) }
+
+/**
+ * See the docs for the similar [asReactState] which accepts an initial value.
+ * This initial value is taken from a [StateFlow.value].
+ */
+fun <T : Any> StateFlow<T>.asReactState(scope: CoroutineScope): StateInstance<T> = asReactState(value, scope)
+
+
+
+// Private.
+
+private fun <T : Any> Flow<T>.collectWithContext(context: CoroutineContext, collector: (T) -> Unit) {
 
     // Make sure the flow collection and related allocations are performed only once during the whole rendering phase.
     useEffectOnce {
@@ -43,9 +90,7 @@ fun <T : Any> Flow<T>.asReactState(context: CoroutineContext = EmptyCoroutineCon
         val scope = CoroutineScope(Dispatchers.Main.immediate + context + SupervisorJob(context[Job]))
 
         scope.launch {
-            collect {
-                state.component2().invoke(it)
-            }
+            collect(collector)
         }
 
         // Aborting the collection when the React component is about to be detached.
@@ -53,25 +98,13 @@ fun <T : Any> Flow<T>.asReactState(context: CoroutineContext = EmptyCoroutineCon
 
     }
 
-    return state
-
 }
 
-/**
- * Almost identical to another [asReactState] with the following differences:
- * - doesn't create any [CoroutineScope], uses only the provided one without cancelling it on normal circumstances;
- * - if there is some failure during the [Flow]'s collection, the provided [scope] will be cancelled as well
- *   (if it's not a [SupervisorJob], of course).
- */
-fun <T : Any> Flow<T>.asReactState(scope: CoroutineScope): StateInstance<T?> {
-    val state = useState<T>()
+private fun <T : Any> Flow<T>.collectInScope(scope: CoroutineScope, collector: (T) -> Unit) {
     useEffectOnce {
         val job = scope.launch {
-            collect {
-                state.component2().invoke(it)
-            }
+            collect(collector)
         }
         cleanup { job.cancel() }
     }
-    return state
 }

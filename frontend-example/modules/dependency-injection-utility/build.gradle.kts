@@ -9,9 +9,11 @@ kotlin {
             dependencies {
                 implementation(platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.react)
-                implementation(kotlinLibs.kjsbox.frontend.core)
+                implementation(kotlinLibs.kjsbox.frontend.localization)
+                implementation(kotlinLibs.kotlinx.coroutines.js)
+                implementation(kotlinLibs.my.utility.coroutines.react)
                 implementation(projects.dependencyInjection)
-                implementation(projects.designTokens)
+                implementation(projects.localization)
             }
         }
     }

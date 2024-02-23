@@ -1,11 +1,15 @@
-package io.github.andrewk2112.kjsbox.frontend.core.localization
+package io.github.andrewk2112.kjsbox.frontend.example.localization
+
+import io.github.andrewk2112.kjsbox.frontend.example.localization.Language.ENGLISH
+import io.github.andrewk2112.kjsbox.frontend.example.localization.Language.RUSSIAN
 
 /**
- * States all supported languages.
- *
- * @param code The language's ISO code.
+ * All supported languages.
  */
-internal enum class Language(val code: String) {
-    RUSSIAN("ru"),
-    ENGLISH("en")
-}
+enum class Language { RUSSIAN, ENGLISH }
+
+fun Language.asIsoString(): String =
+    when (this) {
+        RUSSIAN -> "ru"
+        ENGLISH -> "en"
+    }

@@ -42,7 +42,7 @@ webpack-terser           = { group = "webpack-contrib", name = "terser-webpack-p
 
 [bundles]
 
-kjsbox-frontend-core = [ 
+kjsbox-frontend-localization-i18next = [ 
     "i18next-backend",          # to bundle and download translations on demand
     "i18next-core",             # the library itself doesn't provide any means to remove unused resources
     "i18next-languagedetector",

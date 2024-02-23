@@ -30,9 +30,7 @@ internal class LocalizationKeyWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationKey
-
-const val namespace: LocalizationKey = "$keysNamespace"
+const val namespace = "$keysNamespace"
 
 ${keys.joinToString("\n") { it.inflate() }}
 
@@ -44,7 +42,7 @@ ${keys.joinToString("\n") { it.inflate() }}
 
     @Language("kotlin")
     private fun LocalizationKey.inflate(): String = """
-const val $propertyName: LocalizationKey = "$localizationKey"
+const val $propertyName = "$localizationKey"
     """.trimIndent()
 
 }

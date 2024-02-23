@@ -11,6 +11,8 @@ kjsbox-frontend-entrypoint                  = "1.0.0"
 kjsbox-frontend-images                      = "1.0.0"
 kjsbox-frontend-lazymodule                  = "1.0.0"
 kjsbox-frontend-lazymoduleaccessors         = "1.0.0"
+kjsbox-frontend-localization                = "1.0.0"
+kjsbox-frontend-localization-i18next        = "1.0.0"
 kjsbox-frontend-main                        = "1.0.0"
 kjsbox-frontend-resourcewrappers            = "1.0.0"
 
@@ -45,6 +47,8 @@ kjsbox-frontend-core                        = { module = "io.github.andrew-k-21-
 kjsbox-frontend-designtokens                = { module = "io.github.andrew-k-21-12.kjs-box:frontend-design-tokens",                version.ref = "kjsbox-frontend-designtokens" }
 kjsbox-frontend-dynamicstylesheet           = { module = "io.github.andrew-k-21-12.kjs-box:frontend-dynamic-style-sheet",          version.ref = "kjsbox-frontend-dynamicstylesheet" }
 kjsbox-frontend-images                      = { module = "io.github.andrew-k-21-12.kjs-box:frontend-images",                       version.ref = "kjsbox-frontend-images" }
+kjsbox-frontend-localization                = { module = "io.github.andrew-k-21-12.kjs-box:frontend-localization",                 version.ref = "kjsbox-frontend-localization" }
+kjsbox-frontend-localization-i18next        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-localization-i18next",         version.ref = "kjsbox-frontend-localization-i18next" }
 
 kodein-di                                   = { module = "org.kodein.di:kodein-di",                                                version.ref = "kodein" }
 
@@ -52,6 +56,7 @@ kotlin-gradleplugin                         = { module = "org.jetbrains.kotlin:k
 kotlin-test                                 = { module = "org.jetbrains.kotlin:kotlin-test",                                       version.ref = "kotlin" }
 kotlin-wrappers-bom                         = { module = "org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom",                      version.ref = "kotlin-wrappers" }
 kotlin-wrappers-css                         = { module = "org.jetbrains.kotlin-wrappers:kotlin-css" }
+kotlin-wrappers-extensions                  = { module = "org.jetbrains.kotlin-wrappers:kotlin-extensions" }
 kotlin-wrappers-js                          = { module = "org.jetbrains.kotlin-wrappers:kotlin-js" }
 kotlin-wrappers-react                       = { module = "org.jetbrains.kotlin-wrappers:kotlin-react" }
 kotlin-wrappers-react-dom                   = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-dom" }

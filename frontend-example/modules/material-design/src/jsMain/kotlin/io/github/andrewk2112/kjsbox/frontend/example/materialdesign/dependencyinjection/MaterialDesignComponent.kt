@@ -10,7 +10,8 @@ import io.github.andrewk2112.utility.kodein.KodeinDirectInjection
  * Material design dependency injection component containing related dependencies.
  *
  * This component and its related modules can be substituted by different Gradle modules
- * (for test builds or other variants) - just keep the name and package the same.
+ * (for test builds or other variants) - just keep the name and package the same
+ * (or better extract an interface to substitute Gradle modules only for component's entry point, holder, module).
  */
 class MaterialDesignComponent(rootComponent: RootComponent) {
 

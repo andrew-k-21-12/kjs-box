@@ -1,33 +1,49 @@
 package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks
 
-import io.github.andrewk2112.kjsbox.frontend.core.localization.LocalizationEngine
-import io.github.andrewk2112.kjsbox.frontend.core.localization.Localizator
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
+import io.github.andrewk2112.kjsbox.frontend.example.localization.Language
+import io.github.andrewk2112.kjsbox.frontend.example.localization.LocalizationEngine
+import io.github.andrewk2112.utility.coroutines.react.extensions.asReactState
 
 
 
 // Public.
 
 /**
- * Returns a [Localizator] for retrieving translated strings by keys.
+ * Syntax sugar to differentiate between regular [String]s and those representing keys to get translations for.
  */
-fun useLocalizator(): Localizator = useLocalizationEngine().useLocalizator()
+typealias LocalizationKey = String
+
+/**
+ * Retrieves a localized [String] corresponding to a provided [LocalizationKey].
+ */
+typealias Localizator = (LocalizationKey) -> String
+
+/**
+ * Returns a [Localizator] for retrieving localized strings by [LocalizationKey]s.
+ */
+fun useLocalizator(): Localizator =
+    useLocalizationEngine().run {
+        currentLanguage.asReactState()
+        ::getLocalization
+    }
 
 /**
  * The same as [useLocalizator] but also downloads a [namespace] group of translations.
  */
-fun useLocalizator(namespace: String): Localizator = useLocalizationEngine().useLocalizator(namespace)
+fun useLocalizator(namespace: String): Localizator =
+    useLocalizationEngine().run {
+        loadLocalizations(namespace)
+        ::getLocalization
+    }
 
 /**
- * The same as [useLocalizator] but also downloads multiple [namespaces] of translations.
+ * Returns both the current active language and a [Localizator].
  */
-fun useLocalizator(vararg namespaces: String): Localizator = useLocalizationEngine().useLocalizator(*namespaces)
-
-/**
- * Returns both the current active language and the [Localizator].
- */
-fun useCurrentLanguageAndLocalizator(): Pair<String, Localizator> =
-    useLocalizationEngine().useCurrentLanguageAndLocalizator()
+fun useCurrentLanguageAndLocalizator(): Pair<Language, Localizator> =
+    useLocalizationEngine().run {
+        Pair(currentLanguage.asReactState().component1(), ::getLocalization)
+    }
 
 
 

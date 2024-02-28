@@ -3,9 +3,9 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 import frontendExampleExercisesEntryPoint
 import frontendExampleMaterialDesignEntryPoint
 import frontendExampleSpacexCrewEntryPoint
-import io.github.andrewk2112.kjsbox.frontend.core.routes.MaterialDesignRoute
-import io.github.andrewk2112.kjsbox.frontend.core.routes.SpaceXCrewRoute
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.designTokensContextProvider
+import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
+import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
 import react.*
 import react.router.*
 import react.router.dom.BrowserRouter

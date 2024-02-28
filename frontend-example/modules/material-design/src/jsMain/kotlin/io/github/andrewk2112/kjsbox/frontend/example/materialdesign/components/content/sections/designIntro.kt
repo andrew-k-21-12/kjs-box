@@ -19,8 +19,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
-import io.github.andrewk2112.kjsbox.frontend.images.components.image
-import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
+import io.github.andrewk2112.kjsbox.frontend.image.components.image
+import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration

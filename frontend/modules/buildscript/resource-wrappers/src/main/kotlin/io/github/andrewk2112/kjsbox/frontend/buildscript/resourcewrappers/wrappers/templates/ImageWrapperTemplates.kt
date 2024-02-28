@@ -18,10 +18,10 @@ internal class ImageWrapperTemplates {
     ): String = """
 package $packageName
 
-import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
-import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType
-import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType.PNG
-import io.github.andrewk2112.kjsbox.frontend.images.resources.ImageMimeType.WEBP
+import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
+import io.github.andrewk2112.kjsbox.frontend.image.resources.ImageMimeType
+import io.github.andrewk2112.kjsbox.frontend.image.resources.ImageMimeType.PNG
+import io.github.andrewk2112.kjsbox.frontend.image.resources.ImageMimeType.WEBP
 
 object $objectName : Image {
 

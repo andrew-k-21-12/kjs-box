@@ -35,9 +35,10 @@ listOf(
     "frontend-core"                         to corePath("core"),
     "frontend-design-tokens"                to corePath("design-tokens"),
     "frontend-dynamic-style-sheet"          to corePath("dynamic-style-sheet"),
-    "frontend-images"                       to corePath("images"),
+    "frontend-image"                        to corePath("image"),
     "frontend-localization"                 to corePath("localization"),
     "frontend-localization-i18next"         to corePath("localization-i18next"),
+    "frontend-route"                        to corePath("route"),
 ).map { (projectName, projectPath) ->
     include(projectName)
     project(":$projectName").projectDir = File(projectPath)

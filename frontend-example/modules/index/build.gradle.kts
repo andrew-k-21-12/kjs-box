@@ -9,9 +9,11 @@ kotlin.sourceSets {
             lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign, projects.spacexCrew)
         )
         dependencies {
+            implementation(kotlinLibs.kjsbox.frontend.route)
             implementation(projects.dependencyInjection)
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
+            implementation(projects.routes)
         }
     }
 }

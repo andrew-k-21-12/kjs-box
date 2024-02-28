@@ -1,6 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images
 
-import io.github.andrewk2112.kjsbox.frontend.images.components.image
+import io.github.andrewk2112.kjsbox.frontend.image.components.image
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet

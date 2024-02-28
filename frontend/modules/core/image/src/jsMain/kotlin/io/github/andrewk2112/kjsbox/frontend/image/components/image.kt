@@ -1,9 +1,9 @@
-package io.github.andrewk2112.kjsbox.frontend.images.components
+package io.github.andrewk2112.kjsbox.frontend.image.components
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.images.resources.Image
+import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.ChildrenBuilder

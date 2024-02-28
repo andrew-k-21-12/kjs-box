@@ -7,10 +7,12 @@ kotlin.sourceSets {
     val jsMain by getting {
         dependencies {
             implementation(kotlinLibs.kjsbox.frontend.designtokens)
+            implementation(kotlinLibs.kjsbox.frontend.route)
             implementation(kotlinLibs.my.utility.react)
             implementation(projects.dependencyInjection)
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
+            implementation(projects.routes)
         }
     }
 }

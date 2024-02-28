@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.images.resources
+package io.github.andrewk2112.kjsbox.frontend.image.resources
 
 /**
  * Path to an image with its optional metadata and alternative images chain.

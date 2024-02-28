@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.images.resources
+package io.github.andrewk2112.kjsbox.frontend.image.resources
 
 /**
  * Supported mime types for images.

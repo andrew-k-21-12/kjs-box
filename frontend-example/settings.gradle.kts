@@ -29,6 +29,7 @@ listOf(
     "index",
     "localization",
     "material-design",
+    "routes",
     "spacex-crew",
 ).map {
     include(it)

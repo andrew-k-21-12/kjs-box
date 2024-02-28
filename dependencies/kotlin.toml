@@ -8,13 +8,14 @@ kjsbox-frontend-core                        = "1.0.0-SNAPSHOT"
 kjsbox-frontend-designtokens                = "1.0.0"
 kjsbox-frontend-dynamicstylesheet           = "1.0.0"
 kjsbox-frontend-entrypoint                  = "1.0.0"
-kjsbox-frontend-images                      = "1.0.0"
+kjsbox-frontend-image                       = "1.0.0"
 kjsbox-frontend-lazymodule                  = "1.0.0"
 kjsbox-frontend-lazymoduleaccessors         = "1.0.0"
 kjsbox-frontend-localization                = "1.0.0"
 kjsbox-frontend-localization-i18next        = "1.0.0"
 kjsbox-frontend-main                        = "1.0.0"
 kjsbox-frontend-resourcewrappers            = "1.0.0"
+kjsbox-frontend-route                       = "1.0.0"
 
 kodein                                      = "7.20.2"
 
@@ -46,9 +47,10 @@ kjsbox-frontend-buildscript-versioncatalogs = { module = "io.github.andrew-k-21-
 kjsbox-frontend-core                        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-core",                         version.ref = "kjsbox-frontend-core" }
 kjsbox-frontend-designtokens                = { module = "io.github.andrew-k-21-12.kjs-box:frontend-design-tokens",                version.ref = "kjsbox-frontend-designtokens" }
 kjsbox-frontend-dynamicstylesheet           = { module = "io.github.andrew-k-21-12.kjs-box:frontend-dynamic-style-sheet",          version.ref = "kjsbox-frontend-dynamicstylesheet" }
-kjsbox-frontend-images                      = { module = "io.github.andrew-k-21-12.kjs-box:frontend-images",                       version.ref = "kjsbox-frontend-images" }
+kjsbox-frontend-image                       = { module = "io.github.andrew-k-21-12.kjs-box:frontend-image",                        version.ref = "kjsbox-frontend-image" }
 kjsbox-frontend-localization                = { module = "io.github.andrew-k-21-12.kjs-box:frontend-localization",                 version.ref = "kjsbox-frontend-localization" }
 kjsbox-frontend-localization-i18next        = { module = "io.github.andrew-k-21-12.kjs-box:frontend-localization-i18next",         version.ref = "kjsbox-frontend-localization-i18next" }
+kjsbox-frontend-route                       = { module = "io.github.andrew-k-21-12.kjs-box:frontend-route",                        version.ref = "kjsbox-frontend-route" }
 
 kodein-di                                   = { module = "org.kodein.di:kodein-di",                                                version.ref = "kodein" }
 

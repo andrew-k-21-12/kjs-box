@@ -1,17 +1,11 @@
-package io.github.andrewk2112.kjsbox.frontend.core.utility.date
+package io.github.andrewk2112.kjsbox.frontend.example.sharedutility
 
-import kotlin.js.Date
+import io.github.andrewk2112.utility.js.utility.dateTimeFormatOptions
 
-/**
- * Date-only format with a fully written month
- * but without any other information such as for example a week day's name.
- */
-class LongDateOnlyFormat : DateFormat {
+object DateTimeFormatOptions {
 
-    override fun format(date: Date, language: String): String = date.toLocaleDateString(language, localeOptions)
-
-    /** The platform-specific [Date.LocaleOptions] describing the exact format to be applied. */
-    private val localeOptions: Date.LocaleOptions = dateLocaleOptions {
+    /** Dates without time having a format similar to the following: *December 14, 2020* */
+    val LONG_DATE = dateTimeFormatOptions {
         day   = "numeric"
         month = "long"
         year  = "numeric"

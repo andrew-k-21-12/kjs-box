@@ -8,6 +8,7 @@ kotlin.sourceSets {
         dependencies {
             implementation(kotlinLibs.kjsbox.frontend.designtokens)
             implementation(kotlinLibs.kjsbox.frontend.localization)
+            implementation(kotlinLibs.my.utility.js)
             implementation(kotlinLibs.my.utility.kodein)
             implementation(kotlinLibs.my.utility.react)
             implementation(kotlinLibs.my.utility.react.dom)
@@ -16,6 +17,7 @@ kotlin.sourceSets {
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
             implementation(projects.localization)
+            implementation(projects.sharedUtility)
         }
     }
 }

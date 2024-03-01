@@ -30,6 +30,7 @@ listOf(
     "localization",
     "material-design",
     "routes",
+    "shared-utility",
     "spacex-crew",
 ).map {
     include(it)

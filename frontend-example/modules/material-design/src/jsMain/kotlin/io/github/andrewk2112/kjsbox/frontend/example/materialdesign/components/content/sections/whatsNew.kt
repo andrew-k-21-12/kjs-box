@@ -7,9 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.core.utility.date.LongDateOnlyFormat
-import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
-import io.github.andrewk2112.kjsbox.frontend.core.utility.safeBlankHref
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useCurrentLanguageAndLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
@@ -18,13 +15,19 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignToken
 import io.github.andrewk2112.kjsbox.frontend.example.localization.asIsoString
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.sharedutility.DateTimeFormatOptions
+import io.github.andrewk2112.utility.js.extensions.openBlankSafely
+import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
+import js.intl.DateTimeFormat
+import kotlinx.browser.window
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
+import react.useMemo
 import react.useState
 import kotlin.js.Date
 
@@ -41,7 +44,9 @@ val whatsNew = FC {
     val materialDesignTokens = component.getMaterialDesignTokens()
     val styles               = useMemoWithReferenceCount(component) { WhatsNewStyles(materialDesignTokens) }
 
-    val dateFormat by useState { LongDateOnlyFormat() }
+    val dateTimeFormat = useMemo(language) {
+        DateTimeFormat(language.asIsoString(), DateTimeFormatOptions.LONG_DATE)
+    }
 
     val endpoints by useState { WhatsNewMaterialEndpoints() }
     val uiState   by useState { WhatsNewUiState(endpoints) }
@@ -54,7 +59,7 @@ val whatsNew = FC {
                 it(
                     localizator(blogRecord.title),
                     localizator(blogRecord.description),
-                    dateFormat.format(blogRecord.date, language.asIsoString()),
+                    dateTimeFormat.format(blogRecord.date),
                     blogRecord.endpoint
                 )
             }
@@ -113,7 +118,7 @@ private fun ChildrenBuilder.blogRecordItem(
 private fun ChildrenBuilder.viewAllButton(styles: WhatsNewStyles, label: String, destinationEndpoint: String) =
     +rectButton(clazz = styles.viewAllButton.name) {
         text   = label
-        action = { openBlankWindowSafely(destinationEndpoint) }
+        action = { window.openBlankSafely(destinationEndpoint) }
     }
 
 

@@ -11,7 +11,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.core.utility.openBlankWindowSafely
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
@@ -20,7 +19,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignToken
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
+import io.github.andrewk2112.utility.js.extensions.openBlankSafely
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
+import kotlinx.browser.window
 import kotlinx.css.*
 import react.ChildrenBuilder
 import react.FC
@@ -88,7 +89,7 @@ private fun ChildrenBuilder.header(
         +p(clazz = styles.description(context).name) { +description }
         +rectButton(clazz = styles.viewAllButton(context).name) {
             text   = actionButtonLabel
-            action = { openBlankWindowSafely(actionButtonDestination) }
+            action = { window.openBlankSafely(actionButtonDestination) }
             isDark = true
         }
     }

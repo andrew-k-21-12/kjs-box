@@ -1,15 +1,9 @@
-package io.github.andrewk2112.kjsbox.frontend.core.utility.date
+package io.github.andrewk2112.utility.js.utility
 
-import kotlin.js.Date
+import js.intl.DateTimeFormatOptions
 
 /**
- * Formats JS [Date]s.
+ * Creates a new JS object allowing to apply type-safe [DateTimeFormatOptions] to it.
  */
-interface DateFormat {
-
-    /**
-     * Formats the provided [date] as [String] according to the specified [language] (locale).
-     */
-    fun format(date: Date, language: String): String
-
-}
+inline fun dateTimeFormatOptions(init: DateTimeFormatOptions.() -> Unit): DateTimeFormatOptions =
+    js("new Object()").unsafeCast<DateTimeFormatOptions>().apply(init)

@@ -31,8 +31,9 @@ internal class EntryPointModulePlugin : Plugin<Project> {
             sourceSets.jsMain {
                 kotlin.srcDir(generateEntryPoint)
                 dependencies {
-                    // Entry point sources require some dependencies of this project, can be decomposed later.
-                    implementation(KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
+                    val kotlinVersionCatalog = KotlinVersionCatalog()
+                    implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+                    implementation(kotlinVersionCatalog.libraries.kotlinWrappersStyledNext.fullNotation)
                 }
             }
         }

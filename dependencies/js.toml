@@ -10,8 +10,6 @@ imagemin                 = "8.0.1"
 imagemin-optipng         = "8.0.0"
 imagemin-webp            = "8.0.0"
 
-react                    = "18.2.0"
-
 webpack-html             = "5.5.3"
 webpack-imageminimizer   = "3.8.3"
 webpack-svgr             = "8.1.0"
@@ -30,8 +28,6 @@ i18next-react            = { group = "i18next",         name = "react-i18next", 
 imagemin-core            = { group = "imagemin",        name = "imagemin",                         version.ref = "imagemin" }
 imagemin-optipng         = { group = "imagemin",        name = "imagemin-optipng",                 version.ref = "imagemin-optipng" }
 imagemin-webp            = { group = "imagemin",        name = "imagemin-webp",                    version.ref = "imagemin-webp" }
-
-react                    = { group = "facebook",        name = "react",                            version.ref = "react" }
 
 webpack-html             = { group = "jantimon",        name = "html-webpack-plugin",              version.ref = "webpack-html" }
 webpack-imageminimizer   = { group = "webpack-contrib", name = "image-minimizer-webpack-plugin",   version.ref = "webpack-imageminimizer" }

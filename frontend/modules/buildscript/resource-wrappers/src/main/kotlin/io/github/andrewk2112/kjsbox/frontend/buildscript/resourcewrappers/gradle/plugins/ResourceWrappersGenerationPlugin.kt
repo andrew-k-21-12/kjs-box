@@ -9,7 +9,6 @@ import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.UnknownDomainObjectException
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.io.File
 
@@ -70,6 +69,8 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
         // Including all dependencies required for generated resource wrappers.
         jsMainKotlinSourceSet.dependencies {
             val kotlinVersionCatalog = KotlinVersionCatalog()
+            implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+            implementation(kotlinVersionCatalog.libraries.kotlinWrappersStyledNext.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendDynamicstylesheet.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendImage.fullNotation)
         }
@@ -90,8 +91,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
      * Retrieves the [Project]'s JS main [KotlinSourceSet].
      */
     @Throws(IllegalStateException::class, UnknownDomainObjectException::class)
-    private fun Project.getJsMainKotlinSourceSet(): KotlinSourceSet =
-        getExtension<KotlinMultiplatformExtension>().sourceSets.jsMain()
+    private fun Project.getJsMainKotlinSourceSet(): KotlinSourceSet = asMultiplatform().sourceSets.jsMain()
 
     /**
      * Registers a [WrappersGenerationTask] for the [Project], see the [WrappersGenerationTask] for details.

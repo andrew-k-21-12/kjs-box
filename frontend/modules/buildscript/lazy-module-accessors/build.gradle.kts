@@ -14,6 +14,8 @@ gradlePlugin {
 }
 
 dependencies {
+    implementation(kotlinLibs.kjsbox.frontend.buildscript.versioncatalogs)
+    implementation(kotlinLibs.kotlin.gradleplugin)
     implementation(kotlinLibs.my.utility.common)
     implementation(kotlinLibs.my.utility.gradle)
     implementation(kotlinLibs.my.utility.string)

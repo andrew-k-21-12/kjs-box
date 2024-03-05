@@ -21,6 +21,12 @@ fun Project.applyMultiplatform(configuration: KotlinMultiplatformExtension.() ->
     extensions.configure("kotlin", Action(configuration))
 }
 
+/**
+ * Attempts to access a [Project] as a Kotlin Multiplatform one.
+ */
+@Throws(UnknownDomainObjectException::class)
+fun Project.asMultiplatform(): KotlinMultiplatformExtension = getExtension()
+
 
 
 // Extensions.

@@ -52,8 +52,8 @@ internal class MainModulePlugin : Plugin<Project> {
                 resources.srcDir(unpackIndexHtml) // entry point HTML index
                 dependencies {
                     // All required compile-only NPM dependencies.
-                    JsVersionCatalog().bundles.kjsboxFrontendMain.forEach {
-                        implementation(devNpm(it.name, it.version!!))
+                    JsVersionCatalog().bundles.kjsboxFrontendMain.forEach { dependency ->
+                        implementation(devNpm(dependency.name, dependency.version!!))
                     }
                 }
             }

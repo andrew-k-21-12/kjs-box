@@ -1,8 +1,8 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymoduleaccessors
 
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.utility.gradle.extensions.createExtension
-import io.github.andrewk2112.utility.gradle.extensions.registerTask
+import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.io.File
@@ -33,6 +33,12 @@ internal class LazyModuleAccessorsPlugin : Plugin<Project> {
                 }
                 generateLazyEntryComponent.sourcesOutDirectory
             }
+        }
+        asMultiplatform().sourceSets.jsMain().dependencies {
+            val kotlinVersionCatalog = KotlinVersionCatalog()
+            implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+            implementation(kotlinVersionCatalog.libraries.kotlinWrappersJs.fullNotation)
+            implementation(kotlinVersionCatalog.libraries.kotlinWrappersReact.fullNotation)
         }
     }
 

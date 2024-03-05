@@ -1,12 +1,12 @@
 package io.github.andrewk2112.kjsbox.frontend.example.localization
 
-import io.github.andrewk2112.kjsbox.frontend.core.Environment
-import io.github.andrewk2112.kjsbox.frontend.core.Environment.BuildMode.DEVELOPMENT
 import io.github.andrewk2112.kjsbox.frontend.example.localization.Language.ENGLISH
 import io.github.andrewk2112.kjsbox.frontend.localization.LanguageManager
 import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationsGetter
 import io.github.andrewk2112.kjsbox.frontend.localization.LocalizationsLoader
 import io.github.andrewk2112.kjsbox.frontend.localization.i18next.I18NextLocalizationEngine
+import io.github.andrewk2112.kjsbox.frontend.utility.Environment
+import io.github.andrewk2112.kjsbox.frontend.utility.Environment.BuildMode.DEVELOPMENT
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 

@@ -47,11 +47,10 @@ import web.dom.Element
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. Split current big Gradle modules into fine-grained ones, make the modules structure flatter.
-//  7. No need to add project dependencies from buildscript Gradle plugins -
+//  6. No need to add project dependencies from buildscript Gradle plugins -
 //     better to include dependencies manually for modularity?
-//  8. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
-//  9. Reorganize Gradle modules for DI correctly (extract interfaces for DI components).
+//  7. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
+//  8. Reorganize Gradle modules for DI correctly (extract interfaces for DI components).
 
 // TODO - deployment and finalization:
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
@@ -59,7 +58,8 @@ import web.dom.Element
 //     (think more about it as hashes for resources can be helpful when deploying to avoid their unavailability on upd.).
 //  2. Write some custom server with all required configs (caches, routing) and place it here.
 //  3. Write about the project's features in the central README.md.
-//  4. Publish the Gradle plugins providing this project's features.
+//  4. Publish Gradle plugins providing this project's features (use the simplest way).
+//     Extract some modules from this repository?
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

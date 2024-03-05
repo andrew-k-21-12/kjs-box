@@ -1,10 +1,10 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymodule
 
+import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
 import io.github.andrewk2112.utility.gradle.extensions.createExtension
 import io.github.andrewk2112.utility.gradle.extensions.registerTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import io.github.andrewk2112.utility.gradle.extensions.jsMain
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -32,8 +32,9 @@ internal class LazyModulePlugin : Plugin<Project> {
             sourceSets.jsMain {
                 kotlin.srcDir(generateLazyExportConfig)
                 dependencies {
-                    // Export config sources require some dependencies from this project, can be decomposed later.
-                    implementation(KotlinVersionCatalog().libraries.kjsboxFrontendCore.fullNotation)
+                    val kotlinVersionCatalog = KotlinVersionCatalog()
+                    implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+                    implementation(kotlinVersionCatalog.libraries.kotlinWrappersReact.fullNotation)
                 }
             }
         }

@@ -32,13 +32,13 @@ listOf(
     "resource-wrappers"                     to buildscriptPath("resource-wrappers"),
     "frontend-buildscript-shared"           to buildscriptPath("shared"),
     "frontend-buildscript-version-catalogs" to buildscriptPath("version-catalogs"),
-    "frontend-core"                         to corePath("core"),
     "frontend-design-tokens"                to corePath("design-tokens"),
     "frontend-dynamic-style-sheet"          to corePath("dynamic-style-sheet"),
     "frontend-image"                        to corePath("image"),
     "frontend-localization"                 to corePath("localization"),
     "frontend-localization-i18next"         to corePath("localization-i18next"),
     "frontend-route"                        to corePath("route"),
+    "frontend-utility"                      to corePath("utility"),
 ).map { (projectName, projectPath) ->
     include(projectName)
     project(":$projectName").projectDir = File(projectPath)

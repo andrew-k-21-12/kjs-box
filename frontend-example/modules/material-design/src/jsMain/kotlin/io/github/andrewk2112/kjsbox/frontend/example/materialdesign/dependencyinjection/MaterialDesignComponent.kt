@@ -7,11 +7,14 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 import io.github.andrewk2112.utility.kodein.KodeinDirectInjection
 
 /**
- * Material design dependency injection component containing related dependencies.
+ * Material design dependency injection component providing related dependencies.
  *
- * This component and its related modules can be substituted by different Gradle modules
- * (for test builds or other variants) - just keep the name and package the same
- * (or better extract an interface to substitute Gradle modules only for component's entry point, holder, module).
+ * This component and its related code can be reorganized in a way similar to the [RootComponent]
+ * to substitute component's different implementations much easier.
+ * Even more, there won't be any need in code updates
+ * if the name and package of this component's implementations are kept the same:
+ * in this case it's possible just to swap Gradle dependencies to provide different implementations
+ * (for example, for test environments or additional variants).
  */
 class MaterialDesignComponent(rootComponent: RootComponent) {
 

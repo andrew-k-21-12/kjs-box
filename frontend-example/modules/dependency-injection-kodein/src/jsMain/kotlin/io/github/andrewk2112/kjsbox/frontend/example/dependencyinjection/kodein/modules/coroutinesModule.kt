@@ -1,4 +1,4 @@
-package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.modules
+package io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.kodein.modules
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi

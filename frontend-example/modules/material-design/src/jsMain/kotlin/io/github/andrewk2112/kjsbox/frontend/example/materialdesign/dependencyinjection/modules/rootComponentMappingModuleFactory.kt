@@ -8,5 +8,5 @@ import org.kodein.di.bindProvider
  * Creates a [DI.Module] allowing to use required dependencies from the [RootComponent].
  */
 fun rootComponentMappingModuleFactory(rootComponent: RootComponent) = DI.Module("RootComponentMapping") {
-    bindProvider { rootComponent.getDesignTokens() } // called each when the dependency is requested
+    bindProvider { rootComponent.getDesignTokens() } // called each time when the dependency is requested
 }

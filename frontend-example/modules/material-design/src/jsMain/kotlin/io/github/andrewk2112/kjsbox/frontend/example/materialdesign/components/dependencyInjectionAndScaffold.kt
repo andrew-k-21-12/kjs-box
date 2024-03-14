@@ -52,6 +52,7 @@ import web.dom.Element
 //  7. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
 
 // TODO - deployment and finalization:
+//  0. Check WebP images in original sources - do they generate corresponding PNGs?
 //  1. Hashes in names for all resources (fonts, locales, images) are not needed,
 //     as it will require to rebuild and reload everything each time a resource changes
 //     (think more about it as hashes for resources can be helpful when deploying to avoid their unavailability on upd.).

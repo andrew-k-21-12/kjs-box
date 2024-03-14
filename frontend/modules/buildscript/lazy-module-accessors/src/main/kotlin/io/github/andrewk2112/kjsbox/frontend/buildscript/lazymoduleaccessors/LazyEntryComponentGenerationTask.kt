@@ -44,7 +44,7 @@ internal abstract class LazyEntryComponentGenerationTask : DefaultTask() {
         generatedComponentName.let {
             sourcesOutDirectory.get().asFile
                                .joinWithPath(generateEntryComponentFileName(it))
-                               .writeText(generateEntryComponentCode(it))
+                               .writeText(generateEntryComponentCode(it, generatedChunkName))
         }
     }
 
@@ -56,13 +56,12 @@ internal abstract class LazyEntryComponentGenerationTask : DefaultTask() {
 
     @Language("kotlin")
     @Throws(IllegalStateException::class)
-    private fun LazyEntryComponentGenerationTask.generateEntryComponentCode(generatedComponentName: String) =  """
-import js.import.Module
-import js.import.import
-import js.promise.toPromise
+    private fun generateEntryComponentCode(generatedComponentName: String, generatedChunkName: String) = """
+import js.promise.Promise
+import react.ComponentModule
 import react.ExoticComponent
-import react.Props
 import react.lazy
+import react.Props
 
 internal val $generatedComponentName: ExoticComponent<Props> = lazy {
     // Such references (also, references to resources - fonts, icons, images)
@@ -70,18 +69,26 @@ internal val $generatedComponentName: ExoticComponent<Props> = lazy {
     // their paths are totally unrelated to browser locations.
     // Therefore, we should use simple relative paths instead of the absolute ones.
     // It's a webpack requirement for requests that should resolve in the current directory to start with "./".
-    import<Module<dynamic>>("./${rootProjectName.get()}-${moduleName.get()}")
-        .then { it.default }
-        .toPromise()
+    // Raw JS is used to prevent comments from being erased by Kotlin/JS compiler:
+    // "webpackChunkName" allows to set a particular name for a lazy module when it's bundled.
+    js(
+        "import(/* webpackChunkName: \"$generatedChunkName\" */ \"./$generatedChunkName\")" +
+                ".then(function (module) { return module.default; });" // arrow functions are not supported here
+    ).unsafeCast<Promise<ComponentModule<Props>>>()
 }
 
     """.trimIndent()
 
     /** Prepares a component name used as an entry point one. */
     @get:Throws(IllegalStateException::class)
-    private inline val LazyEntryComponentGenerationTask.generatedComponentName: String
+    private inline val generatedComponentName: String
         get() = rootProjectName.get().changeFormat(KebabCase, LowerCamelCase) +
                 moduleName.get().changeFormat(KebabCase, CamelCase) +
                 "EntryPoint"
+
+    /** Prepares a JS file name (without extension) to be used for the corresponding chunk. */
+    @get:Throws(IllegalStateException::class)
+    private inline val generatedChunkName: String
+        get() = "${rootProjectName.get()}-${moduleName.get()}"
 
 }

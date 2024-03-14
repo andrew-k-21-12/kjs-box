@@ -1,9 +1,11 @@
 // All configs inside of this file will be enabled only in the production mode.
 // The result webpack configurations file will be generated inside ../build/js/packages/<project-name>
-// To check the outputs of this config, see ../build/distributions
+// To check the outputs of this config, see ../build/dist/js/productionExecutable
 if (config.mode == "production") {
 
-    const TerserWebpackPlugin          = require("terser-webpack-plugin"),
+    const fs                           = require("fs"),
+          path                         = require("path"),
+          TerserWebpackPlugin          = require("terser-webpack-plugin"),
           ImageMinimizerWebpackPlugin  = require("image-minimizer-webpack-plugin"),
           { removeUnusedTranslations } = require('i18n-unused');
 
@@ -35,17 +37,56 @@ if (config.mode == "production") {
     config.devtool = false;
 
     // Where to output and how to name JS sources.
-    // Using hashes for bundles' caching.
+    // Using hashes for bundles' caching and optimization of recompilations.
     // The index.html will be updated correspondingly to refer the compiled JS sources.
-    config.output.filename = "js/[name].[contenthash].js";
+    config.output.filename      = `${DESTINATION_OUTPUT_DIR}/js/[name].[contenthash].js`;
+    config.output.chunkFilename = `${DESTINATION_OUTPUT_DIR}/js/[name].[contenthash].js`; // JS chunks for lazy modules
+                                                                                          // and other parts
 
     // Removing everything from the distributions folder -
     // it also helps to prevent unnecessary files from copying: everything should be configured manually.
     config.output.clean = true;
 
-    // Making sure the optimization and minimizer configs exist, or accessing its properties can crash otherwise.
+    // Making sure various optimization config variables are defined to avoid crashes on attempts to access them.
     config.optimization = config.optimization || {};
+    config.optimization.splitChunks = config.optimization.splitChunks || {};
+    const cacheGroups = config.optimization.splitChunks.cacheGroups = config.optimization.splitChunks.cacheGroups || {};
     const minimizer = config.optimization.minimizer = config.optimization.minimizer || [];
+
+    // All Kotlin modules are going to be packed into separate JS chunks
+    // according to webpack's default configs (for example, these chunks can not be too small).
+    // There is an issue with the coroutines chunk having different content hashes even if its version wasn't changed -
+    // it can be bypassed by performing the compilation for multiple times (until the right chunk is obtained).
+    fs.readdirSync(RAW_OUTPUT_DIR).forEach(fileName => {
+        const parsedFileName = path.parse(fileName);
+        if (parsedFileName.ext === ".js") {
+            const chunkName = parsedFileName.name;
+            cacheGroups[chunkName] = {
+                test:   module => module.resource && module.resource.endsWith(parsedFileName.base),
+                name:   chunkName,
+                chunks: "all", // forces the extraction, even if its parts could be loaded later with other chunks
+            };
+        }
+    });
+
+    // Gathering all JS React dependencies into a single chunk.
+    cacheGroups.jsReact = {
+        // When files paths are processed by webpack, they always contain / on Unix systems and \ on Windows.
+        // That's why using [\\/] is necessary to represent a path separator.
+        // / or \ will cause issues when used cross-platform.
+        test:     /[\\/]node_modules[\\/](react|react-dom|react-router|react-router-dom)[\\/]/,
+        priority: 2,
+        name:     "js-react",
+        chunks:   "all",
+    };
+
+    // Gathering all the rest JS dependencies into a single chunk.
+    cacheGroups.jsAll = {
+        test:     /[\\/]node_modules[\\/]/,
+        priority: 1,
+        name:     "js-all",
+        chunks:   "all",
+    };
 
     // Minifying HTML.
     minimizer.push(new HtmlWebpackPlugin({

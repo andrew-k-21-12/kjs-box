@@ -1,3 +1,4 @@
+includeBuild("../backend-example")
 includeBuild("../frontend")
 pluginManagement {
     includeBuild("../utility")                    // \

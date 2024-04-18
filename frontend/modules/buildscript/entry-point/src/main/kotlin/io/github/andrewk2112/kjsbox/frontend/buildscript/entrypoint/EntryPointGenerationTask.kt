@@ -44,17 +44,21 @@ internal abstract class EntryPointGenerationTask : DefaultTask() {
     @Language("kotlin")
     @Throws(IllegalStateException::class)
     private fun generateEntryPointCode() = """
+import js.promise.catch
 import kotlinx.css.*
 import react.*
 import react.dom.client.createRoot
 import styled.injectGlobal
 import web.dom.document
+import web.navigator.navigator
 
 /** The entry point - sets a root component to be rendered first. */
 @EagerInitialization
 @OptIn(ExperimentalStdlibApi::class)
 @Suppress("unused", "DEPRECATION")
 private val main = run {
+    
+    registerServiceWorker()
 
     // Injecting global styles, using the code instead of static files to get minification.
     injectGlobal(clearfixCss)
@@ -64,6 +68,21 @@ private val main = run {
         .render(${rootComponentName.get()}.create())
 
 }
+
+private fun registerServiceWorker() {
+    try {
+        navigator.serviceWorker.register(serviceWorkerPath).then {
+            console.info("Service worker registration succeeded:", it)
+        }.catch {
+            console.warn("Service worker registration failed:", it)
+        }
+    } catch (_: Throwable) { // no service worker API is defined
+        console.warn("Service workers are not supported")
+    }
+}
+
+/** Where to grab service worker configurations from. */
+private inline val serviceWorkerPath get() = "./service-worker.js"
 
 /** Basic styles to be applied to all elements (including the ones outside React components). */
 private inline val clearfixCss: CssBuilder

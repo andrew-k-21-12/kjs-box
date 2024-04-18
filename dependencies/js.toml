@@ -10,6 +10,7 @@ imagemin                 = "8.0.1"
 imagemin-optipng         = "8.0.0"
 imagemin-webp            = "8.0.0"
 
+webpack-copy             = "12.0.2"
 webpack-html             = "5.5.3"
 webpack-imageminimizer   = "3.8.3"
 webpack-svgr             = "8.1.0"
@@ -29,6 +30,7 @@ imagemin-core            = { group = "imagemin",        name = "imagemin",      
 imagemin-optipng         = { group = "imagemin",        name = "imagemin-optipng",                 version.ref = "imagemin-optipng" }
 imagemin-webp            = { group = "imagemin",        name = "imagemin-webp",                    version.ref = "imagemin-webp" }
 
+webpack-copy             = { group = "webpack-contrib", name = "copy-webpack-plugin",              version.ref = "webpack-copy" }
 webpack-html             = { group = "jantimon",        name = "html-webpack-plugin",              version.ref = "webpack-html" }
 webpack-imageminimizer   = { group = "webpack-contrib", name = "image-minimizer-webpack-plugin",   version.ref = "webpack-imageminimizer" }
 webpack-svgr             = { group = "gregberge",       name = "@svgr/webpack",                    version.ref = "webpack-svgr" }
@@ -50,6 +52,7 @@ kjsbox-frontend-main = [
     "imagemin-core",    # the image minification engine to be used
     "imagemin-optipng", # lossless PNG optimization
     "imagemin-webp",    # WebP generation
+    "webpack-copy",
     "webpack-html",
     "webpack-imageminimizer",
     "webpack-svgr",

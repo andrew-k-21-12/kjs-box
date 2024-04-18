@@ -104,7 +104,7 @@ internal class MainModulePlugin : Plugin<Project> {
     /** States which resources are going to be unpacked and where. */
     private inline val Project.resourcesWithUnpackDestination: FromTo<Array<String>, File>
         get() = FromTo(
-                    arrayOf("index.html"),
+                    arrayOf("index.html", "service-worker.js"),
                     getSupportingFilesDestinationDirectory("resources"),
                 )
 

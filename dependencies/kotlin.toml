@@ -27,6 +27,8 @@ kotlin-wrappers                             = "1.0.0-pre.627"
 kotlinx-coroutines                          = "1.7.3"
 kotlinx-serialization                       = "1.6.0"
 
+ktor                                        = "2.3.9"
+
 my-utility-common                           = "1.0.0"
 my-utility-coroutines-react                 = "1.0.0"
 my-utility-gradle                           = "1.0.0"
@@ -73,6 +75,11 @@ kotlin-wrappers-styled-next                 = { module = "org.jetbrains.kotlin-w
 
 kotlinx-coroutines-js                       = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js",                       version.ref = "kotlinx-coroutines" }
 kotlinx-serialization                       = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json",                       version.ref = "kotlinx-serialization" }
+
+ktor                                        = { module = "io.ktor:ktor-server-core",                                               version.ref = "ktor" }
+ktor-compression                            = { module = "io.ktor:ktor-server-compression",                                        version.ref = "ktor" }
+ktor-conditionalheaders                     = { module = "io.ktor:ktor-server-conditional-headers",                                version.ref = "ktor" }
+ktor-netty                                  = { module = "io.ktor:ktor-server-netty",                                              version.ref = "ktor" }
 
 my-utility-common                           = { module = "io.github.andrew-k-21-12.utility:common",                                version.ref = "my-utility-common" }
 my-utility-coroutines-react                 = { module = "io.github.andrew-k-21-12.utility:coroutines-react",                      version.ref = "my-utility-coroutines-react" }

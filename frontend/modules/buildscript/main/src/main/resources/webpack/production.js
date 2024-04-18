@@ -1,13 +1,13 @@
 // All configs inside of this file will be enabled only in the production mode.
 // The result webpack configurations file will be generated inside ../build/js/packages/<project-name>
 // To check the outputs of this config, see ../build/dist/js/productionExecutable
-if (config.mode == "production") {
+if (config.mode === "production") {
 
     const fs                           = require("fs"),
-          path                         = require("path"),
           TerserWebpackPlugin          = require("terser-webpack-plugin"),
           ImageMinimizerWebpackPlugin  = require("image-minimizer-webpack-plugin"),
-          { removeUnusedTranslations } = require('i18n-unused');
+          CopyWebpackPlugin            = require("copy-webpack-plugin"),
+          { removeUnusedTranslations } = require("i18n-unused");
 
     // Removes unused translation keys.
     // If i18n-unused becomes deprecated or stops to work stable,
@@ -142,6 +142,14 @@ if (config.mode == "production") {
                 ]
             }
         }
+    }));
+
+    // There is no way for webpack to understand that the service worker's sources are a part of the bundle,
+    // so configuring its copying manually.
+    config.plugins.push(new CopyWebpackPlugin({
+        patterns: [
+            { from: `./${RAW_OUTPUT_DIR}/service-worker.js`, to: "service-worker.js" }
+        ],
     }));
 
     // Removing unused translation keys before any minification or other steps.

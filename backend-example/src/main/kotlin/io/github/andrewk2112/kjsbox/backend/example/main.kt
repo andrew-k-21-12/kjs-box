@@ -7,6 +7,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.compression.*
 import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.routing.*
+import java.io.File
 
 // TODO (FORCED): The only stable but requiring to re-download everything on update way:
 //  - all files are configured to never expire;
@@ -22,9 +23,7 @@ import io.ktor.server.routing.*
 //    or throw an exception that a full deployment (described above) is needed;
 //  - swap an entry-point `index.html` rapidly - only if the previous step was not aborted.
 
-// TODO: Replace direct path to React bundle with some argument or config.
-
-fun main() {
+fun main(args: Array<String>) {
     embeddedServer(Netty) {
         install(Compression) {
             gzip()
@@ -32,8 +31,23 @@ fun main() {
         install(ConditionalHeaders) // adds proper "Last-Modified" headers according to states of served files
         routing {
             singlePageApplication {
-                react("build/dist/js/productionExecutable")
+                react(prepareSpaPath(this@embeddedServer, args))
             }
         }
     }.start(wait = true)
 }
+
+/**
+ * Extracts an SPA path from the [mainArguments] or returns the [FALLBACK_SPA_PATH].
+ *
+ * @throws IllegalStateException If no SPA folder could be located.
+ */
+@Throws(IllegalStateException::class)
+private fun prepareSpaPath(application: Application, mainArguments: Array<String>): String {
+    val spaPath = mainArguments.firstOrNull()
+        ?: FALLBACK_SPA_PATH.also { application.log.info("No SPA path was provided, trying to use the fallback one.") }
+    return spaPath.takeIf { File(it).isDirectory }
+        ?: throw IllegalStateException("Could not locate the SPA folder")
+}
+
+private const val FALLBACK_SPA_PATH = "build/dist/js/productionExecutable"

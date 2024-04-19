@@ -40,6 +40,8 @@ my-utility-string                           = "1.0.0"
 
 my-versioncatalogsgenerator                 = "1.0.0"
 
+slf4j                                       = "2.0.13"
+
 tomlj                                       = "1.1.0"
 
 
@@ -89,6 +91,8 @@ my-utility-kodein                           = { module = "io.github.andrew-k-21-
 my-utility-react                            = { module = "io.github.andrew-k-21-12.utility:react",                                 version.ref = "my-utility-react" }
 my-utility-react-dom                        = { module = "io.github.andrew-k-21-12.utility:react-dom",                             version.ref = "my-utility-react-dom" }
 my-utility-string                           = { module = "io.github.andrew-k-21-12.utility:string",                                version.ref = "my-utility-string" }
+
+slf4j-simple                                = { module = "org.slf4j:slf4j-simple",                                                 version.ref = "slf4j" }
 
 tomlj                                       = { module = "org.tomlj:tomlj",                                                        version.ref = "tomlj" }
 

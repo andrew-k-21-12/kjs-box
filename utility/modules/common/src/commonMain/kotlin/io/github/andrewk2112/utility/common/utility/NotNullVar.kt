@@ -6,13 +6,17 @@ import kotlin.reflect.KProperty
 /**
  * This is a property delegate requiring its value to be set before any usage.
  *
- * @throws UninitializedPropertyAccessException On attempt to read the property's value before it is set.
+ * @throws IllegalStateException On attempt to read the property's value before it is set.
  */
 open class NotNullVar<in T, V : Any> : ReadWriteProperty<T, V> {
 
-    @Throws(UninitializedPropertyAccessException::class)
+    /**
+     * See [ReadWriteProperty.getValue].
+     *
+     * @throws IllegalStateException On attempt to read the property's value before it is set.
+     */
     override fun getValue(thisRef: T, property: KProperty<*>): V =
-        backingValue ?: throw UninitializedPropertyAccessException(
+        backingValue ?: throw IllegalStateException(
             "Initialize the ${property.name} property" +
                     (thisRef?.let { " inside the ${it::class.simpleName} " } ?: " ") +
                     "before accessing it"

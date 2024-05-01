@@ -1,5 +1,7 @@
 [versions]
 
+clikt                                       = "4.2.2"
+
 commons-io                                  = "2.13.0"
 
 kjsbox-frontend-buildscript-shared          = "1.0.0"
@@ -40,6 +42,8 @@ my-utility-string                           = "1.0.0"
 
 my-versioncatalogsgenerator                 = "1.0.0"
 
+okio                                        = "3.9.0"
+
 slf4j                                       = "2.0.13"
 
 tomlj                                       = "1.1.0"
@@ -47,6 +51,8 @@ tomlj                                       = "1.1.0"
 
 
 [libraries]
+
+clikt                                       = { module = "com.github.ajalt.clikt:clikt",                                           version.ref = "clikt" }
 
 commons-io                                  = { module = "commons-io:commons-io",                                                  version.ref = "commons-io" }
 
@@ -91,6 +97,8 @@ my-utility-kodein                           = { module = "io.github.andrew-k-21-
 my-utility-react                            = { module = "io.github.andrew-k-21-12.utility:react",                                 version.ref = "my-utility-react" }
 my-utility-react-dom                        = { module = "io.github.andrew-k-21-12.utility:react-dom",                             version.ref = "my-utility-react-dom" }
 my-utility-string                           = { module = "io.github.andrew-k-21-12.utility:string",                                version.ref = "my-utility-string" }
+
+okio                                        = { module = "com.squareup.okio:okio",                                                 version.ref = "okio" } 
 
 slf4j-simple                                = { module = "org.slf4j:slf4j-simple",                                                 version.ref = "slf4j" }
 

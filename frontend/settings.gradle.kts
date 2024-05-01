@@ -39,6 +39,7 @@ listOf(
     "frontend-localization-i18next"         to corePath("localization-i18next"),
     "frontend-route"                        to corePath("route"),
     "frontend-utility"                      to corePath("utility"),
+    "frontend-patching-deployer"            to "modules/utility/patching-deployer"
 ).map { (projectName, projectPath) ->
     include(projectName)
     project(":$projectName").projectDir = File(projectPath)

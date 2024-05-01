@@ -16,7 +16,7 @@ sealed interface Result<T, E : Throwable> {
     // Common API.
 
     /**
-     * Returns a result value in the case of [Success] or null - if some exception has occurred.
+     * Returns a result value in the case of [Success] or `null` - if some exception has occurred.
      *
      * Wrapping the result value into [Success] helps to make this method work even for nullable result values.
      */
@@ -41,7 +41,12 @@ sealed interface Result<T, E : Throwable> {
     fun throwOnFailure()
 
     /**
-     * Retrieves an execution result's exception [E] or null if everything was successful.
+     * Retrieves an execution result's [Failure] or `null` if everything was successful.
+     */
+    fun getFailureOrNull(): Failure<T, E>?
+
+    /**
+     * Retrieves an execution result's exception [E] or `null` if everything was successful.
      */
     fun getExceptionOrNull(): E?
 
@@ -57,6 +62,7 @@ sealed interface Result<T, E : Throwable> {
         override fun getOrNull(): Success<T, E> = this
         override fun getOrThrow(): T = value
         override fun throwOnFailure() = Unit
+        override fun getFailureOrNull(): Failure<T, E>? = null
         override fun getExceptionOrNull(): E? = null
     }
 
@@ -70,6 +76,7 @@ sealed interface Result<T, E : Throwable> {
         override fun getOrThrow(): T = throw exception
         @Throws(Throwable::class)
         override fun throwOnFailure() = throw exception
+        override fun getFailureOrNull(): Failure<T, E> = this
         override fun getExceptionOrNull(): E = exception
     }
 

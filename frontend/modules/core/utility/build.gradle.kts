@@ -3,7 +3,7 @@ plugins {
 }
 
 group   = "io.github.andrew-k-21-12.kjs-box"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.0"
 
 kotlin {
     js().browser()

@@ -50,6 +50,7 @@ import web.dom.Element
 //  6. No need to add project dependencies from buildscript Gradle plugins -
 //     better to include dependencies manually for modularity?
 //  7. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
+//  8. Use UpperCamelCase for all React components?
 
 // TODO - deployment and finalization:
 //  0. Check WebP images in original sources - do they generate corresponding PNGs?

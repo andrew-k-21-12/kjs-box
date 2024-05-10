@@ -10,7 +10,7 @@ import org.gradle.api.tasks.*
 /**
  * Generates wrappers for source image resources.
  */
-abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
+internal abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
 
     @TaskAction
     @Throws(Exception::class)

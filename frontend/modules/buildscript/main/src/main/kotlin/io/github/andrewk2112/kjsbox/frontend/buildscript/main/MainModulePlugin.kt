@@ -1,55 +1,108 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.EntryPointModuleCallback
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
-import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
-import io.github.andrewk2112.utility.gradle.extensions.findTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.DirectoryWritingTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory.ResourceWriteIntoDirectoryAction
 import io.github.andrewk2112.utility.common.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
-import io.github.andrewk2112.utility.gradle.extensions.jsMain
-import io.github.andrewk2112.utility.gradle.extensions.registerTask
-import org.gradle.api.Action
-import org.gradle.api.InvalidUserDataException
-import org.gradle.api.Plugin
-import org.gradle.api.Project
+import io.github.andrewk2112.utility.gradle.extensions.*
+import org.gradle.api.*
 import java.io.File
 
 /**
  * The main plugin to set up the entire environment:
  * must be applied to the central Gradle module having no own sources but containing child modules of particular types.
  */
-internal class MainModulePlugin : Plugin<Project> {
+internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
+
+    // Configs.
+
+    /**
+     * Prepares all paths and names required to apply this plugin.
+     */
+    private class Configs(buildDirectory: File) {
+
+        /** States which resources are going to be unpacked and where. */
+        val resourcesWithUnpackDestination: FromTo<Array<String>, File>
+
+        /** Which sources are going to be unpacked and where. */
+        val sourcesWithUnpackDestination: FromTo<Array<String>, File>
+
+        /** Where to write all webpack configs. */
+        val webpackConfigsDestinationDirectory: File
+
+        /** States which webpack config resources are going to be unpacked and where. */
+        val webpackConfigsWithUnpackDestination: FromTo<Array<String>, File>
+
+        /** Where to write a file with webpack constants. */
+        val webpackConstantsDestinationFile: File
+
+        /** Where to write a file with webpack entry point configuration. */
+        val webpackEntryPointConfigDestinationFile: File
+
+        init {
+            val supportingFilesDirectory        = buildDirectory.joinWithPath("supportingFiles")
+            resourcesWithUnpackDestination      = FromTo(
+                                                      arrayOf("index.html", "service-worker.js"),
+                                                      supportingFilesDirectory.joinWithPath("resources"),
+                                                  )
+            sourcesWithUnpackDestination        = FromTo(
+                                                      arrayOf("main.kt"),
+                                                      supportingFilesDirectory.joinWithPath("sources")
+                                                  )
+            webpackConfigsDestinationDirectory  = supportingFilesDirectory.joinWithPath("webpackConfigs")
+            webpackConfigsWithUnpackDestination = FromTo(
+                                                      arrayOf(
+                                                          "webpack/3-shared.js",
+                                                          "webpack/development.js",
+                                                          "webpack/production.js",
+                                                      ),
+                                                      webpackConfigsDestinationDirectory,
+                                                  )
+            webpackConstantsDestinationFile = webpackConfigsDestinationDirectory.joinWithPath("1-constants.js")
+            webpackEntryPointConfigDestinationFile = webpackConfigsDestinationDirectory.joinWithPath("2-entry.js")
+        }
+
+    }
+
+
 
     // Action.
 
     @Throws(Exception::class)
     override fun apply(target: Project): Unit = target.run {
 
+        configurableProject = target
+
         // Generating Node.js binaries required for production.
         plugins.apply(NodeJsBinariesGenerationPlugin::class.java)
 
-        // Making sure all supporting files to be prepared before they are actually needed.
-        val unpackMainKt         by registerResourcesUnpackingTask(sourcesWithUnpackDestination)
-        val unpackIndexHtml      by registerResourcesUnpackingTask(resourcesWithUnpackDestination)
-        val unpackWebpackConfigs by registerResourcesUnpackingTask(webpackConfigsWithUnpackDestination)
-        afterEvaluate { // making sure webpack configs are prepared before the compilation
-            findTask("jsProcessResources").dependsOn(unpackWebpackConfigs)
+        // Preparing all configs: from the configurable extension and static ones.
+        val customBundleStaticsDirectory = extensions.create("main", MainModulePluginExtension::class.java)
+                                                     .customBundleStaticsDirectory.orNull
+        configs = Configs(layout.buildDirectory.asFile.get())
+
+        // Registering tasks to unpack and generate all supporting files required to build the project.
+        val unpackMainKt             by registerResourcesUnpackingTask(configs.sourcesWithUnpackDestination)
+        val unpackIndexHtml          by registerResourcesUnpackingTask(configs.resourcesWithUnpackDestination)
+        val generateWebpackConstants by registerTask<WebpackConstantsGenerationTask> {
+            bundleStaticsDirectoryName.set(customBundleStaticsDirectory ?: version.toString())
+            webpackConstantsOutFile.set(configs.webpackConstantsDestinationFile)
         }
+        val unpackWebpackConfigs     by registerResourcesUnpackingTask(configs.webpackConfigsWithUnpackDestination)
 
         applyMultiplatform {
             js {
                 binaries.executable() // no run or deploy tasks will be generated without this line
                 browser {
                     commonWebpackConfig(
-                        Action { it.configDirectory = unpackWebpackConfigs.outDirectory.asFile.get() }
+                        Action { it.configDirectory = configs.webpackConfigsDestinationDirectory }
                     )
                 }
             }
             sourceSets.jsMain {
-                kotlin.srcDir(unpackMainKt)       // entry point sources
-                resources.srcDir(unpackIndexHtml) // entry point HTML index
+                kotlin.srcDir(unpackMainKt.outDirectory!!)       // entry point sources
+                resources.srcDir(unpackIndexHtml.outDirectory!!) // entry point HTML index
                 dependencies {
                     // All required compile-only NPM dependencies.
                     JsVersionCatalog().bundles.kjsboxFrontendMain.forEach { dependency ->
@@ -59,9 +112,30 @@ internal class MainModulePlugin : Plugin<Project> {
             }
         }
 
+        // Making sure webpack configs and other resources are prepared before the compilation.
+        afterEvaluate {
+            addResourcesDependencies(unpackIndexHtml, generateWebpackConstants, unpackWebpackConfigs)
+        }
+        // All tasks to unpack resources are configured to provide fine-grained outputs,
+        // so making sure all template sources are unpacked before the compilation.
+        findTask("compileKotlinJs").dependsOn(unpackMainKt)
         // Preventing optimization issues because of the custom modules structure.
         findTask("jsBrowserDevelopmentRun").dependsOn(findTask("jsDevelopmentExecutableCompileSync"))
         findTask("jsBrowserProductionRun").dependsOn(findTask("jsProductionExecutableCompileSync"))
+
+    }
+
+    override fun onEntryPointModuleRegistered(entryPointModule: Project) {
+
+        // On-demand modules require special processing to be compiled - this is the way to request the compilation.
+        configurableProject.dependencies.add("jsMainImplementation", entryPointModule)
+
+        val generateWebpackEntryPointConfig by configurableProject.registerTask<WebpackEntryPointConfigGenerationTask> {
+            entryPointModuleName.set(entryPointModule.name)
+            webpackEntryPointOutFile.set(configs.webpackEntryPointConfigDestinationFile)
+        }
+
+        addResourcesDependencies(generateWebpackEntryPointConfig)
 
     }
 
@@ -75,49 +149,20 @@ internal class MainModulePlugin : Plugin<Project> {
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
     private fun Project.registerResourcesUnpackingTask(
         targets: FromTo<Array<String>, File>
-    ): LazyReadOnlyProperty<Any?, DirectoryWritingTask> =
+    ): LazyReadOnlyProperty<Any?, ResourcesUnpackingTask> =
         registerTask {
-            writeActions.set(
-                targets.source.map { ResourceWriteIntoDirectoryAction(it) }
-                              .toTypedArray()
-            )
-            outDirectory.set(targets.destination)
+            resourceNames = targets.source
+            outDirectory  = targets.destination
         }
 
-
-
-    // Configs.
-
     /**
-     * A [File] pointing to a supporting files destination directory with a [directoryName].
+     * Adds provided [tasks] as dependencies to be executed before resources processing.
      */
-    private fun Project.getSupportingFilesDestinationDirectory(directoryName: String): File =
-        layout.buildDirectory.asFile.get().joinWithPath("supportingFiles/$directoryName")
+    private fun addResourcesDependencies(vararg tasks: Task) {
+        configurableProject.findTask("jsProcessResources").dependsOn(*tasks)
+    }
 
-    /** States which sources are going to be unpacked and where. */
-    private inline val Project.sourcesWithUnpackDestination: FromTo<Array<String>, File>
-        get() = FromTo(
-                    arrayOf("main.kt"),
-                    getSupportingFilesDestinationDirectory("sources"),
-                )
-
-    /** States which resources are going to be unpacked and where. */
-    private inline val Project.resourcesWithUnpackDestination: FromTo<Array<String>, File>
-        get() = FromTo(
-                    arrayOf("index.html", "service-worker.js"),
-                    getSupportingFilesDestinationDirectory("resources"),
-                )
-
-    /** States which webpack config resources are going to be unpacked and where. */
-    private inline val Project.webpackConfigsWithUnpackDestination: FromTo<Array<String>, File>
-        get() = FromTo(
-                    arrayOf(
-                        "webpack/1-constants.js",
-                        "webpack/2-shared.js",
-                        "webpack/development.js",
-                        "webpack/production.js",
-                    ),
-                    getSupportingFilesDestinationDirectory("webpackConfigs"),
-                )
+    private lateinit var configs: Configs
+    private lateinit var configurableProject: Project
 
 }

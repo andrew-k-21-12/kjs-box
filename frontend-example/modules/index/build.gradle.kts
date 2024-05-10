@@ -18,6 +18,4 @@ kotlin.sourceSets {
     }
 }
 
-entryPoint {
-    rootComponent.set("io.github.andrewk2112.kjsbox.frontend.example.index.app")
-}
+entryPoint.rootComponent = "io.github.andrewk2112.kjsbox.frontend.example.index.app"

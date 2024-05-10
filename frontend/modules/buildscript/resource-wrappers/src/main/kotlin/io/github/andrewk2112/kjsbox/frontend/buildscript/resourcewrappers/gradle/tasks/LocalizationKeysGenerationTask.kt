@@ -12,7 +12,7 @@ import kotlin.jvm.Throws
 /**
  * Generates wrappers for localization keys.
  */
-abstract class LocalizationKeysGenerationTask : WrappersGenerationTask() {
+internal abstract class LocalizationKeysGenerationTask : WrappersGenerationTask() {
 
     /**
      * Describes a group of translations located within a single file.

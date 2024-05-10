@@ -11,7 +11,7 @@ import org.gradle.api.tasks.TaskAction
 /**
  * Generates wrappers for source icon resources.
  */
-abstract class IconWrappersGenerationTask : WrappersGenerationTask() {
+internal abstract class IconWrappersGenerationTask : WrappersGenerationTask() {
 
     @TaskAction
     @Throws(Exception::class)

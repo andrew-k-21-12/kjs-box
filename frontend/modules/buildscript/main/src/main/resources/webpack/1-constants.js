@@ -1,20 +1,51 @@
-const path = require("path");
+package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
-// Reusable constants for all build modes.
-const DESTINATION_OUTPUT_DIR   = "static" + "/" + require("./package.json").version;
-const RAW_OUTPUT_DIR           = "kotlin";
-const RAW_TEMPLATE_PATH        = `${RAW_OUTPUT_DIR}/index.html`;
-const ASSET_FILENAME_GENERATOR = {
-    // Instead of a function, this `filename` can be a template string.
-    // Also, it's possible to set `config.output.assetModuleFilename` to configure filenames for all assets.
-    filename: asset => {
-        const parsedFileName = path.parse(asset.filename);
-        return path.join(
-            // Such replace is safe as it's not global:
-            // only the first occurrence is going to be replaced,
-            // so the root folder gets correctly renamed while keeping all sub-paths untouched.
-            parsedFileName.dir.replace(new RegExp(RAW_OUTPUT_DIR), DESTINATION_OUTPUT_DIR),
-            `${parsedFileName.name}.${asset.contentHash}${parsedFileName.ext}`
-        );
+import io.github.andrewk2112.utility.common.extensions.writeTo
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.TaskAction
+
+/**
+ * Generates a webpack configurations file containing basic constants:
+ * some of these constants, for example [bundleStaticsDirectoryName], are configured by this task.
+ * The generated file will be written into a provided [webpackConstantsOutFile].
+ */
+internal abstract class WebpackConstantsGenerationTask : DefaultTask() {
+
+    // Configurations to be set.
+
+    /** Defines a webpack configuration on where to output static sources and resources. */
+    @get:Input
+    abstract val bundleStaticsDirectoryName: Property<String>
+
+    /** Where to write the webpack constants file. Serves as Gradle metadata to consider the task up-to-date. */
+    @get:OutputFile
+    abstract val webpackConstantsOutFile: RegularFileProperty
+
+
+
+    // Action.
+
+    @TaskAction
+    @Throws(Exception::class)
+    private operator fun invoke() {
+        webpackConstantsContents.writeTo(webpackConstantsOutFile.asFile.get())
     }
-};
+
+
+
+    // Static configurations.
+
+    @get:Throws(IllegalStateException::class)
+    private inline val webpackConstantsContents: String get() = """
+// Reusable constants for all build modes.
+const DESTINATION_OUTPUT_DIR = "static" + "/" + "${bundleStaticsDirectoryName.get()}";
+const RAW_OUTPUT_DIR         = "kotlin";
+const RAW_TEMPLATE_PATH      = `${"$"}{RAW_OUTPUT_DIR}/index.html`;
+
+    """.trimIndent()
+
+}

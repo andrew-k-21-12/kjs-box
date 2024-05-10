@@ -11,7 +11,7 @@ import org.gradle.api.tasks.*
 /**
  * Generates wrappers for source font resources.
  */
-abstract class FontWrappersGenerationTask : WrappersGenerationTask() {
+internal abstract class FontWrappersGenerationTask : WrappersGenerationTask() {
 
     @TaskAction
     @Throws(Exception::class)

@@ -1,8 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.entrypoint
 
+import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.EntryPointModuleCallback
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.DirectoryWritingTask
-import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.tasks.actions.writeintodirectory.TextWriteIntoDirectoryAction
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
 import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.Plugin
@@ -38,16 +37,25 @@ internal class EntryPointModulePlugin : Plugin<Project> {
             }
         }
 
-        // On-demand modules require special processing to be compiled - this is the way to request the compilation.
-        rootProject.dependencies.add("jsMainImplementation", project)
+        notifyRootProjectAboutRegistration()
 
-        // There are no any clean or obvious ways to use JS-only webpack configs or configure webpack only inside Gradle,
-        // so using this dirty hack with appending a special webpack-configuring JS file to set up the app's entry point.
-        rootProject.findTask<DirectoryWritingTask>("unpackWebpackConfigs")
-                   .addAction(
-                       TextWriteIntoDirectoryAction(entryPointJsCode, entryPointJsFileName)
-                   )
+    }
 
+
+
+    // Private.
+
+    @Throws(IllegalStateException::class)
+    private fun Project.notifyRootProjectAboutRegistration() {
+        rootProject.plugins
+            .filterIsInstance(EntryPointModuleCallback::class.java)
+            .takeIf { it.isNotEmpty() }
+            ?.forEach {
+                it.onEntryPointModuleRegistered(this)
+            }
+            ?: throw IllegalStateException(
+                "No plugins implementing ${EntryPointModuleCallback::class.java} are applied to the root project"
+            )
     }
 
 
@@ -57,12 +65,5 @@ internal class EntryPointModulePlugin : Plugin<Project> {
     /** Where to save entry point Kotlin sources. */
     private inline val Project.generatedEntryPointDirectory: File
         get() = layout.buildDirectory.asFile.get().joinWithPath("generated/entry")
-
-    /** JS code to set up the app's entry point for webpack. */
-    private inline val Project.entryPointJsCode: String
-        get() = "config.entry = require(\"path\").resolve(__dirname, `\${RAW_OUTPUT_DIR}/\${config.output.library}-$name.js`);\n"
-
-    /** How to name the entry point-configuring JS file. */
-    private inline val entryPointJsFileName get() = "3-entry.js"
 
 }

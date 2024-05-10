@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="kotlinBackendRun" type="JetRunConfigurationType">
+  <configuration default="false" name="backend-example:kotlinBackendRun" type="JetRunConfigurationType">
     <option name="MAIN_CLASS_NAME" value="io.github.andrewk2112.kjsbox.backend.example.MainKt" />
     <module name="backend-example.main" />
     <shortenClasspath name="NONE" />

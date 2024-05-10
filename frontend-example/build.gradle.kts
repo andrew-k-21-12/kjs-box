@@ -7,8 +7,9 @@ plugins {
 }
 
 // Defining a group is required for correct code generation.
-group   = "io.github.andrew-k-21-12.kjs-box"
-version = "1.0.0"
+group                             = "io.github.andrew-k-21-12.kjs-box"
+version                           = "1.0.0"
+main.customBundleStaticsDirectory = "1.0.0"
 
 tasks {
 

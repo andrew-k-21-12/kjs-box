@@ -14,9 +14,10 @@ gradlePlugin {
 }
 
 dependencies {
+    implementation(kotlinLibs.commons.io)
     implementation(kotlinLibs.kjsbox.frontend.buildscript.shared)
     implementation(kotlinLibs.kjsbox.frontend.buildscript.versioncatalogs) // to include and reuse version catalogs
-    implementation(kotlinLibs.kotlin.gradleplugin) // to create plugins with Kotlin features
+    implementation(kotlinLibs.kotlin.gradleplugin)                         // to create plugins with Kotlin features
     implementation(kotlinLibs.my.utility.common)
     implementation(kotlinLibs.my.utility.gradle)
 }

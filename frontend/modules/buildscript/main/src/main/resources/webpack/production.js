@@ -4,6 +4,8 @@
 if (config.mode === "production") {
 
     const fs                           = require("fs"),
+          path                         = require("path"),
+          HtmlWebpackPlugin            = require("html-webpack-plugin"),
           TerserWebpackPlugin          = require("terser-webpack-plugin"),
           ImageMinimizerWebpackPlugin  = require("image-minimizer-webpack-plugin"),
           CopyWebpackPlugin            = require("copy-webpack-plugin"),
@@ -111,8 +113,8 @@ if (config.mode === "production") {
                 hoist_vars: true,
                 unsafe: true,
                 // All configs below require modern ECMA enabled.
-                unsafe_arrows: !devServer.open, // significant improvement but makes the browser run fail
-                unsafe_methods: true            // minor improvement
+                unsafe_arrows: !config.devServer.open, // significant improvement but makes the browser run fail
+                unsafe_methods: true                   // minor improvement
             },
             format: {
                 comments: false

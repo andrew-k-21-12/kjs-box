@@ -61,6 +61,7 @@ import web.dom.Element
 //  3. Write about the project's features in the central README.md.
 //  4. Publish Gradle plugins providing this project's features (use the simplest way).
 //     Extract some modules from this repository?
+//  5. Optimize production bundling to avoid unnecessary recompilations if possible.
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

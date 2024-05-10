@@ -14,7 +14,7 @@ import java.io.File
 /**
  * Inputs and outputs for a family of wrappers generation tasks.
  */
-abstract class WrappersGenerationTask : DefaultTask() {
+internal abstract class WrappersGenerationTask : DefaultTask() {
 
     // All configurations required to be set.
 

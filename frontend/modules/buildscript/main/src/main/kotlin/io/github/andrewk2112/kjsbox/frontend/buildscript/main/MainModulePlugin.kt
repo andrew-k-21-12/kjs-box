@@ -43,7 +43,7 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
         init {
             val supportingFilesDirectory        = buildDirectory.joinWithPath("supportingFiles")
             resourcesWithUnpackDestination      = FromTo(
-                                                      arrayOf("index.html", "service-worker.js"),
+                                                      arrayOf("index-template.html", "service-worker-source.js"),
                                                       supportingFilesDirectory.joinWithPath("resources"),
                                                   )
             sourcesWithUnpackDestination        = FromTo(

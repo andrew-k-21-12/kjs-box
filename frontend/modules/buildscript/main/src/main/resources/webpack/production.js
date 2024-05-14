@@ -148,9 +148,10 @@ if (config.mode === "production") {
 
     // There is no way for webpack to understand that the service worker's sources are a part of the bundle,
     // so configuring its copying manually.
+    // Updating the destination name as well to avoid overwriting of the file during bundling.
     config.plugins.push(new CopyWebpackPlugin({
         patterns: [
-            { from: `./${RAW_OUTPUT_DIR}/service-worker.js`, to: "service-worker.js" }
+            { from: `./${RAW_OUTPUT_DIR}/service-worker-source.js`, to: "service-worker.js" }
         ],
     }));
 

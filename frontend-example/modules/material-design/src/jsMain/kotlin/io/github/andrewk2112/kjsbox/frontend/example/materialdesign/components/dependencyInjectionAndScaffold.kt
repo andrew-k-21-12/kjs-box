@@ -54,14 +54,11 @@ import web.dom.Element
 
 // TODO - deployment and finalization:
 //  0. Check WebP images in original sources - do they generate corresponding PNGs?
-//  1. Hashes in names for all resources (fonts, locales, images) are not needed,
-//     as it will require to rebuild and reload everything each time a resource changes
-//     (think more about it as hashes for resources can be helpful when deploying to avoid their unavailability on upd.).
-//  2. Write some custom server with all required configs (caches, routing) and place it here.
-//  3. Write about the project's features in the central README.md.
-//  4. Publish Gradle plugins providing this project's features (use the simplest way).
+//  1. Write about the project's features in the central README.md.
+//  2. Publish Gradle plugins providing this project's features (use the simplest way).
 //     Extract some modules from this repository?
-//  5. Optimize production bundling to avoid unnecessary recompilations if possible.
+//  3. Update all dependencies to the latest versions.
+//  4. Check all OSs are supported.
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

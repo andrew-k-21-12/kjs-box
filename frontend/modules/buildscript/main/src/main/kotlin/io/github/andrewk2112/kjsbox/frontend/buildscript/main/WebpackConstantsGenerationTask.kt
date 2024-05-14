@@ -44,7 +44,8 @@ internal abstract class WebpackConstantsGenerationTask : DefaultTask() {
 // Reusable constants for all build modes.
 const DESTINATION_OUTPUT_DIR = "static" + "/" + "${bundleStaticsDirectoryName.get()}";
 const RAW_OUTPUT_DIR         = "kotlin";
-const RAW_TEMPLATE_PATH      = `${"$"}{RAW_OUTPUT_DIR}/index.html`;
+// Using another name for the original file because it gets copied on each build and overwrites its bundled version.
+const RAW_TEMPLATE_PATH      = `${"$"}{RAW_OUTPUT_DIR}/index-template.html`;
 
     """.trimIndent()
 

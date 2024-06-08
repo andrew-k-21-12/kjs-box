@@ -128,9 +128,9 @@ if (config.mode === "production") {
         encodeOptions: {
             // https://sharp.pixelplumbing.com/api-output#webp
             webp: {
-                quality: 100,
+                quality: 80,
                 alphaQuality: 100,
-                lossless: true
+                lossless: false
             }
         }
     };

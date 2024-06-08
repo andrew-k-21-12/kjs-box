@@ -13,6 +13,7 @@ import java.io.File
  * Generates all Node.js binaries required for production
  * (the ones not generated automatically for some reason).
  */
+@Deprecated(message = "Since optipng and cwebp have been replaced with sharp, there is no need in their binaries")
 internal class NodeJsBinariesGenerationPlugin : Plugin<Project> {
 
     // Action.

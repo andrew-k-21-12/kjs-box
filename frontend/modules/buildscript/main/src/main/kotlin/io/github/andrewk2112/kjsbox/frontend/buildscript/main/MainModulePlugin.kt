@@ -7,6 +7,11 @@ import io.github.andrewk2112.utility.common.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
 import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.*
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 import java.io.File
 
 /**
@@ -74,8 +79,10 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
 
         configurableProject = target
 
-        // Generating Node.js binaries required for production.
-        plugins.apply(NodeJsBinariesGenerationPlugin::class.java)
+        val jsVersionCatalog = JsVersionCatalog()
+
+        configureNodeJs { nodeVersion = jsVersionCatalog.versions.nodejs }
+        configureYarn   { version     = jsVersionCatalog.versions.yarn   }
 
         // Preparing all configs: from the configurable extension and static ones.
         val customBundleStaticsDirectory = extensions.create("main", MainModulePluginExtension::class.java)
@@ -105,13 +112,18 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
                 resources.srcDir(unpackIndexHtml.outDirectory!!) // entry point HTML index
                 dependencies {
                     // All required compile-only NPM dependencies.
-                    JsVersionCatalog().bundles.kjsboxFrontendMain.forEach { dependency ->
+                    jsVersionCatalog.bundles.kjsboxFrontendMain.forEach { dependency ->
                         implementation(devNpm(dependency.name, dependency.version!!))
                     }
                 }
             }
         }
 
+        // This argument is very important for Yarn to make it include additional dependencies
+        // required for some packages - for example, for sharp.
+        tasks.withType(KotlinNpmInstallTask::class.java).configureEach {
+            it.args.add("--ignore-engines")
+        }
         // Making sure webpack configs and other resources are prepared before the compilation.
         afterEvaluate {
             addResourcesDependencies(unpackIndexHtml, generateWebpackConstants, unpackWebpackConfigs)
@@ -142,6 +154,24 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
 
 
     // Private.
+
+    /**
+     * Makes sure [NodeJsRootPlugin] is applied and provides its [NodeJsRootExtension] for [configuration].
+     */
+    private fun Project.configureNodeJs(configuration: NodeJsRootExtension.() -> Unit) {
+        plugins.withType(NodeJsRootPlugin::class.java) {
+            extensions.findByType(NodeJsRootExtension::class.java)?.apply(configuration)
+        }
+    }
+
+    /**
+     * Makes sure [YarnPlugin] is applied and provides its [YarnRootExtension] for [configuration].
+     */
+    private fun Project.configureYarn(configuration: YarnRootExtension.() -> Unit) {
+        plugins.withType(YarnPlugin::class.java) {
+            extensions.findByType(YarnRootExtension::class.java)?.apply(configuration)
+        }
+    }
 
     /**
      * Registers a task to unpack built-in resources according to the provided [targets].

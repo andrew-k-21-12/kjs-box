@@ -17,7 +17,9 @@ dependencies {
     implementation(kotlinLibs.commons.io) // to simplify some file operations a bit
     implementation(kotlinLibs.kjsbox.frontend.buildscript.versioncatalogs) // to include and reuse version catalogs
     implementation(kotlinLibs.kotlin.gradleplugin) // to create plugins with Kotlin features
+    implementation(kotlinLibs.my.utility.bytes)
     implementation(kotlinLibs.my.utility.common)
     implementation(kotlinLibs.my.utility.gradle)
     implementation(kotlinLibs.my.utility.string)
+    testImplementation(kotlinLibs.kotlin.test)
 }

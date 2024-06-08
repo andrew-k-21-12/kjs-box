@@ -124,26 +124,48 @@ if (config.mode === "production") {
     }));
 
     // Generation and minification for images.
+    const webpOptions = {
+        encodeOptions: {
+            // https://sharp.pixelplumbing.com/api-output#webp
+            webp: {
+                quality: 100,
+                alphaQuality: 100,
+                lossless: true
+            }
+        }
+    };
+    const pngOptions = {
+        encodeOptions: {
+            // https://sharp.pixelplumbing.com/api-output#png
+            png: { quality: 100 }
+        }
+    };
     minimizer.push(new ImageMinimizerWebpackPlugin({
+        // Generators are for presets (when links to images have `?as=<format>` in the end)
+        // to generate new copies of original images.
         generator: [
             {
                 preset: "webp",
-                implementation: ImageMinimizerWebpackPlugin.imageminGenerate,
-                options: {
-                    plugins: [
-                        ["webp", { quality: 100 }]
-                    ]
-                }
+                implementation: ImageMinimizerWebpackPlugin.sharpGenerate,
+                options: webpOptions
+            },
+            {
+                preset: "png",
+                implementation: ImageMinimizerWebpackPlugin.sharpGenerate,
+                options: pngOptions
             }
         ],
-        minimizer: {
-            implementation: ImageMinimizerWebpackPlugin.imageminMinify,
-            options: {
-                plugins: [
-                    ["optipng", { optimizationLevel: 7 }] // lossless PNG optimization
-                ]
+        // Minimizers are to keep original formats of images but apply some optimizations to reduce their sizes.
+        minimizer: [
+            {
+                implementation: ImageMinimizerWebpackPlugin.sharpMinify,
+                options: webpOptions
+            },
+            {
+                implementation: ImageMinimizerWebpackPlugin.sharpMinify,
+                options: pngOptions
             }
-        }
+        ]
     }));
 
     // There is no way for webpack to understand that the service worker's sources are a part of the bundle,

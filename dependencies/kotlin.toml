@@ -31,6 +31,7 @@ kotlinx-serialization                       = "1.6.0"
 
 ktor                                        = "2.3.9"
 
+my-utility-bytes                            = "1.0.0"
 my-utility-common                           = "1.0.0"
 my-utility-coroutines-react                 = "1.0.0"
 my-utility-gradle                           = "1.0.0"
@@ -89,6 +90,7 @@ ktor-compression                            = { module = "io.ktor:ktor-server-co
 ktor-conditionalheaders                     = { module = "io.ktor:ktor-server-conditional-headers",                                version.ref = "ktor" }
 ktor-netty                                  = { module = "io.ktor:ktor-server-netty",                                              version.ref = "ktor" }
 
+my-utility-bytes                            = { module = "io.github.andrew-k-21-12.utility:bytes",                                 version.ref = "my-utility-bytes" }
 my-utility-common                           = { module = "io.github.andrew-k-21-12.utility:common",                                version.ref = "my-utility-common" }
 my-utility-coroutines-react                 = { module = "io.github.andrew-k-21-12.utility:coroutines-react",                      version.ref = "my-utility-coroutines-react" }
 my-utility-gradle                           = { module = "io.github.andrew-k-21-12.utility:gradle",                                version.ref = "my-utility-gradle" }

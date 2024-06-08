@@ -53,7 +53,6 @@ import web.dom.Element
 //  8. Use UpperCamelCase for all React components?
 
 // TODO - deployment and finalization:
-//  0. Check WebP images in original sources - do they generate corresponding PNGs?
 //  1. Write about the project's features in the central README.md.
 //  2. Publish Gradle plugins providing this project's features (use the simplest way).
 //     Extract some modules from this repository?

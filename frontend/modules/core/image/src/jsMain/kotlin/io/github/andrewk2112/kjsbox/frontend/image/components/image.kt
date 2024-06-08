@@ -25,29 +25,27 @@ import web.html.Loading
  */
 fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) {
 
-    // This tag allows to pick the most appropriate variant from the listed ones.
+    // This tag allows to pick the most appropriate image variant from all listed ones.
     picture {
 
-        // Adding all available alternative sources.
-        var nextAlternativeSource: Image? = image.alternativeSource
-        while (true) {
-            val alternativeSource = nextAlternativeSource ?: break
+        // Adding all available alternative sources:
+        // even those which duplicate the fallback `img` one must be listed,
+        // or they won't be picked when the `source` tag is supported and getting processed.
+        // Also, the `source` tag picks a first-match source, so put the most specific sources first.
+        image.alternativeSources?.takeIf { it.isNotEmpty() }?.forEach { alternativeSource ->
             source {
-                alternativeSource.width?.let  { width  = it.toDouble() }
-                alternativeSource.height?.let { height = it.toDouble() }
-                alternativeSource.type?.let   { type   = it.value }
-                srcSet = alternativeSource.source
+                srcSet = alternativeSource.sourceSet
+                alternativeSource.type?.let { type = it.value }
             }
-            nextAlternativeSource = alternativeSource.alternativeSource
         }
 
-        // Describes the fallback variant and configs common for all variants.
+        // A fallback image and configs shared for all variants.
         +img(ImageStyles.simpleImage.name, *classNames) {
+            src = image.source // the `source` tag can be unsupported in some browsers, so the fallback `src` is a must
+            loading = Loading.lazy
+            alt     = alternativeText
             image.width?.let  { width  = it.toDouble() }
             image.height?.let { height = it.toDouble() }
-            loading = Loading.lazy
-            src = image.source
-            alt = alternativeText
         }
 
     }

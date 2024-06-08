@@ -6,7 +6,6 @@ import io.github.andrewk2112.utility.common.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.ImageResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.ImageWrapperTemplates
 import io.github.andrewk2112.utility.gradle.extensions.toUniversalPathString
-import io.github.andrewk2112.utility.string.extensions.decapitalize
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.KebabCase
 import io.github.andrewk2112.utility.string.formats.changeFormat
@@ -60,9 +59,9 @@ internal class ImageWrappersWriter(
                 .inflateSimpleImage(
                     wrapperPackageName,
                     objectName,
+                    imageResource.extension,
                     imageResource.imageSize.width,
                     imageResource.imageSize.height,
-                    objectName.decapitalize(),
                     imageResource.relativeImagePath.toUniversalPathString()
                 )
                 .writeTo(wrapperOutDirectory.joinWithPath("$objectName.kt"))

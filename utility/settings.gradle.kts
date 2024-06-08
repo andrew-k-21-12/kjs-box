@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "utility"
-listOf("common", "coroutines-react", "gradle", "js", "kodein", "react", "react-dom", "string").map {
+listOf("bytes", "common", "coroutines-react", "gradle", "js", "kodein", "react", "react-dom", "string").map {
     include(it)
     project(":$it").projectDir = File("modules", it)
 }

@@ -1,16 +1,23 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.visitors
 
+import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.imagemetadata.CompositeImageMetadataReader
+import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.imagemetadata.ImageMetadataReader
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.ImageResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.ResourcePaths
-import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.utility.ImageMetadataReader
+import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.imagemetadata.RegularImageMetadataReader
+import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.imagemetadata.WebpImageMetadataReader
 import io.github.andrewk2112.utility.common.utility.CollectingVisitor
 import io.github.andrewk2112.utility.common.utility.Result
+import io.github.andrewk2112.utility.common.utility.Result.Companion.getOrElse
 
 /**
  * A [CollectingVisitor] to gather all [ImageResource] metadata.
  */
 internal class ImageResourceVisitor(
-    private val imageMetadataReader: ImageMetadataReader = ImageMetadataReader()
+    private val imageMetadataReader: ImageMetadataReader = CompositeImageMetadataReader(
+        RegularImageMetadataReader(),
+        WebpImageMetadataReader(),
+    )
 ) : CollectingVisitor<ResourcePaths, ImageResource, ImageResourceVisitor.Exception>() {
 
     // Utility.
@@ -37,14 +44,14 @@ internal class ImageResourceVisitor(
     // Implementation.
 
     override fun visit(element: ResourcePaths): Result<Unit, Exception> {
-        val imageDimension = try {
-            imageMetadataReader.readDimension(element.resourceFile)
-        } catch (exception: kotlin.Exception) {
-            return Result.Failure(Exception.ImageMetadataReadingException(exception))
-        }
+        val imageDimension = imageMetadataReader.readDimension(element.resourceFile)
+                                                .getOrElse {
+                                                    return Result.Failure(Exception.ImageMetadataReadingException(it))
+                                                }
         return try {
             ImageResource(
-                name = element.resourceFile.nameWithoutExtension,
+                name      = element.resourceFile.nameWithoutExtension,
+                extension = element.resourceFile.extension,
                 element.subPathToResource,
                 element.relativeResourcePath,
                 imageDimension

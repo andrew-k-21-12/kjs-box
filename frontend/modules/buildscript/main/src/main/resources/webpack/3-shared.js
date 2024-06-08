@@ -34,7 +34,7 @@
         },
         // Treating files with the following extensions as raster assets.
         {
-            test: /\.(jpe?g|png|gif)$/i,
+            test: /\.(jpe?g|png|gif|webp)$/i,
             type: "asset",
             parser: {
                 dataUrlCondition: {

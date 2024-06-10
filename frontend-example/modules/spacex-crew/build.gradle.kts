@@ -19,4 +19,4 @@ kotlin.sourceSets {
     }
 }
 
-lazyModule.exportedComponent = "io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.components.root"
+lazyModule.exportedComponent = "io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.components.Root"

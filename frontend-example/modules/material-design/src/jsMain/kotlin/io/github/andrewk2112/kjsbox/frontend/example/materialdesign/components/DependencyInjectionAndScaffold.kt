@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
@@ -5,9 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.transi
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.*
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.footer.footer
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.headerScaffold
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.menu
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.HasCssSuffix
@@ -15,8 +14,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.DESKTOP
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.footer.Footer
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderScaffold
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.Menu
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.MaterialDesignComponent
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.provideMaterialDesignComponent
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.ProvideMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -50,7 +52,6 @@ import web.dom.Element
 //  6. No need to add project dependencies from buildscript Gradle plugins -
 //     better to include dependencies manually for modularity?
 //  7. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
-//  8. Use UpperCamelCase for all React components?
 
 // TODO - deployment and finalization:
 //  1. Write about the project's features in the central README.md.
@@ -58,6 +59,7 @@ import web.dom.Element
 //     Extract some modules from this repository?
 //  3. Update all dependencies to the latest versions.
 //  4. Check all OSs are supported.
+//  5. Better naming for localization keys to avoid spoiling autocompletion
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
@@ -67,14 +69,14 @@ import web.dom.Element
 
 // Public.
 
-val dependencyInjectionAndScaffold = FC {
+val DependencyInjectionAndScaffold = FC {
     val rootComponent = useRootComponent()
     rootComponent.getLocalizationEngine().loadLocalizations(namespace) // lazily loading all translations of the module,
                                                                        // the order matters to avoid unneeded re-rendering
     val component = useMemo(rootComponent) { MaterialDesignComponent(rootComponent) }
-    provideMaterialDesignComponent(component) { // providing the dependency injection component
+    ProvideMaterialDesignComponent(component) { // providing the dependency injection component
                                                 // for all nested React components
-        scaffold()
+        Scaffold()
     }
 }
 
@@ -82,8 +84,8 @@ val dependencyInjectionAndScaffold = FC {
 
 // Components.
 
-/** This component is quite important to decouple its rendering from [dependencyInjectionAndScaffold]. */
-private val scaffold = FC {
+/** This component is quite important to decouple its rendering from [DependencyInjectionAndScaffold]. */
+private val Scaffold = FC {
 
     val context = useDesignTokensContext()
 
@@ -117,8 +119,8 @@ private val scaffold = FC {
     )
     val onScrimClick: MouseEventHandler<*> = useCallback { isMenuOpened = false }
 
-    root(context, styles, onContentScroll) {
-        slidingHeader(
+    Root(context, styles, onContentScroll) {
+        SlidingHeader(
             styles,
             headerRef,
             isHeaderVisible,
@@ -126,9 +128,9 @@ private val scaffold = FC {
         ) {
             isMenuOpened = it
         }
-        alignedBlocks(styles) {
-            sideMenu(menuContext, styles, onScrimClick)
-            contents(context, styles)
+        AlignedBlocks(styles) {
+            SideMenu(menuContext, styles, onScrimClick)
+            Contents(context, styles)
         }
     }
 
@@ -140,7 +142,7 @@ private val scaffold = FC {
  * @param onScroll This may be counter-intuitive, but only the root is actually scrolled, not the contents block.
  * @param children All child elements to be included inside the root.
  */
-private inline fun ChildrenBuilder.root(
+private inline fun ChildrenBuilder.Root(
     context: Context,
     styles: ScaffoldStyles,
     noinline onScroll: UIEventHandler<*>,
@@ -154,7 +156,7 @@ private inline fun ChildrenBuilder.root(
 /**
  * The header with the sliding logic.
  */
-private inline fun ChildrenBuilder.slidingHeader(
+private inline fun ChildrenBuilder.SlidingHeader(
     styles: ScaffoldStyles,
     ref: RefObject<Element>,
     isVisible: Boolean,
@@ -163,7 +165,7 @@ private inline fun ChildrenBuilder.slidingHeader(
 ) =
     +div(clazz = styles.slidingHeader(isVisible).name) {
         this.ref = ref
-        headerScaffold {
+        HeaderScaffold {
             this.hasCloseableMenu = hasCloseableMenu
             onMenuToggle          = { setMenuOpened(true) }
         }
@@ -172,24 +174,24 @@ private inline fun ChildrenBuilder.slidingHeader(
 /**
  * Wraps all relative blocks aligned with each other.
  */
-private inline fun ChildrenBuilder.alignedBlocks(
+private inline fun ChildrenBuilder.AlignedBlocks(
     styles: ScaffoldStyles,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
     +div(clazz = styles.alignedBlocks.name, children)
 
-private fun ChildrenBuilder.sideMenu(context: MenuContext, styles: ScaffoldStyles, onScrimClick: MouseEventHandler<*>) =
+private fun ChildrenBuilder.SideMenu(context: MenuContext, styles: ScaffoldStyles, onScrimClick: MouseEventHandler<*>) =
     +div(clazz = styles.sideMenuContainer(!context.isCloseable).name) { // the required layout space to be taken
-        +aside(clazz = styles.sideMenu(context).name) { menu() } // the actual menu positioned regardless the container
+        +aside(clazz = styles.sideMenu(context).name) { Menu() } // the actual menu positioned regardless the container
         +div(clazz = styles.contentScrim(context).name) { // a darkening area covering all contents behind the menu
             onClick = onScrimClick
         }
     }
 
-private fun ChildrenBuilder.contents(context: Context, styles: ScaffoldStyles) =
+private fun ChildrenBuilder.Contents(context: Context, styles: ScaffoldStyles) =
     +div(clazz = styles.contents(context).name) {
-        contentScaffold {}
-        footer {}
+        ContentScaffold {}
+        Footer {}
     }
 
 

@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
@@ -13,9 +15,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignToken
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.HeaderProps
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.magnifyIcon
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.menuIcon
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MagnifyIcon
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MaterialDesignLogoIcon
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MenuIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.utility.react.dom.extensions.asEventHandler
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -36,7 +38,7 @@ import react.useState
 
 // Components.
 
-val header = FC<HeaderProps> { props ->
+val Header = FC<HeaderProps> { props ->
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator()
@@ -44,26 +46,26 @@ val header = FC<HeaderProps> { props ->
     val styles      = useMemoWithReferenceCount(component) { HeaderStyles(component.getMaterialDesignTokens()) }
     val uiState    by useState { HeaderUiState() }
 
-    container(context, styles) {
-        logoBlock(context, styles, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
-        navigationBlock(context, styles) {
+    Container(context, styles) {
+        LogoBlock(context, styles, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
+        NavigationBlock(context, styles) {
             for (navigationItem in uiState.navigationItems) {
                 it(localizator(navigationItem.title), navigationItem.isSelected)
             }
         }
-        searchIcon(context, styles)
+        SearchIcon(context, styles)
     }
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     context: Context,
     styles: HeaderStyles,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
     +header(clazz = styles.container(context).name, children)
 
-private fun ChildrenBuilder.logoBlock(
+private fun ChildrenBuilder.LogoBlock(
     context: Context,
     styles: HeaderStyles,
     hasCloseableMenu: Boolean,
@@ -76,13 +78,13 @@ private fun ChildrenBuilder.logoBlock(
             styles.menuButtonAppearance(context).name
         ) {
             onClick = onMenuButtonClick.asEventHandler()
-            +menuIcon(clazz = styles.menuButtonIcon.name)
+            +MenuIcon(clazz = styles.menuButtonIcon.name)
         }
-        +materialDesignLogoIcon(clazz = styles.logoIcon(hasCloseableMenu).name)
+        +MaterialDesignLogoIcon(clazz = styles.logoIcon(hasCloseableMenu).name)
         +span(clazz = styles.logoLabel(context).name) { +label.uppercase() }
     }
 
-private inline fun ChildrenBuilder.navigationBlock(
+private inline fun ChildrenBuilder.NavigationBlock(
     context: Context,
     styles: HeaderStyles,
     crossinline navigationItemsAdapter: ((title: String, isSelected: Boolean) -> Unit) -> Unit
@@ -90,12 +92,12 @@ private inline fun ChildrenBuilder.navigationBlock(
     +nav(clazz = styles.navigationBlock(context).name) {
         +ul(clazz = styles.navigationItems(context).name) {
             navigationItemsAdapter { title, isSelected ->
-                navigationItem(context, styles, title, isSelected)
+                NavigationItem(context, styles, title, isSelected)
             }
         }
     }
 
-private fun ChildrenBuilder.navigationItem(context: Context, styles: HeaderStyles, title: String, isSelected: Boolean) =
+private fun ChildrenBuilder.NavigationItem(context: Context, styles: HeaderStyles, title: String, isSelected: Boolean) =
     +li(clazz = styles.navigationItemPositioning.name) {
         +div(clazz = styles.navigationItem(context).name) {
             +span(clazz = styles.navigationItemTitle(context).name) { +title }
@@ -105,9 +107,9 @@ private fun ChildrenBuilder.navigationItem(context: Context, styles: HeaderStyle
         }
     }
 
-private fun ChildrenBuilder.searchIcon(context: Context, styles: HeaderStyles) =
+private fun ChildrenBuilder.SearchIcon(context: Context, styles: HeaderStyles) =
     +div(clazz = styles.searchIconWrapper(context).name) {
-        +magnifyIcon(clazz = styles.searchIcon(context).name)
+        +MagnifyIcon(clazz = styles.searchIcon(context).name)
     }
 
 

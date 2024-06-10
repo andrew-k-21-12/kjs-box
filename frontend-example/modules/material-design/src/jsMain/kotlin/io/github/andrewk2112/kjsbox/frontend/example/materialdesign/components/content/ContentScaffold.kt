@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.horizontalDivider
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.designIntro
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialArticles
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.materialStudies
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.whatsNew
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.DesignIntro
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.MaterialArticles
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.MaterialStudies
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections.WhatsNew
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.HorizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -21,23 +21,24 @@ import react.dom.html.ReactHTML.div
 
 // Components.
 
-val contentScaffold = FC {
+val ContentScaffold = FC {
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {
                         ContentScaffoldStyles(component.getMaterialDesignTokens())
                     }
 
-    designIntro()
-    whatsNew()
-    divider(styles)
-    materialArticles()
-    materialStudies()
+    DesignIntro()
+    WhatsNew()
+    Divider(styles)
+    MaterialArticles()
+    MaterialStudies()
 
 }
 
-private inline fun ChildrenBuilder.divider(styles: ContentScaffoldStyles) =
-    +div(clazz = styles.divider.name) { horizontalDivider() }
+@Suppress("FunctionName")
+private inline fun ChildrenBuilder.Divider(styles: ContentScaffoldStyles) =
+    +div(clazz = styles.divider.name) { HorizontalDivider() }
 
 
 

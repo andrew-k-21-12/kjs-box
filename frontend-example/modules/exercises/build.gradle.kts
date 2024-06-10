@@ -19,4 +19,4 @@ kotlin.sourceSets {
     }
 }
 
-lazyModule.exportedComponent = "io.github.andrewk2112.kjsbox.frontend.example.exercises.components.exercisesList"
+lazyModule.exportedComponent = "io.github.andrewk2112.kjsbox.frontend.example.exercises.components.ExercisesList"

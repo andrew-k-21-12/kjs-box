@@ -1,7 +1,8 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.WhatsNewMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
@@ -13,6 +14,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.SMALL_TABLET
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.localization.asIsoString
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.RectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.sharedutility.DateTimeFormatOptions
@@ -35,7 +37,7 @@ import kotlin.js.Date
 
 // Components.
 
-val whatsNew = FC {
+val WhatsNew = FC {
 
     val context                 = useDesignTokensContext()
     val (language, localizator) = useCurrentLanguageAndLocalizator()
@@ -51,10 +53,10 @@ val whatsNew = FC {
     val endpoints by useState { WhatsNewMaterialEndpoints() }
     val uiState   by useState { WhatsNewUiState(endpoints) }
 
-    container(context, styles) {
-        titleLink(context, materialDesignTokens, localizator(whatsNewKey), endpoints.whatsNew)
-        description(context, styles, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
-        blogRecords(context, styles) {
+    Container(context, styles) {
+        TitleLink(context, materialDesignTokens, localizator(whatsNewKey), endpoints.whatsNew)
+        Description(context, styles, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
+        BlogRecords(context, styles) {
             for (blogRecord in uiState.blogRecords) {
                 it(
                     localizator(blogRecord.title),
@@ -64,19 +66,19 @@ val whatsNew = FC {
                 )
             }
         }
-        viewAllButton(styles, localizator(viewAllKey), endpoints.whatsNew)
+        ViewAllButton(styles, localizator(viewAllKey), endpoints.whatsNew)
     }
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     context: Context,
     styles: WhatsNewStyles,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
     +div(clazz = styles.container(context).name, children)
 
-private fun ChildrenBuilder.titleLink(
+private fun ChildrenBuilder.TitleLink(
     context: Context,
     materialDesignTokens: MaterialDesignTokens,
     title: String,
@@ -87,19 +89,19 @@ private fun ChildrenBuilder.titleLink(
         +title
     }
 
-private fun ChildrenBuilder.description(context: Context, styles: WhatsNewStyles, descriptionText: String) =
+private fun ChildrenBuilder.Description(context: Context, styles: WhatsNewStyles, descriptionText: String) =
     +p(clazz = styles.description(context).name) { +descriptionText }
 
-private inline fun ChildrenBuilder.blogRecords(
+private inline fun ChildrenBuilder.BlogRecords(
     context: Context,
     styles: WhatsNewStyles,
     recordsAdapter: ((title: String, description: String, date: String, endpoint: String) -> Unit) -> Unit
 ) =
     recordsAdapter { title, description, formattedDate, destinationEndpoint ->
-        blogRecordItem(context, styles, title, description, formattedDate, destinationEndpoint)
+        BlogRecordItem(context, styles, title, description, formattedDate, destinationEndpoint)
     }
 
-private fun ChildrenBuilder.blogRecordItem(
+private fun ChildrenBuilder.BlogRecordItem(
     context: Context,
     styles: WhatsNewStyles,
     title: String,
@@ -115,8 +117,8 @@ private fun ChildrenBuilder.blogRecordItem(
     +p(clazz = styles.blogRecordDescription(context).name) { +description }
 }
 
-private fun ChildrenBuilder.viewAllButton(styles: WhatsNewStyles, label: String, destinationEndpoint: String) =
-    +rectButton(clazz = styles.viewAllButton.name) {
+private fun ChildrenBuilder.ViewAllButton(styles: WhatsNewStyles, label: String, destinationEndpoint: String) =
+    +RectButton(clazz = styles.viewAllButton.name) {
         text   = label
         action = { window.openBlankSafely(destinationEndpoint) }
     }

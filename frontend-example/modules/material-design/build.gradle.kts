@@ -24,4 +24,4 @@ kotlin.sourceSets {
 }
 
 lazyModule.exportedComponent =
-    "io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.dependencyInjectionAndScaffold"
+    "io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.DependencyInjectionAndScaffold"

@@ -1,6 +1,5 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images
 
-import io.github.andrewk2112.kjsbox.frontend.image.components.image
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
@@ -10,6 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignToken
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
+import io.github.andrewk2112.kjsbox.frontend.image.components.Image
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.Inset
 import kotlinx.css.Position
@@ -23,7 +23,7 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-val strokedImage = FC<StrokedImageProps> { props ->
+val StrokedImage = FC<StrokedImageProps> { props ->
 
     val context   = useDesignTokensContext()
     val component = useMaterialDesignComponent()
@@ -33,7 +33,7 @@ val strokedImage = FC<StrokedImageProps> { props ->
     +div(clazz = styles.positioningWrapper.name) {
 
         // The image itself.
-        image(props.image, props.alternativeText, props.className.toString())
+        Image(props.image, props.alternativeText, props.className.toString())
 
         // A semi-transparent stroke on top of the image.
         +div(clazz = styles.innerStroke(context).name)

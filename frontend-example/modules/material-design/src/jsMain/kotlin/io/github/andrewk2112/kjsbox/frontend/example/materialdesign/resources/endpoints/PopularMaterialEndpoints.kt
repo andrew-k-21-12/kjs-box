@@ -1,13 +1,13 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints
 
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.design
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.root
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.DESIGN
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.ROOT
 
 /**
  * All popular Material articles endpoints.
  */
 class PopularMaterialEndpoints {
-    val materialTheming = "$design/material-theming"
-    val iconography     = "$design/iconography"
-    val textFields      = "$root/components/text-fields"
+    val materialTheming = "$DESIGN/material-theming"
+    val iconography     = "$DESIGN/iconography"
+    val textFields      = "$ROOT/components/text-fields"
 }

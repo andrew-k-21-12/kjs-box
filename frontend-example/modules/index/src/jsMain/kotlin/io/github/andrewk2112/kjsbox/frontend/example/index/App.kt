@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.example.index
 
-import frontendExampleExercisesEntryPoint
-import frontendExampleMaterialDesignEntryPoint
-import frontendExampleSpacexCrewEntryPoint
-import io.github.andrewk2112.kjsbox.frontend.example.designtokens.designTokensContextProvider
+import FrontendExampleExercisesEntryPoint
+import FrontendExampleMaterialDesignEntryPoint
+import FrontendExampleSpacexCrewEntryPoint
+import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokensContextProvider
 import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
 import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
 import react.*
@@ -11,24 +11,24 @@ import react.router.*
 import react.router.dom.BrowserRouter
 
 /** The React application's entry point component: all basic React configurations and its rendering start here. */
-val app = FC {
+val App = FC {
     BrowserRouter { // enabling routing features,
         Suspense {  // configuring the app with its loading placeholder
-            fallback = appLoadingPlaceholder.create()
-            designTokensContextProvider {
-                routes()
+            fallback = AppLoadingPlaceholder.create()
+            DesignTokensContextProvider {
+                Routes()
             }
         }
     }
 }
 
 /** A placeholder to be shown while the application itself is loading. */
-private val appLoadingPlaceholder = FC {
+private val AppLoadingPlaceholder = FC {
     +"⌛ Loading / Загрузка"
 }
 
 /** All the actual contents available in the app bound to the corresponding routes. */
-private val routes = FC {
+private val Routes = FC {
 
     // All pages of the app: the root (serves as a fallback also) one,
     // a couple of example pages and the fallback configuration.
@@ -42,15 +42,15 @@ private val routes = FC {
     Routes {
         PathRoute {
             path    = "/"
-            element = frontendExampleExercisesEntryPoint.create()
+            element = FrontendExampleExercisesEntryPoint.create()
         }
         PathRoute {
             path    = MaterialDesignRoute.path
-            element = frontendExampleMaterialDesignEntryPoint.create()
+            element = FrontendExampleMaterialDesignEntryPoint.create()
         }
         PathRoute {
             path    = SpaceXCrewRoute.path
-            element = frontendExampleSpacexCrewEntryPoint.create()
+            element = FrontendExampleSpacexCrewEntryPoint.create()
         }
         PathRoute {
             path    = "*"

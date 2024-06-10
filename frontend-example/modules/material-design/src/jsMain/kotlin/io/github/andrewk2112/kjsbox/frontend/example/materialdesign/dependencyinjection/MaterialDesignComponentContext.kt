@@ -9,7 +9,8 @@ import react.*
 /**
  * Syntax sugar to provide or substitute a [MaterialDesignComponent] for all nested UI components.
  */
-inline fun ChildrenBuilder.provideMaterialDesignComponent(
+@Suppress("FunctionName")
+inline fun ChildrenBuilder.ProvideMaterialDesignComponent(
     component: MaterialDesignComponent,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =

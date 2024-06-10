@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
@@ -6,18 +8,18 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.materialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.RippleSurface
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.BOTTOM
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.RIGHT
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MaterialDesignLogoIcon
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -34,7 +36,7 @@ import react.useState
 
 // Components.
 
-val menu = FC {
+val Menu = FC {
 
     val context              = useDesignTokensContext()
     val localizator          = useLocalizator()
@@ -43,19 +45,19 @@ val menu = FC {
     val styles               = useMemoWithReferenceCount(component) { MenuStyles(materialDesignTokens) }
     val uiState             by useState { MenuUiState(NavMenuMaterialEndpoints()) }
 
-    container(context, styles) {
-        header(context, styles, localizator(materialDesignKey))
-        items(styles) {
+    Container(context, styles) {
+        Header(context, styles, localizator(materialDesignKey))
+        Items(styles) {
             for ((categoryIndex, category) in uiState.categories.withIndex()) {
-                category(context, styles, localizator(category.name))
+                Category(context, styles, localizator(category.name))
                 for (item in category.items) {
-                    item(
+                    Item(
                         context, styles, materialDesignTokens,
                         localizator(item.title), item.destinationEndpoint, item.bottomSpacing.getStyle(styles).name
                     )
                 }
                 if (categoryIndex != uiState.categories.lastIndex) {
-                    divider(context, styles)
+                    Divider(context, styles)
                 }
             }
         }
@@ -63,7 +65,7 @@ val menu = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     context: Context,
     styles: MenuStyles,
     crossinline children: ChildrenBuilder.() -> Unit
@@ -73,19 +75,19 @@ private inline fun ChildrenBuilder.container(
 /**
  * A static header which stays at the top of the menu's layout all the time.
  */
-private fun ChildrenBuilder.header(context: Context, styles: MenuStyles, title: String) =
+private fun ChildrenBuilder.Header(context: Context, styles: MenuStyles, title: String) =
     +div(clazz = styles.header(context).name) {
-        +materialDesignLogoIcon(clazz = styles.headerIcon.name)
+        +MaterialDesignLogoIcon(clazz = styles.headerIcon.name)
         +span(clazz = styles.headerLabel(context).name) { +title.uppercase() }
     }
 
-private inline fun ChildrenBuilder.items(styles: MenuStyles, crossinline children: ChildrenBuilder.() -> Unit) =
+private inline fun ChildrenBuilder.Items(styles: MenuStyles, crossinline children: ChildrenBuilder.() -> Unit) =
     +div(clazz = styles.items.name, children)
 
-private fun ChildrenBuilder.category(context: Context, styles: MenuStyles, name: String) =
+private fun ChildrenBuilder.Category(context: Context, styles: MenuStyles, name: String) =
     +p(clazz = styles.category(context).name) { +name }
 
-private fun ChildrenBuilder.item(
+private fun ChildrenBuilder.Item(
     context: Context,
     styles: MenuStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -93,7 +95,7 @@ private fun ChildrenBuilder.item(
     destinationEndpoint: String,
     vararg classNames: String,
 ) =
-    +rippleSurface(
+    +RippleSurface(
         materialDesignTokens.component.selection.simpleHighlightingAndSelection(context).name,
         *classNames
     ) {
@@ -103,7 +105,7 @@ private fun ChildrenBuilder.item(
         }
     }
 
-private fun ChildrenBuilder.divider(context: Context, styles: MenuStyles) =
+private fun ChildrenBuilder.Divider(context: Context, styles: MenuStyles) =
     +div(clazz = styles.divider(context).name)
 
 

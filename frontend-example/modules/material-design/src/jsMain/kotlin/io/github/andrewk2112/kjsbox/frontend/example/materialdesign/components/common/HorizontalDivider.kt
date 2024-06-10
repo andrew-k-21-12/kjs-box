@@ -17,7 +17,7 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-val horizontalDivider = FC<PropsWithClassName> { props ->
+val HorizontalDivider = FC<PropsWithClassName> { props ->
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {

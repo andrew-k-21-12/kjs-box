@@ -3,7 +3,6 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.lazymoduleaccessors
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.KebabCase
-import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
 import io.github.andrewk2112.utility.string.formats.changeFormat
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
@@ -82,7 +81,7 @@ internal val $generatedComponentName: ExoticComponent<Props> = lazy {
     /** Prepares a component name used as an entry point one. */
     @get:Throws(IllegalStateException::class)
     private inline val generatedComponentName: String
-        get() = rootProjectName.get().changeFormat(KebabCase, LowerCamelCase) +
+        get() = rootProjectName.get().changeFormat(KebabCase, CamelCase) +
                 moduleName.get().changeFormat(KebabCase, CamelCase) +
                 "EntryPoint"
 

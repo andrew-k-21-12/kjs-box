@@ -18,7 +18,8 @@ import remix.run.router.To
 
 // Public.
 
-fun ChildrenBuilder.exerciseLink(context: Context, text: String, to: To) {
+@Suppress("FunctionName")
+fun ChildrenBuilder.ExerciseLink(context: Context, text: String, to: To) {
 
     val component = useRootComponent()
     val styles    = useMemoWithReferenceCount(component) { ExerciseLinkStyles(component.getDesignTokens()) }

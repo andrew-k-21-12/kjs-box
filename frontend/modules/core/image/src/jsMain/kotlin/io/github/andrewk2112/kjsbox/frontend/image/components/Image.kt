@@ -23,7 +23,8 @@ import web.html.Loading
  * @param alternativeText A description to be displayed when the image fails to load.
  * @param classNames      Styling classes to be applied for the image.
  */
-fun ChildrenBuilder.image(image: Image, alternativeText: String, vararg classNames: String) {
+@Suppress("FunctionName")
+fun ChildrenBuilder.Image(image: Image, alternativeText: String, vararg classNames: String) {
 
     // This tag allows to pick the most appropriate image variant from all listed ones.
     picture {

@@ -1,13 +1,15 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.arrowRightThinIcon
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.ArrowRightThinIcon
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -21,7 +23,7 @@ import react.dom.html.ReactHTML.p
 
 // Components.
 
-fun ChildrenBuilder.notificationMessage(
+fun ChildrenBuilder.NotificationMessage(
     context: Context,
     title: String,
     description: String,
@@ -32,21 +34,21 @@ fun ChildrenBuilder.notificationMessage(
     val component = useMaterialDesignComponent()
     val styles = useMemoWithReferenceCount(component) { NotificationMessageStyles(component.getMaterialDesignTokens()) }
 
-    container(context, styles) {
-        titleAndDescription(context, styles, title, description)
-        actionButton(context, styles, actionLabel, actionDestinationEndpoint)
+    Container(context, styles) {
+        TitleAndDescription(context, styles, title, description)
+        ActionButton(context, styles, actionLabel, actionDestinationEndpoint)
     }
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     context: Context,
     styles: NotificationMessageStyles,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
     +div(clazz = styles.container(context).name, children)
 
-private fun ChildrenBuilder.titleAndDescription(
+private fun ChildrenBuilder.TitleAndDescription(
     context: Context, styles: NotificationMessageStyles, title: String, description: String
 ) =
     +div(clazz = styles.titleAndDescriptionWrapper.name) {
@@ -54,13 +56,13 @@ private fun ChildrenBuilder.titleAndDescription(
         +p(clazz = styles.description(context).name) { +description }
     }
 
-private fun ChildrenBuilder.actionButton(
+private fun ChildrenBuilder.ActionButton(
     context: Context, styles: NotificationMessageStyles, label: String, destinationEndpoint: String
 ) =
     +a(clazz = styles.actionButton(context).name) {
         safeBlankHref = destinationEndpoint
         +label
-        +arrowRightThinIcon(clazz = styles.actionButtonArrow.name)
+        +ArrowRightThinIcon(clazz = styles.actionButtonArrow.name)
     }
 
 

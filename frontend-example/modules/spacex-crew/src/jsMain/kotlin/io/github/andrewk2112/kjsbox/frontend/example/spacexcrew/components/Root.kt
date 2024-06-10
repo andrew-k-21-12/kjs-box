@@ -28,7 +28,7 @@ import web.html.InputType
 
 // Component.
 
-val root = FC {
+val Root = FC {
 
     val localizator = useLocalizator(namespace)
 

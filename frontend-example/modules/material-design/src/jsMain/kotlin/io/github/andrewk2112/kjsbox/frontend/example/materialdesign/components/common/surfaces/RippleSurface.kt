@@ -31,7 +31,7 @@ import kotlin.math.max
 
 // Public.
 
-val rippleSurface = FC<DOMProps> { props ->
+val RippleSurface = FC<DOMProps> { props ->
 
     val context   = useDesignTokensContext()
     val component = useMaterialDesignComponent()

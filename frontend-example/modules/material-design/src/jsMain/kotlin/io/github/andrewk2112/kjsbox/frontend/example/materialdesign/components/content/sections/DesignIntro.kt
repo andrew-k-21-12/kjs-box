@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
@@ -18,7 +20,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
-import io.github.andrewk2112.kjsbox.frontend.image.components.image
+import io.github.andrewk2112.kjsbox.frontend.image.components.Image
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -38,7 +40,7 @@ import react.useState
 
 // Components.
 
-val designIntro = FC {
+val DesignIntro = FC {
 
     val context                 = useDesignTokensContext()
     val localizator             = useLocalizator()
@@ -50,21 +52,21 @@ val designIntro = FC {
                                   }
     val uiState                by useState { DesignIntroUiState(PopularMaterialEndpoints()) }
 
-    gridContainer(context, styles) {
-        titleAndCallToActionItem(
+    GridContainer(context, styles) {
+        TitleAndCallToActionItem(
             context,
             styles,
             materialDesignTokens,
             localizator(designKey),
             localizator(createIntuitiveAndBeautifulProductsWithMaterialDesignKey)
         )
-        popularTopicsItem(context, styles, materialDesignTokens, localizator(popularKey)) {
+        PopularTopicsItem(context, styles, materialDesignTokens, localizator(popularKey)) {
             for (popularTopic in uiState.popularTopics) {
                 it(localizator(popularTopic.title), popularTopic.destinationEndpoint)
             }
         }
         for ((index, topicPreview) in uiState.topicPreviews.withIndex()) {
-            topicPreviewItem(
+            TopicPreviewItem(
                 context,
                 styles,
                 materialDesignTokens,
@@ -83,7 +85,7 @@ val designIntro = FC {
 /**
  * A root container with a background placing all its inner [children] as a grid.
  */
-private inline fun ChildrenBuilder.gridContainer(
+private inline fun ChildrenBuilder.GridContainer(
     context: Context,
     styles: DesignIntroStyles,
     crossinline children: ChildrenBuilder.() -> Unit
@@ -95,7 +97,7 @@ private inline fun ChildrenBuilder.gridContainer(
 /**
  * The title and call to action block, takes the entire width on smaller screens.
  */
-private fun ChildrenBuilder.titleAndCallToActionItem(
+private fun ChildrenBuilder.TitleAndCallToActionItem(
     context: Context,
     styles: DesignIntroStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -115,7 +117,7 @@ private fun ChildrenBuilder.titleAndCallToActionItem(
  *
  * The [topicsAdapter] allows to retrieve all items to be rendered.
  */
-private inline fun ChildrenBuilder.popularTopicsItem(
+private inline fun ChildrenBuilder.PopularTopicsItem(
     context: Context,
     styles: DesignIntroStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -149,7 +151,7 @@ private inline fun ChildrenBuilder.popularTopicsItem(
 /**
  * An item to render the preview for some topic.
  */
-private fun ChildrenBuilder.topicPreviewItem(
+private fun ChildrenBuilder.TopicPreviewItem(
     context: Context,
     styles: DesignIntroStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -166,7 +168,7 @@ private fun ChildrenBuilder.topicPreviewItem(
         }(context).name
     ) {
         +div(clazz = materialDesignTokens.component.selection.hoverableWithIntensePaddedStroke(context).name) {
-            image(illustration, illustrationAlternativeText, styles.topicIllustration(context).name)
+            Image(illustration, illustrationAlternativeText, styles.topicIllustration(context).name)
             +p(styles.category(context).name, styles.topicCategory.name) { +category.uppercase() }
             +p(clazz = styles.topicTitle(context).name) { +title }
             +p(clazz = styles.topicDescription(context).name) { +description }

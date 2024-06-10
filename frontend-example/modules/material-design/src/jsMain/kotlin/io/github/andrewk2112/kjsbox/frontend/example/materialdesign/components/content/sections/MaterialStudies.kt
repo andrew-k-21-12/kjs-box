@@ -1,8 +1,8 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.rectButton
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CraneImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ReplyImage
@@ -16,6 +16,8 @@ import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.ScreenSize.PHONE
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.RectButton
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.StrokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
@@ -34,7 +36,7 @@ import react.useState
 
 // Components.
 
-val materialStudies = FC {
+val MaterialStudies = FC {
 
     val context              = useDesignTokensContext()
     val localizator          = useLocalizator()
@@ -43,16 +45,16 @@ val materialStudies = FC {
     val styles               = useMemoWithReferenceCount(component) { MaterialStudiesStyles(materialDesignTokens) }
     val uiState             by useState { MaterialStudiesUiState() }
 
-    container(context, styles, materialDesignTokens) {
-        header(
+    Container(context, styles, materialDesignTokens) {
+        Header(
             context,
             styles,
             localizator(materialStudiesKey),
             localizator(getInspiredByTheWaysMaterialAdaptsKey),
             localizator(viewAllKey),
-            MainMaterialEndpoints.studies
+            MainMaterialEndpoints.STUDIES
         )
-        studiesGrid(context, styles, materialDesignTokens) {
+        StudiesGrid(context, styles, materialDesignTokens) {
             for (study in uiState.studies) {
                 it(
                     localizator(study.title),
@@ -66,7 +68,7 @@ val materialStudies = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     context: Context,
     styles: MaterialStudiesStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -76,7 +78,7 @@ private inline fun ChildrenBuilder.container(
         +div(clazz = materialDesignTokens.component.layout.contentContainer.name, children)
     }
 
-private fun ChildrenBuilder.header(
+private fun ChildrenBuilder.Header(
     context: Context,
     styles: MaterialStudiesStyles,
     title: String,
@@ -87,14 +89,14 @@ private fun ChildrenBuilder.header(
     +div(clazz = styles.header.name) {
         +h2(clazz = styles.title(context).name) { +title }
         +p(clazz = styles.description(context).name) { +description }
-        +rectButton(clazz = styles.viewAllButton(context).name) {
+        +RectButton(clazz = styles.viewAllButton(context).name) {
             text   = actionButtonLabel
             action = { window.openBlankSafely(actionButtonDestination) }
             isDark = true
         }
     }
 
-private inline fun ChildrenBuilder.studiesGrid(
+private inline fun ChildrenBuilder.StudiesGrid(
     context: Context,
     styles: MaterialStudiesStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -102,14 +104,14 @@ private inline fun ChildrenBuilder.studiesGrid(
 ) =
     +div(clazz = styles.grid(context).name) {
         studiesAdapter { title, description, illustration, illustrationAlternativeText ->
-            studyItem(
+            StudyItem(
                 context, styles, materialDesignTokens,
                 title, description, illustration, illustrationAlternativeText
             )
         }
     }
 
-private fun ChildrenBuilder.studyItem(
+private fun ChildrenBuilder.StudyItem(
     context: Context,
     styles: MaterialStudiesStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -120,7 +122,7 @@ private fun ChildrenBuilder.studyItem(
 ) =
     div { // ← to prevent the item from taking the entire height of the grid's row
         +div(clazz = materialDesignTokens.component.selection.hoverableWithIntensePaddedStroke(context).name) {
-            +strokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
+            +StrokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }

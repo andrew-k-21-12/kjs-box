@@ -6,7 +6,7 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.rippleSurface
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.surfaces.RippleSurface
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
@@ -22,7 +22,7 @@ import react.dom.html.ReactHTML.span
 
 // Components.
 
-val rectButton = FC<RectButtonProps> { props ->
+val RectButton = FC<RectButtonProps> { props ->
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) { RectButtonStyles(component.getMaterialDesignTokens()) }
@@ -32,7 +32,7 @@ val rectButton = FC<RectButtonProps> { props ->
         props.className.toString(),
     ) {
         onClick = props.action.asEventHandler()
-        animationAreaWithLabel(styles, props.text)
+        AnimationAreaWithLabel(styles, props.text)
     }
 
 }
@@ -42,8 +42,9 @@ val rectButton = FC<RectButtonProps> { props ->
  *
  * Otherwise, the button intercepts touch and mouse listeners.
  */
-private fun ChildrenBuilder.animationAreaWithLabel(styles: RectButtonStyles, label: String) =
-    +rippleSurface(clazz = styles.animationArea.name) {
+@Suppress("FunctionName")
+private fun ChildrenBuilder.AnimationAreaWithLabel(styles: RectButtonStyles, label: String) =
+    +RippleSurface(clazz = styles.animationArea.name) {
         +span(clazz = styles.label.name) {
             +label.uppercase()
         }

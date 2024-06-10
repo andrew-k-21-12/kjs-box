@@ -27,7 +27,7 @@ import react.dom.html.ReactHTML.ul
 
 // Components.
 
-val exercisesList = FC {
+val ExercisesList = FC {
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator(namespace)
@@ -38,21 +38,22 @@ val exercisesList = FC {
 
         // The list of available exercises.
         ul {
-            linkItem(context, styles, localizator(materialDesignKey), MaterialDesignRoute.absolutePath())
-            linkItem(context, styles, localizator(spaceXCrewKey),     SpaceXCrewRoute.absolutePath())
+            LinkItem(context, styles, localizator(materialDesignKey), MaterialDesignRoute.absolutePath())
+            LinkItem(context, styles, localizator(spaceXCrewKey),     SpaceXCrewRoute.absolutePath())
         }
 
     }
 
 }
 
-private fun ChildrenBuilder.linkItem(
+@Suppress("FunctionName")
+private fun ChildrenBuilder.LinkItem(
     context: Context,
     styles: ExercisesListStyles,
     label: String,
     destinationEndpoint: String
 ) =
-    +li(clazz = styles.listItem.name) { exerciseLink(context, label, destinationEndpoint) }
+    +li(clazz = styles.listItem.name) { ExerciseLink(context, label, destinationEndpoint) }
 
 
 

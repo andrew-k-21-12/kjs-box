@@ -1,14 +1,14 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints
 
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.blog
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.root
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.BLOG
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.ROOT
 
 /**
  * Material endpoints to the recent articles.
  */
 class WhatsNewMaterialEndpoints {
-    val whatsNew               = "$root/whats-new"
-    val largeScreens           = "$blog/material-design-for-large-screens"
-    val combinedComponentPages = "$root/components"
-    val mdaWinners             = "$blog/mda-2020-winners"
+    val whatsNew               = "$ROOT/whats-new"
+    val largeScreens           = "$BLOG/material-design-for-large-screens"
+    val combinedComponentPages = "$ROOT/components"
+    val mdaWinners             = "$BLOG/mda-2020-winners"
 }

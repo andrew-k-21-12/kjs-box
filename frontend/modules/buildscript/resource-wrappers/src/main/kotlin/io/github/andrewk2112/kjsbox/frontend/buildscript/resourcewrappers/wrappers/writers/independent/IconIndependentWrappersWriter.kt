@@ -5,8 +5,8 @@ import io.github.andrewk2112.utility.common.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models.IconResource
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.IconWrapperTemplate
 import io.github.andrewk2112.utility.gradle.extensions.toUniversalPathString
+import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.KebabCase
-import io.github.andrewk2112.utility.string.formats.cases.LowerCamelCase
 import io.github.andrewk2112.utility.string.formats.changeFormat
 import java.io.File
 
@@ -45,6 +45,6 @@ internal class IconIndependentWrappersWriter(
     /**
      * Generates a particular element name for the [IconResource].
      */
-    private fun IconResource.generateElementName(): String = name.changeFormat(KebabCase, LowerCamelCase) + "Icon"
+    private fun IconResource.generateElementName(): String = name.changeFormat(KebabCase, CamelCase) + "Icon"
 
 }

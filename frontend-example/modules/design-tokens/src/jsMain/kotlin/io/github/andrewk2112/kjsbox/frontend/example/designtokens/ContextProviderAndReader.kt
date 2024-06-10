@@ -11,7 +11,7 @@ import react.*
  * Setups the [Context] for all further React components
  * by registering all required changes of the environment to update the provided [Context] accordingly.
  */
-val designTokensContextProvider = FC<PropsWithChildren> { props ->
+val DesignTokensContextProvider = FC<PropsWithChildren> { props ->
     val currentContext    = useRef<Context>()
     val currentScreenSize = Context.ScreenSize.fromRawWidth(useWindowInnerWidthMonitor())
     if (currentContext.current?.screenSize != currentScreenSize) {

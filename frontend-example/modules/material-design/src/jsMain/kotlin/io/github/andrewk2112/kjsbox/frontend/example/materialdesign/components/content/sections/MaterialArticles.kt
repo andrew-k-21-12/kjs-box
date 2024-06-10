@@ -1,7 +1,8 @@
+@file:Suppress("FunctionName")
+
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.sections
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.strokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CustomColorPalettesGenerationImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShapePowerImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SystemIconsImage
@@ -14,6 +15,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.StrokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
@@ -30,7 +32,7 @@ import react.useState
 
 // Components.
 
-val materialArticles = FC {
+val MaterialArticles = FC {
 
     val context              = useDesignTokensContext()
     val localizator          = useLocalizator()
@@ -39,14 +41,14 @@ val materialArticles = FC {
     val styles               = useMemoWithReferenceCount(component) { MaterialArticlesStyles(materialDesignTokens) }
     val uiState             by useState { MaterialArticlesUiState() }
 
-    container(styles) {
-        titleAndDescription(
+    Container(styles) {
+        TitleAndDescription(
             context,
             styles,
             localizator(materialArticlesKey),
             localizator(makeProgressFasterWithTheseHelpfulArticlesKey)
         )
-        articlesGrid(context, styles, materialDesignTokens) {
+        ArticlesGrid(context, styles, materialDesignTokens) {
             for ((index, article) in uiState.articles.withIndex()) {
                 it(
                     index % 2 == 0,
@@ -61,13 +63,13 @@ val materialArticles = FC {
 
 }
 
-private inline fun ChildrenBuilder.container(
+private inline fun ChildrenBuilder.Container(
     styles: MaterialArticlesStyles,
     crossinline children: ChildrenBuilder.() -> Unit
 ) =
     +div(clazz = styles.container.name, children)
 
-private fun ChildrenBuilder.titleAndDescription(
+private fun ChildrenBuilder.TitleAndDescription(
     context: Context,
     styles: MaterialArticlesStyles,
     title: String,
@@ -77,7 +79,7 @@ private fun ChildrenBuilder.titleAndDescription(
     +p(clazz = styles.description(context).name) { +description }
 }
 
-private inline fun ChildrenBuilder.articlesGrid(
+private inline fun ChildrenBuilder.ArticlesGrid(
     context: Context,
     styles: MaterialArticlesStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -85,7 +87,7 @@ private inline fun ChildrenBuilder.articlesGrid(
 ) =
     +div(clazz = styles.grid(context).name) {
         adapter { hasDoubleWidth, title, description, illustration, illustrationAlternativeText ->
-            articleItem(
+            ArticleItem(
                 context, styles, materialDesignTokens,
                 hasDoubleWidth,
                 title, description, illustration, illustrationAlternativeText
@@ -93,7 +95,7 @@ private inline fun ChildrenBuilder.articlesGrid(
         }
     }
 
-private fun ChildrenBuilder.articleItem(
+private fun ChildrenBuilder.ArticleItem(
     context: Context,
     styles: MaterialArticlesStyles,
     materialDesignTokens: MaterialDesignTokens,
@@ -109,7 +111,7 @@ private fun ChildrenBuilder.articleItem(
         }(context).name
     ) {
         +div(clazz = materialDesignTokens.component.selection.hoverableWithDefaultPaddedStroke(context).name) {
-            +strokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
+            +StrokedImage(clazz = materialDesignTokens.component.image.fitWidthKeepAspectImage.name) {
                 image           = illustration
                 alternativeText = illustrationAlternativeText
             }

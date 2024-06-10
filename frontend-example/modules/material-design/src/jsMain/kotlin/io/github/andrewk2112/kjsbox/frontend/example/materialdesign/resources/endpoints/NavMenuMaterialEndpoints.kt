@@ -1,29 +1,29 @@
 package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints
 
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.design
-import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.studies
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.DESIGN
+import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints.STUDIES
 
 /**
  * All Material Design endpoints used at the main navigation menu.
  */
 class NavMenuMaterialEndpoints {
-    val introduction                = "$design/introduction"
-    val aboutOurMaterialStudies     = "$studies/about-our-material-studies"
-    val foundationOverview          = "$design/foundation-overview"
-    val environmentSurfaces         = "$design/environment/surfaces"
-    val understandingLayout         = "$design/layout/understanding-layout"
-    val understandingNavigation     = "$design/navigation/understanding-navigation"
-    val colorSystem                 = "$design/color/the-color-system"
-    val typographySystem            = "$design/typography/the-type-system"
-    val aboutSound                  = "$design/sound/about-sound"
-    val productIconography          = "$design/iconography/product-icons"
-    val aboutShape                  = "$design/shape/about-shape"
-    val understandingMotion         = "$design/motion/understanding-motion"
-    val interactionGestures         = "$design/interaction/gestures"
-    val confirmationAcknowledgement = "$design/communication/confirmation-acknowledgement"
-    val understandingMlPatterns     = "$design/machine-learning/understanding-ml-patterns"
-    val guidelinesOverview          = "$design/guidelines-overview"
-    val materialThemingOverview     = "$design/material-theming/overview"
-    val accessibility               = "$design/usability/accessibility"
-    val platformGuidanceAndroidBars = "$design/platform-guidance/android-bars"
+    val introduction                = "$DESIGN/introduction"
+    val aboutOurMaterialStudies     = "$STUDIES/about-our-material-studies"
+    val foundationOverview          = "$DESIGN/foundation-overview"
+    val environmentSurfaces         = "$DESIGN/environment/surfaces"
+    val understandingLayout         = "$DESIGN/layout/understanding-layout"
+    val understandingNavigation     = "$DESIGN/navigation/understanding-navigation"
+    val colorSystem                 = "$DESIGN/color/the-color-system"
+    val typographySystem            = "$DESIGN/typography/the-type-system"
+    val aboutSound                  = "$DESIGN/sound/about-sound"
+    val productIconography          = "$DESIGN/iconography/product-icons"
+    val aboutShape                  = "$DESIGN/shape/about-shape"
+    val understandingMotion         = "$DESIGN/motion/understanding-motion"
+    val interactionGestures         = "$DESIGN/interaction/gestures"
+    val confirmationAcknowledgement = "$DESIGN/communication/confirmation-acknowledgement"
+    val understandingMlPatterns     = "$DESIGN/machine-learning/understanding-ml-patterns"
+    val guidelinesOverview          = "$DESIGN/guidelines-overview"
+    val materialThemingOverview     = "$DESIGN/material-theming/overview"
+    val accessibility               = "$DESIGN/usability/accessibility"
+    val platformGuidanceAndroidBars = "$DESIGN/platform-guidance/android-bars"
 }

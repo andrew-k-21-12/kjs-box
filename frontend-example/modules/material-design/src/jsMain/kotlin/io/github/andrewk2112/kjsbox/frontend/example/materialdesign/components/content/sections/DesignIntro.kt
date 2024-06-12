@@ -9,7 +9,7 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.MaterialDarkThemeImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SoundGuidelinesImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.PopularMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DESIGN_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
@@ -20,6 +20,18 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.CREATE_INTUITIVE_AND_BEAUTIFUL_PRODUCTS_WITH_MATERIAL_DESIGN_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.FOUNDATION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.GUIDELINES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.ICONOGRAPHY_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.LEARN_HOW_TO_DESIGN_A_DARK_THEME_VERSION_OF_YOUR_MATERIAL_UI_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_DARK_THEME_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_GUIDELINES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_THEMING_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.POPULAR_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SOUND_GUIDELINES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TEXT_FIELDS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.USE_SOUND_TO_COMMUNICATE_INFORMATION_IN_WAYS_THAT_AUGMENT_KEY
 import io.github.andrewk2112.kjsbox.frontend.image.components.Image
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
@@ -57,10 +69,10 @@ val DesignIntro = FC {
             context,
             styles,
             materialDesignTokens,
-            localizator(designKey),
-            localizator(createIntuitiveAndBeautifulProductsWithMaterialDesignKey)
+            localizator(DESIGN_KEY),
+            localizator(CREATE_INTUITIVE_AND_BEAUTIFUL_PRODUCTS_WITH_MATERIAL_DESIGN_KEY)
         )
-        PopularTopicsItem(context, styles, materialDesignTokens, localizator(popularKey)) {
+        PopularTopicsItem(context, styles, materialDesignTokens, localizator(POPULAR_KEY)) {
             for (popularTopic in uiState.popularTopics) {
                 it(localizator(popularTopic.title), popularTopic.destinationEndpoint)
             }
@@ -277,24 +289,24 @@ private class DesignIntroUiState private constructor(
 
     constructor(endpoints: PopularMaterialEndpoints) : this(
         arrayOf(
-            PopularTopicUiState(materialThemingKey, endpoints.materialTheming),
-            PopularTopicUiState(iconographyKey,     endpoints.iconography),
-            PopularTopicUiState(textFieldsKey,      endpoints.textFields),
+            PopularTopicUiState(MATERIAL_THEMING_KEY, endpoints.materialTheming),
+            PopularTopicUiState(ICONOGRAPHY_KEY,      endpoints.iconography),
+            PopularTopicUiState(TEXT_FIELDS_KEY,      endpoints.textFields),
         ),
         arrayOf(
             TopicPreviewUiState(
-                materialDarkThemeKey,
-                learnHowToDesignADarkThemeVersionOfYourMaterialUIKey,
-                foundationKey,
+                MATERIAL_DARK_THEME_KEY,
+                LEARN_HOW_TO_DESIGN_A_DARK_THEME_VERSION_OF_YOUR_MATERIAL_UI_KEY,
+                FOUNDATION_KEY,
                 MaterialDarkThemeImage,
-                materialDarkThemeKey
+                MATERIAL_DARK_THEME_KEY
             ),
             TopicPreviewUiState(
-                materialGuidelinesKey,
-                useSoundToCommunicateInformationInWaysThatAugmentKey,
-                guidelinesKey,
+                MATERIAL_GUIDELINES_KEY,
+                USE_SOUND_TO_COMMUNICATE_INFORMATION_IN_WAYS_THAT_AUGMENT_KEY,
+                GUIDELINES_KEY,
                 SoundGuidelinesImage,
-                soundGuidelinesKey
+                SOUND_GUIDELINES_KEY
             )
         )
     )

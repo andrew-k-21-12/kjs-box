@@ -5,7 +5,6 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.FooterEndpoints
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
@@ -19,6 +18,15 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyin
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.GoogleLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MaterialDesignLogoEmptyIcon
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.BLOG_RSS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.FEEDBACK_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.GITHUB_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_IS_ADAPTABLE_SYSTEM_OF_GUIDELINES_COMPONENTS_AND_TOOLS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.PRIVACY_POLICY_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SUBSCRIBE_FOR_UPDATES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TERMS_OF_SERVICE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TWITTER_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.YOUTUBE_KEY
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -53,7 +61,11 @@ val Footer = FC {
         UpperBlock(styles) {
             LogoLink(context, styles, materialDesignTokens)
             AdaptiveMargins(context, styles) {
-                Description(context, styles, localizator(materialIsAdaptableSystemOfGuidelinesComponentsAndToolsKey))
+                Description(
+                    context,
+                    styles,
+                    localizator(MATERIAL_IS_ADAPTABLE_SYSTEM_OF_GUIDELINES_COMPONENTS_AND_TOOLS_KEY)
+                )
                 ExternalLinks(context, styles, hasContentType = true) {
                     for (contentLink in uiState.contentLinks) {
                         it(localizator(contentLink.title), contentLink.destinationEndpoint)
@@ -284,16 +296,16 @@ private class FooterUiState private constructor(
 
     constructor(footerEndpoints: FooterEndpoints) : this(
         arrayOf(
-            ExternalLinkUiState(githubKey,              footerEndpoints.github),
-            ExternalLinkUiState(twitterKey,             footerEndpoints.twitter),
-            ExternalLinkUiState(youtubeKey,             footerEndpoints.youtube),
-            ExternalLinkUiState(blogRssKey,             footerEndpoints.rssFeed),
-            ExternalLinkUiState(subscribeForUpdatesKey, footerEndpoints.newsletterSubscription),
+            ExternalLinkUiState(GITHUB_KEY,                footerEndpoints.github),
+            ExternalLinkUiState(TWITTER_KEY,               footerEndpoints.twitter),
+            ExternalLinkUiState(YOUTUBE_KEY,               footerEndpoints.youtube),
+            ExternalLinkUiState(BLOG_RSS_KEY,              footerEndpoints.rssFeed),
+            ExternalLinkUiState(SUBSCRIBE_FOR_UPDATES_KEY, footerEndpoints.newsletterSubscription),
         ),
         arrayOf(
-            ExternalLinkUiState(privacyPolicyKey,  footerEndpoints.privacyPolicy),
-            ExternalLinkUiState(termsOfServiceKey, footerEndpoints.termsOfService),
-            ExternalLinkUiState(feedbackKey,       footerEndpoints.feedback),
+            ExternalLinkUiState(PRIVACY_POLICY_KEY,   footerEndpoints.privacyPolicy),
+            ExternalLinkUiState(TERMS_OF_SERVICE_KEY, footerEndpoints.termsOfService),
+            ExternalLinkUiState(FEEDBACK_KEY,         footerEndpoints.feedback),
         )
     )
 

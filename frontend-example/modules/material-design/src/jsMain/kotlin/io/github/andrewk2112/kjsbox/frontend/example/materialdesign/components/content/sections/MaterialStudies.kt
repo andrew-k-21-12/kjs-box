@@ -7,7 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.en
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.CraneImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ReplyImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShrineImage
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
@@ -20,6 +19,15 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.StrokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.CRAFTING_COMMUNICATION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DESIGN_FOR_RETAIL_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DISCOVER_THE_WAYS_MATERIAL_WAS_USED_TO_DESIGN_AND_BUILD_CRANE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.GET_INSPIRED_BY_THE_WAYS_MATERIAL_ADAPTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.LEARN_HOW_MATERIAL_CAN_BE_USED_IN_RETAIL_PRODUCTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_CAN_BE_USED_IN_COMMUNICATION_AND_PLANNING_PRODUCTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_STUDIES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TRAVEL_TREATMENT_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.VIEW_ALL_KEY
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.js.extensions.openBlankSafely
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -49,9 +57,9 @@ val MaterialStudies = FC {
         Header(
             context,
             styles,
-            localizator(materialStudiesKey),
-            localizator(getInspiredByTheWaysMaterialAdaptsKey),
-            localizator(viewAllKey),
+            localizator(MATERIAL_STUDIES_KEY),
+            localizator(GET_INSPIRED_BY_THE_WAYS_MATERIAL_ADAPTS_KEY),
+            localizator(VIEW_ALL_KEY),
             MainMaterialEndpoints.STUDIES
         )
         StudiesGrid(context, styles, materialDesignTokens) {
@@ -211,22 +219,22 @@ private class MaterialStudiesUiState private constructor(vararg val studies: Mat
 
     constructor() : this(
         MaterialStudyUiState(
-            designForRetailKey,
-            learnHowMaterialCanBeUsedInRetailProductsKey,
+            DESIGN_FOR_RETAIL_KEY,
+            LEARN_HOW_MATERIAL_CAN_BE_USED_IN_RETAIL_PRODUCTS_KEY,
             ShrineImage,
-            designForRetailKey,
+            DESIGN_FOR_RETAIL_KEY,
         ),
         MaterialStudyUiState(
-            travelTreatmentKey,
-            discoverTheWaysMaterialWasUsedToDesignAndBuildCraneKey,
+            TRAVEL_TREATMENT_KEY,
+            DISCOVER_THE_WAYS_MATERIAL_WAS_USED_TO_DESIGN_AND_BUILD_CRANE_KEY,
             CraneImage,
-            travelTreatmentKey,
+            TRAVEL_TREATMENT_KEY,
         ),
         MaterialStudyUiState(
-            craftingCommunicationKey,
-            materialCanBeUsedInCommunicationAndPlanningProductsKey,
+            CRAFTING_COMMUNICATION_KEY,
+            MATERIAL_CAN_BE_USED_IN_COMMUNICATION_AND_PLANNING_PRODUCTS_KEY,
             ReplyImage,
-            craftingCommunicationKey,
+            CRAFTING_COMMUNICATION_KEY,
         ),
     )
 

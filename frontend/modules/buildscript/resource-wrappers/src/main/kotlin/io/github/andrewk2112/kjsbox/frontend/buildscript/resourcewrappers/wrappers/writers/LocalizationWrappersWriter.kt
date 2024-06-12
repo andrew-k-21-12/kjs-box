@@ -5,7 +5,6 @@ import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.common.extensions.writeTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.LocalizationKeyWrapperTemplates
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates.LocalizationKeyWrapperTemplates.LocalizationKey
-import io.github.andrewk2112.utility.string.extensions.decapitalize
 import io.github.andrewk2112.utility.string.extensions.joinCapitalized
 import io.github.andrewk2112.utility.string.formats.cases.CamelCase
 import io.github.andrewk2112.utility.string.formats.cases.KebabCase
@@ -13,6 +12,7 @@ import io.github.andrewk2112.utility.string.formats.changeFormat
 import io.github.andrewk2112.utility.string.formats.other.PackageName
 import io.github.andrewk2112.utility.string.formats.other.UniversalPath
 import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
+import io.github.andrewk2112.utility.string.formats.cases.ScreamingSnakeCase
 import java.io.File
 import kotlin.jvm.Throws
 
@@ -60,17 +60,20 @@ internal class LocalizationWrappersWriter(
                                 relativePath.modifyIfNotEmpty { "$it/" } +
                                 name
 
+            val objectName = name.generateLocalizationKeysObjectName()
+
             // Composing everything together and writing to a file.
             localizationKeyWrapperTemplates
                 .inflateLocalizationKeys(
                     keysHolderPackageName,
+                    objectName,
                     keysNamespace,
                     keys.map {
                         LocalizationKey(it.generateKeyPropertyName(), "$keysNamespace:$it")
                     }
                 )
                 .writeTo(
-                    keysOutDirectory.joinWithPath("${name.generateLocalizationKeysFilename()}.kt")
+                    keysOutDirectory.joinWithPath("$objectName.kt")
                 )
 
         } catch (exception: Exception) {
@@ -83,14 +86,15 @@ internal class LocalizationWrappersWriter(
     // Private.
 
     /**
-     * Converts a raw key name into its corresponding property name.
+     * Converts a raw key name (including nested paths divided by ".") into its corresponding property name.
      */
-    private fun String.generateKeyPropertyName(): String = split(".").joinCapitalized().decapitalize() + "Key"
+    private fun String.generateKeyPropertyName(): String =
+        "${split(".").joinCapitalized()}Key".changeFormat(CamelCase, ScreamingSnakeCase)
 
     /**
-     * Converts a raw name into the corresponding file name to keep localization keys.
+     * Converts a raw name into the corresponding object and filename to keep localization keys.
      */
-    private fun String.generateLocalizationKeysFilename(): String =
+    private fun String.generateLocalizationKeysObjectName(): String =
         changeFormat(KebabCase, CamelCase) + "LocalizationKeys"
 
 }

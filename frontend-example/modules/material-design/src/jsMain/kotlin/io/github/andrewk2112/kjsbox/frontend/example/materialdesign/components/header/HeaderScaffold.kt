@@ -2,9 +2,6 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.MainMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.learnAboutMaterial3sNewFeaturesKey
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.startExploringMaterial3Key
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.theLatestVersionOfMaterialDesignIsNowAvailableForAndroidKey
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
@@ -13,6 +10,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context.Screen
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections.Header
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.header.sections.NotificationMessage
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.LEARN_ABOUT_MATERIAL3S_NEW_FEATURES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.START_EXPLORING_MATERIAL3_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.THE_LATEST_VERSION_OF_MATERIAL_DESIGN_IS_NOW_AVAILABLE_FOR_ANDROID_KEY
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.ChildrenBuilder
@@ -31,9 +31,9 @@ val HeaderScaffold = FC<HeaderProps> { props ->
     NotificationVisibility(context) {
         NotificationMessage(
             context,
-            localizator(theLatestVersionOfMaterialDesignIsNowAvailableForAndroidKey),
-            localizator(learnAboutMaterial3sNewFeaturesKey),
-            localizator(startExploringMaterial3Key),
+            localizator(THE_LATEST_VERSION_OF_MATERIAL_DESIGN_IS_NOW_AVAILABLE_FOR_ANDROID_KEY),
+            localizator(LEARN_ABOUT_MATERIAL3S_NEW_FEATURES_KEY),
+            localizator(START_EXPLORING_MATERIAL3_KEY),
             MainMaterialEndpoints.DESIGN
         )
     }

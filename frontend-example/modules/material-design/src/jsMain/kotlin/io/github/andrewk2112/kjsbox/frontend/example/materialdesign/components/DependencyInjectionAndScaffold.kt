@@ -7,7 +7,7 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.transi
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.content.*
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.namespace
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.NAMESPACE
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.HasCssSuffix
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.useRootComponent
@@ -59,7 +59,6 @@ import web.dom.Element
 //     Extract some modules from this repository?
 //  3. Update all dependencies to the latest versions.
 //  4. Check all OSs are supported.
-//  5. Better naming for localization keys to avoid spoiling autocompletion
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
@@ -71,7 +70,7 @@ import web.dom.Element
 
 val DependencyInjectionAndScaffold = FC {
     val rootComponent = useRootComponent()
-    rootComponent.getLocalizationEngine().loadLocalizations(namespace) // lazily loading all translations of the module,
+    rootComponent.getLocalizationEngine().loadLocalizations(NAMESPACE) // lazily loading all translations of the module,
                                                                        // the order matters to avoid unneeded re-rendering
     val component = useMemo(rootComponent) { MaterialDesignComponent(rootComponent) }
     ProvideMaterialDesignComponent(component) { // providing the dependency injection component

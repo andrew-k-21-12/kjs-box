@@ -4,8 +4,8 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.namespace
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.searchInTheSpaceXCrewByNameKey
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.TranslationLocalizationKeys.NAMESPACE
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.TranslationLocalizationKeys.SEARCH_IN_THE_SPACE_X_CREW_BY_NAME_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.viewmodels.RootViewModel
 import io.github.andrewk2112.utility.coroutines.react.extensions.asReactState
 import io.github.andrewk2112.utility.react.dom.extensions.typedTarget
@@ -30,7 +30,7 @@ import web.html.InputType
 
 val Root = FC {
 
-    val localizator = useLocalizator(namespace)
+    val localizator = useLocalizator(NAMESPACE)
 
     // Should be created or injected only once for all rendering cycles (not as a global singleton!).
     val viewModel by useState(::RootViewModel) { it.onCleared() }
@@ -42,7 +42,7 @@ val Root = FC {
 
     +label(RootStyles.withMargins.name) {
         htmlFor = "name-search-query"
-        +localizator(searchInTheSpaceXCrewByNameKey)
+        +localizator(SEARCH_IN_THE_SPACE_X_CREW_BY_NAME_KEY)
     }
 
     +input(RootStyles.withMargins.name) {

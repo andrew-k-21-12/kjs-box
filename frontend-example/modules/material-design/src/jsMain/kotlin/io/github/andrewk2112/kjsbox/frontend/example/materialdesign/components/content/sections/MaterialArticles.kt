@@ -7,7 +7,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.mat
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.ShapePowerImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.SystemIconsImage
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.images.materialdesign.TypeSystemImage
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
@@ -18,6 +17,16 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignToken
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.images.StrokedImage
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.CRAFT_UNIQUE_COLOR_SCHEME_FOR_YOUR_BRAND_WITH_THIS_ONLINE_TOOL_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.GENERATE_CUSTOM_COLOR_PALETTES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.HARNESS_THE_POWER_OF_SHAPE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MAKE_PROGRESS_FASTER_WITH_THESE_HELPFUL_ARTICLES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_ARTICLES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SHAPES_CAN_DIRECT_ATTENTION_IDENTIFY_COMPONENTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SYSTEM_ICONS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SYSTEM_ICONS_SYMBOLIZE_COMMON_ACTIONS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.THE_TYPE_SYSTEM_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.USE_TYPOGRAPHY_TO_PRESENT_YOUR_DESIGN_AND_CONTENT_KEY
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -45,8 +54,8 @@ val MaterialArticles = FC {
         TitleAndDescription(
             context,
             styles,
-            localizator(materialArticlesKey),
-            localizator(makeProgressFasterWithTheseHelpfulArticlesKey)
+            localizator(MATERIAL_ARTICLES_KEY),
+            localizator(MAKE_PROGRESS_FASTER_WITH_THESE_HELPFUL_ARTICLES_KEY)
         )
         ArticlesGrid(context, styles, materialDesignTokens) {
             for ((index, article) in uiState.articles.withIndex()) {
@@ -176,28 +185,28 @@ private class MaterialArticlesUiState private constructor(vararg val articles: M
 
     constructor() : this(
         MaterialArticleUiState(
-            systemIconsKey,
-            systemIconsSymbolizeCommonActionsKey,
+            SYSTEM_ICONS_KEY,
+            SYSTEM_ICONS_SYMBOLIZE_COMMON_ACTIONS_KEY,
             SystemIconsImage,
-            systemIconsKey,
+            SYSTEM_ICONS_KEY,
         ),
         MaterialArticleUiState(
-            generateCustomColorPalettesKey,
-            craftUniqueColorSchemeForYourBrandWithThisOnlineToolKey,
+            GENERATE_CUSTOM_COLOR_PALETTES_KEY,
+            CRAFT_UNIQUE_COLOR_SCHEME_FOR_YOUR_BRAND_WITH_THIS_ONLINE_TOOL_KEY,
             CustomColorPalettesGenerationImage,
-            generateCustomColorPalettesKey,
+            GENERATE_CUSTOM_COLOR_PALETTES_KEY,
         ),
         MaterialArticleUiState(
-            theTypeSystemKey,
-            useTypographyToPresentYourDesignAndContentKey,
+            THE_TYPE_SYSTEM_KEY,
+            USE_TYPOGRAPHY_TO_PRESENT_YOUR_DESIGN_AND_CONTENT_KEY,
             TypeSystemImage,
-            theTypeSystemKey,
+            THE_TYPE_SYSTEM_KEY,
         ),
         MaterialArticleUiState(
-            harnessThePowerOfShapeKey,
-            shapesCanDirectAttentionIdentifyComponentsKey,
+            HARNESS_THE_POWER_OF_SHAPE_KEY,
+            SHAPES_CAN_DIRECT_ATTENTION_IDENTIFY_COMPONENTS_KEY,
             ShapePowerImage,
-            harnessThePowerOfShapeKey,
+            HARNESS_THE_POWER_OF_SHAPE_KEY,
         ),
     )
 

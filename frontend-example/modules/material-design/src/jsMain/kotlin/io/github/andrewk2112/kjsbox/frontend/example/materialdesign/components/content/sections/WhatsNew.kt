@@ -4,7 +4,6 @@ package io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.
 
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.extensions.invoke
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.WhatsNewMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicCssProvider
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
@@ -17,6 +16,15 @@ import io.github.andrewk2112.kjsbox.frontend.example.localization.asIsoString
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.buttons.RectButton
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.COMBINED_COMPONENT_PAGES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DESIGN_AND_BUILD_FOR_LARGE_SCREENS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DEVELOPER_DOCS_AND_DESIGN_GUIDELINES_FOR_COMPONENTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_DESIGN_AWARD_WINNERS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MOOOI_EPSY_AND_KAYAK_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.NEW_GUIDANCE_FOR_ADAPTING_LAYOUTS_AND_COMPONENTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.THE_LATEST_MATERIAL_DESIGN_UPDATES_AND_GUIDANCE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.VIEW_ALL_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.WHATS_NEW_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.sharedutility.DateTimeFormatOptions
 import io.github.andrewk2112.utility.js.extensions.openBlankSafely
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
@@ -54,8 +62,8 @@ val WhatsNew = FC {
     val uiState   by useState { WhatsNewUiState(endpoints) }
 
     Container(context, styles) {
-        TitleLink(context, materialDesignTokens, localizator(whatsNewKey), endpoints.whatsNew)
-        Description(context, styles, localizator(theLatestMaterialDesignUpdatesAndGuidanceKey))
+        TitleLink(context, materialDesignTokens, localizator(WHATS_NEW_KEY), endpoints.whatsNew)
+        Description(context, styles, localizator(THE_LATEST_MATERIAL_DESIGN_UPDATES_AND_GUIDANCE_KEY))
         BlogRecords(context, styles) {
             for (blogRecord in uiState.blogRecords) {
                 it(
@@ -66,7 +74,7 @@ val WhatsNew = FC {
                 )
             }
         }
-        ViewAllButton(styles, localizator(viewAllKey), endpoints.whatsNew)
+        ViewAllButton(styles, localizator(VIEW_ALL_KEY), endpoints.whatsNew)
     }
 
 }
@@ -178,20 +186,20 @@ private class WhatsNewUiState private constructor(vararg val blogRecords: BlogRe
 
     constructor(endpoints: WhatsNewMaterialEndpoints) : this(
         BlogRecordUiState(
-            designAndBuildForLargeScreensKey,
-            newGuidanceForAdaptingLayoutsAndComponentsKey,
+            DESIGN_AND_BUILD_FOR_LARGE_SCREENS_KEY,
+            NEW_GUIDANCE_FOR_ADAPTING_LAYOUTS_AND_COMPONENTS_KEY,
             Date(2021, 4,  14),
             endpoints.largeScreens
         ),
         BlogRecordUiState(
-            combinedComponentPagesKey,
-            developerDocsAndDesignGuidelinesForComponentsKey,
+            COMBINED_COMPONENT_PAGES_KEY,
+            DEVELOPER_DOCS_AND_DESIGN_GUIDELINES_FOR_COMPONENTS_KEY,
             Date(2020, 11, 18),
             endpoints.combinedComponentPages
         ),
         BlogRecordUiState(
-            materialDesignAwardWinnersKey,
-            moooiEpsyAndKayakKey,
+            MATERIAL_DESIGN_AWARD_WINNERS_KEY,
+            MOOOI_EPSY_AND_KAYAK_KEY,
             Date(2020, 11, 14),
             endpoints.mdaWinners
         ),

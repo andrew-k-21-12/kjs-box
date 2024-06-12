@@ -8,7 +8,6 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.DynamicStyleSheet
 import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.menu.MenuItemSpacingUiState.*
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.resources.endpoints.NavMenuMaterialEndpoints
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.LocalizationKey
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
@@ -20,6 +19,29 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.BOTTOM
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext.Position.RIGHT
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MaterialDesignLogoIcon
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.COLOR_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.COMMUNICATION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.ENVIRONMENT_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.FOUNDATION_OVERVIEW_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.GUIDELINES_OVERVIEW_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.ICONOGRAPHY_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.INTERACTION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.INTRODUCTION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.LAYOUT_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MACHINE_LEARNING_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_DESIGN_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_FOUNDATION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_GUIDELINES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_STUDIES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_SYSTEM_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_THEMING_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MOTION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.NAVIGATION_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.PLATFORM_GUIDANCE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SHAPE_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SOUND_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TYPOGRAPHY_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.USABILITY_KEY
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -46,7 +68,7 @@ val Menu = FC {
     val uiState             by useState { MenuUiState(NavMenuMaterialEndpoints()) }
 
     Container(context, styles) {
-        Header(context, styles, localizator(materialDesignKey))
+        Header(context, styles, localizator(MATERIAL_DESIGN_KEY))
         Items(styles) {
             for ((categoryIndex, category) in uiState.categories.withIndex()) {
                 Category(context, styles, localizator(category.name))
@@ -209,32 +231,32 @@ private class MenuUiState private constructor(vararg val categories: CategoryUiS
 
     constructor(endpoints: NavMenuMaterialEndpoints) : this(
         CategoryUiState(
-            materialSystemKey,
-            MenuItemUiState(introductionKey,    endpoints.introduction,            BIG),
-            MenuItemUiState(materialStudiesKey, endpoints.aboutOurMaterialStudies, BIG),
+            MATERIAL_SYSTEM_KEY,
+            MenuItemUiState(INTRODUCTION_KEY,     endpoints.introduction,            BIG),
+            MenuItemUiState(MATERIAL_STUDIES_KEY, endpoints.aboutOurMaterialStudies, BIG),
         ),
         CategoryUiState(
-            materialFoundationKey,
-            MenuItemUiState(foundationOverviewKey, endpoints.foundationOverview,      BIG),
-            MenuItemUiState(environmentKey,        endpoints.environmentSurfaces),
-            MenuItemUiState(layoutKey,             endpoints.understandingLayout),
-            MenuItemUiState(navigationKey,         endpoints.understandingNavigation),
-            MenuItemUiState(colorKey,              endpoints.colorSystem),
-            MenuItemUiState(typographyKey,         endpoints.typographySystem),
-            MenuItemUiState(soundKey,              endpoints.aboutSound),
-            MenuItemUiState(iconographyKey,        endpoints.productIconography),
-            MenuItemUiState(shapeKey,              endpoints.aboutShape),
-            MenuItemUiState(motionKey,             endpoints.understandingMotion),
-            MenuItemUiState(interactionKey,        endpoints.interactionGestures),
-            MenuItemUiState(communicationKey,      endpoints.confirmationAcknowledgement),
-            MenuItemUiState(machineLearningKey,    endpoints.understandingMlPatterns, BIG),
+            MATERIAL_FOUNDATION_KEY,
+            MenuItemUiState(FOUNDATION_OVERVIEW_KEY, endpoints.foundationOverview,      BIG),
+            MenuItemUiState(ENVIRONMENT_KEY,         endpoints.environmentSurfaces),
+            MenuItemUiState(LAYOUT_KEY,              endpoints.understandingLayout),
+            MenuItemUiState(NAVIGATION_KEY,          endpoints.understandingNavigation),
+            MenuItemUiState(COLOR_KEY,               endpoints.colorSystem),
+            MenuItemUiState(TYPOGRAPHY_KEY,          endpoints.typographySystem),
+            MenuItemUiState(SOUND_KEY,               endpoints.aboutSound),
+            MenuItemUiState(ICONOGRAPHY_KEY,         endpoints.productIconography),
+            MenuItemUiState(SHAPE_KEY,               endpoints.aboutShape),
+            MenuItemUiState(MOTION_KEY,              endpoints.understandingMotion),
+            MenuItemUiState(INTERACTION_KEY,         endpoints.interactionGestures),
+            MenuItemUiState(COMMUNICATION_KEY,       endpoints.confirmationAcknowledgement),
+            MenuItemUiState(MACHINE_LEARNING_KEY,    endpoints.understandingMlPatterns, BIG),
         ),
         CategoryUiState(
-            materialGuidelinesKey,
-            MenuItemUiState(guidelinesOverviewKey, endpoints.guidelinesOverview,          BIG),
-            MenuItemUiState(materialThemingKey,    endpoints.materialThemingOverview),
-            MenuItemUiState(usabilityKey,          endpoints.accessibility),
-            MenuItemUiState(platformGuidanceKey,   endpoints.platformGuidanceAndroidBars, MAX),
+            MATERIAL_GUIDELINES_KEY,
+            MenuItemUiState(GUIDELINES_OVERVIEW_KEY, endpoints.guidelinesOverview,          BIG),
+            MenuItemUiState(MATERIAL_THEMING_KEY,    endpoints.materialThemingOverview),
+            MenuItemUiState(USABILITY_KEY,           endpoints.accessibility),
+            MenuItemUiState(PLATFORM_GUIDANCE_KEY,   endpoints.platformGuidanceAndroidBars, MAX),
         ),
     )
 

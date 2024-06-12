@@ -1,5 +1,6 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.templates
 
+import io.github.andrewk2112.utility.string.extensions.indented
 import org.intellij.lang.annotations.Language
 
 /**
@@ -25,14 +26,19 @@ internal class LocalizationKeyWrapperTemplates {
     @Language("kotlin")
     internal fun inflateLocalizationKeys(
         packageName: String,
+        objectName: String,
         keysNamespace: String,
         keys: List<LocalizationKey>,
     ): String = """
 package $packageName
 
-const val namespace = "$keysNamespace"
+object $objectName {
 
-${keys.joinToString("\n") { it.inflate() }}
+    const val NAMESPACE = "$keysNamespace"
+
+${"    " indented keys.joinToString("\n") { it.inflate() }}
+
+}
 
     """.trimIndent()
 

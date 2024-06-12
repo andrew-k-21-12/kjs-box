@@ -18,7 +18,12 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MagnifyIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MaterialDesignLogoIcon
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.icons.materialdesign.MenuIcon
-import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.*
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.BLOG_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.COMPONENTS_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DESIGN_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DEVELOP_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_DESIGN_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.RESOURCES_KEY
 import io.github.andrewk2112.utility.react.dom.extensions.asEventHandler
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
@@ -47,7 +52,7 @@ val Header = FC<HeaderProps> { props ->
     val uiState    by useState { HeaderUiState() }
 
     Container(context, styles) {
-        LogoBlock(context, styles, props.hasCloseableMenu, localizator(materialDesignKey), props.onMenuToggle)
+        LogoBlock(context, styles, props.hasCloseableMenu, localizator(MATERIAL_DESIGN_KEY), props.onMenuToggle)
         NavigationBlock(context, styles) {
             for (navigationItem in uiState.navigationItems) {
                 it(localizator(navigationItem.title), navigationItem.isSelected)
@@ -270,11 +275,11 @@ private inline val Context.isNarrowHeader: Boolean get() = screenSize <= SMALL_T
 private class HeaderUiState private constructor(vararg val navigationItems: NavigationItemUiState) {
 
     constructor() : this(
-        NavigationItemUiState(designKey,     true),
-        NavigationItemUiState(componentsKey, false),
-        NavigationItemUiState(developKey,    false),
-        NavigationItemUiState(resourcesKey,  false),
-        NavigationItemUiState(blogKey,       false),
+        NavigationItemUiState(DESIGN_KEY,     true),
+        NavigationItemUiState(COMPONENTS_KEY, false),
+        NavigationItemUiState(DEVELOP_KEY,    false),
+        NavigationItemUiState(RESOURCES_KEY,  false),
+        NavigationItemUiState(BLOG_KEY,       false),
     )
 
 }

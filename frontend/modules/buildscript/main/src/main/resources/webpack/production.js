@@ -27,7 +27,8 @@ if (config.mode === "production") {
                 })
                 .then(result => {
                     if (result.totalCount > 0) {
-                        console.warn("Unused translations were removed:\n" + JSON.stringify(result));
+                        // Using 2 spaces for indentation in pretty-printing.
+                        console.warn("Unused translations were removed:\n" + JSON.stringify(result, null, 2));
                     }
                 });
             });

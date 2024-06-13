@@ -1,20 +1,20 @@
 [versions]
 
-i18n-unused              = "0.14.0"
-i18next                  = "23.5.1"
-i18next-backend          = "1.1.4"
-i18next-languagedetector = "7.1.0"
-i18next-react            = "13.2.2"
+i18n-unused              = "0.16.0"
+i18next                  = "23.11.5"
+i18next-backend          = "1.2.1"
+i18next-languagedetector = "8.0.0"
+i18next-react            = "14.1.2"
 
 nodejs                   = "20.14.0"
 
 sharp                    = "0.33.4"
 
 webpack-copy             = "12.0.2"
-webpack-html             = "5.5.3"
-webpack-imageminimizer   = "3.8.3"
+webpack-html             = "5.6.0"
+webpack-imageminimizer   = "4.0.2"
 webpack-svgr             = "8.1.0"
-webpack-terser           = "5.3.9"
+webpack-terser           = "5.3.10"
 
 yarn                     = "1.22.22"
 

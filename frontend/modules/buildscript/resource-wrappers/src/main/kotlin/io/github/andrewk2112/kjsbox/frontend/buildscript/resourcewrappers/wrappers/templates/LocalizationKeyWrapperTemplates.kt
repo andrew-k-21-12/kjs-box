@@ -32,9 +32,14 @@ internal class LocalizationKeyWrapperTemplates {
     ): String = """
 package $packageName
 
+/**
+* `inline val` properties look uglier than `const val`, 
+* but for some reason Kotlin compiler doesn't exclude unused `const val`s from result JS files
+* making removal of unused localizations impossible.
+*/
 object $objectName {
 
-    const val NAMESPACE = "$keysNamespace"
+    inline val NAMESPACE get() = "$keysNamespace"
 
 ${"    " indented keys.joinToString("\n") { it.inflate() }}
 
@@ -48,7 +53,7 @@ ${"    " indented keys.joinToString("\n") { it.inflate() }}
 
     @Language("kotlin")
     private fun LocalizationKey.inflate(): String = """
-const val $propertyName = "$localizationKey"
+inline val $propertyName get() = "$localizationKey"
     """.trimIndent()
 
 }

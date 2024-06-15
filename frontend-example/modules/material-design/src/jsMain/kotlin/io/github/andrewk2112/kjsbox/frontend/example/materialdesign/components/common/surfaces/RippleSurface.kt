@@ -8,7 +8,6 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
-import io.github.andrewk2112.utility.react.dom.extensions.isLeftButton
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.browser.document
 import kotlinx.css.*
@@ -25,6 +24,7 @@ import react.useState
 import styled.animation
 import web.dom.Element
 import web.html.HTMLDivElement
+import web.uievents.MouseButton
 import kotlin.math.max
 
 
@@ -73,7 +73,7 @@ private class RippleSurfaceEventHandlers {
      * [MouseEventHandler] to launch the ripple animation.
      */
     fun mouseEventHandler(event: MouseEvent<HTMLDivElement, *>) {
-        if (event.isLeftButton) {
+        if (event.button == MouseButton.MAIN) {
             launchRippleAnimation(event.currentTarget, event.clientX, event.clientY)
         }
     }

@@ -36,7 +36,7 @@ internal class LazyModuleAccessorsPlugin : Plugin<Project> {
         }
         asMultiplatform().sourceSets.jsMain().dependencies {
             val kotlinVersionCatalog = KotlinVersionCatalog()
-            implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+            implementation(dependencies.platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
             implementation(kotlinVersionCatalog.libraries.kotlinWrappersJs.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kotlinWrappersReact.fullNotation)
         }

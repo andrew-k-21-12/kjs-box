@@ -81,8 +81,8 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
 
         val jsVersionCatalog = JsVersionCatalog()
 
-        configureNodeJs { nodeVersion = jsVersionCatalog.versions.nodejs }
-        configureYarn   { version     = jsVersionCatalog.versions.yarn   }
+        configureNodeJs { version = jsVersionCatalog.versions.nodejs }
+        configureYarn   { version = jsVersionCatalog.versions.yarn   }
 
         // Preparing all configs: from the configurable extension and static ones.
         val customBundleStaticsDirectory = extensions.create("main", MainModulePluginExtension::class.java)
@@ -102,9 +102,9 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
             js {
                 binaries.executable() // no run or deploy tasks will be generated without this line
                 browser {
-                    commonWebpackConfig(
-                        Action { it.configDirectory = configs.webpackConfigsDestinationDirectory }
-                    )
+                    commonWebpackConfig {
+                        it.configDirectory = configs.webpackConfigsDestinationDirectory
+                    }
                 }
             }
             sourceSets.jsMain {

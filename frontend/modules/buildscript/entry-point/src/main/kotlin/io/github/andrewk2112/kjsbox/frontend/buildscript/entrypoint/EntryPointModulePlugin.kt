@@ -31,7 +31,7 @@ internal class EntryPointModulePlugin : Plugin<Project> {
                 kotlin.srcDir(generateEntryPoint)
                 dependencies {
                     val kotlinVersionCatalog = KotlinVersionCatalog()
-                    implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+                    implementation(dependencies.platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
                     implementation(kotlinVersionCatalog.libraries.kotlinWrappersStyledNext.fullNotation)
                 }
             }

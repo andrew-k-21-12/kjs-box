@@ -69,7 +69,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
         // Including all dependencies required for generated resource wrappers.
         jsMainKotlinSourceSet.dependencies {
             val kotlinVersionCatalog = KotlinVersionCatalog()
-            implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+            implementation(dependencies.platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
             implementation(kotlinVersionCatalog.libraries.kotlinWrappersStyledNext.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendDynamicstylesheet.fullNotation)
             implementation(kotlinVersionCatalog.libraries.kjsboxFrontendImage.fullNotation)

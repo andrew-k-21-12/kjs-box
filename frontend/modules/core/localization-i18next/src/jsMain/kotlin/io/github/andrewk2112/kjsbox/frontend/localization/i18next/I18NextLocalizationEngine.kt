@@ -7,7 +7,7 @@ import io.github.andrewk2112.kjsbox.frontend.localization.i18next.jsmodules.i18n
 import io.github.andrewk2112.kjsbox.frontend.localization.i18next.jsmodules.i18nextBrowserLanguageDetector
 import io.github.andrewk2112.kjsbox.frontend.localization.i18next.jsmodules.i18nextResourcesToBackend
 import io.github.andrewk2112.kjsbox.frontend.localization.i18next.jsmodules.reactI18next
-import js.import.import
+import js.import.importAsync
 import kotlinext.js.js
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -92,7 +92,7 @@ class I18NextLocalizationEngine private constructor(
             // in comparison to JSONs being fetched by i18next-http-backend.
             .use(
                 i18nextResourcesToBackend.resourcesToBackend { language, namespace ->
-                    import<dynamic>("./locales/$language/$namespace.json")
+                    importAsync<dynamic>("./locales/$language/$namespace.json")
                 }
             )
             .use(i18nextBrowserLanguageDetector.LanguageDetector) // detecting browser's language automatically

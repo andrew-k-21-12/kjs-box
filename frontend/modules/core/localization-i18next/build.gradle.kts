@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(platform(kotlinLibs.kotlin.wrappers.bom.get()))
+                implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.extensions)
                 implementation(kotlinLibs.kotlin.wrappers.js)
                 implementation(kotlinLibs.kjsbox.frontend.localization)

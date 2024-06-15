@@ -71,7 +71,7 @@ private val main = run {
 
 private fun registerServiceWorker() {
     try {
-        navigator.serviceWorker.register(serviceWorkerPath).then {
+        navigator.serviceWorker.registerAsync(serviceWorkerPath).then {
             console.info("Service worker registration succeeded:", it)
         }.catch {
             console.warn("Service worker registration failed:", it)

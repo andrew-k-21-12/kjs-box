@@ -57,8 +57,7 @@ import web.dom.Element
 //  1. Write about the project's features in the central README.md.
 //  2. Publish Gradle plugins providing this project's features (use the simplest way).
 //     Extract some modules from this repository?
-//  3. Update all dependencies to the latest versions.
-//  4. Check all OSs are supported.
+//  3. Check all OSs are supported.
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

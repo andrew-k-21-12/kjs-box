@@ -11,7 +11,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlinLibs.kjsbox.frontend.dynamicstylesheet)
-                implementation(platform(kotlinLibs.kotlin.wrappers.bom.get()))
+                implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.css)
                 implementation(kotlinLibs.kotlin.wrappers.react.dom)
             }

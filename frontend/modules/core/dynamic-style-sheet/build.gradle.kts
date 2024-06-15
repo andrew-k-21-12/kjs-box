@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
-                implementation(platform(kotlinLibs.kotlin.wrappers.bom.get()))
+                implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.react)
                 implementation(kotlinLibs.kotlin.wrappers.styled.next)
                 implementation(kotlinLibs.my.utility.string)

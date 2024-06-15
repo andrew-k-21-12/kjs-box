@@ -8,18 +8,16 @@ import kotlin.reflect.KProperty
  *
  * Not thread-safe!
  *
- * @param initializer Describes how to initialize the lazy value of this property.
+ * @param initializer Describes how to initialize lazy value of this property.
  */
-class LazyReadOnlyProperty<in T, out V>(
-    private inline val initializer: (KProperty<*>) -> V
-) : ReadOnlyProperty<T, V> {
+class LazyReadOnlyProperty<in T, out V>(initializer: (KProperty<*>) -> V) : ReadOnlyProperty<T, V> {
 
     // Public override.
 
     override fun getValue(thisRef: T, property: KProperty<*>): V {
-        if (!isInitialized) {
-            isInitialized = true
-            value = initializer(property)
+        _initializer?.let {
+            value        = it(property)
+            _initializer = null
         }
         @Suppress("UNCHECKED_CAST") // it's safe as the value initialization lambda uses exactly the same return type
         return value as V
@@ -29,8 +27,8 @@ class LazyReadOnlyProperty<in T, out V>(
 
     // Private.
 
-    /** Whether the [value] initialization was performed. */
-    private var isInitialized = false
+    /** One time-firing initializer of for [value]. */
+    private var _initializer: ((KProperty<*>) -> V)? = initializer
 
     /** The value itself provided by this delegate. */
     private var value: V? = null

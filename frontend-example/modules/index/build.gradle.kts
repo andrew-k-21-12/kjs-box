@@ -9,7 +9,7 @@ kotlin.sourceSets {
             lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign, projects.spacexCrew)
         )
         dependencies {
-            implementation(platform(kotlinLibs.kotlin.wrappers.bom.get()))
+            implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
             implementation(kotlinLibs.kotlin.wrappers.react.router.dom)
             implementation(kotlinLibs.kjsbox.frontend.route)
             implementation(projects.designTokens)

@@ -37,7 +37,7 @@ val ContentScaffold = FC {
 }
 
 @Suppress("FunctionName")
-private inline fun ChildrenBuilder.Divider(styles: ContentScaffoldStyles) =
+private fun ChildrenBuilder.Divider(styles: ContentScaffoldStyles) =
     +div(clazz = styles.divider.name) { HorizontalDivider() }
 
 

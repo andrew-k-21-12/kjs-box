@@ -5,7 +5,6 @@ import io.github.andrewk2112.utility.common.extensions.joinWithPath
 import io.github.andrewk2112.utility.gradle.extensions.applyMultiplatform
 import io.github.andrewk2112.utility.gradle.extensions.createExtension
 import io.github.andrewk2112.utility.gradle.extensions.registerTask
-import io.github.andrewk2112.utility.gradle.extensions.jsMain
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.io.File
@@ -33,7 +32,7 @@ internal class LazyModulePlugin : Plugin<Project> {
                 kotlin.srcDir(generateLazyExportConfig)
                 dependencies {
                     val kotlinVersionCatalog = KotlinVersionCatalog()
-                    implementation(platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
+                    implementation(dependencies.platform(kotlinVersionCatalog.libraries.kotlinWrappersBom.fullNotation))
                     implementation(kotlinVersionCatalog.libraries.kotlinWrappersReact.fullNotation)
                 }
             }

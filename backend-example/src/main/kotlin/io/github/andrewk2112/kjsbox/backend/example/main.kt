@@ -36,4 +36,4 @@ private fun prepareSpaPath(application: Application, mainArguments: Array<String
         ?: throw IllegalStateException("Could not locate the SPA folder")
 }
 
-private const val FALLBACK_SPA_PATH = "build/dist/js/productionExecutable"
+private const val FALLBACK_SPA_PATH = "build/kotlin-webpack/js/productionExecutable"

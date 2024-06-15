@@ -6,6 +6,12 @@ group   = "io.github.andrew-k-21-12.kjs-box"
 version = "1.0.0"
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
+    compilerOptions {
+        // This is a temporary compiler argument which is going to be removed
+        // when `expect`/`actual` classes become a part of stable API.
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
     jvm()
     // Native targets. There are lots of unimplemented ones including Windows and Linux.
     // Only those targets which are possible to be compiled by the host OS are getting registered.
@@ -33,16 +39,6 @@ kotlin {
                 implementation(kotlinLibs.my.utility.common)
                 implementation(kotlinLibs.okio)
             }
-        }
-        // Reorganizing source sets for the macOS target if it's present:
-        // all sources for both ARM and Intel targets are extracted into a common source set
-        // because there are no differences in Apple's APIs whatever architecture is targeted for the compilation.
-        if (isMacOs) {
-            val macosMain      by creating
-            val macosArm64Main by getting
-            val macosX64Main   by getting
-            arrayOf(macosArm64Main, macosX64Main)
-                .forEach { it.dependsOn(macosMain) }
         }
     }
 }

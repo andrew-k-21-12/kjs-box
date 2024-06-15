@@ -1,6 +1,6 @@
 // All configs inside of this file will be enabled only in the production mode.
 // The result webpack configurations file will be generated inside ../build/js/packages/<project-name>
-// To check the outputs of this config, see ../build/dist/js/productionExecutable
+// To check the outputs of this config, see ../build/kotlin-webpack/js/productionExecutable
 if (config.mode === "production") {
 
     const fs                           = require("fs"),

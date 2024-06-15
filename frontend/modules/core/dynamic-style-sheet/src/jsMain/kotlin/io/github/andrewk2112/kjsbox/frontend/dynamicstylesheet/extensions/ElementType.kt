@@ -38,7 +38,7 @@ inline operator fun <P> ElementType<P>.invoke(
 /**
  * The same as other [invoke]s - for cases when the initialization block is not needed.
  */
-inline operator fun <P> ElementType<P>.invoke(
+operator fun <P> ElementType<P>.invoke(
     vararg classes: String
 ): ReactElement<P> where P : PropsWithClassName,
                          P : ChildrenBuilder = create { className = classes.toClassName() }
@@ -47,7 +47,7 @@ inline operator fun <P> ElementType<P>.invoke(
  * The same as other [invoke]s - for cases when only one [clazz] is needed to be applied
  * and the initialization block is not needed.
  */
-inline operator fun <P> ElementType<P>.invoke(
+operator fun <P> ElementType<P>.invoke(
     clazz: String
 ): ReactElement<P> where P : PropsWithClassName,
                          P : ChildrenBuilder = create { className = ClassName(clazz) }

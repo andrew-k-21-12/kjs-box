@@ -1,8 +1,8 @@
 [versions]
 
-clikt                                       = "4.2.2"
+clikt                                       = "4.4.0"
 
-commons-io                                  = "2.13.0"
+commons-io                                  = "2.16.1"
 
 kjsbox-frontend-buildscript-shared          = "1.0.0"
 kjsbox-frontend-buildscript-versioncatalogs = "1.0.0"
@@ -20,16 +20,16 @@ kjsbox-frontend-localization-i18next        = "1.0.0"
 kjsbox-frontend-route                       = "1.0.0"
 kjsbox-frontend-utility                     = "1.0.0"
 
-kodein                                      = "7.20.2"
+kodein                                      = "7.22.0"
 
-kotlin                                      = "1.9.10"
+kotlin                                      = "2.0.0"
 
-kotlin-wrappers                             = "1.0.0-pre.627"
+kotlin-wrappers                             = "1.0.0-pre.757"
 
-kotlinx-coroutines                          = "1.7.3"
-kotlinx-serialization                       = "1.6.0"
+kotlinx-coroutines                          = "1.9.0-RC"
+kotlinx-serialization                       = "1.7.0"
 
-ktor                                        = "2.3.9"
+ktor                                        = "2.3.11"
 
 my-utility-bytes                            = "1.0.0"
 my-utility-common                           = "1.0.0"
@@ -47,7 +47,7 @@ okio                                        = "3.9.0"
 
 slf4j                                       = "2.0.13"
 
-tomlj                                       = "1.1.0"
+tomlj                                       = "1.1.1"
 
 
 

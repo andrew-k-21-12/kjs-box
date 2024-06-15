@@ -1,4 +1,5 @@
 /.gradle/
 /.idea/*
 !/.idea/runConfigurations/
+/.kotlin/
 /build/

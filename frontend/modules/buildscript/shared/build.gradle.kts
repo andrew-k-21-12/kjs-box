@@ -1,5 +1,6 @@
 plugins {
     alias(kotlinLibs.plugins.kotlin.jvm)
+    alias(kotlinLibs.plugins.my.githubpackagespublisher)
 }
 
 group   = "io.github.andrew-k-21-12.kjs-box"

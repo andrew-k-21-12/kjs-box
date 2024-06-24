@@ -1,5 +1,6 @@
 plugins {
     alias(kotlinLibs.plugins.kotlin.jvm)
+    alias(kotlinLibs.plugins.my.githubpackagespublisher)
     `java-gradle-plugin`
 }
 

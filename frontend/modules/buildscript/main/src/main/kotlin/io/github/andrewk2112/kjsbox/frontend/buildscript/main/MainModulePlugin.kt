@@ -2,9 +2,9 @@ package io.github.andrewk2112.kjsbox.frontend.buildscript.main
 
 import io.github.andrewk2112.kjsbox.frontend.buildscript.shared.gradle.EntryPointModuleCallback
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.utility.common.utility.FromTo
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.JsVersionCatalog
+import io.github.andrewk2112.utility.common.types.LazyPropertyDelegateProvider
 import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.*
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
@@ -179,7 +179,7 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
     @Throws(IllegalStateException::class, InvalidUserDataException::class)
     private fun Project.registerResourcesUnpackingTask(
         targets: FromTo<Array<String>, File>
-    ): LazyReadOnlyProperty<Any?, ResourcesUnpackingTask> =
+    ): LazyPropertyDelegateProvider<ResourcesUnpackingTask> =
         registerTask {
             resourceNames = targets.source
             outDirectory  = targets.destination

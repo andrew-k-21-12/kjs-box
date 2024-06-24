@@ -1,5 +1,6 @@
 includeBuild("../utility")
 pluginManagement {
+    includeBuild("../github-packages-publisher")
     includeBuild("../version-catalogs-generator")
 }
 

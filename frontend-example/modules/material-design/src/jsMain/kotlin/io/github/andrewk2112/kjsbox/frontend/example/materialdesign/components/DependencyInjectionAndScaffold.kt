@@ -55,8 +55,7 @@ import web.dom.Element
 
 // TODO - deployment and finalization:
 //  1. Write about the project's features in the central README.md.
-//  2. Publish Gradle plugins providing this project's features (use the simplest way).
-//     Extract some modules from this repository?
+//  2. Extract some modules from this repository?
 //  3. Check all OSs are supported.
 
 // TODO:

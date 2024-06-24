@@ -1,6 +1,7 @@
 package io.github.andrewk2112.utility.gradle.extensions
 
-import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
+import io.github.andrewk2112.utility.common.extensions.PropertyDelegateProvider
+import io.github.andrewk2112.utility.common.types.LazyPropertyDelegateProvider
 import io.github.andrewk2112.utility.string.formats.cases.KebabCase
 import io.github.andrewk2112.utility.string.formats.changeFormat
 import io.github.andrewk2112.utility.string.formats.other.PackageName
@@ -33,11 +34,14 @@ fun Project.asMultiplatform(): KotlinMultiplatformExtension = getExtension()
 
 /**
  * Creates an extension named with its property name.
+ *
+ * Even if the returned delegate type is [Lazy], the extension is created immediately at declaration.
  */
 @Throws(IllegalArgumentException::class)
-inline fun <reified T> Project.createExtension() = LazyReadOnlyProperty<Any?, T> { property ->
-    extensions.create(property.name, T::class.java)
-}
+inline fun <reified T> Project.createExtension(): LazyPropertyDelegateProvider<T> =
+    PropertyDelegateProvider { property ->
+        lazyOf(extensions.create(property.name, T::class.java))
+    }
 
 /**
  * Retrieves an extension of type [T].
@@ -85,10 +89,13 @@ fun Project.registerExecutionTask(name: String, vararg arguments: Any): Task =
 
 /**
  * Registers and configures a [Task] naming it with its property name.
+ *
+ * Even if the returned delegate type is [Lazy], the task is registered immediately at declaration.
  */
 @Throws(IllegalStateException::class, InvalidUserDataException::class)
 inline fun <reified T : Task> Project.registerTask(
     noinline configuration: T.() -> Unit
-) = LazyReadOnlyProperty<Any?, T> { property ->
-    tasks.register(property.name, T::class.java, configuration).get()
-}
+): LazyPropertyDelegateProvider<T> =
+    PropertyDelegateProvider { property ->
+        lazyOf(tasks.register(property.name, T::class.java, configuration).get())
+    }

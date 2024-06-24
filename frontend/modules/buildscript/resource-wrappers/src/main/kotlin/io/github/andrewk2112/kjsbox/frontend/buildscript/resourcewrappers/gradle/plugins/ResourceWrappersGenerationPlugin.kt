@@ -1,9 +1,9 @@
 package io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.plugins
 
 import io.github.andrewk2112.utility.common.extensions.joinWithPath
-import io.github.andrewk2112.utility.common.utility.LazyReadOnlyProperty
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.gradle.tasks.*
 import io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs.KotlinVersionCatalog
+import io.github.andrewk2112.utility.common.types.LazyPropertyDelegateProvider
 import io.github.andrewk2112.utility.gradle.extensions.*
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Plugin
@@ -100,7 +100,7 @@ internal class ResourceWrappersGenerationPlugin : Plugin<Project> {
     private inline fun <reified T : WrappersGenerationTask> Project.registerWrappersGenerationTask(
         configs: Configs,
         resourcesTypeName: String,
-    ): LazyReadOnlyProperty<Any?, T> = registerTask {
+    ): LazyPropertyDelegateProvider<T> = registerTask {
         allResourcesDirectory  = configs.allResourcesDirectory
         basePackageName        = configs.basePackageName
         this.resourcesTypeName = resourcesTypeName

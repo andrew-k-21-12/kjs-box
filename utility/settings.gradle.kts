@@ -1,5 +1,7 @@
-// To include local projects as dependencies by their string identifiers.
-includeBuild(".")
+includeBuild(".") // to include local projects as dependencies by their string identifiers
+pluginManagement {
+    includeBuild("../github-packages-publisher")
+}
 
 dependencyResolutionManagement {
     @Suppress("UnstableApiUsage")

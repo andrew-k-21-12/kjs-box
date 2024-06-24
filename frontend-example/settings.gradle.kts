@@ -1,8 +1,10 @@
+// Some builds are included here even if they are not actually needed to clean everything at once by a single command.
 includeBuild("../backend-example")
 includeBuild("../frontend")
 pluginManagement {
-    includeBuild("../utility")                    // \
-    includeBuild("../version-catalogs-generator") // -- to clean everything at once by a single command
+    includeBuild("../github-packages-publisher")
+    includeBuild("../utility")
+    includeBuild("../version-catalogs-generator")
 }
 
 dependencyResolutionManagement {

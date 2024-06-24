@@ -31,6 +31,8 @@ kotlinx-serialization                       = "1.7.0"
 
 ktor                                        = "2.3.11"
 
+my-githubpackagespublisher                  = "1.0.0"
+
 my-utility-bytes                            = "1.0.0"
 my-utility-common                           = "1.0.0"
 my-utility-coroutines-react                 = "1.0.0"
@@ -120,4 +122,5 @@ kotlin-jvm                          = { id = "org.jetbrains.kotlin.jvm",        
 kotlin-multiplatform                = { id = "org.jetbrains.kotlin.multiplatform",                              version.ref = "kotlin" }
 kotlin-serialization                = { id = "org.jetbrains.kotlin.plugin.serialization",                       version.ref = "kotlin" }
 
+my-githubpackagespublisher          = { id = "io.github.andrew-k-21-12.github-packages-publisher",              version.ref = "my-githubpackagespublisher" }
 my-versioncatalogsgenerator         = { id = "io.github.andrew-k-21-12.version-catalogs-generator",             version.ref = "my-versioncatalogsgenerator" }

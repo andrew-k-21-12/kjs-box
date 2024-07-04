@@ -6,8 +6,13 @@ import io.github.andrewk2112.utility.string.formats.cases.KebabCase
 import io.github.andrewk2112.utility.string.formats.changeFormat
 import io.github.andrewk2112.utility.string.formats.other.PackageName
 import org.gradle.api.*
+import org.gradle.api.plugins.UnknownPluginException
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 
 
@@ -28,6 +33,24 @@ fun Project.applyMultiplatform(configuration: KotlinMultiplatformExtension.() ->
 @Throws(UnknownDomainObjectException::class)
 fun Project.asMultiplatform(): KotlinMultiplatformExtension = getExtension()
 
+/**
+ * Runs a provided [configuration] for [NodeJsRootExtension] if [NodeJsRootPlugin] is applied.
+ */
+@Throws(UnknownDomainObjectException::class, UnknownPluginException::class)
+fun Project.configureNodeJs(configuration: NodeJsRootExtension.() -> Unit) {
+    plugins.getAt(NodeJsRootPlugin::class.java)
+    extensions.getByType(NodeJsRootExtension::class.java).apply(configuration)
+}
+
+/**
+ * Runs a provided [configuration] for [YarnRootExtension] if [YarnPlugin] is applied.
+ */
+@Throws(UnknownDomainObjectException::class, UnknownPluginException::class)
+fun Project.configureYarn(configuration: YarnRootExtension.() -> Unit) {
+    plugins.getAt(YarnPlugin::class.java)
+    extensions.getByType(YarnRootExtension::class.java).apply(configuration)
+}
+
 
 
 // Extensions.
@@ -35,7 +58,7 @@ fun Project.asMultiplatform(): KotlinMultiplatformExtension = getExtension()
 /**
  * Creates an extension named with its property name.
  *
- * Even if the returned delegate type is [Lazy], the extension is created immediately at declaration.
+ * **Note** - even if the returned delegate type is [Lazy], the extension is created immediately at declaration.
  */
 @Throws(IllegalArgumentException::class)
 inline fun <reified T> Project.createExtension(): LazyPropertyDelegateProvider<T> =
@@ -88,14 +111,12 @@ fun Project.registerExecutionTask(name: String, vararg arguments: Any): Task =
     }.get()
 
 /**
- * Registers and configures a [Task] naming it with its property name.
- *
- * Even if the returned delegate type is [Lazy], the task is registered immediately at declaration.
+ * Lazily registers and configures a [Task] naming it with its property name.
  */
 @Throws(IllegalStateException::class, InvalidUserDataException::class)
 inline fun <reified T : Task> Project.registerTask(
     noinline configuration: T.() -> Unit
 ): LazyPropertyDelegateProvider<T> =
     PropertyDelegateProvider { property ->
-        lazyOf(tasks.register(property.name, T::class.java, configuration).get())
+        lazy { tasks.register(property.name, T::class.java, configuration).get() }
     }

@@ -3,9 +3,13 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 import FrontendExampleExercisesEntryPoint
 import FrontendExampleMaterialDesignEntryPoint
 import FrontendExampleSpacexCrewEntryPoint
+import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokensContextProvider
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.index.TranslationLocalizationKeys.KJS_BOX_EXAMPLES_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.index.TranslationLocalizationKeys.NAMESPACE
 import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
 import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
+import kotlinx.browser.document
 import react.*
 import react.router.*
 import react.router.dom.createBrowserRouter
@@ -18,6 +22,7 @@ import react.router.dom.createBrowserRouter
 val App = FC {
     Suspense { // configuring the app with its loading placeholder
         fallback = AppLoadingPlaceholder.create()
+        document.title = useLocalizator(NAMESPACE)(KJS_BOX_EXAMPLES_KEY)
         DesignTokensContextProvider {
             RouterProvider { // enabling routing features
                 router = routes

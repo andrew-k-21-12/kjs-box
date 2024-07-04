@@ -23,7 +23,10 @@ if (config.mode === "production") {
                 removeUnusedTranslations({
                     localesPath: `${RAW_OUTPUT_DIR}/locales`, // raw locales
                     srcPath:      RAW_OUTPUT_DIR,             // and JS files prepared after the Kotlin compilation step
-                    translationKeyMatcher: /(?:.+ = ')(.+)(?:';)/gi // looks for patterns like: key = 'keyValue';
+                    // Looks for patterns like:
+                    // key = 'keyValue';
+                    // localized = localizator('keyValue');
+                    translationKeyMatcher: /(?:.+ = (?:[^\s]+\()?')(.+)(?:'(?:\))?;)/gi
                 })
                 .then(result => {
                     if (result.totalCount > 0) {

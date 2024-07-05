@@ -33,6 +33,13 @@ if (config.mode === "production") {
                         // Using 2 spaces for indentation in pretty-printing.
                         console.warn("Unused translations were removed:\n" + JSON.stringify(result, null, 2));
                     }
+                })
+                .catch(error => {
+                    console.warn(
+                        "Could not remove unused translations, " +
+                            "possibly there are just no translations present (it's OK):",
+                        error
+                    );
                 });
             });
         }

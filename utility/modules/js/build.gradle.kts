@@ -1,5 +1,6 @@
 plugins {
     alias(kotlinLibs.plugins.kotlin.multiplatform)
+    alias(kotlinLibs.plugins.my.githubpackagespublisher)
 }
 
 group   = "io.github.andrew-k-21-12.utility"
@@ -13,6 +14,11 @@ kotlin {
                 implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.js)
                 implementation(kotlinLibs.kotlinx.coroutines.js)
+            }
+        }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlinLibs.kotlin.test)
             }
         }
     }

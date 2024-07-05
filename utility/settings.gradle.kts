@@ -4,8 +4,8 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Can be restored when https://youtrack.jetbrains.com/issue/KT-55620 is resolved.
+    // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     @Suppress("UnstableApiUsage")
     repositories {
         mavenCentral()

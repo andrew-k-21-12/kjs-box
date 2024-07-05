@@ -2,3 +2,4 @@
 /.idea/
 /.kotlin/
 /build/
+/kotlin-js-store/yarn.lock

@@ -28,8 +28,13 @@ internal class GithubPackagesPublisherPlugin : Plugin<Project> {
 
     @Throws(Exception::class)
     override fun apply(target: Project) {
+        val publishConfigs = try {
+            getPublishConfigs(target, readCustomPublishProperties(target))
+        } catch (exception: Exception) {
+            logPublishConfigsException(target, exception)
+            return
+        }
         target.plugins.apply(MavenPublishPlugin::class.java)
-        val publishConfigs = getPublishConfigs(target, readCustomPublishProperties(target))
         // Strictly required to detect plugin projects and avoid empty metadata for publishing of non-plugin projects.
         target.afterEvaluate {
             target.extensions.configure(PublishingExtension::class.java) { publishing ->
@@ -78,6 +83,19 @@ internal class GithubPackagesPublisherPlugin : Plugin<Project> {
         customPublishProperties?.getProperty(key)
             ?: project.properties[key]?.toString()
             ?: throw IllegalStateException("No required config present to configure GitHub Packages publishing: $key")
+
+    /**
+     * Logs any kinds of [exception]s describing why the preparation of [PublishConfigs] has failed.
+     */
+    private fun logPublishConfigsException(project: Project, exception: Exception) {
+        project.logger.run {
+            warn(
+                "No configs for GitHub Packages publishing are provided or they can't be read:\n" +
+                        "it's OK if you are not a publisher, otherwise inspect it with \"--info\" option"
+            )
+            info("The publishing has failed to be configured because:", exception)
+        }
+    }
 
     /**
      * Checks if the [project] doesn't declare any Gradle plugin.

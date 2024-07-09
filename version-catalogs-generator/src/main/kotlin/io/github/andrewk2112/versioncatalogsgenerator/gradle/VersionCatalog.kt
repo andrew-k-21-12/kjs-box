@@ -1,6 +1,7 @@
 package io.github.andrewk2112.versioncatalogsgenerator.gradle
 
 import org.gradle.api.provider.Property
+import java.io.File
 
 /**
  * A version catalog to be processed.
@@ -13,7 +14,7 @@ interface VersionCatalog {
      */
     val name: String
 
-    /** A path to the catalog file to generate a wrapper for. */
-    val path: Property<String>
+    /** A catalog file to generate a wrapper for. */
+    val file: Property<File>
 
 }

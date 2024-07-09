@@ -56,7 +56,6 @@ import web.dom.Element
 // TODO - deployment and finalization:
 //  1. Write about the project's features in the central README.md.
 //  2. Extract some modules from this repository?
-//  3. Check all OSs are supported.
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.

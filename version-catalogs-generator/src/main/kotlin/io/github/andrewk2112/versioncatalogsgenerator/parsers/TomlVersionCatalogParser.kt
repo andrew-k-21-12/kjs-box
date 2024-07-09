@@ -3,7 +3,7 @@ package io.github.andrewk2112.versioncatalogsgenerator.parsers
 import io.github.andrewk2112.versioncatalogsgenerator.models.ParsedVersionCatalog
 import org.tomlj.Toml
 import org.tomlj.TomlTable
-import kotlin.io.path.Path
+import java.io.File
 
 /**
  * Parses TOML version catalogs.
@@ -13,17 +13,17 @@ internal class TomlVersionCatalogParser {
     // Interface.
 
     /**
-     * Parses a version catalog located by a [path].
+     * Parses a [catalogFile].
      *
      * @return The [ParsedVersionCatalog] or `null` if the catalog has no meaningful data.
      *
      * @throws Exception In the case of any error or catalog's format mismatch.
      */
     @Throws(Exception::class)
-    internal fun parseCatalog(path: String): ParsedVersionCatalog? {
+    internal fun parseCatalog(catalogFile: File): ParsedVersionCatalog? {
 
-        // Trying to read and parse a file by the path.
-        val parseResult = Toml.parse(Path(path))
+        // Trying to read and parse a catalog file.
+        val parseResult = Toml.parse(catalogFile.toPath())
                               .apply {
                                   if (hasErrors()) {
                                       throw Exception("Could not parse a TOML catalog file: ${errors().joinToString()}")

@@ -112,7 +112,7 @@ internal abstract class VersionCatalogsGenerationTask : DefaultTask() {
         outDirectory: File
     ) =
         catalogs.get().forEach { catalog ->
-            catalogParser.parseCatalog(catalog.path.get())
+            catalogParser.parseCatalog(catalog.file.get())
                         ?.let { catalogCodeGenerator.generate(packageName, visibilityModifierPrefix, catalog.name, it) }
                         ?.writeTo(
                             outDirectory.joinWithPath("${catalog.name}.kt")

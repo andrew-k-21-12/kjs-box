@@ -1,3 +1,6 @@
+import io.github.andrewk2112.utility.common.extensions.joinWithPath
+import io.github.andrewk2112.utility.string.extensions.capitalize
+
 plugins {
     alias(kotlinLibs.plugins.kotlin.jvm)
     alias(kotlinLibs.plugins.my.githubpackagespublisher)
@@ -11,11 +14,10 @@ version = "1.0.0"
 versionCatalogsGenerator {
     packageName.set("io.github.andrewk2112.kjsbox.frontend.buildscript.versioncatalogs")
     catalogs {
-        register("KotlinVersionCatalog") {
-            path.set("../dependencies/kotlin.toml")
-        }
-        register("JsVersionCatalog") {
-            path.set("../dependencies/js.toml")
+        arrayOf("kotlin", "js").forEach {
+            register("${it.capitalize()}VersionCatalog") {
+                file.set(layout.projectDirectory.asFile.joinWithPath("../../../../dependencies/$it.toml"))
+            }
         }
     }
 }

@@ -19,7 +19,7 @@
                 // so the root folder gets correctly renamed while keeping all sub-paths untouched.
                 parsedFileName.dir.replace(new RegExp(RAW_OUTPUT_DIR), DESTINATION_OUTPUT_DIR),
                 `${parsedFileName.name}.${asset.contentHash}${parsedFileName.ext}`
-            );
+            ).replace(/\\/g, "/"); // this replacement is needed in Windows to prevent backslashes in paths
         }
     };
 

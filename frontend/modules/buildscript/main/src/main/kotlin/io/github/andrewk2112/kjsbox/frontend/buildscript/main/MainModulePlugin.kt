@@ -32,7 +32,7 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
                 configureSourceSets(jsVersionCatalog)
             }
             afterEvaluate {
-                setJsEnginesVersions(jsVersionCatalog)
+                setJsVersions(jsVersionCatalog)
             }
         }
     }
@@ -75,9 +75,24 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
     }
 
     @Throws(UnknownDomainObjectException::class, UnknownPluginException::class)
-    private fun Project.setJsEnginesVersions(jsVersionCatalog: JsVersionCatalog) {
+    private fun Project.setJsVersions(jsVersionCatalog: JsVersionCatalog) {
         configureNodeJs { version = jsVersionCatalog.versions.nodejs }
-        configureYarn   { version = jsVersionCatalog.versions.yarn   }
+        configureYarn {
+            version = jsVersionCatalog.versions.yarn
+            // Configuring resolutions to fix security issues reported by GitHub's Dependabot.
+            arrayOf(
+                "@babel/traverse"  to "^7.23.2",
+                "fast-loops"       to "^1.1.4",
+                "ws"               to "^8.17.1",
+                "braces"           to "^3.0.3",
+                "ua-parser-js"     to "^1.0.33",
+                "express"          to "^4.19.2",
+                "follow-redirects" to "^1.15.6",
+                "semver"           to "^7.0.0",
+            ).forEach { (dependency, version) ->
+                resolution(dependency, version)
+            }
+        }
     }
 
     private lateinit var configs: MainModulePluginConfigs

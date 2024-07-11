@@ -49,9 +49,7 @@ import web.dom.Element
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
 //  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. No need to add project dependencies from buildscript Gradle plugins -
-//     better to include dependencies manually for modularity?
-//  7. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
+//  6. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
 
 // TODO - deployment and finalization:
 //  1. Write about the project's features in the central README.md.

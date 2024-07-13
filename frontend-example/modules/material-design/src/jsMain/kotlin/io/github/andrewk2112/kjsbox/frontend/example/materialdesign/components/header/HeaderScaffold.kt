@@ -13,17 +13,17 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.h
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.LEARN_ABOUT_MATERIAL3S_NEW_FEATURES_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.START_EXPLORING_MATERIAL3_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.THE_LATEST_VERSION_OF_MATERIAL_DESIGN_IS_NOW_AVAILABLE_FOR_ANDROID_KEY
+import io.github.andrewk2112.utility.react.components.FC
 import kotlinx.css.Display
 import kotlinx.css.display
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.div
 
 
 
 // Components.
 
-val HeaderScaffold = FC<HeaderProps> { props ->
+val HeaderScaffold by FC<HeaderProps> { props ->
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator()

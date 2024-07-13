@@ -8,10 +8,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.sp
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.spacexcrew.TranslationLocalizationKeys.SEARCH_IN_THE_SPACE_X_CREW_BY_NAME_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.spacexcrew.viewmodels.RootViewModel
 import io.github.andrewk2112.utility.coroutines.react.extensions.asReactState
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.typedTarget
 import io.github.andrewk2112.utility.react.hooks.useState
 import kotlinx.css.*
-import react.FC
 import react.dom.events.FormEventHandler
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
@@ -28,7 +28,7 @@ import web.html.InputType
 
 // Component.
 
-val Root = FC {
+val Root by FC {
 
     val localizator = useLocalizator(NAMESPACE)
 

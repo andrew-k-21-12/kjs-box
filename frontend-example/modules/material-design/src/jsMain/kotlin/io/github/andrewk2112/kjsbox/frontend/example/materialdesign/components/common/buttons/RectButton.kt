@@ -10,11 +10,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.c
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.asEventHandler
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.span
 
@@ -22,7 +22,7 @@ import react.dom.html.ReactHTML.span
 
 // Components.
 
-val RectButton = FC<RectButtonProps> { props ->
+val RectButton by FC<RectButtonProps> { props ->
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) { RectButtonStyles(component.getMaterialDesignTokens()) }

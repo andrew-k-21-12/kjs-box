@@ -34,13 +34,13 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.USE_SOUND_TO_COMMUNICATE_INFORMATION_IN_WAYS_THAT_AUGMENT_KEY
 import io.github.andrewk2112.kjsbox.frontend.image.components.Image
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import kotlinx.css.properties.TextDecorationLine
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
@@ -52,7 +52,7 @@ import react.useState
 
 // Components.
 
-val DesignIntro = FC {
+val DesignIntro by FC {
 
     val context                 = useDesignTokensContext()
     val localizator             = useLocalizator()

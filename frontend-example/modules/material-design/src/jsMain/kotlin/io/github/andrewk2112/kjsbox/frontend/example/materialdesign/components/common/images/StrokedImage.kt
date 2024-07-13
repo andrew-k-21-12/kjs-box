@@ -10,20 +10,20 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyin
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.component.BorderContext
 import io.github.andrewk2112.kjsbox.frontend.image.components.Image
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.Inset
 import kotlinx.css.Position
 import kotlinx.css.inset
 import kotlinx.css.position
 import kotlinx.css.px
-import react.FC
 import react.dom.html.ReactHTML.div
 
 
 
 // Public.
 
-val StrokedImage = FC<StrokedImageProps> { props ->
+val StrokedImage by FC<StrokedImageProps> { props ->
 
     val context   = useDesignTokensContext()
     val component = useMaterialDesignComponent()

@@ -21,6 +21,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyin
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.ProvideMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import io.github.andrewk2112.utility.react.hooks.usePrevious
 import io.github.andrewk2112.utility.react.hooks.useRefHeightMonitor
@@ -40,20 +41,13 @@ import react.dom.html.ReactHTML.div
 import web.dom.Element
 
 // TODO - optimizations and modularization:
-//  1. Suggest styles (classes) wrapping to avoid the direct usage of kotlin-styled-next (another proposal and PR).
-//  2. Use the latest version of the kotlin-styled-next with my PR (drop my stylesheets package).
-//  3. Optimize dynamic CSS holders somehow: now they are storing common styles in a duplicating manner,
-//     maybe it is even better to drop this idea and use a combination of the React context and media queries?
-//     Use initialized or inline variables instead of getters for styling properties (and maybe other stuff - components?)?
-//  4. Dependencies on inner variables are not good (in components).
+//  1. Dependencies on inner variables are not good (in components).
 //     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
 //     Also, it can be reasonable to wrap functional components into classes and separate from their states.
-//  5. Try to get rid of injectGlobal(...) everywhere as it adds style tags into the head.
-//  6. Cleaner and smarter interfaces (public functions and properties) for generation of resource wrappers.
 
 // TODO - deployment and finalization:
-//  1. Write about the project's features in the central README.md.
-//  2. Extract some modules from this repository?
+//  1. Write about the project's features in the central README.md
+//     (don't forget to mention the feature to access styles by their names from `DynamicStyleSheet`s).
 
 // TODO:
 //  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
@@ -63,7 +57,7 @@ import web.dom.Element
 
 // Public.
 
-val DependencyInjectionAndScaffold = FC {
+val DependencyInjectionAndScaffold by FC {
     val rootComponent = useRootComponent()
     rootComponent.getLocalizationEngine().loadLocalizations(NAMESPACE) // lazily loading all translations of the module,
                                                                        // the order matters to avoid unneeded re-rendering
@@ -79,7 +73,7 @@ val DependencyInjectionAndScaffold = FC {
 // Components.
 
 /** This component is quite important to decouple its rendering from [DependencyInjectionAndScaffold]. */
-private val Scaffold = FC {
+private val Scaffold by FC {
 
     val context = useDesignTokensContext()
 

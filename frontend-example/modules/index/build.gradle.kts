@@ -12,6 +12,7 @@ kotlin.sourceSets {
         dependencies {
             implementation(kotlinLibs.kotlin.wrappers.react.router.dom)
             implementation(kotlinLibs.kjsbox.frontend.route)
+            implementation(kotlinLibs.my.utility.react)
             implementation(projects.dependencyInjectionUtility)
             implementation(projects.designTokens)
             implementation(projects.routes)

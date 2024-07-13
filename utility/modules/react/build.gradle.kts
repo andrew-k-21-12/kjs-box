@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(dependencies.platform(kotlinLibs.kotlin.wrappers.bom.get()))
                 implementation(kotlinLibs.kotlin.wrappers.react)
+                implementation(kotlinLibs.my.utility.common)
             }
         }
     }

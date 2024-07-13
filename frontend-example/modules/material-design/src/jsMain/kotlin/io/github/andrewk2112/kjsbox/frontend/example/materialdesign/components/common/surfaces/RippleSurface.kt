@@ -8,12 +8,12 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.browser.document
 import kotlinx.css.*
 import kotlinx.css.properties.scale
 import kotlinx.css.properties.transform
-import react.FC
 import react.dom.DOMProps
 import react.dom.events.MouseEvent
 import react.dom.events.MouseEventHandler
@@ -31,7 +31,7 @@ import kotlin.math.max
 
 // Public.
 
-val RippleSurface = FC<DOMProps> { props ->
+val RippleSurface by FC<DOMProps> { props ->
 
     val context   = useDesignTokensContext()
     val component = useMaterialDesignComponent()

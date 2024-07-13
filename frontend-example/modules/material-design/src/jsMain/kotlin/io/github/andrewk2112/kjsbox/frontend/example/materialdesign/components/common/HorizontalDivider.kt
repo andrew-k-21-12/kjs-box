@@ -7,9 +7,9 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
-import react.FC
 import react.PropsWithClassName
 import react.dom.html.ReactHTML.div
 
@@ -17,7 +17,7 @@ import react.dom.html.ReactHTML.div
 
 // Public.
 
-val HorizontalDivider = FC<PropsWithClassName> { props ->
+val HorizontalDivider by FC<PropsWithClassName> { props ->
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {

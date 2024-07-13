@@ -10,18 +10,18 @@ import io.github.andrewk2112.kjsbox.frontend.dynamicstylesheet.NamedRuleSet
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.components.common.HorizontalDivider
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.dependencyinjection.useMaterialDesignComponent
 import io.github.andrewk2112.kjsbox.frontend.example.materialdesign.designtokens.MaterialDesignTokens
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.Padding
 import kotlinx.css.padding
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.div
 
 
 
 // Components.
 
-val ContentScaffold = FC {
+val ContentScaffold by FC {
 
     val component = useMaterialDesignComponent()
     val styles    = useMemoWithReferenceCount(component) {

@@ -42,12 +42,12 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.SOUND_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TYPOGRAPHY_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.USABILITY_KEY
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import kotlinx.css.properties.TextDecoration
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
@@ -58,7 +58,7 @@ import react.useState
 
 // Components.
 
-val Menu = FC {
+val Menu by FC {
 
     val context              = useDesignTokensContext()
     val localizator          = useLocalizator()

@@ -27,11 +27,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TERMS_OF_SERVICE_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.TWITTER_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.YOUTUBE_KEY
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.footer
@@ -45,7 +45,7 @@ import react.useState
 
 // Components.
 
-val Footer = FC {
+val Footer by FC {
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator()

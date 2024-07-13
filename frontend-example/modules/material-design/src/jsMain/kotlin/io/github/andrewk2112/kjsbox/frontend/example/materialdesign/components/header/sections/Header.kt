@@ -24,12 +24,12 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.DEVELOP_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.MATERIAL_DESIGN_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.RESOURCES_KEY
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.asEventHandler
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import kotlinx.css.properties.AspectRatio
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.header
@@ -43,7 +43,7 @@ import react.useState
 
 // Components.
 
-val Header = FC<HeaderProps> { props ->
+val Header by FC<HeaderProps> { props ->
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator()

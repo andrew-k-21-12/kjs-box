@@ -30,11 +30,11 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.VIEW_ALL_KEY
 import io.github.andrewk2112.kjsbox.frontend.image.resources.Image
 import io.github.andrewk2112.utility.js.extensions.openBlankSafely
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.browser.window
 import kotlinx.css.*
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.p
@@ -44,7 +44,7 @@ import react.useState
 
 // Components.
 
-val MaterialStudies = FC {
+val MaterialStudies by FC {
 
     val context              = useDesignTokensContext()
     val localizator          = useLocalizator()

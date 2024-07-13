@@ -27,6 +27,7 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ma
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.materialdesign.TranslationLocalizationKeys.WHATS_NEW_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.sharedutility.DateTimeFormatOptions
 import io.github.andrewk2112.utility.js.extensions.openBlankSafely
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.dom.extensions.safeBlankHref
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import js.date.Date
@@ -34,7 +35,6 @@ import js.intl.DateTimeFormat
 import kotlinx.browser.window
 import kotlinx.css.*
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
@@ -45,7 +45,7 @@ import react.useState
 
 // Components.
 
-val WhatsNew = FC {
+val WhatsNew by FC {
 
     val context                 = useDesignTokensContext()
     val (language, localizator) = useCurrentLanguageAndLocalizator()

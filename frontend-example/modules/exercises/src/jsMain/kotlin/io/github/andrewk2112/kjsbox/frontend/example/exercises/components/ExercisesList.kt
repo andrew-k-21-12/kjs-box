@@ -15,10 +15,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.ex
 import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
 import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
 import io.github.andrewk2112.kjsbox.frontend.route.absolutePath
+import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
 import kotlinx.css.*
 import react.ChildrenBuilder
-import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
@@ -27,7 +27,7 @@ import react.dom.html.ReactHTML.ul
 
 // Components.
 
-val ExercisesList = FC {
+val ExercisesList by FC {
 
     val context     = useDesignTokensContext()
     val localizator = useLocalizator(NAMESPACE)

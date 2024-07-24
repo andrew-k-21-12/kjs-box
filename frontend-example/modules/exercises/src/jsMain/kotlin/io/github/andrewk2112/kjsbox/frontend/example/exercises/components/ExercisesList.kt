@@ -12,8 +12,10 @@ import io.github.andrewk2112.kjsbox.frontend.example.designtokens.Context
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokens
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.useDesignTokensContext
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.TranslationLocalizationKeys.SPACE_X_CREW_KEY
+import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.exercises.TranslationLocalizationKeys.TO_DO_LIST_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
 import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
+import io.github.andrewk2112.kjsbox.frontend.example.routes.ToDoListRoute
 import io.github.andrewk2112.kjsbox.frontend.route.absolutePath
 import io.github.andrewk2112.utility.react.components.FC
 import io.github.andrewk2112.utility.react.hooks.useMemoWithReferenceCount
@@ -40,6 +42,7 @@ val ExercisesList by FC {
         ul {
             LinkItem(context, styles, localizator(MATERIAL_DESIGN_KEY), MaterialDesignRoute.absolutePath())
             LinkItem(context, styles, localizator(SPACE_X_CREW_KEY),    SpaceXCrewRoute.absolutePath())
+            LinkItem(context, styles, localizator(TO_DO_LIST_KEY),      ToDoListRoute.absolutePath())
         }
 
     }

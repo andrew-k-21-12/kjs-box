@@ -3,12 +3,14 @@ package io.github.andrewk2112.kjsbox.frontend.example.index
 import FrontendExampleExercisesEntryPoint
 import FrontendExampleMaterialDesignEntryPoint
 import FrontendExampleSpacexCrewEntryPoint
+import FrontendExampleToDoListEntryPoint
 import io.github.andrewk2112.kjsbox.frontend.example.dependencyinjection.utility.hooks.useLocalizator
 import io.github.andrewk2112.kjsbox.frontend.example.designtokens.DesignTokensContextProvider
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.index.TranslationLocalizationKeys.KJS_BOX_EXAMPLES_KEY
 import io.github.andrewk2112.kjsbox.frontend.example.resourcewrappers.locales.index.TranslationLocalizationKeys.NAMESPACE
 import io.github.andrewk2112.kjsbox.frontend.example.routes.MaterialDesignRoute
 import io.github.andrewk2112.kjsbox.frontend.example.routes.SpaceXCrewRoute
+import io.github.andrewk2112.kjsbox.frontend.example.routes.ToDoListRoute
 import io.github.andrewk2112.utility.react.components.FC
 import kotlinx.browser.document
 import react.*
@@ -69,6 +71,10 @@ private val routes = createBrowserRouter(
         RouteObject(
             path    = SpaceXCrewRoute.path,
             element = FrontendExampleSpacexCrewEntryPoint.create()
+        ),
+        RouteObject(
+            path    = ToDoListRoute.path,
+            element = FrontendExampleToDoListEntryPoint.create()
         ),
         RouteObject(
             path    = "*",

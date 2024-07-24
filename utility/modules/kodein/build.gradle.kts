@@ -12,6 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlinLibs.kodein.di)
+                implementation(kotlinLibs.my.utility.common)
             }
         }
     }

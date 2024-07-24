@@ -7,7 +7,12 @@ plugins {
 kotlin.sourceSets {
     val jsMain by getting {
         kotlin.srcDirs(
-            lazyModuleAccessors.generateOrGetFor(projects.exercises, projects.materialDesign, projects.spacexCrew)
+            lazyModuleAccessors.generateOrGetFor(
+                projects.exercises,
+                projects.materialDesign,
+                projects.spacexCrew,
+                projects.toDoList,
+            )
         )
         dependencies {
             implementation(kotlinLibs.kotlin.wrappers.react.router.dom)

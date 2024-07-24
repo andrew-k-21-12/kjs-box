@@ -40,19 +40,6 @@ import react.dom.html.ReactHTML.aside
 import react.dom.html.ReactHTML.div
 import web.dom.Element
 
-// TODO - optimizations and modularization:
-//  1. Dependencies on inner variables are not good (in components).
-//     Also, it can be reasonable to avoid lots of singletons (e.g., for stateless views) which always live in the memory.
-//     Also, it can be reasonable to wrap functional components into classes and separate from their states.
-
-// TODO - deployment and finalization:
-//  1. Write about the project's features in the central README.md
-//     (don't forget to mention the feature to access styles by their names from `DynamicStyleSheet`s).
-
-// TODO:
-//  1. Reply to SO on Linked vs ArrayList, save this and other SO articles somewhere.
-//  2. Add explanations on the trampoline Rx scheduler in some corresponding SO question.
-
 
 
 // Public.

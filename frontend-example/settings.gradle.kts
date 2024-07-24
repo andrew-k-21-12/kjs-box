@@ -36,6 +36,7 @@ listOf(
     "routes",
     "shared-utility",
     "spacex-crew",
+    "to-do-list",
 ).map {
     include(it)
     project(":$it").projectDir = File("modules", it)

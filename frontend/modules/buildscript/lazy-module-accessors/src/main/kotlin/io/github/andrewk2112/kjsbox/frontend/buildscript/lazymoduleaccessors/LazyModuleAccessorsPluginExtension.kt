@@ -14,6 +14,13 @@ abstract class LazyModuleAccessorsPluginExtension {
      * and returns directories where the generated sources are going to be located.
      */
     @Throws(Exception::class)
+    fun generateOrGetFor(vararg targetProjects: Project): List<RegularFileProperty> =
+        accessorsProvider.invoke(targetProjects.toList())
+
+    /**
+     * The same as [generateOrGetFor] - for type-safe project accessors.
+     */
+    @Throws(Exception::class)
     fun generateOrGetFor(vararg targetProjects: DelegatingProjectDependency): List<RegularFileProperty> =
         accessorsProvider.invoke(
             targetProjects.map { it.dependencyProject }

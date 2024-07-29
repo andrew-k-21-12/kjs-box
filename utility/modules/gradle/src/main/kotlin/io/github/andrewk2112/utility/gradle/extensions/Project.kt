@@ -112,8 +112,9 @@ fun Project.registerExecutionTask(name: String, vararg arguments: Any): Task =
 
 /**
  * Lazily registers and configures a [Task] naming it with its property name.
+ *
+ * Accessing the returned delegate may throw [IllegalStateException], [InvalidUserDataException].
  */
-@Throws(IllegalStateException::class, InvalidUserDataException::class)
 inline fun <reified T : Task> Project.registerTask(
     noinline configuration: T.() -> Unit
 ): LazyPropertyDelegateProvider<T> =

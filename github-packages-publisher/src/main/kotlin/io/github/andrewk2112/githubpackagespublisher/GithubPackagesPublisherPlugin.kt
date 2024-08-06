@@ -3,6 +3,8 @@ package io.github.andrewk2112.githubpackagespublisher
 import io.github.andrewk2112.githubpackagespublisher.extensions.Properties
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.UnknownDomainObjectException
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
@@ -38,9 +40,13 @@ internal class GithubPackagesPublisherPlugin : Plugin<Project> {
         // Strictly required to detect plugin projects and avoid empty metadata for publishing of non-plugin projects.
         target.afterEvaluate {
             target.extensions.configure(PublishingExtension::class.java) { publishing ->
-                // Simple JVM projects strictly require manual configuration, or no artifacts will be published.
-                if (isNonPluginProject(target) && isNonKotlinMultiPlatformProject(target)) {
-                    configureArtifactPublication(target, publishing)
+                // All JVM projects (including plugin projects) require manual configuration to include their sources.
+                if (isNonKotlinMultiPlatformProject(target)) {
+                    ensureSourcesJarWillBeCreatedAndPublished(target)
+                    // Simple JVM projects strictly require manual configuration, or no artifacts will be published.
+                    if (isNonPluginProject(target)) {
+                        configureArtifactPublication(target, publishing)
+                    }
                 }
                 configurePublishingRepository(publishing, publishConfigs)
             }
@@ -110,10 +116,24 @@ internal class GithubPackagesPublisherPlugin : Plugin<Project> {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java) == null
 
     /**
+     * Calls [JavaPluginExtension.withSourcesJar] for JVM projects
+     * to make sure a sources JAR will be created and published.
+     */
+    @Throws(UnknownDomainObjectException::class)
+    private fun ensureSourcesJarWillBeCreatedAndPublished(project: Project) {
+        project.extensions.configure(JavaPluginExtension::class.java) {
+            it.withSourcesJar()
+        }
+    }
+
+    /**
      * Setups all metadata to publish the target [project] with.
+     *
+     * Required only for simple JVM non-Gradle plugin projects.
      */
     private fun configureArtifactPublication(project: Project, publishing: PublishingExtension) {
         publishing.publications {
+            // Anything can be substituted instead of "maven" - it's just a publication name.
             it.create("maven", MavenPublication::class.java) { publication ->
                 publication.apply {
                     groupId    = project.group.toString()

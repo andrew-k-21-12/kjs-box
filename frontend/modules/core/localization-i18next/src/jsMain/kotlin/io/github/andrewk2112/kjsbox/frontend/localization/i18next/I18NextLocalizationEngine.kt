@@ -76,7 +76,6 @@ class I18NextLocalizationEngine private constructor(
         js {
             debug         = isDebug
             fallbackLng   = fallbackLanguage           // a language to be used by default
-            load          = "languageOnly"             // ignoring countries while determining a language
             defaultNS     = emptyArray<String>()       // <- these empty namespace options turn off pointless attempts
             ns            = emptyArray<String>()       // <- to fetch central namespace translation files by default
             interpolation = js { escapeValue = false } // React provides its own escaping

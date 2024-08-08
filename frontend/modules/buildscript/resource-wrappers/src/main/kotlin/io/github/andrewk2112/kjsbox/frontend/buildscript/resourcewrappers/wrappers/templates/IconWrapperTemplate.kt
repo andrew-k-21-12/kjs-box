@@ -11,7 +11,10 @@ import org.intellij.lang.annotations.Language
 internal class IconWrapperTemplate {
 
     /**
-     * Generates the code for a concrete icon wrapper.
+     * Generates the code for a particular icon wrapper.
+     *
+     * Property getter is preferred instead of delegation or assignment
+     * to avoid runtime issues when some icon resource gets removed.
      */
     @Language("kotlin")
     internal fun inflate(packageName: String, iconNameInCamelCase: String, relativeIconPath: String): String {
@@ -23,7 +26,7 @@ import js.import.Module
 import react.ElementType
 import react.PropsWithClassName
 
-val $iconNameInCamelCase: ElementType<PropsWithClassName> by ${iconNameInLowerCamelCase}Reference::default
+val $iconNameInCamelCase: ElementType<PropsWithClassName> get() = ${iconNameInLowerCamelCase}Reference.default
 
 @JsModule("./$relativeIconPath")
 @JsNonModule

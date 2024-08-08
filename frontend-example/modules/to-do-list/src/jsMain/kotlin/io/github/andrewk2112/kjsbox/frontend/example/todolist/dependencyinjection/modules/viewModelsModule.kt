@@ -1,7 +1,7 @@
 package io.github.andrewk2112.kjsbox.frontend.example.todolist.dependencyinjection.modules
 
 import io.github.andrewk2112.kjsbox.frontend.example.todolist.viewmodels.ToDoListViewModel
-import io.github.andrewk2112.utility.kodein.extensions.bindProvider
+import io.github.andrewk2112.utility.kodein.extensions.bindProvider // this import is the key point here!
 import org.kodein.di.DI
 import org.kodein.di.instance
 

@@ -86,9 +86,14 @@ internal class MainModulePlugin : Plugin<Project>, EntryPointModuleCallback {
                 "ws"               to "^8.17.1",
                 "braces"           to "^3.0.3",
                 "ua-parser-js"     to "^1.0.33",
-                "express"          to "^4.19.2",
+                "express"          to "^4.20.0",
                 "follow-redirects" to "^1.15.6",
                 "semver"           to "^7.0.0",
+                "body-parser"      to "^1.20.3",
+                "send"             to "^0.19.0",
+                "serve-static"     to "^1.16.0",
+                "webpack"          to "^5.94.0",
+                "micromatch"       to "^4.0.8",
             ).forEach { (dependency, version) ->
                 resolution(dependency, version)
             }

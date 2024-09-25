@@ -13,7 +13,7 @@ import react.useState
  * Reads and delivers the current [org.w3c.dom.Window.innerWidth] with updates each time the window resizes.
  */
 fun useWindowInnerWidthMonitor(): Int  {
-    var currentWidth by useState(windowInnerWidth)
+    var currentWidth by useState { windowInnerWidth }
     useEffectOnce {
         val resizeEventListener: (Event) -> Unit = {
             val newWidth = windowInnerWidth

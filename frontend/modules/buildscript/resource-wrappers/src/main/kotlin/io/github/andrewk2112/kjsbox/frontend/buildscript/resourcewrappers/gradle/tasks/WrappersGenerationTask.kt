@@ -10,6 +10,7 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import java.io.File
+import javax.annotation.OverridingMethodsMustInvokeSuper
 
 /**
  * Inputs and outputs for a family of wrappers generation tasks.
@@ -82,6 +83,19 @@ internal abstract class WrappersGenerationTask : DefaultTask() {
             (moduleName?.changeFormat(PackageName, PackageName) ?: return)
         )
         wrappersOutDirectory.set(generatedWrappersDir?.joinWithPath(resourcesTypeName) ?: return)
+    }
+
+
+
+    // Action's template - override it in all derived tasks.
+
+    @TaskAction
+    @OverridingMethodsMustInvokeSuper
+    @Throws(Exception::class)
+    protected open fun action() {
+        // Clean up (delete) the output directory before generating any wrappers:
+        // this allows to get rid of wrappers for deleted resources.
+        wrappersOutDirectory.get().asFile.deleteRecursively()
     }
 
 }

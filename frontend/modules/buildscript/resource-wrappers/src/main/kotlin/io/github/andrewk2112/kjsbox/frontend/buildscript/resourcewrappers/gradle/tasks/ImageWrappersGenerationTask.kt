@@ -12,9 +12,9 @@ import org.gradle.api.tasks.*
  */
 internal abstract class ImageWrappersGenerationTask : WrappersGenerationTask() {
 
-    @TaskAction
     @Throws(Exception::class)
-    private operator fun invoke() {
+    override fun action() {
+        super.action()
 
         // Creating a symlink to image resources, collecting all image resources to generate wrappers for.
         val subPathToBundledResources = CreateSymLinkToResourcesAction(this).createFromResourcesTypeAndModuleName()

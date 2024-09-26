@@ -6,7 +6,6 @@ import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.models
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.resources.visitors.LocalizationResourceVisitor
 import io.github.andrewk2112.kjsbox.frontend.buildscript.resourcewrappers.wrappers.writers.LocalizationWrappersWriter
 import io.github.andrewk2112.utility.string.extensions.modifyIfNotEmpty
-import org.gradle.api.tasks.*
 import kotlin.jvm.Throws
 
 /**
@@ -19,9 +18,9 @@ internal abstract class LocalizationKeysGenerationTask : WrappersGenerationTask(
      */
     private data class LocalizationFile(val relativePath: String, val name: String)
 
-    @TaskAction
     @Throws(Exception::class)
-    private operator fun invoke() {
+    override fun action() {
+        super.action()
 
         // Preparing the bundled structure of locales.
         CreateSymLinkToResourcesAction(this).createFromLocaleDirectories()

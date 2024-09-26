@@ -13,9 +13,9 @@ import org.gradle.api.tasks.*
  */
 internal abstract class FontWrappersGenerationTask : WrappersGenerationTask() {
 
-    @TaskAction
     @Throws(Exception::class)
-    private operator fun invoke() {
+    override fun action() {
+        super.action()
         val subPathToBundledResources = CreateSymLinkToResourcesAction(this).createFromResourcesTypeAndModuleName()
         val fontResources = CollectResourcesMetadataAction(
             this,

@@ -18,6 +18,9 @@ Jump to [All features](#all-features) to get acquainted with all functionality *
    [creating a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic).
    Without it there is no way to fetch the framework's Gradle plugins and libraries,
    as they are published at GitHub Packages.
+3. **1 GB** of **RAM** at least to be delegated for the Gradle Daemon's build VM heap memory.
+   It can be configured in your project's **gradle.properties** file
+   by setting `-Xms` and `-Xmx` values for the `org.gradle.jvmargs` key.
 
 # Quick start
 

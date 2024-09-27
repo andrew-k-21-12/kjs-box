@@ -1,11 +1,14 @@
 package io.github.andrewk2112.utility.react.hooks
 
 import react.RefObject
-import react.useCallback
 import react.useEffectOnce
 import react.useState
 import web.dom.Element
 import web.dom.observers.ResizeObserver
+
+
+
+// Public.
 
 /**
  * Monitors for and notifies about height updates of the provided [ref] via the [onHeightChanged] callback.
@@ -13,7 +16,7 @@ import web.dom.observers.ResizeObserver
 fun useRefHeightMonitor(ref: RefObject<Element>, onHeightChanged: (Double) -> Unit) {
     useEffectOnce {
         val resizeObserver = ref.current?.let { element ->
-            var previousHeight = 0.0
+            var previousHeight = initialHeight
             ResizeObserver { entries, _ ->
                 val newHeight = entries.firstOrNull()?.contentRect?.height
                 if (newHeight != null && newHeight != previousHeight) {
@@ -30,8 +33,14 @@ fun useRefHeightMonitor(ref: RefObject<Element>, onHeightChanged: (Double) -> Un
  * Monitors for and notifies about height updates of the provided [ref] via the returned state value.
  */
 fun useRefHeightMonitor(ref: RefObject<Element>): Double {
-    var height by useState(0.0)
-    val callback: (Double) -> Unit = useCallback { height = it }
-    useRefHeightMonitor(ref, callback)
+    val (height, setHeight) = useState(initialHeight)
+    useRefHeightMonitor(ref, setHeight::invoke)
     return height
 }
+
+
+
+// Private.
+
+/** Default height to be implied for an element until the first resize event. */
+private inline val initialHeight get() = 0.0

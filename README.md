@@ -677,7 +677,9 @@ and **frontend-lazy-module** (see [Lazy modules](#lazy-modules)) projects.
 Having the plugin applied, all required dependencies for generated wrappers will be added,
 all original resources will be bundled to folders named according to their Gradle project names.
 
-Type-safe resource wrappers can be generated for
+**Build the project to create or refresh resource wrappers!**
+
+Type-safe wrappers can be generated for
 SVG icons, common formats of raster images, fonts and translation strings JSONs.
 
 #### SVG icons
